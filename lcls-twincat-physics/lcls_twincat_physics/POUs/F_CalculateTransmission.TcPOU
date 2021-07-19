@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="F_CalculateTransmission" Id="{6b6639e0-e794-457e-9110-6d968aadbd26}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_CalculateTransmission : LREAL
+VAR_INPUT
+	fAbsorptionConstant : LREAL; (* The absorption constant mu, calculated by F_CalculateAbsorptionConstant *)
+	fThickness_in_m : LREAL; (* Thickness of the material [m] *)
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_CalculateTransmission := EXP(-fAbsorptionConstant * fThickness_in_m);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

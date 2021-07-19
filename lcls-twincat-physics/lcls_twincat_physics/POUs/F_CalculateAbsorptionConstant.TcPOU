@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="F_CalculateAbsorptionConstant" Id="{1093bb31-361b-45be-903d-a4dd0174d8bf}" SpecialFunc="None">
+    <Declaration><![CDATA[(*
+This calculates the mass attenuation coefficient mu.
+
+The mass absorption coefficient is proportional to the atomic
+photoabsorption cross-section by Avagadros number $N_A$ and atomic weight $A$.
+
+$$\mu_m = \frac{N_A}{A} \sigma_a$$
+
+Ref: http://xdb.lbl.gov/Section1/Sec_1-6.pdf
+
+The atomic photoabsorption cross-section for an element is dependant on the
+photon wavelength $\lambda$ and the energy-specific atomic scattering factor $f_2$
+
+$$ \sigma_a = 2 r_0 \lambda f_2 $$
+
+http://henke.lbl.gov/optical_constants/intro.html
+
+Using chosen values for the material constants, the transmission can be
+ expressed in terms of the photon wavelength and corresponding atomic scattering factor $f_2$,
+
+$$ T = \frac{I}{I_0} = e^{-\mu d} = e^{-2 r_0 \lambda f_2 \frac{N_A}{A}\rho d}$$
+*)
+FUNCTION F_CalculateAbsorptionConstant : LREAL
+VAR_INPUT
+	sElement : STRING;
+	fEnergyEV: LREAL;
+	fDensity_gm3 : LREAL; (* Density in g m^-3 *)
+	fAtomicWeight: LREAL;
+END_VAR
+VAR
+	f2 : LREAL;
+END_VAR
+VAR_OUTPUT
+	(* Access by way of F_CalculateAbsorptionConstant(..., bError => bError); *)
+	bError : BOOL;
+END_VAR
+VAR CONSTANT
+	NA : LREAL := GVL_PhysicalConstants.fAvogadroConstant_in_mol_1;
+	r0 : LREAL := GVL_PhysicalConstants.fClassicalElectronRadius_in_m;
+	h  : LREAL := GVL_PhysicalConstants.fPlanckConstantInEV_Hz_in_eV_Hz_1;
+	c  : LREAL := GVL_PhysicalConstants.fSpeedOfLightInVacuum_in_m_s_1;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+
+Python reference code:
+
+    NA = scipy.constants.Avogadro
+    c = scipy.constants.speed_of_light
+    h, *_ = scipy.constants.physical_constants['Planck constant in eV/Hz']
+    r0, *_ = scipy.constants.physical_constants['classical electron radius']
+
+	# The absorption constant:
+    mu = ((2 * r0 * h * c * fs/eV_space) * density *
+          (NA / atomic_weight))
+
+*)
+fbScatteringFactorLUT(
+	sTableName:=sElement,
+	fEnergyEV:=fEnergyEV,
+	bError=>bError,
+);
+
+IF bError THEN
+	RETURN;
+END_IF
+
+f2 := fbScatteringFactorLUT.f2;
+
+F_CalculateAbsorptionConstant := (
+	(2.0 * r0 * h * c * f2 / fEnergyEV) * 
+	fDensity_gm3 * (NA / fAtomicWeight)
+);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

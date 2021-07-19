@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4022.30">
+	<Project ProjectGUID="{8C18D993-3B34-4CE6-BBE7-352F3FE0E128}" TargetNetId="172.21.148.145.1.1" ShowHideConfigurations="#x306">
+		<System>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>TestTask</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project File="lcls_twincat_physics.xti"/>
+		</Plc>
+	</Project>
+</TcSmProject>

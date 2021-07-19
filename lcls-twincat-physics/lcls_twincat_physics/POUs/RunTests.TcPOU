@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="RunTests" Id="{3c99bab2-48fb-4f3c-ae2b-1547c32b95ba}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM RunTests
+VAR
+	fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
+	fbTestTransmission : FB_TestTransmission;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TcUnit.RUN();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
