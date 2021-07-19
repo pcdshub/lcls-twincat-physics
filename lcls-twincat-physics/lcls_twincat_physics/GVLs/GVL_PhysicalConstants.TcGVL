@@ -3,2365 +3,2365 @@
   <GVL Name="GVL_PhysicalConstants" Id="{bf9314b5-5147-8274-e829-1de2bc69af7d}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL CONSTANT
-    
+
     // Wien displacement law constant (m K)
     // Uncertainty: 5.1e-09
     fWienDisplacementLawConstant_in_m_K : LREAL := 0.0028977685;
     fWienDisplacementLawConstant_in_m_K_Units : STRING := 'm K';
     fWienDisplacementLawConstant_in_m_K_Uncertainty : LREAL := 5.1e-09;
-    
+
     // atomic unit of 1st hyperpolarizablity (C^3 m^3 J^-2)
     // Uncertainty: 2.8e-60
     fAtomicUnitOf1stHyperpolarizablity_in_C_3_m_3_J_2 : LREAL := 3.20636151e-53;
     fAtomicUnitOf1stHyperpolarizablity_in_C_3_m_3_J_2_Units : STRING := 'C^3 m^3 J^-2';
     fAtomicUnitOf1stHyperpolarizablity_in_C_3_m_3_J_2_Uncertainty : LREAL := 2.8e-60;
-    
+
     // atomic unit of 2nd hyperpolarizablity (C^4 m^4 J^-3)
     // Uncertainty: 1.1e-71
     fAtomicUnitOf2ndHyperpolarizablity_in_C_4_m_4_J_3 : LREAL := 6.2353808e-65;
     fAtomicUnitOf2ndHyperpolarizablity_in_C_4_m_4_J_3_Units : STRING := 'C^4 m^4 J^-3';
     fAtomicUnitOf2ndHyperpolarizablity_in_C_4_m_4_J_3_Uncertainty : LREAL := 1.1e-71;
-    
+
     // atomic unit of electric dipole moment (C m)
     // Uncertainty: 7.3e-37
     fAtomicUnitOfElectricDipoleMoment_in_C_m : LREAL := 8.47835309e-30;
     fAtomicUnitOfElectricDipoleMoment_in_C_m_Units : STRING := 'C m';
     fAtomicUnitOfElectricDipoleMoment_in_C_m_Uncertainty : LREAL := 7.3e-37;
-    
+
     // atomic unit of electric polarizablity (C^2 m^2 J^-1)
     // Uncertainty: 1.6e-49
     fAtomicUnitOfElectricPolarizablity_in_C_2_m_2_J_1 : LREAL := 1.648777274e-41;
     fAtomicUnitOfElectricPolarizablity_in_C_2_m_2_J_1_Units : STRING := 'C^2 m^2 J^-1';
     fAtomicUnitOfElectricPolarizablity_in_C_2_m_2_J_1_Uncertainty : LREAL := 1.6e-49;
-    
+
     // atomic unit of electric quadrupole moment (C m^2)
     // Uncertainty: 3.9e-47
     fAtomicUnitOfElectricQuadrupoleMoment_in_C_m_2 : LREAL := 4.48655124e-40;
     fAtomicUnitOfElectricQuadrupoleMoment_in_C_m_2_Units : STRING := 'C m^2';
     fAtomicUnitOfElectricQuadrupoleMoment_in_C_m_2_Uncertainty : LREAL := 3.9e-47;
-    
+
     // atomic unit of magn. dipole moment (J T^-1)
     // Uncertainty: 1.6e-30
     fAtomicUnitOfMagneticDipoleMoment_in_J_T_1 : LREAL := 1.8548019e-23;
     fAtomicUnitOfMagneticDipoleMoment_in_J_T_1_Units : STRING := 'J T^-1';
     fAtomicUnitOfMagneticDipoleMoment_in_J_T_1_Uncertainty : LREAL := 1.6e-30;
-    
+
     // atomic unit of magn. flux density (T)
     // Uncertainty: 7.1e-05
     fAtomicUnitOfMagneticFluxDensity_in_T : LREAL := 235051.756758;
     fAtomicUnitOfMagneticFluxDensity_in_T_Units : STRING := 'T';
     fAtomicUnitOfMagneticFluxDensity_in_T_Uncertainty : LREAL := 7.1e-05;
-    
+
     // deuteron magn. moment (J T^-1)
     // Uncertainty: 3.8e-34
     fDeuteronMagneticMoment_in_J_T_1 : LREAL := 4.33073482e-27;
     fDeuteronMagneticMoment_in_J_T_1_Units : STRING := 'J T^-1';
     fDeuteronMagneticMoment_in_J_T_1_Uncertainty : LREAL := 3.8e-34;
-    
+
     // deuteron magn. moment to Bohr magneton ratio
     // Uncertainty: 5e-12
     fDeuteronMagneticMomentToBohrMagnetonRatio : LREAL := 0.0004669754567;
     fDeuteronMagneticMomentToBohrMagnetonRatio_Uncertainty : LREAL := 5e-12;
-    
+
     // deuteron magn. moment to nuclear magneton ratio
     // Uncertainty: 9.2e-09
     fDeuteronMagneticMomentToNuclearMagnetonRatio : LREAL := 0.8574382329;
     fDeuteronMagneticMomentToNuclearMagnetonRatio_Uncertainty : LREAL := 9.2e-09;
-    
+
     // deuteron-electron magn. moment ratio
     // Uncertainty: 5e-12
     fDeuteronElectronMagneticMomentRatio : LREAL := -0.0004664345548;
     fDeuteronElectronMagneticMomentRatio_Uncertainty : LREAL := 5e-12;
-    
+
     // deuteron-proton magn. moment ratio
     // Uncertainty: 4.5e-09
     fDeuteronProtonMagneticMomentRatio : LREAL := 0.3070122084;
     fDeuteronProtonMagneticMomentRatio_Uncertainty : LREAL := 4.5e-09;
-    
+
     // deuteron-neutron magn. moment ratio
     // Uncertainty: 1.1e-07
     fDeuteronNeutronMagneticMomentRatio : LREAL := -0.44820652;
     fDeuteronNeutronMagneticMomentRatio_Uncertainty : LREAL := 1.1e-07;
-    
+
     // electron gyromagn. ratio (s^-1 T^-1)
     // Uncertainty: 53.0
     fElectronGyromagneticRatio_in_s_1_T_1 : LREAL := 176085963023.0;
     fElectronGyromagneticRatio_in_s_1_T_1_Units : STRING := 's^-1 T^-1';
     fElectronGyromagneticRatio_in_s_1_T_1_Uncertainty : LREAL := 53.0;
-    
+
     // electron gyromagn. ratio over 2 pi (MHz T^-1)
     // Uncertainty: 0.0024
     fElectronGyromagneticRatioOver2Pi_in_MHz_T_1 : LREAL := 28024.9532;
     fElectronGyromagneticRatioOver2Pi_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fElectronGyromagneticRatioOver2Pi_in_MHz_T_1_Uncertainty : LREAL := 0.0024;
-    
+
     // electron magn. moment (J T^-1)
     // Uncertainty: 8e-31
     fElectronMagneticMoment_in_J_T_1 : LREAL := -9.28476412e-24;
     fElectronMagneticMoment_in_J_T_1_Units : STRING := 'J T^-1';
     fElectronMagneticMoment_in_J_T_1_Uncertainty : LREAL := 8e-31;
-    
+
     // electron magn. moment to Bohr magneton ratio
     // Uncertainty: 3.8e-12
     fElectronMagneticMomentToBohrMagnetonRatio : LREAL := -1.0011596521859;
     fElectronMagneticMomentToBohrMagnetonRatio_Uncertainty : LREAL := 3.8e-12;
-    
+
     // electron magn. moment to nuclear magneton ratio
     // Uncertainty: 8.5e-07
     fElectronMagneticMomentToNuclearMagnetonRatio : LREAL := -1838.28197107;
     fElectronMagneticMomentToNuclearMagnetonRatio_Uncertainty : LREAL := 8.5e-07;
-    
+
     // electron magn. moment anomaly
     // Uncertainty: 3.8e-12
     fElectronMagneticMomentAnomaly : LREAL := 0.0011596521859;
     fElectronMagneticMomentAnomaly_Uncertainty : LREAL := 3.8e-12;
-    
+
     // electron to shielded proton magn. moment ratio
     // Uncertainty: 7.1e-06
     fElectronToShieldedProtonMagneticMomentRatio : LREAL := -658.2275956;
     fElectronToShieldedProtonMagneticMomentRatio_Uncertainty : LREAL := 7.1e-06;
-    
+
     // electron to shielded helion magn. moment ratio
     // Uncertainty: 1e-05
     fElectronToShieldedHelionMagneticMomentRatio : LREAL := 864.058255;
     fElectronToShieldedHelionMagneticMomentRatio_Uncertainty : LREAL := 1e-05;
-    
+
     // electron-deuteron magn. moment ratio
     // Uncertainty: 2.3e-05
     fElectronDeuteronMagneticMomentRatio : LREAL := -2143.923493;
     fElectronDeuteronMagneticMomentRatio_Uncertainty : LREAL := 2.3e-05;
-    
+
     // electron-muon magn. moment ratio
     // Uncertainty: 5.4e-06
     fElectronMuonMagneticMomentRatio : LREAL := 206.7669894;
     fElectronMuonMagneticMomentRatio_Uncertainty : LREAL := 5.4e-06;
-    
+
     // electron-neutron magn. moment ratio
     // Uncertainty: 0.00023
     fElectronNeutronMagneticMomentRatio : LREAL := 960.9205;
     fElectronNeutronMagneticMomentRatio_Uncertainty : LREAL := 0.00023;
-    
+
     // electron-proton magn. moment ratio
     // Uncertainty: 6.6e-06
     fElectronProtonMagneticMomentRatio : LREAL := -658.2106862;
     fElectronProtonMagneticMomentRatio_Uncertainty : LREAL := 6.6e-06;
-    
+
     // magn. constant (N A^-2)
     fMagneticConstant_in_N_A_2 : LREAL := 1.2566370614e-06;
     fMagneticConstant_in_N_A_2_Units : STRING := 'N A^-2';
-    
+
     // magn. flux quantum (Wb)
     fMagneticFluxQuantum_in_Wb : LREAL := 2.067833848e-15;
     fMagneticFluxQuantum_in_Wb_Units : STRING := 'Wb';
-    
+
     // muon magn. moment (J T^-1)
     // Uncertainty: 4e-33
     fMuonMagneticMoment_in_J_T_1 : LREAL := -4.49044799e-26;
     fMuonMagneticMoment_in_J_T_1_Units : STRING := 'J T^-1';
     fMuonMagneticMoment_in_J_T_1_Uncertainty : LREAL := 4e-33;
-    
+
     // muon magn. moment to Bohr magneton ratio
     // Uncertainty: 1.3e-10
     fMuonMagneticMomentToBohrMagnetonRatio : LREAL := -0.00484197045;
     fMuonMagneticMomentToBohrMagnetonRatio_Uncertainty : LREAL := 1.3e-10;
-    
+
     // muon magn. moment to nuclear magneton ratio
     // Uncertainty: 2.3e-07
     fMuonMagneticMomentToNuclearMagnetonRatio : LREAL := -8.89059698;
     fMuonMagneticMomentToNuclearMagnetonRatio_Uncertainty : LREAL := 2.3e-07;
-    
+
     // muon-proton magn. moment ratio
     // Uncertainty: 8.9e-08
     fMuonProtonMagneticMomentRatio : LREAL := -3.183345118;
     fMuonProtonMagneticMomentRatio_Uncertainty : LREAL := 8.9e-08;
-    
+
     // neutron gyromagn. ratio (s^-1 T^-1)
     // Uncertainty: 43.0
     fNeutronGyromagneticRatio_in_s_1_T_1 : LREAL := 183247171.0;
     fNeutronGyromagneticRatio_in_s_1_T_1_Units : STRING := 's^-1 T^-1';
     fNeutronGyromagneticRatio_in_s_1_T_1_Uncertainty : LREAL := 43.0;
-    
+
     // neutron gyromagn. ratio over 2 pi (MHz T^-1)
     // Uncertainty: 7.3e-06
     fNeutronGyromagneticRatioOver2Pi_in_MHz_T_1 : LREAL := 29.164695;
     fNeutronGyromagneticRatioOver2Pi_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fNeutronGyromagneticRatioOver2Pi_in_MHz_T_1_Uncertainty : LREAL := 7.3e-06;
-    
+
     // neutron magn. moment (J T^-1)
     // Uncertainty: 2.4e-33
     fNeutronMagneticMoment_in_J_T_1 : LREAL := -9.6623645e-27;
     fNeutronMagneticMoment_in_J_T_1_Units : STRING := 'J T^-1';
     fNeutronMagneticMoment_in_J_T_1_Uncertainty : LREAL := 2.4e-33;
-    
+
     // neutron magn. moment to Bohr magneton ratio
     // Uncertainty: 2.5e-10
     fNeutronMagneticMomentToBohrMagnetonRatio : LREAL := -0.00104187563;
     fNeutronMagneticMomentToBohrMagnetonRatio_Uncertainty : LREAL := 2.5e-10;
-    
+
     // neutron magn. moment to nuclear magneton ratio
     // Uncertainty: 4.5e-07
     fNeutronMagneticMomentToNuclearMagnetonRatio : LREAL := -1.91304273;
     fNeutronMagneticMomentToNuclearMagnetonRatio_Uncertainty : LREAL := 4.5e-07;
-    
+
     // neutron to shielded proton magn. moment ratio
     // Uncertainty: 1.6e-07
     fNeutronToShieldedProtonMagneticMomentRatio : LREAL := -0.68499694;
     fNeutronToShieldedProtonMagneticMomentRatio_Uncertainty : LREAL := 1.6e-07;
-    
+
     // neutron-electron magn. moment ratio
     // Uncertainty: 2.5e-10
     fNeutronElectronMagneticMomentRatio : LREAL := 0.00104066882;
     fNeutronElectronMagneticMomentRatio_Uncertainty : LREAL := 2.5e-10;
-    
+
     // neutron-proton magn. moment ratio
     // Uncertainty: 1.6e-07
     fNeutronProtonMagneticMomentRatio : LREAL := -0.68497934;
     fNeutronProtonMagneticMomentRatio_Uncertainty : LREAL := 1.6e-07;
-    
+
     // proton gyromagn. ratio (s^-1 T^-1)
     // Uncertainty: 0.11
     fProtonGyromagneticRatio_in_s_1_T_1 : LREAL := 267522187.44;
     fProtonGyromagneticRatio_in_s_1_T_1_Units : STRING := 's^-1 T^-1';
     fProtonGyromagneticRatio_in_s_1_T_1_Uncertainty : LREAL := 0.11;
-    
+
     // proton gyromagn. ratio over 2 pi (MHz T^-1)
     // Uncertainty: 3.7e-06
     fProtonGyromagneticRatioOver2Pi_in_MHz_T_1 : LREAL := 42.5774813;
     fProtonGyromagneticRatioOver2Pi_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fProtonGyromagneticRatioOver2Pi_in_MHz_T_1_Uncertainty : LREAL := 3.7e-06;
-    
+
     // proton magn. moment (J T^-1)
     // Uncertainty: 1.2e-33
     fProtonMagneticMoment_in_J_T_1 : LREAL := 1.41060671e-26;
     fProtonMagneticMoment_in_J_T_1_Units : STRING := 'J T^-1';
     fProtonMagneticMoment_in_J_T_1_Uncertainty : LREAL := 1.2e-33;
-    
+
     // proton magn. moment to Bohr magneton ratio
     // Uncertainty: 1.5e-11
     fProtonMagneticMomentToBohrMagnetonRatio : LREAL := 0.001521032206;
     fProtonMagneticMomentToBohrMagnetonRatio_Uncertainty : LREAL := 1.5e-11;
-    
+
     // proton magn. moment to nuclear magneton ratio
     // Uncertainty: 2.8e-08
     fProtonMagneticMomentToNuclearMagnetonRatio : LREAL := 2.792847351;
     fProtonMagneticMomentToNuclearMagnetonRatio_Uncertainty : LREAL := 2.8e-08;
-    
+
     // proton magn. shielding correction
     // Uncertainty: 1.1e-08
     fProtonMagneticShieldingCorrection : LREAL := 2.5689e-05;
     fProtonMagneticShieldingCorrection_Uncertainty : LREAL := 1.1e-08;
-    
+
     // proton-neutron magn. moment ratio
     // Uncertainty: 3.4e-07
     fProtonNeutronMagneticMomentRatio : LREAL := -1.45989805;
     fProtonNeutronMagneticMomentRatio_Uncertainty : LREAL := 3.4e-07;
-    
+
     // shielded helion gyromagn. ratio (s^-1 T^-1)
     // Uncertainty: 2.4
     fShieldedHelionGyromagneticRatio_in_s_1_T_1 : LREAL := 203789456.9;
     fShieldedHelionGyromagneticRatio_in_s_1_T_1_Units : STRING := 's^-1 T^-1';
     fShieldedHelionGyromagneticRatio_in_s_1_T_1_Uncertainty : LREAL := 2.4;
-    
+
     // shielded helion gyromagn. ratio over 2 pi (MHz T^-1)
     // Uncertainty: 2.8e-06
     fShieldedHelionGyromagneticRatioOver2Pi_in_MHz_T_1 : LREAL := 32.4341015;
     fShieldedHelionGyromagneticRatioOver2Pi_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fShieldedHelionGyromagneticRatioOver2Pi_in_MHz_T_1_Uncertainty : LREAL := 2.8e-06;
-    
+
     // shielded helion magn. moment (J T^-1)
     // Uncertainty: 9.3e-34
     fShieldedHelionMagneticMoment_in_J_T_1 : LREAL := -1.074553024e-26;
     fShieldedHelionMagneticMoment_in_J_T_1_Units : STRING := 'J T^-1';
     fShieldedHelionMagneticMoment_in_J_T_1_Uncertainty : LREAL := 9.3e-34;
-    
+
     // shielded helion magn. moment to Bohr magneton ratio
     // Uncertainty: 1.4e-11
     fShieldedHelionMagneticMomentToBohrMagnetonRatio : LREAL := -0.001158671474;
     fShieldedHelionMagneticMomentToBohrMagnetonRatio_Uncertainty : LREAL := 1.4e-11;
-    
+
     // shielded helion magn. moment to nuclear magneton ratio
     // Uncertainty: 2.5e-08
     fShieldedHelionMagneticMomentToNuclearMagnetonRatio : LREAL := -2.127497723;
     fShieldedHelionMagneticMomentToNuclearMagnetonRatio_Uncertainty : LREAL := 2.5e-08;
-    
+
     // shielded helion to proton magn. moment ratio
     // Uncertainty: 1.2e-08
     fShieldedHelionToProtonMagneticMomentRatio : LREAL := -0.761766562;
     fShieldedHelionToProtonMagneticMomentRatio_Uncertainty : LREAL := 1.2e-08;
-    
+
     // shielded helion to shielded proton magn. moment ratio
     // Uncertainty: 3.3e-09
     fShieldedHelionToShieldedProtonMagneticMomentRatio : LREAL := -0.7617861313;
     fShieldedHelionToShieldedProtonMagneticMomentRatio_Uncertainty : LREAL := 3.3e-09;
-    
+
     // shielded proton magn. moment (J T^-1)
     // Uncertainty: 1.2e-33
     fShieldedProtonMagneticMoment_in_J_T_1 : LREAL := 1.41057047e-26;
     fShieldedProtonMagneticMoment_in_J_T_1_Units : STRING := 'J T^-1';
     fShieldedProtonMagneticMoment_in_J_T_1_Uncertainty : LREAL := 1.2e-33;
-    
+
     // shielded proton magn. moment to Bohr magneton ratio
     // Uncertainty: 1.6e-11
     fShieldedProtonMagneticMomentToBohrMagnetonRatio : LREAL := 0.001520993132;
     fShieldedProtonMagneticMomentToBohrMagnetonRatio_Uncertainty : LREAL := 1.6e-11;
-    
+
     // shielded proton magn. moment to nuclear magneton ratio
     // Uncertainty: 3e-08
     fShieldedProtonMagneticMomentToNuclearMagnetonRatio : LREAL := 2.792775604;
     fShieldedProtonMagneticMomentToNuclearMagnetonRatio_Uncertainty : LREAL := 3e-08;
-    
+
     // {220} lattice spacing of silicon (m)
     // Uncertainty: 3.2e-18
     f_220_LatticeSpacingOfSilicon_in_m : LREAL := 1.920155714e-10;
     f_220_LatticeSpacingOfSilicon_in_m_Units : STRING := 'm';
     f_220_LatticeSpacingOfSilicon_in_m_Uncertainty : LREAL := 3.2e-18;
-    
+
     // lattice spacing of silicon (m)
     // Uncertainty: 5e-18
     fLatticeSpacingOfSilicon_in_m : LREAL := 1.920155762e-10;
     fLatticeSpacingOfSilicon_in_m_Units : STRING := 'm';
     fLatticeSpacingOfSilicon_in_m_Uncertainty : LREAL := 5e-18;
-    
+
     // alpha particle-electron mass ratio
     // Uncertainty: 2.4e-07
     fAlphaParticleElectronMassRatio : LREAL := 7294.29954142;
     fAlphaParticleElectronMassRatio_Uncertainty : LREAL := 2.4e-07;
-    
+
     // alpha particle mass (kg)
     // Uncertainty: 2e-36
     fAlphaParticleMass_in_kg : LREAL := 6.6446573357e-27;
     fAlphaParticleMass_in_kg_Units : STRING := 'kg';
     fAlphaParticleMass_in_kg_Uncertainty : LREAL := 2e-36;
-    
+
     // alpha particle mass energy equivalent (J)
     // Uncertainty: 1.8e-19
     fAlphaParticleMassEnergyEquivalent_in_J : LREAL := 5.9719201914e-10;
     fAlphaParticleMassEnergyEquivalent_in_J_Units : STRING := 'J';
     fAlphaParticleMassEnergyEquivalent_in_J_Uncertainty : LREAL := 1.8e-19;
-    
+
     // alpha particle mass energy equivalent in MeV (MeV)
     // Uncertainty: 1.1e-06
     fAlphaParticleMassEnergyEquivalentInMeV_in_MeV : LREAL := 3727.3794066;
     fAlphaParticleMassEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fAlphaParticleMassEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 1.1e-06;
-    
+
     // alpha particle mass in u (u)
     // Uncertainty: 6.3e-11
     fAlphaParticleMassInU_in_u : LREAL := 4.001506179127;
     fAlphaParticleMassInU_in_u_Units : STRING := 'u';
     fAlphaParticleMassInU_in_u_Uncertainty : LREAL := 6.3e-11;
-    
+
     // alpha particle molar mass (kg mol^-1)
     // Uncertainty: 1.2e-12
     fAlphaParticleMolarMass_in_kg_mol_1 : LREAL := 0.0040015061777;
     fAlphaParticleMolarMass_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fAlphaParticleMolarMass_in_kg_mol_1_Uncertainty : LREAL := 1.2e-12;
-    
+
     // alpha particle-proton mass ratio
     // Uncertainty: 2.2e-10
     fAlphaParticleProtonMassRatio : LREAL := 3.97259969009;
     fAlphaParticleProtonMassRatio_Uncertainty : LREAL := 2.2e-10;
-    
+
     // Angstrom star (m)
     // Uncertainty: 9e-17
     fAngstromStar_in_m : LREAL := 1.00001495e-10;
     fAngstromStar_in_m_Units : STRING := 'm';
     fAngstromStar_in_m_Uncertainty : LREAL := 9e-17;
-    
+
     // atomic mass constant (kg)
     // Uncertainty: 5e-37
     fAtomicMassConstant_in_kg : LREAL := 1.6605390666e-27;
     fAtomicMassConstant_in_kg_Units : STRING := 'kg';
     fAtomicMassConstant_in_kg_Uncertainty : LREAL := 5e-37;
-    
+
     // atomic mass constant energy equivalent (J)
     // Uncertainty: 4.5e-20
     fAtomicMassConstantEnergyEquivalent_in_J : LREAL := 1.4924180856e-10;
     fAtomicMassConstantEnergyEquivalent_in_J_Units : STRING := 'J';
     fAtomicMassConstantEnergyEquivalent_in_J_Uncertainty : LREAL := 4.5e-20;
-    
+
     // atomic mass constant energy equivalent in MeV (MeV)
     // Uncertainty: 2.8e-07
     fAtomicMassConstantEnergyEquivalentInMeV_in_MeV : LREAL := 931.49410242;
     fAtomicMassConstantEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fAtomicMassConstantEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 2.8e-07;
-    
+
     // atomic mass unit-electron volt relationship (eV)
     // Uncertainty: 0.28
     fAtomicMassUnitElectronVoltRelationship_in_eV : LREAL := 931494102.42;
     fAtomicMassUnitElectronVoltRelationship_in_eV_Units : STRING := 'eV';
     fAtomicMassUnitElectronVoltRelationship_in_eV_Uncertainty : LREAL := 0.28;
-    
+
     // atomic mass unit-hartree relationship (E_h)
     // Uncertainty: 0.01
     fAtomicMassUnitHartreeRelationship_in_E_h : LREAL := 34231776.874;
     fAtomicMassUnitHartreeRelationship_in_E_h_Units : STRING := 'E_h';
     fAtomicMassUnitHartreeRelationship_in_E_h_Uncertainty : LREAL := 0.01;
-    
+
     // atomic mass unit-hertz relationship (Hz)
     // Uncertainty: 68000000000000.0
     fAtomicMassUnitHertzRelationship_in_Hz : LREAL := 2.25234271871e+23;
     fAtomicMassUnitHertzRelationship_in_Hz_Units : STRING := 'Hz';
     fAtomicMassUnitHertzRelationship_in_Hz_Uncertainty : LREAL := 68000000000000.0;
-    
+
     // atomic mass unit-inverse meter relationship (m^-1)
     // Uncertainty: 230000.0
     fAtomicMassUnitInverseMeterRelationship_in_m_1 : LREAL := 751300661040000.0;
     fAtomicMassUnitInverseMeterRelationship_in_m_1_Units : STRING := 'm^-1';
     fAtomicMassUnitInverseMeterRelationship_in_m_1_Uncertainty : LREAL := 230000.0;
-    
+
     // atomic mass unit-joule relationship (J)
     // Uncertainty: 4.5e-20
     fAtomicMassUnitJouleRelationship_in_J : LREAL := 1.4924180856e-10;
     fAtomicMassUnitJouleRelationship_in_J_Units : STRING := 'J';
     fAtomicMassUnitJouleRelationship_in_J_Uncertainty : LREAL := 4.5e-20;
-    
+
     // atomic mass unit-kelvin relationship (K)
     // Uncertainty: 3300.0
     fAtomicMassUnitKelvinRelationship_in_K : LREAL := 10809540191600.0;
     fAtomicMassUnitKelvinRelationship_in_K_Units : STRING := 'K';
     fAtomicMassUnitKelvinRelationship_in_K_Uncertainty : LREAL := 3300.0;
-    
+
     // atomic mass unit-kilogram relationship (kg)
     // Uncertainty: 5e-37
     fAtomicMassUnitKilogramRelationship_in_kg : LREAL := 1.6605390666e-27;
     fAtomicMassUnitKilogramRelationship_in_kg_Units : STRING := 'kg';
     fAtomicMassUnitKilogramRelationship_in_kg_Uncertainty : LREAL := 5e-37;
-    
+
     // atomic unit of 1st hyperpolarizability (C^3 m^3 J^-2)
     // Uncertainty: 1.5e-62
     fAtomicUnitOf1stHyperpolarizability_in_C_3_m_3_J_2 : LREAL := 3.2063613061e-53;
     fAtomicUnitOf1stHyperpolarizability_in_C_3_m_3_J_2_Units : STRING := 'C^3 m^3 J^-2';
     fAtomicUnitOf1stHyperpolarizability_in_C_3_m_3_J_2_Uncertainty : LREAL := 1.5e-62;
-    
+
     // atomic unit of 2nd hyperpolarizability (C^4 m^4 J^-3)
     // Uncertainty: 3.8e-74
     fAtomicUnitOf2ndHyperpolarizability_in_C_4_m_4_J_3 : LREAL := 6.2353799905e-65;
     fAtomicUnitOf2ndHyperpolarizability_in_C_4_m_4_J_3_Units : STRING := 'C^4 m^4 J^-3';
     fAtomicUnitOf2ndHyperpolarizability_in_C_4_m_4_J_3_Uncertainty : LREAL := 3.8e-74;
-    
+
     // atomic unit of action (J s)
     fAtomicUnitOfAction_in_J_s : LREAL := 1.054571817e-34;
     fAtomicUnitOfAction_in_J_s_Units : STRING := 'J s';
-    
+
     // atomic unit of charge (C)
     fAtomicUnitOfCharge_in_C : LREAL := 1.602176634e-19;
     fAtomicUnitOfCharge_in_C_Units : STRING := 'C';
-    
+
     // atomic unit of charge density (C m^-3)
     // Uncertainty: 490.0
     fAtomicUnitOfChargeDensity_in_C_m_3 : LREAL := 1081202384570.0;
     fAtomicUnitOfChargeDensity_in_C_m_3_Units : STRING := 'C m^-3';
     fAtomicUnitOfChargeDensity_in_C_m_3_Uncertainty : LREAL := 490.0;
-    
+
     // atomic unit of current (A)
     // Uncertainty: 1.3e-14
     fAtomicUnitOfCurrent_in_A : LREAL := 0.00662361823751;
     fAtomicUnitOfCurrent_in_A_Units : STRING := 'A';
     fAtomicUnitOfCurrent_in_A_Uncertainty : LREAL := 1.3e-14;
-    
+
     // atomic unit of electric dipole mom. (C m)
     // Uncertainty: 1.3e-39
     fAtomicUnitOfElectricDipoleMom_in_C_m : LREAL := 8.4783536255e-30;
     fAtomicUnitOfElectricDipoleMom_in_C_m_Units : STRING := 'C m';
     fAtomicUnitOfElectricDipoleMom_in_C_m_Uncertainty : LREAL := 1.3e-39;
-    
+
     // atomic unit of electric field (V m^-1)
     // Uncertainty: 78.0
     fAtomicUnitOfElectricField_in_V_m_1 : LREAL := 514220674763.0;
     fAtomicUnitOfElectricField_in_V_m_1_Units : STRING := 'V m^-1';
     fAtomicUnitOfElectricField_in_V_m_1_Uncertainty : LREAL := 78.0;
-    
+
     // atomic unit of electric field gradient (V m^-2)
     // Uncertainty: 2900000000000.0
     fAtomicUnitOfElectricFieldGradient_in_V_m_2 : LREAL := 9.7173624292e+21;
     fAtomicUnitOfElectricFieldGradient_in_V_m_2_Units : STRING := 'V m^-2';
     fAtomicUnitOfElectricFieldGradient_in_V_m_2_Uncertainty : LREAL := 2900000000000.0;
-    
+
     // atomic unit of electric polarizability (C^2 m^2 J^-1)
     // Uncertainty: 5e-51
     fAtomicUnitOfElectricPolarizability_in_C_2_m_2_J_1 : LREAL := 1.64877727436e-41;
     fAtomicUnitOfElectricPolarizability_in_C_2_m_2_J_1_Units : STRING := 'C^2 m^2 J^-1';
     fAtomicUnitOfElectricPolarizability_in_C_2_m_2_J_1_Uncertainty : LREAL := 5e-51;
-    
+
     // atomic unit of electric potential (V)
     // Uncertainty: 5.3e-11
     fAtomicUnitOfElectricPotential_in_V : LREAL := 27.211386245988;
     fAtomicUnitOfElectricPotential_in_V_Units : STRING := 'V';
     fAtomicUnitOfElectricPotential_in_V_Uncertainty : LREAL := 5.3e-11;
-    
+
     // atomic unit of electric quadrupole mom. (C m^2)
     // Uncertainty: 1.4e-49
     fAtomicUnitOfElectricQuadrupoleMom_in_C_m_2 : LREAL := 4.4865515246e-40;
     fAtomicUnitOfElectricQuadrupoleMom_in_C_m_2_Units : STRING := 'C m^2';
     fAtomicUnitOfElectricQuadrupoleMom_in_C_m_2_Uncertainty : LREAL := 1.4e-49;
-    
+
     // atomic unit of energy (J)
     // Uncertainty: 8.5e-30
     fAtomicUnitOfEnergy_in_J : LREAL := 4.3597447222071e-18;
     fAtomicUnitOfEnergy_in_J_Units : STRING := 'J';
     fAtomicUnitOfEnergy_in_J_Uncertainty : LREAL := 8.5e-30;
-    
+
     // atomic unit of force (N)
     // Uncertainty: 1.2e-17
     fAtomicUnitOfForce_in_N : LREAL := 8.2387234983e-08;
     fAtomicUnitOfForce_in_N_Units : STRING := 'N';
     fAtomicUnitOfForce_in_N_Uncertainty : LREAL := 1.2e-17;
-    
+
     // atomic unit of length (m)
     // Uncertainty: 8e-21
     fAtomicUnitOfLength_in_m : LREAL := 5.29177210903e-11;
     fAtomicUnitOfLength_in_m_Units : STRING := 'm';
     fAtomicUnitOfLength_in_m_Uncertainty : LREAL := 8e-21;
-    
+
     // atomic unit of mag. dipole mom. (J T^-1)
     // Uncertainty: 5.6e-33
     fAtomicUnitOfMag_DipoleMom_in_J_T_1 : LREAL := 1.85480201566e-23;
     fAtomicUnitOfMag_DipoleMom_in_J_T_1_Units : STRING := 'J T^-1';
     fAtomicUnitOfMag_DipoleMom_in_J_T_1_Uncertainty : LREAL := 5.6e-33;
-    
+
     // atomic unit of mag. flux density (T)
     // Uncertainty: 7.1e-05
     fAtomicUnitOfMag_FluxDensity_in_T : LREAL := 235051.756758;
     fAtomicUnitOfMag_FluxDensity_in_T_Units : STRING := 'T';
     fAtomicUnitOfMag_FluxDensity_in_T_Uncertainty : LREAL := 7.1e-05;
-    
+
     // atomic unit of magnetizability (J T^-2)
     // Uncertainty: 4.8e-38
     fAtomicUnitOfMagnetizability_in_J_T_2 : LREAL := 7.8910366008e-29;
     fAtomicUnitOfMagnetizability_in_J_T_2_Units : STRING := 'J T^-2';
     fAtomicUnitOfMagnetizability_in_J_T_2_Uncertainty : LREAL := 4.8e-38;
-    
+
     // atomic unit of mass (kg)
     // Uncertainty: 2.8e-40
     fAtomicUnitOfMass_in_kg : LREAL := 9.1093837015e-31;
     fAtomicUnitOfMass_in_kg_Units : STRING := 'kg';
     fAtomicUnitOfMass_in_kg_Uncertainty : LREAL := 2.8e-40;
-    
+
     // atomic unit of momentum (kg m s^-1)
     // Uncertainty: 3e-34
     fAtomicUnitOfMomentum_in_kg_m_s_1 : LREAL := 1.9928519141e-24;
     fAtomicUnitOfMomentum_in_kg_m_s_1_Units : STRING := 'kg m s^-1';
     fAtomicUnitOfMomentum_in_kg_m_s_1_Uncertainty : LREAL := 3e-34;
-    
+
     // atomic unit of permittivity (F m^-1)
     // Uncertainty: 1.7e-20
     fAtomicUnitOfPermittivity_in_F_m_1 : LREAL := 1.11265005545e-10;
     fAtomicUnitOfPermittivity_in_F_m_1_Units : STRING := 'F m^-1';
     fAtomicUnitOfPermittivity_in_F_m_1_Uncertainty : LREAL := 1.7e-20;
-    
+
     // atomic unit of time (s)
     // Uncertainty: 4.7e-29
     fAtomicUnitOfTime_in_s : LREAL := 2.4188843265857e-17;
     fAtomicUnitOfTime_in_s_Units : STRING := 's';
     fAtomicUnitOfTime_in_s_Uncertainty : LREAL := 4.7e-29;
-    
+
     // atomic unit of velocity (m s^-1)
     // Uncertainty: 0.00033
     fAtomicUnitOfVelocity_in_m_s_1 : LREAL := 2187691.26364;
     fAtomicUnitOfVelocity_in_m_s_1_Units : STRING := 'm s^-1';
     fAtomicUnitOfVelocity_in_m_s_1_Uncertainty : LREAL := 0.00033;
-    
+
     // Avogadro constant (mol^-1)
     fAvogadroConstant_in_mol_1 : LREAL := 6.02214076e+23;
     fAvogadroConstant_in_mol_1_Units : STRING := 'mol^-1';
-    
+
     // Bohr magneton (J T^-1)
     // Uncertainty: 2.8e-33
     fBohrMagneton_in_J_T_1 : LREAL := 9.2740100783e-24;
     fBohrMagneton_in_J_T_1_Units : STRING := 'J T^-1';
     fBohrMagneton_in_J_T_1_Uncertainty : LREAL := 2.8e-33;
-    
+
     // Bohr magneton in eV/T (eV T^-1)
     // Uncertainty: 1.7e-14
     fBohrMagnetonInEV_T_in_eV_T_1 : LREAL := 5.788381806e-05;
     fBohrMagnetonInEV_T_in_eV_T_1_Units : STRING := 'eV T^-1';
     fBohrMagnetonInEV_T_in_eV_T_1_Uncertainty : LREAL := 1.7e-14;
-    
+
     // Bohr magneton in Hz/T (Hz T^-1)
     // Uncertainty: 4.2
     fBohrMagnetonInHz_T_in_Hz_T_1 : LREAL := 13996244936.1;
     fBohrMagnetonInHz_T_in_Hz_T_1_Units : STRING := 'Hz T^-1';
     fBohrMagnetonInHz_T_in_Hz_T_1_Uncertainty : LREAL := 4.2;
-    
+
     // Bohr magneton in inverse meters per tesla (m^-1 T^-1)
     // Uncertainty: 2.9e-07
     fBohrMagnetonInInverseMetersPerTesla_in_m_1_T_1 : LREAL := 46.68644814;
     fBohrMagnetonInInverseMetersPerTesla_in_m_1_T_1_Units : STRING := 'm^-1 T^-1';
     fBohrMagnetonInInverseMetersPerTesla_in_m_1_T_1_Uncertainty : LREAL := 2.9e-07;
-    
+
     // Bohr magneton in K/T (K T^-1)
     // Uncertainty: 2e-10
     fBohrMagnetonInK_T_in_K_T_1 : LREAL := 0.67171381563;
     fBohrMagnetonInK_T_in_K_T_1_Units : STRING := 'K T^-1';
     fBohrMagnetonInK_T_in_K_T_1_Uncertainty : LREAL := 2e-10;
-    
+
     // Bohr radius (m)
     // Uncertainty: 8e-21
     fBohrRadius_in_m : LREAL := 5.29177210903e-11;
     fBohrRadius_in_m_Units : STRING := 'm';
     fBohrRadius_in_m_Uncertainty : LREAL := 8e-21;
-    
+
     // Boltzmann constant (J K^-1)
     fBoltzmannConstant_in_J_K_1 : LREAL := 1.380649e-23;
     fBoltzmannConstant_in_J_K_1_Units : STRING := 'J K^-1';
-    
+
     // Boltzmann constant in eV/K (eV K^-1)
     fBoltzmannConstantInEV_K_in_eV_K_1 : LREAL := 8.617333262e-05;
     fBoltzmannConstantInEV_K_in_eV_K_1_Units : STRING := 'eV K^-1';
-    
+
     // Boltzmann constant in Hz/K (Hz K^-1)
     fBoltzmannConstantInHz_K_in_Hz_K_1 : LREAL := 20836619120.0;
     fBoltzmannConstantInHz_K_in_Hz_K_1_Units : STRING := 'Hz K^-1';
-    
+
     // Boltzmann constant in inverse meters per kelvin (m^-1 K^-1)
     // Uncertainty: 4e-05
     fBoltzmannConstantInInverseMetersPerKelvin_in_m_1_K_1 : LREAL := 69.503457;
     fBoltzmannConstantInInverseMetersPerKelvin_in_m_1_K_1_Units : STRING := 'm^-1 K^-1';
     fBoltzmannConstantInInverseMetersPerKelvin_in_m_1_K_1_Uncertainty : LREAL := 4e-05;
-    
+
     // characteristic impedance of vacuum (ohm)
     // Uncertainty: 5.61366546036269e-08
     fCharacteristicImpedanceOfVacuum_in_ohm : LREAL := 376.73031366686166;
     fCharacteristicImpedanceOfVacuum_in_ohm_Units : STRING := 'ohm';
     fCharacteristicImpedanceOfVacuum_in_ohm_Uncertainty : LREAL := 5.61366546036269e-08;
-    
+
     // classical electron radius (m)
     // Uncertainty: 1.3e-24
     fClassicalElectronRadius_in_m : LREAL := 2.8179403262e-15;
     fClassicalElectronRadius_in_m_Units : STRING := 'm';
     fClassicalElectronRadius_in_m_Uncertainty : LREAL := 1.3e-24;
-    
+
     // Compton wavelength (m)
     // Uncertainty: 7.3e-22
     fComptonWavelength_in_m : LREAL := 2.42631023867e-12;
     fComptonWavelength_in_m_Units : STRING := 'm';
     fComptonWavelength_in_m_Uncertainty : LREAL := 7.3e-22;
-    
+
     // Compton wavelength over 2 pi (m)
     // Uncertainty: 1.8e-22
     fComptonWavelengthOver2Pi_in_m : LREAL := 3.8615926764e-13;
     fComptonWavelengthOver2Pi_in_m_Units : STRING := 'm';
     fComptonWavelengthOver2Pi_in_m_Uncertainty : LREAL := 1.8e-22;
-    
+
     // conductance quantum (S)
     fConductanceQuantum_in_S : LREAL := 7.748091729e-05;
     fConductanceQuantum_in_S_Units : STRING := 'S';
-    
+
     // conventional value of Josephson constant (Hz V^-1)
     fConventionalValueOfJosephsonConstant_in_Hz_V_1 : LREAL := 483597900000000.0;
     fConventionalValueOfJosephsonConstant_in_Hz_V_1_Units : STRING := 'Hz V^-1';
-    
+
     // conventional value of von Klitzing constant (ohm)
     fConventionalValueOfVonKlitzingConstant_in_ohm : LREAL := 25812.807;
     fConventionalValueOfVonKlitzingConstant_in_ohm_Units : STRING := 'ohm';
-    
+
     // Cu x unit (m)
     // Uncertainty: 2.8e-20
     fCuXUnit_in_m : LREAL := 1.00207697e-13;
     fCuXUnit_in_m_Units : STRING := 'm';
     fCuXUnit_in_m_Uncertainty : LREAL := 2.8e-20;
-    
+
     // deuteron-electron mag. mom. ratio
     // Uncertainty: 1.2e-12
     fDeuteronElectronMag_Mom_Ratio : LREAL := -0.0004664345551;
     fDeuteronElectronMag_Mom_Ratio_Uncertainty : LREAL := 1.2e-12;
-    
+
     // deuteron-electron mass ratio
     // Uncertainty: 1.3e-07
     fDeuteronElectronMassRatio : LREAL := 3670.48296788;
     fDeuteronElectronMassRatio_Uncertainty : LREAL := 1.3e-07;
-    
+
     // deuteron g factor
     // Uncertainty: 2.2e-09
     fDeuteronGFactor : LREAL := 0.8574382338;
     fDeuteronGFactor_Uncertainty : LREAL := 2.2e-09;
-    
+
     // deuteron mag. mom. (J T^-1)
     // Uncertainty: 1.1e-35
     fDeuteronMag_Mom_in_J_T_1 : LREAL := 4.330735094e-27;
     fDeuteronMag_Mom_in_J_T_1_Units : STRING := 'J T^-1';
     fDeuteronMag_Mom_in_J_T_1_Uncertainty : LREAL := 1.1e-35;
-    
+
     // deuteron mag. mom. to Bohr magneton ratio
     // Uncertainty: 1.2e-12
     fDeuteronMag_Mom_ToBohrMagnetonRatio : LREAL := 0.000466975457;
     fDeuteronMag_Mom_ToBohrMagnetonRatio_Uncertainty : LREAL := 1.2e-12;
-    
+
     // deuteron mag. mom. to nuclear magneton ratio
     // Uncertainty: 2.2e-09
     fDeuteronMag_Mom_ToNuclearMagnetonRatio : LREAL := 0.8574382338;
     fDeuteronMag_Mom_ToNuclearMagnetonRatio_Uncertainty : LREAL := 2.2e-09;
-    
+
     // deuteron mass (kg)
     // Uncertainty: 1e-36
     fDeuteronMass_in_kg : LREAL := 3.3435837724e-27;
     fDeuteronMass_in_kg_Units : STRING := 'kg';
     fDeuteronMass_in_kg_Uncertainty : LREAL := 1e-36;
-    
+
     // deuteron mass energy equivalent (J)
     // Uncertainty: 9.1e-20
     fDeuteronMassEnergyEquivalent_in_J : LREAL := 3.00506323102e-10;
     fDeuteronMassEnergyEquivalent_in_J_Units : STRING := 'J';
     fDeuteronMassEnergyEquivalent_in_J_Uncertainty : LREAL := 9.1e-20;
-    
+
     // deuteron mass energy equivalent in MeV (MeV)
     // Uncertainty: 5.7e-07
     fDeuteronMassEnergyEquivalentInMeV_in_MeV : LREAL := 1875.61294257;
     fDeuteronMassEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fDeuteronMassEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 5.7e-07;
-    
+
     // deuteron mass in u (u)
     // Uncertainty: 4e-11
     fDeuteronMassInU_in_u : LREAL := 2.013553212745;
     fDeuteronMassInU_in_u_Units : STRING := 'u';
     fDeuteronMassInU_in_u_Uncertainty : LREAL := 4e-11;
-    
+
     // deuteron molar mass (kg mol^-1)
     // Uncertainty: 6.1e-13
     fDeuteronMolarMass_in_kg_mol_1 : LREAL := 0.00201355321205;
     fDeuteronMolarMass_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fDeuteronMolarMass_in_kg_mol_1_Uncertainty : LREAL := 6.1e-13;
-    
+
     // deuteron-neutron mag. mom. ratio
     // Uncertainty: 1.1e-07
     fDeuteronNeutronMag_Mom_Ratio : LREAL := -0.44820653;
     fDeuteronNeutronMag_Mom_Ratio_Uncertainty : LREAL := 1.1e-07;
-    
+
     // deuteron-proton mag. mom. ratio
     // Uncertainty: 7.9e-10
     fDeuteronProtonMag_Mom_Ratio : LREAL := 0.30701220939;
     fDeuteronProtonMag_Mom_Ratio_Uncertainty : LREAL := 7.9e-10;
-    
+
     // deuteron-proton mass ratio
     // Uncertainty: 1.1e-10
     fDeuteronProtonMassRatio : LREAL := 1.99900750139;
     fDeuteronProtonMassRatio_Uncertainty : LREAL := 1.1e-10;
-    
+
     // deuteron rms charge radius (m)
     // Uncertainty: 7.4e-19
     fDeuteronRmsChargeRadius_in_m : LREAL := 2.12799e-15;
     fDeuteronRmsChargeRadius_in_m_Units : STRING := 'm';
     fDeuteronRmsChargeRadius_in_m_Uncertainty : LREAL := 7.4e-19;
-    
+
     // electric constant (F m^-1)
     // Uncertainty: 1.3e-21
     fElectricConstant_in_F_m_1 : LREAL := 8.8541878128e-12;
     fElectricConstant_in_F_m_1_Units : STRING := 'F m^-1';
     fElectricConstant_in_F_m_1_Uncertainty : LREAL := 1.3e-21;
-    
+
     // electron charge to mass quotient (C kg^-1)
     // Uncertainty: 53.0
     fElectronChargeToMassQuotient_in_C_kg_1 : LREAL := -175882001076.0;
     fElectronChargeToMassQuotient_in_C_kg_1_Units : STRING := 'C kg^-1';
     fElectronChargeToMassQuotient_in_C_kg_1_Uncertainty : LREAL := 53.0;
-    
+
     // electron-deuteron mag. mom. ratio
     // Uncertainty: 5.6e-06
     fElectronDeuteronMag_Mom_Ratio : LREAL := -2143.9234915;
     fElectronDeuteronMag_Mom_Ratio_Uncertainty : LREAL := 5.6e-06;
-    
+
     // electron-deuteron mass ratio
     // Uncertainty: 9.6e-15
     fElectronDeuteronMassRatio : LREAL := 0.0002724437107462;
     fElectronDeuteronMassRatio_Uncertainty : LREAL := 9.6e-15;
-    
+
     // electron g factor
     // Uncertainty: 3.5e-13
     fElectronGFactor : LREAL := -2.00231930436256;
     fElectronGFactor_Uncertainty : LREAL := 3.5e-13;
-    
+
     // electron gyromag. ratio (s^-1 T^-1)
     // Uncertainty: 53.0
     fElectronGyromag_Ratio_in_s_1_T_1 : LREAL := 176085963023.0;
     fElectronGyromag_Ratio_in_s_1_T_1_Units : STRING := 's^-1 T^-1';
     fElectronGyromag_Ratio_in_s_1_T_1_Uncertainty : LREAL := 53.0;
-    
+
     // electron gyromag. ratio over 2 pi (MHz T^-1)
     // Uncertainty: 0.00017
     fElectronGyromag_RatioOver2Pi_in_MHz_T_1 : LREAL := 28024.95164;
     fElectronGyromag_RatioOver2Pi_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fElectronGyromag_RatioOver2Pi_in_MHz_T_1_Uncertainty : LREAL := 0.00017;
-    
+
     // electron mag. mom. (J T^-1)
     // Uncertainty: 2.8e-33
     fElectronMag_Mom_in_J_T_1 : LREAL := -9.2847647043e-24;
     fElectronMag_Mom_in_J_T_1_Units : STRING := 'J T^-1';
     fElectronMag_Mom_in_J_T_1_Uncertainty : LREAL := 2.8e-33;
-    
+
     // electron mag. mom. anomaly
     // Uncertainty: 1.8e-13
     fElectronMag_Mom_Anomaly : LREAL := 0.00115965218128;
     fElectronMag_Mom_Anomaly_Uncertainty : LREAL := 1.8e-13;
-    
+
     // electron mag. mom. to Bohr magneton ratio
     // Uncertainty: 1.8e-13
     fElectronMag_Mom_ToBohrMagnetonRatio : LREAL := -1.00115965218128;
     fElectronMag_Mom_ToBohrMagnetonRatio_Uncertainty : LREAL := 1.8e-13;
-    
+
     // electron mag. mom. to nuclear magneton ratio
     // Uncertainty: 1.1e-07
     fElectronMag_Mom_ToNuclearMagnetonRatio : LREAL := -1838.28197188;
     fElectronMag_Mom_ToNuclearMagnetonRatio_Uncertainty : LREAL := 1.1e-07;
-    
+
     // electron mass (kg)
     // Uncertainty: 2.8e-40
     fElectronMass_in_kg : LREAL := 9.1093837015e-31;
     fElectronMass_in_kg_Units : STRING := 'kg';
     fElectronMass_in_kg_Uncertainty : LREAL := 2.8e-40;
-    
+
     // electron mass energy equivalent (J)
     // Uncertainty: 2.5e-23
     fElectronMassEnergyEquivalent_in_J : LREAL := 8.1871057769e-14;
     fElectronMassEnergyEquivalent_in_J_Units : STRING := 'J';
     fElectronMassEnergyEquivalent_in_J_Uncertainty : LREAL := 2.5e-23;
-    
+
     // electron mass energy equivalent in MeV (MeV)
     // Uncertainty: 1.5e-10
     fElectronMassEnergyEquivalentInMeV_in_MeV : LREAL := 0.51099895;
     fElectronMassEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fElectronMassEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 1.5e-10;
-    
+
     // electron mass in u (u)
     // Uncertainty: 1.6e-14
     fElectronMassInU_in_u : LREAL := 0.000548579909065;
     fElectronMassInU_in_u_Units : STRING := 'u';
     fElectronMassInU_in_u_Uncertainty : LREAL := 1.6e-14;
-    
+
     // electron molar mass (kg mol^-1)
     // Uncertainty: 1.7e-16
     fElectronMolarMass_in_kg_mol_1 : LREAL := 5.4857990888e-07;
     fElectronMolarMass_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fElectronMolarMass_in_kg_mol_1_Uncertainty : LREAL := 1.7e-16;
-    
+
     // electron-muon mag. mom. ratio
     // Uncertainty: 4.6e-06
     fElectronMuonMag_Mom_Ratio : LREAL := 206.7669883;
     fElectronMuonMag_Mom_Ratio_Uncertainty : LREAL := 4.6e-06;
-    
+
     // electron-muon mass ratio
     // Uncertainty: 1.1e-10
     fElectronMuonMassRatio : LREAL := 0.00483633169;
     fElectronMuonMassRatio_Uncertainty : LREAL := 1.1e-10;
-    
+
     // electron-neutron mag. mom. ratio
     // Uncertainty: 0.00023
     fElectronNeutronMag_Mom_Ratio : LREAL := 960.9205;
     fElectronNeutronMag_Mom_Ratio_Uncertainty : LREAL := 0.00023;
-    
+
     // electron-neutron mass ratio
     // Uncertainty: 2.6e-13
     fElectronNeutronMassRatio : LREAL := 0.00054386734424;
     fElectronNeutronMassRatio_Uncertainty : LREAL := 2.6e-13;
-    
+
     // electron-proton mag. mom. ratio
     // Uncertainty: 2e-07
     fElectronProtonMag_Mom_Ratio : LREAL := -658.21068789;
     fElectronProtonMag_Mom_Ratio_Uncertainty : LREAL := 2e-07;
-    
+
     // electron-proton mass ratio
     // Uncertainty: 3.3e-14
     fElectronProtonMassRatio : LREAL := 0.000544617021487;
     fElectronProtonMassRatio_Uncertainty : LREAL := 3.3e-14;
-    
+
     // electron-tau mass ratio
     // Uncertainty: 1.9e-08
     fElectronTauMassRatio : LREAL := 0.000287585;
     fElectronTauMassRatio_Uncertainty : LREAL := 1.9e-08;
-    
+
     // electron to alpha particle mass ratio
     // Uncertainty: 4.5e-15
     fElectronToAlphaParticleMassRatio : LREAL := 0.0001370933554787;
     fElectronToAlphaParticleMassRatio_Uncertainty : LREAL := 4.5e-15;
-    
+
     // electron to shielded helion mag. mom. ratio
     // Uncertainty: 1e-05
     fElectronToShieldedHelionMag_Mom_Ratio : LREAL := 864.058257;
     fElectronToShieldedHelionMag_Mom_Ratio_Uncertainty : LREAL := 1e-05;
-    
+
     // electron to shielded proton mag. mom. ratio
     // Uncertainty: 7.2e-06
     fElectronToShieldedProtonMag_Mom_Ratio : LREAL := -658.2275971;
     fElectronToShieldedProtonMag_Mom_Ratio_Uncertainty : LREAL := 7.2e-06;
-    
+
     // electron volt (J)
     fElectronVolt_in_J : LREAL := 1.602176634e-19;
     fElectronVolt_in_J_Units : STRING := 'J';
-    
+
     // electron volt-atomic mass unit relationship (u)
     // Uncertainty: 3.2e-19
     fElectronVoltAtomicMassUnitRelationship_in_u : LREAL := 1.07354410233e-09;
     fElectronVoltAtomicMassUnitRelationship_in_u_Units : STRING := 'u';
     fElectronVoltAtomicMassUnitRelationship_in_u_Uncertainty : LREAL := 3.2e-19;
-    
+
     // electron volt-hartree relationship (E_h)
     // Uncertainty: 7.1e-14
     fElectronVoltHartreeRelationship_in_E_h : LREAL := 0.036749322175655;
     fElectronVoltHartreeRelationship_in_E_h_Units : STRING := 'E_h';
     fElectronVoltHartreeRelationship_in_E_h_Uncertainty : LREAL := 7.1e-14;
-    
+
     // electron volt-hertz relationship (Hz)
     fElectronVoltHertzRelationship_in_Hz : LREAL := 241798924200000.0;
     fElectronVoltHertzRelationship_in_Hz_Units : STRING := 'Hz';
-    
+
     // electron volt-inverse meter relationship (m^-1)
     fElectronVoltInverseMeterRelationship_in_m_1 : LREAL := 806554.3937;
     fElectronVoltInverseMeterRelationship_in_m_1_Units : STRING := 'm^-1';
-    
+
     // electron volt-joule relationship (J)
     fElectronVoltJouleRelationship_in_J : LREAL := 1.602176634e-19;
     fElectronVoltJouleRelationship_in_J_Units : STRING := 'J';
-    
+
     // electron volt-kelvin relationship (K)
     fElectronVoltKelvinRelationship_in_K : LREAL := 11604.51812;
     fElectronVoltKelvinRelationship_in_K_Units : STRING := 'K';
-    
+
     // electron volt-kilogram relationship (kg)
     fElectronVoltKilogramRelationship_in_kg : LREAL := 1.782661921e-36;
     fElectronVoltKilogramRelationship_in_kg_Units : STRING := 'kg';
-    
+
     // elementary charge (C)
     fElementaryCharge_in_C : LREAL := 1.602176634e-19;
     fElementaryCharge_in_C_Units : STRING := 'C';
-    
+
     // elementary charge over h (A J^-1)
     // Uncertainty: 1500000.0
     fElementaryChargeOverH_in_A_J_1 : LREAL := 241798926200000.0;
     fElementaryChargeOverH_in_A_J_1_Units : STRING := 'A J^-1';
     fElementaryChargeOverH_in_A_J_1_Uncertainty : LREAL := 1500000.0;
-    
+
     // Faraday constant (C mol^-1)
     fFaradayConstant_in_C_mol_1 : LREAL := 96485.33212;
     fFaradayConstant_in_C_mol_1_Units : STRING := 'C mol^-1';
-    
+
     // Faraday constant for conventional electric current (C_90 mol^-1)
     // Uncertainty: 0.0012
     fFaradayConstantForConventionalElectricCurrent_in_C_90_mol_1 : LREAL := 96485.3251;
     fFaradayConstantForConventionalElectricCurrent_in_C_90_mol_1_Units : STRING := 'C_90 mol^-1';
     fFaradayConstantForConventionalElectricCurrent_in_C_90_mol_1_Uncertainty : LREAL := 0.0012;
-    
+
     // Fermi coupling constant (GeV^-2)
     // Uncertainty: 6e-12
     fFermiCouplingConstant_in_GeV_2 : LREAL := 1.1663787e-05;
     fFermiCouplingConstant_in_GeV_2_Units : STRING := 'GeV^-2';
     fFermiCouplingConstant_in_GeV_2_Uncertainty : LREAL := 6e-12;
-    
+
     // fine-structure constant
     // Uncertainty: 1.1e-12
     fFineStructureConstant : LREAL := 0.0072973525693;
     fFineStructureConstant_Uncertainty : LREAL := 1.1e-12;
-    
+
     // first radiation constant (W m^2)
     fFirstRadiationConstant_in_W_m_2 : LREAL := 3.741771852e-16;
     fFirstRadiationConstant_in_W_m_2_Units : STRING := 'W m^2';
-    
+
     // first radiation constant for spectral radiance (W m^2 sr^-1)
     fFirstRadiationConstantForSpectralRadiance_in_W_m_2_sr_1 : LREAL := 1.191042972e-16;
     fFirstRadiationConstantForSpectralRadiance_in_W_m_2_sr_1_Units : STRING := 'W m^2 sr^-1';
-    
+
     // hartree-atomic mass unit relationship (u)
     // Uncertainty: 8.8e-18
     fHartreeAtomicMassUnitRelationship_in_u : LREAL := 2.92126232205e-08;
     fHartreeAtomicMassUnitRelationship_in_u_Units : STRING := 'u';
     fHartreeAtomicMassUnitRelationship_in_u_Uncertainty : LREAL := 8.8e-18;
-    
+
     // hartree-electron volt relationship (eV)
     // Uncertainty: 5.3e-11
     fHartreeElectronVoltRelationship_in_eV : LREAL := 27.211386245988;
     fHartreeElectronVoltRelationship_in_eV_Units : STRING := 'eV';
     fHartreeElectronVoltRelationship_in_eV_Uncertainty : LREAL := 5.3e-11;
-    
+
     // Hartree energy (J)
     // Uncertainty: 8.5e-30
     fHartreeEnergy_in_J : LREAL := 4.3597447222071e-18;
     fHartreeEnergy_in_J_Units : STRING := 'J';
     fHartreeEnergy_in_J_Uncertainty : LREAL := 8.5e-30;
-    
+
     // Hartree energy in eV (eV)
     // Uncertainty: 5.3e-11
     fHartreeEnergyInEV_in_eV : LREAL := 27.211386245988;
     fHartreeEnergyInEV_in_eV_Units : STRING := 'eV';
     fHartreeEnergyInEV_in_eV_Uncertainty : LREAL := 5.3e-11;
-    
+
     // hartree-hertz relationship (Hz)
     // Uncertainty: 13000.0
     fHartreeHertzRelationship_in_Hz : LREAL := 6579683920502000.0;
     fHartreeHertzRelationship_in_Hz_Units : STRING := 'Hz';
     fHartreeHertzRelationship_in_Hz_Uncertainty : LREAL := 13000.0;
-    
+
     // hartree-inverse meter relationship (m^-1)
     // Uncertainty: 4.3e-05
     fHartreeInverseMeterRelationship_in_m_1 : LREAL := 21947463.13632;
     fHartreeInverseMeterRelationship_in_m_1_Units : STRING := 'm^-1';
     fHartreeInverseMeterRelationship_in_m_1_Uncertainty : LREAL := 4.3e-05;
-    
+
     // hartree-joule relationship (J)
     // Uncertainty: 8.5e-30
     fHartreeJouleRelationship_in_J : LREAL := 4.3597447222071e-18;
     fHartreeJouleRelationship_in_J_Units : STRING := 'J';
     fHartreeJouleRelationship_in_J_Uncertainty : LREAL := 8.5e-30;
-    
+
     // hartree-kelvin relationship (K)
     // Uncertainty: 6.1e-07
     fHartreeKelvinRelationship_in_K : LREAL := 315775.02480407;
     fHartreeKelvinRelationship_in_K_Units : STRING := 'K';
     fHartreeKelvinRelationship_in_K_Uncertainty : LREAL := 6.1e-07;
-    
+
     // hartree-kilogram relationship (kg)
     // Uncertainty: 9.4e-47
     fHartreeKilogramRelationship_in_kg : LREAL := 4.8508702095432e-35;
     fHartreeKilogramRelationship_in_kg_Units : STRING := 'kg';
     fHartreeKilogramRelationship_in_kg_Uncertainty : LREAL := 9.4e-47;
-    
+
     // helion-electron mass ratio
     // Uncertainty: 2.4e-07
     fHelionElectronMassRatio : LREAL := 5495.88528007;
     fHelionElectronMassRatio_Uncertainty : LREAL := 2.4e-07;
-    
+
     // helion mass (kg)
     // Uncertainty: 1.5e-36
     fHelionMass_in_kg : LREAL := 5.0064127796e-27;
     fHelionMass_in_kg_Units : STRING := 'kg';
     fHelionMass_in_kg_Uncertainty : LREAL := 1.5e-36;
-    
+
     // helion mass energy equivalent (J)
     // Uncertainty: 1.4e-19
     fHelionMassEnergyEquivalent_in_J : LREAL := 4.4995394125e-10;
     fHelionMassEnergyEquivalent_in_J_Units : STRING := 'J';
     fHelionMassEnergyEquivalent_in_J_Uncertainty : LREAL := 1.4e-19;
-    
+
     // helion mass energy equivalent in MeV (MeV)
     // Uncertainty: 8.5e-07
     fHelionMassEnergyEquivalentInMeV_in_MeV : LREAL := 2808.39160743;
     fHelionMassEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fHelionMassEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 8.5e-07;
-    
+
     // helion mass in u (u)
     // Uncertainty: 9.7e-11
     fHelionMassInU_in_u : LREAL := 3.014932247175;
     fHelionMassInU_in_u_Units : STRING := 'u';
     fHelionMassInU_in_u_Uncertainty : LREAL := 9.7e-11;
-    
+
     // helion molar mass (kg mol^-1)
     // Uncertainty: 9.1e-13
     fHelionMolarMass_in_kg_mol_1 : LREAL := 0.00301493224613;
     fHelionMolarMass_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fHelionMolarMass_in_kg_mol_1_Uncertainty : LREAL := 9.1e-13;
-    
+
     // helion-proton mass ratio
     // Uncertainty: 1.3e-10
     fHelionProtonMassRatio : LREAL := 2.99315267167;
     fHelionProtonMassRatio_Uncertainty : LREAL := 1.3e-10;
-    
+
     // hertz-atomic mass unit relationship (u)
     // Uncertainty: 1.3e-33
     fHertzAtomicMassUnitRelationship_in_u : LREAL := 4.4398216652e-24;
     fHertzAtomicMassUnitRelationship_in_u_Units : STRING := 'u';
     fHertzAtomicMassUnitRelationship_in_u_Uncertainty : LREAL := 1.3e-33;
-    
+
     // hertz-electron volt relationship (eV)
     fHertzElectronVoltRelationship_in_eV : LREAL := 4.135667696e-15;
     fHertzElectronVoltRelationship_in_eV_Units : STRING := 'eV';
-    
+
     // hertz-hartree relationship (E_h)
     // Uncertainty: 2.9e-28
     fHertzHartreeRelationship_in_E_h : LREAL := 1.519829846057e-16;
     fHertzHartreeRelationship_in_E_h_Units : STRING := 'E_h';
     fHertzHartreeRelationship_in_E_h_Uncertainty : LREAL := 2.9e-28;
-    
+
     // hertz-inverse meter relationship (m^-1)
     fHertzInverseMeterRelationship_in_m_1 : LREAL := 3.3356409519815204e-09;
     fHertzInverseMeterRelationship_in_m_1_Units : STRING := 'm^-1';
-    
+
     // hertz-joule relationship (J)
     fHertzJouleRelationship_in_J : LREAL := 6.62607015e-34;
     fHertzJouleRelationship_in_J_Units : STRING := 'J';
-    
+
     // hertz-kelvin relationship (K)
     fHertzKelvinRelationship_in_K : LREAL := 4.799243073e-11;
     fHertzKelvinRelationship_in_K_Units : STRING := 'K';
-    
+
     // hertz-kilogram relationship (kg)
     fHertzKilogramRelationship_in_kg : LREAL := 7.372497323e-51;
     fHertzKilogramRelationship_in_kg_Units : STRING := 'kg';
-    
+
     // inverse fine-structure constant
     // Uncertainty: 2.1e-08
     fInverseFineStructureConstant : LREAL := 137.035999084;
     fInverseFineStructureConstant_Uncertainty : LREAL := 2.1e-08;
-    
+
     // inverse meter-atomic mass unit relationship (u)
     // Uncertainty: 4e-25
     fInverseMeterAtomicMassUnitRelationship_in_u : LREAL := 1.3310250501e-15;
     fInverseMeterAtomicMassUnitRelationship_in_u_Units : STRING := 'u';
     fInverseMeterAtomicMassUnitRelationship_in_u_Uncertainty : LREAL := 4e-25;
-    
+
     // inverse meter-electron volt relationship (eV)
     fInverseMeterElectronVoltRelationship_in_eV : LREAL := 1.239841984e-06;
     fInverseMeterElectronVoltRelationship_in_eV_Units : STRING := 'eV';
-    
+
     // inverse meter-hartree relationship (E_h)
     // Uncertainty: 8.8e-20
     fInverseMeterHartreeRelationship_in_E_h : LREAL := 4.556335252912e-08;
     fInverseMeterHartreeRelationship_in_E_h_Units : STRING := 'E_h';
     fInverseMeterHartreeRelationship_in_E_h_Uncertainty : LREAL := 8.8e-20;
-    
+
     // inverse meter-hertz relationship (Hz)
     fInverseMeterHertzRelationship_in_Hz : LREAL := 299792458.0;
     fInverseMeterHertzRelationship_in_Hz_Units : STRING := 'Hz';
-    
+
     // inverse meter-joule relationship (J)
     fInverseMeterJouleRelationship_in_J : LREAL := 1.986445857e-25;
     fInverseMeterJouleRelationship_in_J_Units : STRING := 'J';
-    
+
     // inverse meter-kelvin relationship (K)
     fInverseMeterKelvinRelationship_in_K : LREAL := 0.01438776877;
     fInverseMeterKelvinRelationship_in_K_Units : STRING := 'K';
-    
+
     // inverse meter-kilogram relationship (kg)
     fInverseMeterKilogramRelationship_in_kg : LREAL := 2.210219094e-42;
     fInverseMeterKilogramRelationship_in_kg_Units : STRING := 'kg';
-    
+
     // inverse of conductance quantum (ohm)
     fInverseOfConductanceQuantum_in_ohm : LREAL := 12906.40372;
     fInverseOfConductanceQuantum_in_ohm_Units : STRING := 'ohm';
-    
+
     // Josephson constant (Hz V^-1)
     fJosephsonConstant_in_Hz_V_1 : LREAL := 483597848400000.0;
     fJosephsonConstant_in_Hz_V_1_Units : STRING := 'Hz V^-1';
-    
+
     // joule-atomic mass unit relationship (u)
     // Uncertainty: 2.0
     fJouleAtomicMassUnitRelationship_in_u : LREAL := 6700535256.5;
     fJouleAtomicMassUnitRelationship_in_u_Units : STRING := 'u';
     fJouleAtomicMassUnitRelationship_in_u_Uncertainty : LREAL := 2.0;
-    
+
     // joule-electron volt relationship (eV)
     fJouleElectronVoltRelationship_in_eV : LREAL := 6.241509074e+18;
     fJouleElectronVoltRelationship_in_eV_Units : STRING := 'eV';
-    
+
     // joule-hartree relationship (E_h)
     // Uncertainty: 450000.0
     fJouleHartreeRelationship_in_E_h : LREAL := 2.2937122783963e+17;
     fJouleHartreeRelationship_in_E_h_Units : STRING := 'E_h';
     fJouleHartreeRelationship_in_E_h_Uncertainty : LREAL := 450000.0;
-    
+
     // joule-hertz relationship (Hz)
     fJouleHertzRelationship_in_Hz : LREAL := 1.509190179e+33;
     fJouleHertzRelationship_in_Hz_Units : STRING := 'Hz';
-    
+
     // joule-inverse meter relationship (m^-1)
     fJouleInverseMeterRelationship_in_m_1 : LREAL := 5.034116567e+24;
     fJouleInverseMeterRelationship_in_m_1_Units : STRING := 'm^-1';
-    
+
     // joule-kelvin relationship (K)
     fJouleKelvinRelationship_in_K : LREAL := 7.242970516e+22;
     fJouleKelvinRelationship_in_K_Units : STRING := 'K';
-    
+
     // joule-kilogram relationship (kg)
     fJouleKilogramRelationship_in_kg : LREAL := 1.1126500560536185e-17;
     fJouleKilogramRelationship_in_kg_Units : STRING := 'kg';
-    
+
     // kelvin-atomic mass unit relationship (u)
     // Uncertainty: 2.8e-23
     fKelvinAtomicMassUnitRelationship_in_u : LREAL := 9.2510873014e-14;
     fKelvinAtomicMassUnitRelationship_in_u_Units : STRING := 'u';
     fKelvinAtomicMassUnitRelationship_in_u_Uncertainty : LREAL := 2.8e-23;
-    
+
     // kelvin-electron volt relationship (eV)
     fKelvinElectronVoltRelationship_in_eV : LREAL := 8.617333262e-05;
     fKelvinElectronVoltRelationship_in_eV_Units : STRING := 'eV';
-    
+
     // kelvin-hartree relationship (E_h)
     // Uncertainty: 6.1e-18
     fKelvinHartreeRelationship_in_E_h : LREAL := 3.1668115634556e-06;
     fKelvinHartreeRelationship_in_E_h_Units : STRING := 'E_h';
     fKelvinHartreeRelationship_in_E_h_Uncertainty : LREAL := 6.1e-18;
-    
+
     // kelvin-hertz relationship (Hz)
     fKelvinHertzRelationship_in_Hz : LREAL := 20836619120.0;
     fKelvinHertzRelationship_in_Hz_Units : STRING := 'Hz';
-    
+
     // kelvin-inverse meter relationship (m^-1)
     fKelvinInverseMeterRelationship_in_m_1 : LREAL := 69.50348004;
     fKelvinInverseMeterRelationship_in_m_1_Units : STRING := 'm^-1';
-    
+
     // kelvin-joule relationship (J)
     fKelvinJouleRelationship_in_J : LREAL := 1.380649e-23;
     fKelvinJouleRelationship_in_J_Units : STRING := 'J';
-    
+
     // kelvin-kilogram relationship (kg)
     fKelvinKilogramRelationship_in_kg : LREAL := 1.536179187e-40;
     fKelvinKilogramRelationship_in_kg_Units : STRING := 'kg';
-    
+
     // kilogram-atomic mass unit relationship (u)
     // Uncertainty: 1.8e+17
     fKilogramAtomicMassUnitRelationship_in_u : LREAL := 6.0221407621e+26;
     fKilogramAtomicMassUnitRelationship_in_u_Units : STRING := 'u';
     fKilogramAtomicMassUnitRelationship_in_u_Uncertainty : LREAL := 1.8e+17;
-    
+
     // kilogram-electron volt relationship (eV)
     fKilogramElectronVoltRelationship_in_eV : LREAL := 5.609588603e+35;
     fKilogramElectronVoltRelationship_in_eV_Units : STRING := 'eV';
-    
+
     // kilogram-hartree relationship (E_h)
     // Uncertainty: 4e+22
     fKilogramHartreeRelationship_in_E_h : LREAL := 2.0614857887409e+34;
     fKilogramHartreeRelationship_in_E_h_Units : STRING := 'E_h';
     fKilogramHartreeRelationship_in_E_h_Uncertainty : LREAL := 4e+22;
-    
+
     // kilogram-hertz relationship (Hz)
     fKilogramHertzRelationship_in_Hz : LREAL := 1.356392489e+50;
     fKilogramHertzRelationship_in_Hz_Units : STRING := 'Hz';
-    
+
     // kilogram-inverse meter relationship (m^-1)
     fKilogramInverseMeterRelationship_in_m_1 : LREAL := 4.524438335e+41;
     fKilogramInverseMeterRelationship_in_m_1_Units : STRING := 'm^-1';
-    
+
     // kilogram-joule relationship (J)
     fKilogramJouleRelationship_in_J : LREAL := 8.987551787368176e+16;
     fKilogramJouleRelationship_in_J_Units : STRING := 'J';
-    
+
     // kilogram-kelvin relationship (K)
     fKilogramKelvinRelationship_in_K : LREAL := 6.50965726e+39;
     fKilogramKelvinRelationship_in_K_Units : STRING := 'K';
-    
+
     // lattice parameter of silicon (m)
     // Uncertainty: 8.9e-18
     fLatticeParameterOfSilicon_in_m : LREAL := 5.431020511e-10;
     fLatticeParameterOfSilicon_in_m_Units : STRING := 'm';
     fLatticeParameterOfSilicon_in_m_Uncertainty : LREAL := 8.9e-18;
-    
+
     // Loschmidt constant (273.15 K, 101.325 kPa) (m^-3)
     fLoschmidtConstant_273_15K_101_325KPa_in_m_3 : LREAL := 2.686780111e+25;
     fLoschmidtConstant_273_15K_101_325KPa_in_m_3_Units : STRING := 'm^-3';
-    
+
     // mag. constant (N A^-2)
     // Uncertainty: 1.9e-16
     fMag_Constant_in_N_A_2 : LREAL := 1.25663706212e-06;
     fMag_Constant_in_N_A_2_Units : STRING := 'N A^-2';
     fMag_Constant_in_N_A_2_Uncertainty : LREAL := 1.9e-16;
-    
+
     // mag. flux quantum (Wb)
     fMag_FluxQuantum_in_Wb : LREAL := 2.067833848e-15;
     fMag_FluxQuantum_in_Wb_Units : STRING := 'Wb';
-    
+
     // molar gas constant (J mol^-1 K^-1)
     fMolarGasConstant_in_J_mol_1_K_1 : LREAL := 8.314462618;
     fMolarGasConstant_in_J_mol_1_K_1_Units : STRING := 'J mol^-1 K^-1';
-    
+
     // molar mass constant (kg mol^-1)
     // Uncertainty: 3e-13
     fMolarMassConstant_in_kg_mol_1 : LREAL := 0.00099999999965;
     fMolarMassConstant_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fMolarMassConstant_in_kg_mol_1_Uncertainty : LREAL := 3e-13;
-    
+
     // molar mass of carbon-12 (kg mol^-1)
     // Uncertainty: 3.6e-12
     fMolarMassOfCarbon_12_in_kg_mol_1 : LREAL := 0.0119999999958;
     fMolarMassOfCarbon_12_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fMolarMassOfCarbon_12_in_kg_mol_1_Uncertainty : LREAL := 3.6e-12;
-    
+
     // molar Planck constant (J Hz^-1 mol^-1)
     fMolarPlanckConstant_in_J_Hz_1_mol_1 : LREAL := 3.990312712e-10;
     fMolarPlanckConstant_in_J_Hz_1_mol_1_Units : STRING := 'J Hz^-1 mol^-1';
-    
+
     // molar Planck constant times c (J m mol^-1)
     // Uncertainty: 5.4e-11
     fMolarPlanckConstantTimesC_in_J_m_mol_1 : LREAL := 0.119626565582;
     fMolarPlanckConstantTimesC_in_J_m_mol_1_Units : STRING := 'J m mol^-1';
     fMolarPlanckConstantTimesC_in_J_m_mol_1_Uncertainty : LREAL := 5.4e-11;
-    
+
     // molar volume of ideal gas (273.15 K, 100 kPa) (m^3 mol^-1)
     fMolarVolumeOfIdealGas_273_15K_100KPa_in_m_3_mol_1 : LREAL := 0.02271095464;
     fMolarVolumeOfIdealGas_273_15K_100KPa_in_m_3_mol_1_Units : STRING := 'm^3 mol^-1';
-    
+
     // molar volume of ideal gas (273.15 K, 101.325 kPa) (m^3 mol^-1)
     fMolarVolumeOfIdealGas_273_15K_101_325KPa_in_m_3_mol_1 : LREAL := 0.02241396954;
     fMolarVolumeOfIdealGas_273_15K_101_325KPa_in_m_3_mol_1_Units : STRING := 'm^3 mol^-1';
-    
+
     // molar volume of silicon (m^3 mol^-1)
     // Uncertainty: 6e-13
     fMolarVolumeOfSilicon_in_m_3_mol_1 : LREAL := 1.205883199e-05;
     fMolarVolumeOfSilicon_in_m_3_mol_1_Units : STRING := 'm^3 mol^-1';
     fMolarVolumeOfSilicon_in_m_3_mol_1_Uncertainty : LREAL := 6e-13;
-    
+
     // Mo x unit (m)
     // Uncertainty: 5.3e-20
     fMoXUnit_in_m : LREAL := 1.00209952e-13;
     fMoXUnit_in_m_Units : STRING := 'm';
     fMoXUnit_in_m_Uncertainty : LREAL := 5.3e-20;
-    
+
     // muon Compton wavelength (m)
     // Uncertainty: 2.6e-22
     fMuonComptonWavelength_in_m : LREAL := 1.17344411e-14;
     fMuonComptonWavelength_in_m_Units : STRING := 'm';
     fMuonComptonWavelength_in_m_Uncertainty : LREAL := 2.6e-22;
-    
+
     // muon Compton wavelength over 2 pi (m)
     // Uncertainty: 4.2e-23
     fMuonComptonWavelengthOver2Pi_in_m : LREAL := 1.867594308e-15;
     fMuonComptonWavelengthOver2Pi_in_m_Units : STRING := 'm';
     fMuonComptonWavelengthOver2Pi_in_m_Uncertainty : LREAL := 4.2e-23;
-    
+
     // muon-electron mass ratio
     // Uncertainty: 4.6e-06
     fMuonElectronMassRatio : LREAL := 206.768283;
     fMuonElectronMassRatio_Uncertainty : LREAL := 4.6e-06;
-    
+
     // muon g factor
     // Uncertainty: 1.3e-09
     fMuonGFactor : LREAL := -2.0023318418;
     fMuonGFactor_Uncertainty : LREAL := 1.3e-09;
-    
+
     // muon mag. mom. (J T^-1)
     // Uncertainty: 1e-33
     fMuonMag_Mom_in_J_T_1 : LREAL := -4.4904483e-26;
     fMuonMag_Mom_in_J_T_1_Units : STRING := 'J T^-1';
     fMuonMag_Mom_in_J_T_1_Uncertainty : LREAL := 1e-33;
-    
+
     // muon mag. mom. anomaly
     // Uncertainty: 6.3e-10
     fMuonMag_Mom_Anomaly : LREAL := 0.00116592089;
     fMuonMag_Mom_Anomaly_Uncertainty : LREAL := 6.3e-10;
-    
+
     // muon mag. mom. to Bohr magneton ratio
     // Uncertainty: 1.1e-10
     fMuonMag_Mom_ToBohrMagnetonRatio : LREAL := -0.00484197047;
     fMuonMag_Mom_ToBohrMagnetonRatio_Uncertainty : LREAL := 1.1e-10;
-    
+
     // muon mag. mom. to nuclear magneton ratio
     // Uncertainty: 2e-07
     fMuonMag_Mom_ToNuclearMagnetonRatio : LREAL := -8.89059703;
     fMuonMag_Mom_ToNuclearMagnetonRatio_Uncertainty : LREAL := 2e-07;
-    
+
     // muon mass (kg)
     // Uncertainty: 4.2e-36
     fMuonMass_in_kg : LREAL := 1.883531627e-28;
     fMuonMass_in_kg_Units : STRING := 'kg';
     fMuonMass_in_kg_Uncertainty : LREAL := 4.2e-36;
-    
+
     // muon mass energy equivalent (J)
     // Uncertainty: 3.8e-19
     fMuonMassEnergyEquivalent_in_J : LREAL := 1.692833804e-11;
     fMuonMassEnergyEquivalent_in_J_Units : STRING := 'J';
     fMuonMassEnergyEquivalent_in_J_Uncertainty : LREAL := 3.8e-19;
-    
+
     // muon mass energy equivalent in MeV (MeV)
     // Uncertainty: 2.3e-06
     fMuonMassEnergyEquivalentInMeV_in_MeV : LREAL := 105.6583755;
     fMuonMassEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fMuonMassEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 2.3e-06;
-    
+
     // muon mass in u (u)
     // Uncertainty: 2.5e-09
     fMuonMassInU_in_u : LREAL := 0.1134289259;
     fMuonMassInU_in_u_Units : STRING := 'u';
     fMuonMassInU_in_u_Uncertainty : LREAL := 2.5e-09;
-    
+
     // muon molar mass (kg mol^-1)
     // Uncertainty: 2.5e-12
     fMuonMolarMass_in_kg_mol_1 : LREAL := 0.0001134289259;
     fMuonMolarMass_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fMuonMolarMass_in_kg_mol_1_Uncertainty : LREAL := 2.5e-12;
-    
+
     // muon-neutron mass ratio
     // Uncertainty: 2.5e-09
     fMuonNeutronMassRatio : LREAL := 0.112454517;
     fMuonNeutronMassRatio_Uncertainty : LREAL := 2.5e-09;
-    
+
     // muon-proton mag. mom. ratio
     // Uncertainty: 7.1e-08
     fMuonProtonMag_Mom_Ratio : LREAL := -3.183345142;
     fMuonProtonMag_Mom_Ratio_Uncertainty : LREAL := 7.1e-08;
-    
+
     // muon-proton mass ratio
     // Uncertainty: 2.5e-09
     fMuonProtonMassRatio : LREAL := 0.1126095264;
     fMuonProtonMassRatio_Uncertainty : LREAL := 2.5e-09;
-    
+
     // muon-tau mass ratio
     // Uncertainty: 4e-06
     fMuonTauMassRatio : LREAL := 0.0594635;
     fMuonTauMassRatio_Uncertainty : LREAL := 4e-06;
-    
+
     // natural unit of action (J s)
     fNaturalUnitOfAction_in_J_s : LREAL := 1.054571817e-34;
     fNaturalUnitOfAction_in_J_s_Units : STRING := 'J s';
-    
+
     // natural unit of action in eV s (eV s)
     fNaturalUnitOfActionInEVS_in_eV_s : LREAL := 6.582119569e-16;
     fNaturalUnitOfActionInEVS_in_eV_s_Units : STRING := 'eV s';
-    
+
     // natural unit of energy (J)
     // Uncertainty: 2.5e-23
     fNaturalUnitOfEnergy_in_J : LREAL := 8.1871057769e-14;
     fNaturalUnitOfEnergy_in_J_Units : STRING := 'J';
     fNaturalUnitOfEnergy_in_J_Uncertainty : LREAL := 2.5e-23;
-    
+
     // natural unit of energy in MeV (MeV)
     // Uncertainty: 1.5e-10
     fNaturalUnitOfEnergyInMeV_in_MeV : LREAL := 0.51099895;
     fNaturalUnitOfEnergyInMeV_in_MeV_Units : STRING := 'MeV';
     fNaturalUnitOfEnergyInMeV_in_MeV_Uncertainty : LREAL := 1.5e-10;
-    
+
     // natural unit of length (m)
     // Uncertainty: 1.2e-22
     fNaturalUnitOfLength_in_m : LREAL := 3.8615926796e-13;
     fNaturalUnitOfLength_in_m_Units : STRING := 'm';
     fNaturalUnitOfLength_in_m_Uncertainty : LREAL := 1.2e-22;
-    
+
     // natural unit of mass (kg)
     // Uncertainty: 2.8e-40
     fNaturalUnitOfMass_in_kg : LREAL := 9.1093837015e-31;
     fNaturalUnitOfMass_in_kg_Units : STRING := 'kg';
     fNaturalUnitOfMass_in_kg_Uncertainty : LREAL := 2.8e-40;
-    
+
     // natural unit of momentum (kg m s^-1)
     // Uncertainty: 3.4e-30
     fNaturalUnitOfMomentum_in_kg_m_s_1 : LREAL := 2.730924488e-22;
     fNaturalUnitOfMomentum_in_kg_m_s_1_Units : STRING := 'kg m s^-1';
     fNaturalUnitOfMomentum_in_kg_m_s_1_Uncertainty : LREAL := 3.4e-30;
-    
+
     // natural unit of momentum in MeV/c (MeV/c)
     // Uncertainty: 3.1e-09
     fNaturalUnitOfMomentumInMeV_c_in_MeV_c : LREAL := 0.5109989461;
     fNaturalUnitOfMomentumInMeV_c_in_MeV_c_Units : STRING := 'MeV/c';
     fNaturalUnitOfMomentumInMeV_c_in_MeV_c_Uncertainty : LREAL := 3.1e-09;
-    
+
     // natural unit of time (s)
     // Uncertainty: 3.9e-31
     fNaturalUnitOfTime_in_s : LREAL := 1.28808866819e-21;
     fNaturalUnitOfTime_in_s_Units : STRING := 's';
     fNaturalUnitOfTime_in_s_Uncertainty : LREAL := 3.9e-31;
-    
+
     // natural unit of velocity (m s^-1)
     fNaturalUnitOfVelocity_in_m_s_1 : LREAL := 299792458.0;
     fNaturalUnitOfVelocity_in_m_s_1_Units : STRING := 'm s^-1';
-    
+
     // neutron Compton wavelength (m)
     // Uncertainty: 7.5e-25
     fNeutronComptonWavelength_in_m : LREAL := 1.31959090581e-15;
     fNeutronComptonWavelength_in_m_Units : STRING := 'm';
     fNeutronComptonWavelength_in_m_Uncertainty : LREAL := 7.5e-25;
-    
+
     // neutron Compton wavelength over 2 pi (m)
     // Uncertainty: 1.4e-25
     fNeutronComptonWavelengthOver2Pi_in_m : LREAL := 2.1001941536e-16;
     fNeutronComptonWavelengthOver2Pi_in_m_Units : STRING := 'm';
     fNeutronComptonWavelengthOver2Pi_in_m_Uncertainty : LREAL := 1.4e-25;
-    
+
     // neutron-electron mag. mom. ratio
     // Uncertainty: 2.5e-10
     fNeutronElectronMag_Mom_Ratio : LREAL := 0.00104066882;
     fNeutronElectronMag_Mom_Ratio_Uncertainty : LREAL := 2.5e-10;
-    
+
     // neutron-electron mass ratio
     // Uncertainty: 8.9e-07
     fNeutronElectronMassRatio : LREAL := 1838.68366173;
     fNeutronElectronMassRatio_Uncertainty : LREAL := 8.9e-07;
-    
+
     // neutron g factor
     // Uncertainty: 9e-07
     fNeutronGFactor : LREAL := -3.82608545;
     fNeutronGFactor_Uncertainty : LREAL := 9e-07;
-    
+
     // neutron gyromag. ratio (s^-1 T^-1)
     // Uncertainty: 43.0
     fNeutronGyromag_Ratio_in_s_1_T_1 : LREAL := 183247171.0;
     fNeutronGyromag_Ratio_in_s_1_T_1_Units : STRING := 's^-1 T^-1';
     fNeutronGyromag_Ratio_in_s_1_T_1_Uncertainty : LREAL := 43.0;
-    
+
     // neutron gyromag. ratio over 2 pi (MHz T^-1)
     // Uncertainty: 6.9e-06
     fNeutronGyromag_RatioOver2Pi_in_MHz_T_1 : LREAL := 29.1646933;
     fNeutronGyromag_RatioOver2Pi_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fNeutronGyromag_RatioOver2Pi_in_MHz_T_1_Uncertainty : LREAL := 6.9e-06;
-    
+
     // neutron mag. mom. (J T^-1)
     // Uncertainty: 2.3e-33
     fNeutronMag_Mom_in_J_T_1 : LREAL := -9.6623651e-27;
     fNeutronMag_Mom_in_J_T_1_Units : STRING := 'J T^-1';
     fNeutronMag_Mom_in_J_T_1_Uncertainty : LREAL := 2.3e-33;
-    
+
     // neutron mag. mom. to Bohr magneton ratio
     // Uncertainty: 2.5e-10
     fNeutronMag_Mom_ToBohrMagnetonRatio : LREAL := -0.00104187563;
     fNeutronMag_Mom_ToBohrMagnetonRatio_Uncertainty : LREAL := 2.5e-10;
-    
+
     // neutron mag. mom. to nuclear magneton ratio
     // Uncertainty: 4.5e-07
     fNeutronMag_Mom_ToNuclearMagnetonRatio : LREAL := -1.91304273;
     fNeutronMag_Mom_ToNuclearMagnetonRatio_Uncertainty : LREAL := 4.5e-07;
-    
+
     // neutron mass (kg)
     // Uncertainty: 9.5e-37
     fNeutronMass_in_kg : LREAL := 1.67492749804e-27;
     fNeutronMass_in_kg_Units : STRING := 'kg';
     fNeutronMass_in_kg_Uncertainty : LREAL := 9.5e-37;
-    
+
     // neutron mass energy equivalent (J)
     // Uncertainty: 8.6e-20
     fNeutronMassEnergyEquivalent_in_J : LREAL := 1.50534976287e-10;
     fNeutronMassEnergyEquivalent_in_J_Units : STRING := 'J';
     fNeutronMassEnergyEquivalent_in_J_Uncertainty : LREAL := 8.6e-20;
-    
+
     // neutron mass energy equivalent in MeV (MeV)
     // Uncertainty: 5.4e-07
     fNeutronMassEnergyEquivalentInMeV_in_MeV : LREAL := 939.56542052;
     fNeutronMassEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fNeutronMassEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 5.4e-07;
-    
+
     // neutron mass in u (u)
     // Uncertainty: 4.9e-10
     fNeutronMassInU_in_u : LREAL := 1.00866491595;
     fNeutronMassInU_in_u_Units : STRING := 'u';
     fNeutronMassInU_in_u_Uncertainty : LREAL := 4.9e-10;
-    
+
     // neutron molar mass (kg mol^-1)
     // Uncertainty: 5.7e-13
     fNeutronMolarMass_in_kg_mol_1 : LREAL := 0.0010086649156;
     fNeutronMolarMass_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fNeutronMolarMass_in_kg_mol_1_Uncertainty : LREAL := 5.7e-13;
-    
+
     // neutron-muon mass ratio
     // Uncertainty: 2e-07
     fNeutronMuonMassRatio : LREAL := 8.89248406;
     fNeutronMuonMassRatio_Uncertainty : LREAL := 2e-07;
-    
+
     // neutron-proton mag. mom. ratio
     // Uncertainty: 1.6e-07
     fNeutronProtonMag_Mom_Ratio : LREAL := -0.68497934;
     fNeutronProtonMag_Mom_Ratio_Uncertainty : LREAL := 1.6e-07;
-    
+
     // neutron-proton mass ratio
     // Uncertainty: 4.9e-10
     fNeutronProtonMassRatio : LREAL := 1.00137841931;
     fNeutronProtonMassRatio_Uncertainty : LREAL := 4.9e-10;
-    
+
     // neutron-tau mass ratio
     // Uncertainty: 3.6e-05
     fNeutronTauMassRatio : LREAL := 0.528779;
     fNeutronTauMassRatio_Uncertainty : LREAL := 3.6e-05;
-    
+
     // neutron to shielded proton mag. mom. ratio
     // Uncertainty: 1.6e-07
     fNeutronToShieldedProtonMag_Mom_Ratio : LREAL := -0.68499694;
     fNeutronToShieldedProtonMag_Mom_Ratio_Uncertainty : LREAL := 1.6e-07;
-    
+
     // Newtonian constant of gravitation (m^3 kg^-1 s^-2)
     // Uncertainty: 1.5e-15
     fNewtonianConstantOfGravitation_in_m_3_kg_1_s_2 : LREAL := 6.6743e-11;
     fNewtonianConstantOfGravitation_in_m_3_kg_1_s_2_Units : STRING := 'm^3 kg^-1 s^-2';
     fNewtonianConstantOfGravitation_in_m_3_kg_1_s_2_Uncertainty : LREAL := 1.5e-15;
-    
+
     // Newtonian constant of gravitation over h-bar c ((GeV/c^2)^-2)
     // Uncertainty: 1.5e-43
     fNewtonianConstantOfGravitationOverH_barC_in_GeV_c_2_2 : LREAL := 6.70883e-39;
     fNewtonianConstantOfGravitationOverH_barC_in_GeV_c_2_2_Units : STRING := '(GeV/c^2)^-2';
     fNewtonianConstantOfGravitationOverH_barC_in_GeV_c_2_2_Uncertainty : LREAL := 1.5e-43;
-    
+
     // nuclear magneton (J T^-1)
     // Uncertainty: 1.5e-36
     fNuclearMagneton_in_J_T_1 : LREAL := 5.0507837461e-27;
     fNuclearMagneton_in_J_T_1_Units : STRING := 'J T^-1';
     fNuclearMagneton_in_J_T_1_Uncertainty : LREAL := 1.5e-36;
-    
+
     // nuclear magneton in eV/T (eV T^-1)
     // Uncertainty: 9.6e-18
     fNuclearMagnetonInEV_T_in_eV_T_1 : LREAL := 3.15245125844e-08;
     fNuclearMagnetonInEV_T_in_eV_T_1_Units : STRING := 'eV T^-1';
     fNuclearMagnetonInEV_T_in_eV_T_1_Uncertainty : LREAL := 9.6e-18;
-    
+
     // nuclear magneton in inverse meters per tesla (m^-1 T^-1)
     // Uncertainty: 1.6e-10
     fNuclearMagnetonInInverseMetersPerTesla_in_m_1_T_1 : LREAL := 0.02542623432;
     fNuclearMagnetonInInverseMetersPerTesla_in_m_1_T_1_Units : STRING := 'm^-1 T^-1';
     fNuclearMagnetonInInverseMetersPerTesla_in_m_1_T_1_Uncertainty : LREAL := 1.6e-10;
-    
+
     // nuclear magneton in K/T (K T^-1)
     // Uncertainty: 1.1e-13
     fNuclearMagnetonInK_T_in_K_T_1 : LREAL := 0.00036582677756;
     fNuclearMagnetonInK_T_in_K_T_1_Units : STRING := 'K T^-1';
     fNuclearMagnetonInK_T_in_K_T_1_Uncertainty : LREAL := 1.1e-13;
-    
+
     // nuclear magneton in MHz/T (MHz T^-1)
     // Uncertainty: 2.3e-09
     fNuclearMagnetonInMHz_T_in_MHz_T_1 : LREAL := 7.6225932291;
     fNuclearMagnetonInMHz_T_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fNuclearMagnetonInMHz_T_in_MHz_T_1_Uncertainty : LREAL := 2.3e-09;
-    
+
     // Planck constant (J Hz^-1)
     fPlanckConstant_in_J_Hz_1 : LREAL := 6.62607015e-34;
     fPlanckConstant_in_J_Hz_1_Units : STRING := 'J Hz^-1';
-    
+
     // Planck constant in eV s (eV s)
     // Uncertainty: 2.5e-23
     fPlanckConstantInEVS_in_eV_s : LREAL := 4.135667662e-15;
     fPlanckConstantInEVS_in_eV_s_Units : STRING := 'eV s';
     fPlanckConstantInEVS_in_eV_s_Uncertainty : LREAL := 2.5e-23;
-    
+
     // Planck constant over 2 pi (J s)
     // Uncertainty: 1.3e-42
     fPlanckConstantOver2Pi_in_J_s : LREAL := 1.0545718e-34;
     fPlanckConstantOver2Pi_in_J_s_Units : STRING := 'J s';
     fPlanckConstantOver2Pi_in_J_s_Uncertainty : LREAL := 1.3e-42;
-    
+
     // Planck constant over 2 pi in eV s (eV s)
     // Uncertainty: 4e-24
     fPlanckConstantOver2PiInEVS_in_eV_s : LREAL := 6.582119514e-16;
     fPlanckConstantOver2PiInEVS_in_eV_s_Units : STRING := 'eV s';
     fPlanckConstantOver2PiInEVS_in_eV_s_Uncertainty : LREAL := 4e-24;
-    
+
     // Planck constant over 2 pi times c in MeV fm (MeV fm)
     // Uncertainty: 1.2e-06
     fPlanckConstantOver2PiTimesCInMeVFm_in_MeV_fm : LREAL := 197.3269788;
     fPlanckConstantOver2PiTimesCInMeVFm_in_MeV_fm_Units : STRING := 'MeV fm';
     fPlanckConstantOver2PiTimesCInMeVFm_in_MeV_fm_Uncertainty : LREAL := 1.2e-06;
-    
+
     // Planck length (m)
     // Uncertainty: 1.8e-40
     fPlanckLength_in_m : LREAL := 1.616255e-35;
     fPlanckLength_in_m_Units : STRING := 'm';
     fPlanckLength_in_m_Uncertainty : LREAL := 1.8e-40;
-    
+
     // Planck mass (kg)
     // Uncertainty: 2.4e-13
     fPlanckMass_in_kg : LREAL := 2.176434e-08;
     fPlanckMass_in_kg_Units : STRING := 'kg';
     fPlanckMass_in_kg_Uncertainty : LREAL := 2.4e-13;
-    
+
     // Planck mass energy equivalent in GeV (GeV)
     // Uncertainty: 140000000000000.0
     fPlanckMassEnergyEquivalentInGeV_in_GeV : LREAL := 1.22089e+19;
     fPlanckMassEnergyEquivalentInGeV_in_GeV_Units : STRING := 'GeV';
     fPlanckMassEnergyEquivalentInGeV_in_GeV_Uncertainty : LREAL := 140000000000000.0;
-    
+
     // Planck temperature (K)
     // Uncertainty: 1.6e+27
     fPlanckTemperature_in_K : LREAL := 1.416784e+32;
     fPlanckTemperature_in_K_Units : STRING := 'K';
     fPlanckTemperature_in_K_Uncertainty : LREAL := 1.6e+27;
-    
+
     // Planck time (s)
     // Uncertainty: 6e-49
     fPlanckTime_in_s : LREAL := 5.391247e-44;
     fPlanckTime_in_s_Units : STRING := 's';
     fPlanckTime_in_s_Uncertainty : LREAL := 6e-49;
-    
+
     // proton charge to mass quotient (C kg^-1)
     // Uncertainty: 0.029
     fProtonChargeToMassQuotient_in_C_kg_1 : LREAL := 95788331.56;
     fProtonChargeToMassQuotient_in_C_kg_1_Units : STRING := 'C kg^-1';
     fProtonChargeToMassQuotient_in_C_kg_1_Uncertainty : LREAL := 0.029;
-    
+
     // proton Compton wavelength (m)
     // Uncertainty: 4e-25
     fProtonComptonWavelength_in_m : LREAL := 1.32140985539e-15;
     fProtonComptonWavelength_in_m_Units : STRING := 'm';
     fProtonComptonWavelength_in_m_Uncertainty : LREAL := 4e-25;
-    
+
     // proton Compton wavelength over 2 pi (m)
     // Uncertainty: 9.7e-26
     fProtonComptonWavelengthOver2Pi_in_m : LREAL := 2.10308910109e-16;
     fProtonComptonWavelengthOver2Pi_in_m_Units : STRING := 'm';
     fProtonComptonWavelengthOver2Pi_in_m_Uncertainty : LREAL := 9.7e-26;
-    
+
     // proton-electron mass ratio
     // Uncertainty: 1.1e-07
     fProtonElectronMassRatio : LREAL := 1836.15267343;
     fProtonElectronMassRatio_Uncertainty : LREAL := 1.1e-07;
-    
+
     // proton g factor
     // Uncertainty: 1.6e-09
     fProtonGFactor : LREAL := 5.5856946893;
     fProtonGFactor_Uncertainty : LREAL := 1.6e-09;
-    
+
     // proton gyromag. ratio (s^-1 T^-1)
     // Uncertainty: 0.11
     fProtonGyromag_Ratio_in_s_1_T_1 : LREAL := 267522187.44;
     fProtonGyromag_Ratio_in_s_1_T_1_Units : STRING := 's^-1 T^-1';
     fProtonGyromag_Ratio_in_s_1_T_1_Uncertainty : LREAL := 0.11;
-    
+
     // proton gyromag. ratio over 2 pi (MHz T^-1)
     // Uncertainty: 2.9e-07
     fProtonGyromag_RatioOver2Pi_in_MHz_T_1 : LREAL := 42.57747892;
     fProtonGyromag_RatioOver2Pi_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fProtonGyromag_RatioOver2Pi_in_MHz_T_1_Uncertainty : LREAL := 2.9e-07;
-    
+
     // proton mag. mom. (J T^-1)
     // Uncertainty: 6e-36
     fProtonMag_Mom_in_J_T_1 : LREAL := 1.41060679736e-26;
     fProtonMag_Mom_in_J_T_1_Units : STRING := 'J T^-1';
     fProtonMag_Mom_in_J_T_1_Uncertainty : LREAL := 6e-36;
-    
+
     // proton mag. mom. to Bohr magneton ratio
     // Uncertainty: 4.6e-13
     fProtonMag_Mom_ToBohrMagnetonRatio : LREAL := 0.0015210322023;
     fProtonMag_Mom_ToBohrMagnetonRatio_Uncertainty : LREAL := 4.6e-13;
-    
+
     // proton mag. mom. to nuclear magneton ratio
     // Uncertainty: 8.2e-10
     fProtonMag_Mom_ToNuclearMagnetonRatio : LREAL := 2.79284734463;
     fProtonMag_Mom_ToNuclearMagnetonRatio_Uncertainty : LREAL := 8.2e-10;
-    
+
     // proton mag. shielding correction
     // Uncertainty: 1.1e-08
     fProtonMag_ShieldingCorrection : LREAL := 2.5689e-05;
     fProtonMag_ShieldingCorrection_Uncertainty : LREAL := 1.1e-08;
-    
+
     // proton mass (kg)
     // Uncertainty: 5.1e-37
     fProtonMass_in_kg : LREAL := 1.67262192369e-27;
     fProtonMass_in_kg_Units : STRING := 'kg';
     fProtonMass_in_kg_Uncertainty : LREAL := 5.1e-37;
-    
+
     // proton mass energy equivalent (J)
     // Uncertainty: 4.6e-20
     fProtonMassEnergyEquivalent_in_J : LREAL := 1.50327761598e-10;
     fProtonMassEnergyEquivalent_in_J_Units : STRING := 'J';
     fProtonMassEnergyEquivalent_in_J_Uncertainty : LREAL := 4.6e-20;
-    
+
     // proton mass energy equivalent in MeV (MeV)
     // Uncertainty: 2.9e-07
     fProtonMassEnergyEquivalentInMeV_in_MeV : LREAL := 938.27208816;
     fProtonMassEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fProtonMassEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 2.9e-07;
-    
+
     // proton mass in u (u)
     // Uncertainty: 5.3e-11
     fProtonMassInU_in_u : LREAL := 1.007276466621;
     fProtonMassInU_in_u_Units : STRING := 'u';
     fProtonMassInU_in_u_Uncertainty : LREAL := 5.3e-11;
-    
+
     // proton molar mass (kg mol^-1)
     // Uncertainty: 3.1e-13
     fProtonMolarMass_in_kg_mol_1 : LREAL := 0.00100727646627;
     fProtonMolarMass_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fProtonMolarMass_in_kg_mol_1_Uncertainty : LREAL := 3.1e-13;
-    
+
     // proton-muon mass ratio
     // Uncertainty: 2e-07
     fProtonMuonMassRatio : LREAL := 8.88024337;
     fProtonMuonMassRatio_Uncertainty : LREAL := 2e-07;
-    
+
     // proton-neutron mag. mom. ratio
     // Uncertainty: 3.4e-07
     fProtonNeutronMag_Mom_Ratio : LREAL := -1.45989805;
     fProtonNeutronMag_Mom_Ratio_Uncertainty : LREAL := 3.4e-07;
-    
+
     // proton-neutron mass ratio
     // Uncertainty: 4.9e-10
     fProtonNeutronMassRatio : LREAL := 0.99862347812;
     fProtonNeutronMassRatio_Uncertainty : LREAL := 4.9e-10;
-    
+
     // proton rms charge radius (m)
     // Uncertainty: 1.9e-18
     fProtonRmsChargeRadius_in_m : LREAL := 8.414e-16;
     fProtonRmsChargeRadius_in_m_Units : STRING := 'm';
     fProtonRmsChargeRadius_in_m_Uncertainty : LREAL := 1.9e-18;
-    
+
     // proton-tau mass ratio
     // Uncertainty: 3.6e-05
     fProtonTauMassRatio : LREAL := 0.528051;
     fProtonTauMassRatio_Uncertainty : LREAL := 3.6e-05;
-    
+
     // quantum of circulation (m^2 s^-1)
     // Uncertainty: 1.1e-13
     fQuantumOfCirculation_in_m_2_s_1 : LREAL := 0.00036369475516;
     fQuantumOfCirculation_in_m_2_s_1_Units : STRING := 'm^2 s^-1';
     fQuantumOfCirculation_in_m_2_s_1_Uncertainty : LREAL := 1.1e-13;
-    
+
     // quantum of circulation times 2 (m^2 s^-1)
     // Uncertainty: 2.2e-13
     fQuantumOfCirculationTimes2_in_m_2_s_1 : LREAL := 0.00072738951032;
     fQuantumOfCirculationTimes2_in_m_2_s_1_Units : STRING := 'm^2 s^-1';
     fQuantumOfCirculationTimes2_in_m_2_s_1_Uncertainty : LREAL := 2.2e-13;
-    
+
     // Rydberg constant (m^-1)
     // Uncertainty: 2.1e-05
     fRydbergConstant_in_m_1 : LREAL := 10973731.56816;
     fRydbergConstant_in_m_1_Units : STRING := 'm^-1';
     fRydbergConstant_in_m_1_Uncertainty : LREAL := 2.1e-05;
-    
+
     // Rydberg constant times c in Hz (Hz)
     // Uncertainty: 6400.0
     fRydbergConstantTimesCInHz_in_Hz : LREAL := 3289841960250800.0;
     fRydbergConstantTimesCInHz_in_Hz_Units : STRING := 'Hz';
     fRydbergConstantTimesCInHz_in_Hz_Uncertainty : LREAL := 6400.0;
-    
+
     // Rydberg constant times hc in eV (eV)
     // Uncertainty: 2.6e-11
     fRydbergConstantTimesHcInEV_in_eV : LREAL := 13.605693122994;
     fRydbergConstantTimesHcInEV_in_eV_Units : STRING := 'eV';
     fRydbergConstantTimesHcInEV_in_eV_Uncertainty : LREAL := 2.6e-11;
-    
+
     // Rydberg constant times hc in J (J)
     // Uncertainty: 4.2e-30
     fRydbergConstantTimesHcInJ_in_J : LREAL := 2.1798723611035e-18;
     fRydbergConstantTimesHcInJ_in_J_Units : STRING := 'J';
     fRydbergConstantTimesHcInJ_in_J_Uncertainty : LREAL := 4.2e-30;
-    
+
     // Sackur-Tetrode constant (1 K, 100 kPa)
     // Uncertainty: 4.5e-10
     fSackur_TetrodeConstant_1K_100KPa : LREAL := -1.15170753706;
     fSackur_TetrodeConstant_1K_100KPa_Uncertainty : LREAL := 4.5e-10;
-    
+
     // Sackur-Tetrode constant (1 K, 101.325 kPa)
     // Uncertainty: 4.5e-10
     fSackur_TetrodeConstant_1K_101_325KPa : LREAL := -1.16487052358;
     fSackur_TetrodeConstant_1K_101_325KPa_Uncertainty : LREAL := 4.5e-10;
-    
+
     // second radiation constant (m K)
     fSecondRadiationConstant_in_m_K : LREAL := 0.01438776877;
     fSecondRadiationConstant_in_m_K_Units : STRING := 'm K';
-    
+
     // shielded helion gyromag. ratio (s^-1 T^-1)
     // Uncertainty: 2.4
     fShieldedHelionGyromag_Ratio_in_s_1_T_1 : LREAL := 203789456.9;
     fShieldedHelionGyromag_Ratio_in_s_1_T_1_Units : STRING := 's^-1 T^-1';
     fShieldedHelionGyromag_Ratio_in_s_1_T_1_Uncertainty : LREAL := 2.4;
-    
+
     // shielded helion gyromag. ratio over 2 pi (MHz T^-1)
     // Uncertainty: 4.3e-07
     fShieldedHelionGyromag_RatioOver2Pi_in_MHz_T_1 : LREAL := 32.43409966;
     fShieldedHelionGyromag_RatioOver2Pi_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fShieldedHelionGyromag_RatioOver2Pi_in_MHz_T_1_Uncertainty : LREAL := 4.3e-07;
-    
+
     // shielded helion mag. mom. (J T^-1)
     // Uncertainty: 1.3e-34
     fShieldedHelionMag_Mom_in_J_T_1 : LREAL := -1.07455309e-26;
     fShieldedHelionMag_Mom_in_J_T_1_Units : STRING := 'J T^-1';
     fShieldedHelionMag_Mom_in_J_T_1_Uncertainty : LREAL := 1.3e-34;
-    
+
     // shielded helion mag. mom. to Bohr magneton ratio
     // Uncertainty: 1.4e-11
     fShieldedHelionMag_Mom_ToBohrMagnetonRatio : LREAL := -0.001158671471;
     fShieldedHelionMag_Mom_ToBohrMagnetonRatio_Uncertainty : LREAL := 1.4e-11;
-    
+
     // shielded helion mag. mom. to nuclear magneton ratio
     // Uncertainty: 2.5e-08
     fShieldedHelionMag_Mom_ToNuclearMagnetonRatio : LREAL := -2.127497719;
     fShieldedHelionMag_Mom_ToNuclearMagnetonRatio_Uncertainty : LREAL := 2.5e-08;
-    
+
     // shielded helion to proton mag. mom. ratio
     // Uncertainty: 8.9e-09
     fShieldedHelionToProtonMag_Mom_Ratio : LREAL := -0.7617665618;
     fShieldedHelionToProtonMag_Mom_Ratio_Uncertainty : LREAL := 8.9e-09;
-    
+
     // shielded helion to shielded proton mag. mom. ratio
     // Uncertainty: 3.3e-09
     fShieldedHelionToShieldedProtonMag_Mom_Ratio : LREAL := -0.7617861313;
     fShieldedHelionToShieldedProtonMag_Mom_Ratio_Uncertainty : LREAL := 3.3e-09;
-    
+
     // shielded proton gyromag. ratio (s^-1 T^-1)
     // Uncertainty: 2.9
     fShieldedProtonGyromag_Ratio_in_s_1_T_1 : LREAL := 267515315.1;
     fShieldedProtonGyromag_Ratio_in_s_1_T_1_Units : STRING := 's^-1 T^-1';
     fShieldedProtonGyromag_Ratio_in_s_1_T_1_Uncertainty : LREAL := 2.9;
-    
+
     // shielded proton gyromag. ratio over 2 pi (MHz T^-1)
     // Uncertainty: 5.3e-07
     fShieldedProtonGyromag_RatioOver2Pi_in_MHz_T_1 : LREAL := 42.57638507;
     fShieldedProtonGyromag_RatioOver2Pi_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fShieldedProtonGyromag_RatioOver2Pi_in_MHz_T_1_Uncertainty : LREAL := 5.3e-07;
-    
+
     // shielded proton mag. mom. (J T^-1)
     // Uncertainty: 1.5e-34
     fShieldedProtonMag_Mom_in_J_T_1 : LREAL := 1.41057056e-26;
     fShieldedProtonMag_Mom_in_J_T_1_Units : STRING := 'J T^-1';
     fShieldedProtonMag_Mom_in_J_T_1_Uncertainty : LREAL := 1.5e-34;
-    
+
     // shielded proton mag. mom. to Bohr magneton ratio
     // Uncertainty: 1.7e-11
     fShieldedProtonMag_Mom_ToBohrMagnetonRatio : LREAL := 0.001520993128;
     fShieldedProtonMag_Mom_ToBohrMagnetonRatio_Uncertainty : LREAL := 1.7e-11;
-    
+
     // shielded proton mag. mom. to nuclear magneton ratio
     // Uncertainty: 3e-08
     fShieldedProtonMag_Mom_ToNuclearMagnetonRatio : LREAL := 2.792775599;
     fShieldedProtonMag_Mom_ToNuclearMagnetonRatio_Uncertainty : LREAL := 3e-08;
-    
+
     // speed of light in vacuum (m s^-1)
     fSpeedOfLightInVacuum_in_m_s_1 : LREAL := 299792458.0;
     fSpeedOfLightInVacuum_in_m_s_1_Units : STRING := 'm s^-1';
-    
+
     // standard acceleration of gravity (m s^-2)
     fStandardAccelerationOfGravity_in_m_s_2 : LREAL := 9.80665;
     fStandardAccelerationOfGravity_in_m_s_2_Units : STRING := 'm s^-2';
-    
+
     // standard atmosphere (Pa)
     fStandardAtmosphere_in_Pa : LREAL := 101325.0;
     fStandardAtmosphere_in_Pa_Units : STRING := 'Pa';
-    
+
     // Stefan-Boltzmann constant (W m^-2 K^-4)
     fStefan_BoltzmannConstant_in_W_m_2_K_4 : LREAL := 5.670374419e-08;
     fStefan_BoltzmannConstant_in_W_m_2_K_4_Units : STRING := 'W m^-2 K^-4';
-    
+
     // tau Compton wavelength (m)
     // Uncertainty: 4.7e-20
     fTauComptonWavelength_in_m : LREAL := 6.97771e-16;
     fTauComptonWavelength_in_m_Units : STRING := 'm';
     fTauComptonWavelength_in_m_Uncertainty : LREAL := 4.7e-20;
-    
+
     // tau Compton wavelength over 2 pi (m)
     // Uncertainty: 1e-20
     fTauComptonWavelengthOver2Pi_in_m : LREAL := 1.11056e-16;
     fTauComptonWavelengthOver2Pi_in_m_Units : STRING := 'm';
     fTauComptonWavelengthOver2Pi_in_m_Uncertainty : LREAL := 1e-20;
-    
+
     // tau-electron mass ratio
     // Uncertainty: 0.23
     fTauElectronMassRatio : LREAL := 3477.23;
     fTauElectronMassRatio_Uncertainty : LREAL := 0.23;
-    
+
     // tau mass (kg)
     // Uncertainty: 2.1e-31
     fTauMass_in_kg : LREAL := 3.16754e-27;
     fTauMass_in_kg_Units : STRING := 'kg';
     fTauMass_in_kg_Uncertainty : LREAL := 2.1e-31;
-    
+
     // tau mass energy equivalent (J)
     // Uncertainty: 1.9e-14
     fTauMassEnergyEquivalent_in_J : LREAL := 2.84684e-10;
     fTauMassEnergyEquivalent_in_J_Units : STRING := 'J';
     fTauMassEnergyEquivalent_in_J_Uncertainty : LREAL := 1.9e-14;
-    
+
     // tau mass energy equivalent in MeV (MeV)
     // Uncertainty: 0.16
     fTauMassEnergyEquivalentInMeV_in_MeV : LREAL := 1776.82;
     fTauMassEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fTauMassEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 0.16;
-    
+
     // tau mass in u (u)
     // Uncertainty: 0.00013
     fTauMassInU_in_u : LREAL := 1.90754;
     fTauMassInU_in_u_Units : STRING := 'u';
     fTauMassInU_in_u_Uncertainty : LREAL := 0.00013;
-    
+
     // tau molar mass (kg mol^-1)
     // Uncertainty: 1.3e-07
     fTauMolarMass_in_kg_mol_1 : LREAL := 0.00190754;
     fTauMolarMass_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fTauMolarMass_in_kg_mol_1_Uncertainty : LREAL := 1.3e-07;
-    
+
     // tau-muon mass ratio
     // Uncertainty: 0.0011
     fTauMuonMassRatio : LREAL := 16.817;
     fTauMuonMassRatio_Uncertainty : LREAL := 0.0011;
-    
+
     // tau-neutron mass ratio
     // Uncertainty: 0.00013
     fTauNeutronMassRatio : LREAL := 1.89115;
     fTauNeutronMassRatio_Uncertainty : LREAL := 0.00013;
-    
+
     // tau-proton mass ratio
     // Uncertainty: 0.00013
     fTauProtonMassRatio : LREAL := 1.89376;
     fTauProtonMassRatio_Uncertainty : LREAL := 0.00013;
-    
+
     // Thomson cross section (m^2)
     // Uncertainty: 6e-38
     fThomsonCrossSection_in_m_2 : LREAL := 6.6524587321e-29;
     fThomsonCrossSection_in_m_2_Units : STRING := 'm^2';
     fThomsonCrossSection_in_m_2_Uncertainty : LREAL := 6e-38;
-    
+
     // triton-electron mag. mom. ratio
     // Uncertainty: 2.1e-11
     fTritonElectronMag_Mom_Ratio : LREAL := -0.001620514423;
     fTritonElectronMag_Mom_Ratio_Uncertainty : LREAL := 2.1e-11;
-    
+
     // triton-electron mass ratio
     // Uncertainty: 2.7e-07
     fTritonElectronMassRatio : LREAL := 5496.92153573;
     fTritonElectronMassRatio_Uncertainty : LREAL := 2.7e-07;
-    
+
     // triton g factor
     // Uncertainty: 1.2e-08
     fTritonGFactor : LREAL := 5.957924931;
     fTritonGFactor_Uncertainty : LREAL := 1.2e-08;
-    
+
     // triton mag. mom. (J T^-1)
     // Uncertainty: 3e-35
     fTritonMag_Mom_in_J_T_1 : LREAL := 1.5046095202e-26;
     fTritonMag_Mom_in_J_T_1_Units : STRING := 'J T^-1';
     fTritonMag_Mom_in_J_T_1_Uncertainty : LREAL := 3e-35;
-    
+
     // triton mag. mom. to Bohr magneton ratio
     // Uncertainty: 3.2e-12
     fTritonMag_Mom_ToBohrMagnetonRatio : LREAL := 0.0016223936651;
     fTritonMag_Mom_ToBohrMagnetonRatio_Uncertainty : LREAL := 3.2e-12;
-    
+
     // triton mag. mom. to nuclear magneton ratio
     // Uncertainty: 5.9e-09
     fTritonMag_Mom_ToNuclearMagnetonRatio : LREAL := 2.9789624656;
     fTritonMag_Mom_ToNuclearMagnetonRatio_Uncertainty : LREAL := 5.9e-09;
-    
+
     // triton mass (kg)
     // Uncertainty: 1.5e-36
     fTritonMass_in_kg : LREAL := 5.0073567446e-27;
     fTritonMass_in_kg_Units : STRING := 'kg';
     fTritonMass_in_kg_Uncertainty : LREAL := 1.5e-36;
-    
+
     // triton mass energy equivalent (J)
     // Uncertainty: 1.4e-19
     fTritonMassEnergyEquivalent_in_J : LREAL := 4.500387806e-10;
     fTritonMassEnergyEquivalent_in_J_Units : STRING := 'J';
     fTritonMassEnergyEquivalent_in_J_Uncertainty : LREAL := 1.4e-19;
-    
+
     // triton mass energy equivalent in MeV (MeV)
     // Uncertainty: 8.5e-07
     fTritonMassEnergyEquivalentInMeV_in_MeV : LREAL := 2808.92113298;
     fTritonMassEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fTritonMassEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 8.5e-07;
-    
+
     // triton mass in u (u)
     // Uncertainty: 1.2e-10
     fTritonMassInU_in_u : LREAL := 3.01550071621;
     fTritonMassInU_in_u_Units : STRING := 'u';
     fTritonMassInU_in_u_Uncertainty : LREAL := 1.2e-10;
-    
+
     // triton molar mass (kg mol^-1)
     // Uncertainty: 9.2e-13
     fTritonMolarMass_in_kg_mol_1 : LREAL := 0.00301550071517;
     fTritonMolarMass_in_kg_mol_1_Units : STRING := 'kg mol^-1';
     fTritonMolarMass_in_kg_mol_1_Uncertainty : LREAL := 9.2e-13;
-    
+
     // triton-neutron mag. mom. ratio
     // Uncertainty: 3.7e-07
     fTritonNeutronMag_Mom_Ratio : LREAL := -1.55718553;
     fTritonNeutronMag_Mom_Ratio_Uncertainty : LREAL := 3.7e-07;
-    
+
     // triton-proton mag. mom. ratio
     // Uncertainty: 1e-08
     fTritonProtonMag_Mom_Ratio : LREAL := 1.066639908;
     fTritonProtonMag_Mom_Ratio_Uncertainty : LREAL := 1e-08;
-    
+
     // triton-proton mass ratio
     // Uncertainty: 1.5e-10
     fTritonProtonMassRatio : LREAL := 2.99371703414;
     fTritonProtonMassRatio_Uncertainty : LREAL := 1.5e-10;
-    
+
     // unified atomic mass unit (kg)
     // Uncertainty: 5e-37
     fUnifiedAtomicMassUnit_in_kg : LREAL := 1.6605390666e-27;
     fUnifiedAtomicMassUnit_in_kg_Units : STRING := 'kg';
     fUnifiedAtomicMassUnit_in_kg_Uncertainty : LREAL := 5e-37;
-    
+
     // von Klitzing constant (ohm)
     fVonKlitzingConstant_in_ohm : LREAL := 25812.80745;
     fVonKlitzingConstant_in_ohm_Units : STRING := 'ohm';
-    
+
     // weak mixing angle
     // Uncertainty: 0.0003
     fWeakMixingAngle : LREAL := 0.2229;
     fWeakMixingAngle_Uncertainty : LREAL := 0.0003;
-    
+
     // Wien frequency displacement law constant (Hz K^-1)
     fWienFrequencyDisplacementLawConstant_in_Hz_K_1 : LREAL := 58789257570.0;
     fWienFrequencyDisplacementLawConstant_in_Hz_K_1_Units : STRING := 'Hz K^-1';
-    
+
     // Wien wavelength displacement law constant (m K)
     fWienWavelengthDisplacementLawConstant_in_m_K : LREAL := 0.002897771955;
     fWienWavelengthDisplacementLawConstant_in_m_K_Units : STRING := 'm K';
-    
+
     // atomic unit of mom.um (kg m s^-1)
     // Uncertainty: 2.4e-32
     fAtomicUnitOfMom_um_in_kg_m_s_1 : LREAL := 1.992851882e-24;
     fAtomicUnitOfMom_um_in_kg_m_s_1_Units : STRING := 'kg m s^-1';
     fAtomicUnitOfMom_um_in_kg_m_s_1_Uncertainty : LREAL := 2.4e-32;
-    
+
     // electron-helion mass ratio
     // Uncertainty: 7.9e-15
     fElectronHelionMassRatio : LREAL := 0.0001819543074573;
     fElectronHelionMassRatio_Uncertainty : LREAL := 7.9e-15;
-    
+
     // electron-triton mass ratio
     // Uncertainty: 9e-15
     fElectronTritonMassRatio : LREAL := 0.0001819200062251;
     fElectronTritonMassRatio_Uncertainty : LREAL := 9e-15;
-    
+
     // helion g factor
     // Uncertainty: 5e-08
     fHelionGFactor : LREAL := -4.255250615;
     fHelionGFactor_Uncertainty : LREAL := 5e-08;
-    
+
     // helion mag. mom. (J T^-1)
     // Uncertainty: 1.3e-34
     fHelionMag_Mom_in_J_T_1 : LREAL := -1.074617532e-26;
     fHelionMag_Mom_in_J_T_1_Units : STRING := 'J T^-1';
     fHelionMag_Mom_in_J_T_1_Uncertainty : LREAL := 1.3e-34;
-    
+
     // helion mag. mom. to Bohr magneton ratio
     // Uncertainty: 1.4e-11
     fHelionMag_Mom_ToBohrMagnetonRatio : LREAL := -0.001158740958;
     fHelionMag_Mom_ToBohrMagnetonRatio_Uncertainty : LREAL := 1.4e-11;
-    
+
     // helion mag. mom. to nuclear magneton ratio
     // Uncertainty: 2.5e-08
     fHelionMag_Mom_ToNuclearMagnetonRatio : LREAL := -2.127625307;
     fHelionMag_Mom_ToNuclearMagnetonRatio_Uncertainty : LREAL := 2.5e-08;
-    
+
     // Loschmidt constant (273.15 K, 100 kPa) (m^-3)
     fLoschmidtConstant_273_15K_100KPa_in_m_3 : LREAL := 2.651645804e+25;
     fLoschmidtConstant_273_15K_100KPa_in_m_3_Units : STRING := 'm^-3';
-    
+
     // natural unit of mom.um (kg m s^-1)
     // Uncertainty: 3.4e-30
     fNaturalUnitOfMom_um_in_kg_m_s_1 : LREAL := 2.730924488e-22;
     fNaturalUnitOfMom_um_in_kg_m_s_1_Units : STRING := 'kg m s^-1';
     fNaturalUnitOfMom_um_in_kg_m_s_1_Uncertainty : LREAL := 3.4e-30;
-    
+
     // natural unit of mom.um in MeV/c (MeV/c)
     // Uncertainty: 3.1e-09
     fNaturalUnitOfMom_umInMeV_c_in_MeV_c : LREAL := 0.5109989461;
     fNaturalUnitOfMom_umInMeV_c_in_MeV_c_Units : STRING := 'MeV/c';
     fNaturalUnitOfMom_umInMeV_c_in_MeV_c_Uncertainty : LREAL := 3.1e-09;
-    
+
     // neutron-proton mass difference (kg)
     // Uncertainty: 8.2e-37
     fNeutronProtonMassDifference_in_kg : LREAL := 2.30557435e-30;
     fNeutronProtonMassDifference_in_kg_Units : STRING := 'kg';
     fNeutronProtonMassDifference_in_kg_Uncertainty : LREAL := 8.2e-37;
-    
+
     // neutron-proton mass difference energy equivalent (J)
     // Uncertainty: 7.4e-20
     fNeutronProtonMassDifferenceEnergyEquivalent_in_J : LREAL := 2.07214689e-13;
     fNeutronProtonMassDifferenceEnergyEquivalent_in_J_Units : STRING := 'J';
     fNeutronProtonMassDifferenceEnergyEquivalent_in_J_Uncertainty : LREAL := 7.4e-20;
-    
+
     // neutron-proton mass difference energy equivalent in MeV (MeV)
     // Uncertainty: 4.6e-07
     fNeutronProtonMassDifferenceEnergyEquivalentInMeV_in_MeV : LREAL := 1.29333236;
     fNeutronProtonMassDifferenceEnergyEquivalentInMeV_in_MeV_Units : STRING := 'MeV';
     fNeutronProtonMassDifferenceEnergyEquivalentInMeV_in_MeV_Uncertainty : LREAL := 4.6e-07;
-    
+
     // neutron-proton mass difference in u (u)
     // Uncertainty: 4.9e-10
     fNeutronProtonMassDifferenceInU_in_u : LREAL := 0.00138844933;
     fNeutronProtonMassDifferenceInU_in_u_Units : STRING := 'u';
     fNeutronProtonMassDifferenceInU_in_u_Uncertainty : LREAL := 4.9e-10;
-    
+
     // standard-state pressure (Pa)
     fStandardStatePressure_in_Pa : LREAL := 100000.0;
     fStandardStatePressure_in_Pa_Units : STRING := 'Pa';
-    
+
     // alpha particle relative atomic mass
     // Uncertainty: 6.3e-11
     fAlphaParticleRelativeAtomicMass : LREAL := 4.001506179127;
     fAlphaParticleRelativeAtomicMass_Uncertainty : LREAL := 6.3e-11;
-    
+
     // Bohr magneton in inverse meter per tesla (m^-1 T^-1)
     // Uncertainty: 1.4e-08
     fBohrMagnetonInInverseMeterPerTesla_in_m_1_T_1 : LREAL := 46.686447783;
     fBohrMagnetonInInverseMeterPerTesla_in_m_1_T_1_Units : STRING := 'm^-1 T^-1';
     fBohrMagnetonInInverseMeterPerTesla_in_m_1_T_1_Uncertainty : LREAL := 1.4e-08;
-    
+
     // Boltzmann constant in inverse meter per kelvin (m^-1 K^-1)
     fBoltzmannConstantInInverseMeterPerKelvin_in_m_1_K_1 : LREAL := 69.50348004;
     fBoltzmannConstantInInverseMeterPerKelvin_in_m_1_K_1_Units : STRING := 'm^-1 K^-1';
-    
+
     // conventional value of ampere-90 (A)
     fConventionalValueOfAmpere_90_in_A : LREAL := 1.00000008887;
     fConventionalValueOfAmpere_90_in_A_Units : STRING := 'A';
-    
+
     // conventional value of coulomb-90 (C)
     fConventionalValueOfCoulomb_90_in_C : LREAL := 1.00000008887;
     fConventionalValueOfCoulomb_90_in_C_Units : STRING := 'C';
-    
+
     // conventional value of farad-90 (F)
     fConventionalValueOfFarad_90_in_F : LREAL := 0.9999999822;
     fConventionalValueOfFarad_90_in_F_Units : STRING := 'F';
-    
+
     // conventional value of henry-90 (H)
     fConventionalValueOfHenry_90_in_H : LREAL := 1.00000001779;
     fConventionalValueOfHenry_90_in_H_Units : STRING := 'H';
-    
+
     // conventional value of ohm-90 (ohm)
     fConventionalValueOfOhm_90_in_ohm : LREAL := 1.00000001779;
     fConventionalValueOfOhm_90_in_ohm_Units : STRING := 'ohm';
-    
+
     // conventional value of volt-90 (V)
     fConventionalValueOfVolt_90_in_V : LREAL := 1.00000010666;
     fConventionalValueOfVolt_90_in_V_Units : STRING := 'V';
-    
+
     // conventional value of watt-90 (W)
     fConventionalValueOfWatt_90_in_W : LREAL := 1.00000019553;
     fConventionalValueOfWatt_90_in_W_Units : STRING := 'W';
-    
+
     // deuteron relative atomic mass
     // Uncertainty: 4e-11
     fDeuteronRelativeAtomicMass : LREAL := 2.013553212745;
     fDeuteronRelativeAtomicMass_Uncertainty : LREAL := 4e-11;
-    
+
     // electron gyromag. ratio in MHz/T (MHz T^-1)
     // Uncertainty: 8.5e-06
     fElectronGyromag_RatioInMHz_T_in_MHz_T_1 : LREAL := 28024.9514242;
     fElectronGyromag_RatioInMHz_T_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fElectronGyromag_RatioInMHz_T_in_MHz_T_1_Uncertainty : LREAL := 8.5e-06;
-    
+
     // electron relative atomic mass
     // Uncertainty: 1.6e-14
     fElectronRelativeAtomicMass : LREAL := 0.000548579909065;
     fElectronRelativeAtomicMass_Uncertainty : LREAL := 1.6e-14;
-    
+
     // elementary charge over h-bar (A J^-1)
     fElementaryChargeOverH_bar_in_A_J_1 : LREAL := 1519267447000000.0;
     fElementaryChargeOverH_bar_in_A_J_1_Units : STRING := 'A J^-1';
-    
+
     // helion relative atomic mass
     // Uncertainty: 9.7e-11
     fHelionRelativeAtomicMass : LREAL := 3.014932247175;
     fHelionRelativeAtomicMass_Uncertainty : LREAL := 9.7e-11;
-    
+
     // helion shielding shift
     // Uncertainty: 1e-10
     fHelionShieldingShift : LREAL := 5.996743e-05;
     fHelionShieldingShift_Uncertainty : LREAL := 1e-10;
-    
+
     // hyperfine transition frequency of Cs-133 (Hz)
     fHyperfineTransitionFrequencyOfCs_133_in_Hz : LREAL := 9192631770.0;
     fHyperfineTransitionFrequencyOfCs_133_in_Hz_Units : STRING := 'Hz';
-    
+
     // lattice spacing of ideal Si (220) (m)
     // Uncertainty: 3.2e-18
     fLatticeSpacingOfIdealSi_220_in_m : LREAL := 1.920155716e-10;
     fLatticeSpacingOfIdealSi_220_in_m_Units : STRING := 'm';
     fLatticeSpacingOfIdealSi_220_in_m_Uncertainty : LREAL := 3.2e-18;
-    
+
     // luminous efficacy (lm W^-1)
     fLuminousEfficacy_in_lm_W_1 : LREAL := 683.0;
     fLuminousEfficacy_in_lm_W_1_Units : STRING := 'lm W^-1';
-    
+
     // neutron gyromag. ratio in MHz/T (MHz T^-1)
     // Uncertainty: 6.9e-06
     fNeutronGyromag_RatioInMHz_T_in_MHz_T_1 : LREAL := 29.1646931;
     fNeutronGyromag_RatioInMHz_T_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fNeutronGyromag_RatioInMHz_T_in_MHz_T_1_Uncertainty : LREAL := 6.9e-06;
-    
+
     // neutron relative atomic mass
     // Uncertainty: 4.9e-10
     fNeutronRelativeAtomicMass : LREAL := 1.00866491595;
     fNeutronRelativeAtomicMass_Uncertainty : LREAL := 4.9e-10;
-    
+
     // nuclear magneton in inverse meter per tesla (m^-1 T^-1)
     // Uncertainty: 7.8e-12
     fNuclearMagnetonInInverseMeterPerTesla_in_m_1_T_1 : LREAL := 0.0254262341353;
     fNuclearMagnetonInInverseMeterPerTesla_in_m_1_T_1_Units : STRING := 'm^-1 T^-1';
     fNuclearMagnetonInInverseMeterPerTesla_in_m_1_T_1_Uncertainty : LREAL := 7.8e-12;
-    
+
     // Planck constant in eV/Hz (eV Hz^-1)
     fPlanckConstantInEV_Hz_in_eV_Hz_1 : LREAL := 4.135667696e-15;
     fPlanckConstantInEV_Hz_in_eV_Hz_1_Units : STRING := 'eV Hz^-1';
-    
+
     // proton gyromag. ratio in MHz/T (MHz T^-1)
     // Uncertainty: 1.8e-08
     fProtonGyromag_RatioInMHz_T_in_MHz_T_1 : LREAL := 42.577478518;
     fProtonGyromag_RatioInMHz_T_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fProtonGyromag_RatioInMHz_T_in_MHz_T_1_Uncertainty : LREAL := 1.8e-08;
-    
+
     // proton relative atomic mass
     // Uncertainty: 5.3e-11
     fProtonRelativeAtomicMass : LREAL := 1.007276466621;
     fProtonRelativeAtomicMass_Uncertainty : LREAL := 5.3e-11;
-    
+
     // reduced Compton wavelength (m)
     // Uncertainty: 1.2e-22
     fReducedComptonWavelength_in_m : LREAL := 3.8615926796e-13;
     fReducedComptonWavelength_in_m_Units : STRING := 'm';
     fReducedComptonWavelength_in_m_Uncertainty : LREAL := 1.2e-22;
-    
+
     // reduced muon Compton wavelength (m)
     // Uncertainty: 4.2e-23
     fReducedMuonComptonWavelength_in_m : LREAL := 1.867594306e-15;
     fReducedMuonComptonWavelength_in_m_Units : STRING := 'm';
     fReducedMuonComptonWavelength_in_m_Uncertainty : LREAL := 4.2e-23;
-    
+
     // reduced neutron Compton wavelength (m)
     // Uncertainty: 1.2e-25
     fReducedNeutronComptonWavelength_in_m : LREAL := 2.1001941552e-16;
     fReducedNeutronComptonWavelength_in_m_Units : STRING := 'm';
     fReducedNeutronComptonWavelength_in_m_Uncertainty : LREAL := 1.2e-25;
-    
+
     // reduced Planck constant (J s)
     fReducedPlanckConstant_in_J_s : LREAL := 1.054571817e-34;
     fReducedPlanckConstant_in_J_s_Units : STRING := 'J s';
-    
+
     // reduced Planck constant in eV s (eV s)
     fReducedPlanckConstantInEVS_in_eV_s : LREAL := 6.582119569e-16;
     fReducedPlanckConstantInEVS_in_eV_s_Units : STRING := 'eV s';
-    
+
     // reduced Planck constant times c in MeV fm (MeV fm)
     fReducedPlanckConstantTimesCInMeVFm_in_MeV_fm : LREAL := 197.3269804;
     fReducedPlanckConstantTimesCInMeVFm_in_MeV_fm_Units : STRING := 'MeV fm';
-    
+
     // reduced proton Compton wavelength (m)
     // Uncertainty: 6.4e-26
     fReducedProtonComptonWavelength_in_m : LREAL := 2.10308910336e-16;
     fReducedProtonComptonWavelength_in_m_Units : STRING := 'm';
     fReducedProtonComptonWavelength_in_m_Uncertainty : LREAL := 6.4e-26;
-    
+
     // reduced tau Compton wavelength (m)
     // Uncertainty: 7.5e-21
     fReducedTauComptonWavelength_in_m : LREAL := 1.110538e-16;
     fReducedTauComptonWavelength_in_m_Units : STRING := 'm';
     fReducedTauComptonWavelength_in_m_Uncertainty : LREAL := 7.5e-21;
-    
+
     // shielded helion gyromag. ratio in MHz/T (MHz T^-1)
     // Uncertainty: 3.8e-07
     fShieldedHelionGyromag_RatioInMHz_T_in_MHz_T_1 : LREAL := 32.43409942;
     fShieldedHelionGyromag_RatioInMHz_T_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fShieldedHelionGyromag_RatioInMHz_T_in_MHz_T_1_Uncertainty : LREAL := 3.8e-07;
-    
+
     // shielded proton gyromag. ratio in MHz/T (MHz T^-1)
     // Uncertainty: 4.6e-07
     fShieldedProtonGyromag_RatioInMHz_T_in_MHz_T_1 : LREAL := 42.57638474;
     fShieldedProtonGyromag_RatioInMHz_T_in_MHz_T_1_Units : STRING := 'MHz T^-1';
     fShieldedProtonGyromag_RatioInMHz_T_in_MHz_T_1_Uncertainty : LREAL := 4.6e-07;
-    
+
     // shielding difference of d and p in HD
     // Uncertainty: 2e-11
     fShieldingDifferenceOfDAndPInHD : LREAL := 2.02e-08;
     fShieldingDifferenceOfDAndPInHD_Uncertainty : LREAL := 2e-11;
-    
+
     // shielding difference of t and p in HT
     // Uncertainty: 2e-11
     fShieldingDifferenceOfTAndPInHT : LREAL := 2.414e-08;
     fShieldingDifferenceOfTAndPInHT_Uncertainty : LREAL := 2e-11;
-    
+
     // tau energy equivalent (MeV)
     // Uncertainty: 0.12
     fTauEnergyEquivalent_in_MeV : LREAL := 1776.86;
     fTauEnergyEquivalent_in_MeV_Units : STRING := 'MeV';
     fTauEnergyEquivalent_in_MeV_Uncertainty : LREAL := 0.12;
-    
+
     // triton relative atomic mass
     // Uncertainty: 1.2e-10
     fTritonRelativeAtomicMass : LREAL := 3.01550071621;
     fTritonRelativeAtomicMass_Uncertainty : LREAL := 1.2e-10;
-    
+
     // triton to proton mag. mom. ratio
     // Uncertainty: 2.1e-09
     fTritonToProtonMag_Mom_Ratio : LREAL := 1.0666399191;
     fTritonToProtonMag_Mom_Ratio_Uncertainty : LREAL := 2.1e-09;
-    
+
     // vacuum electric permittivity (F m^-1)
     // Uncertainty: 1.3e-21
     fVacuumElectricPermittivity_in_F_m_1 : LREAL := 8.8541878128e-12;
     fVacuumElectricPermittivity_in_F_m_1_Units : STRING := 'F m^-1';
     fVacuumElectricPermittivity_in_F_m_1_Uncertainty : LREAL := 1.3e-21;
-    
+
     // vacuum mag. permeability (N A^-2)
     // Uncertainty: 1.9e-16
     fVacuumMag_Permeability_in_N_A_2 : LREAL := 1.25663706212e-06;
     fVacuumMag_Permeability_in_N_A_2_Units : STRING := 'N A^-2';
     fVacuumMag_Permeability_in_N_A_2_Uncertainty : LREAL := 1.9e-16;
-    
+
     // W to Z mass ratio
     // Uncertainty: 0.00017
     fWToZMassRatio : LREAL := 0.88153;
     fWToZMassRatio_Uncertainty : LREAL := 0.00017;
-    
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

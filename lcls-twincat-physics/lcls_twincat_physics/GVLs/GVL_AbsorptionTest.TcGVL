@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <GVL Name="GVL_AbsorptionTest" Id="{336b6c12-eace-48ba-ac6b-097ba251f3b7}">
     <Declaration><![CDATA[VAR_GLOBAL
-	fbScatteringFactorLUT : FB_ScatteringFactorLUT;
+    fbScatteringFactorLUT : FB_ScatteringFactorLUT;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -3,7 +3,7 @@
   <GVL Name="GVL_Physics" Id="{7147a988-93cf-4830-ac6b-3807273ff8ec}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-	fbScatteringFactors : FB_ScatteringFactorLUT;
+    fbScatteringFactors : FB_ScatteringFactorLUT;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

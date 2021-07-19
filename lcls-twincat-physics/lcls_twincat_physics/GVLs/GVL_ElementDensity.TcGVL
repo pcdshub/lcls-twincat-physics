@@ -3,605 +3,605 @@
   <GVL Name="GVL_ElementDensity" Id="{59379ab4-1460-09a0-c7ea-c72ad274871f}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL CONSTANT
-    
+
 (*
     // Elemental density of n (g/cm^3)
     fDensity_n : LREAL := None;
     fDensity_n_Units : STRING := 'g/cm^3';
     fDensity_n_Caveat : STRING := 'unavailable';
 *)
-    
+
     // Elemental density of H (g/cm^3)
     fDensity_H : LREAL := 0.0708;
     fDensity_H_Units : STRING := 'g/cm^3';
     fDensity_H_Caveat : STRING := 'T=-252.87';
-    
+
     // Elemental density of He (g/cm^3)
     fDensity_He : LREAL := 0.122;
     fDensity_He_Units : STRING := 'g/cm^3';
     fDensity_He_Caveat : STRING := 'T=-268.93';
-    
+
     // Elemental density of Li (g/cm^3)
     fDensity_Li : LREAL := 0.534;
     fDensity_Li_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Be (g/cm^3)
     fDensity_Be : LREAL := 1.848;
     fDensity_Be_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of B (g/cm^3)
     fDensity_B : LREAL := 2.34;
     fDensity_B_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of C (g/cm^3)
     fDensity_C : LREAL := 2.2;
     fDensity_C_Units : STRING := 'g/cm^3';
     fDensity_C_Caveat : STRING := '1.9-2.3 (graphite); CXRO, RSC and CRC use 2.2; NIST Xray tables use 2.26';
-    
+
     // Elemental density of N (g/cm^3)
     fDensity_N : LREAL := 0.808;
     fDensity_N_Units : STRING := 'g/cm^3';
     fDensity_N_Caveat : STRING := 'T=-195.79';
-    
+
     // Elemental density of O (g/cm^3)
     fDensity_O : LREAL := 1.14;
     fDensity_O_Units : STRING := 'g/cm^3';
     fDensity_O_Caveat : STRING := 'T=-182.95';
-    
+
     // Elemental density of F (g/cm^3)
     fDensity_F : LREAL := 1.5;
     fDensity_F_Units : STRING := 'g/cm^3';
     fDensity_F_Caveat : STRING := 'T=-188.12';
-    
+
     // Elemental density of Ne (g/cm^3)
     fDensity_Ne : LREAL := 1.207;
     fDensity_Ne_Units : STRING := 'g/cm^3';
     fDensity_Ne_Caveat : STRING := 'T=-246.08';
-    
+
     // Elemental density of Na (g/cm^3)
     fDensity_Na : LREAL := 0.971;
     fDensity_Na_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Mg (g/cm^3)
     fDensity_Mg : LREAL := 1.738;
     fDensity_Mg_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Al (g/cm^3)
     fDensity_Al : LREAL := 2.6989;
     fDensity_Al_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Si (g/cm^3)
     fDensity_Si : LREAL := 2.33;
     fDensity_Si_Units : STRING := 'g/cm^3';
     fDensity_Si_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of P (g/cm^3)
     fDensity_P : LREAL := 1.82;
     fDensity_P_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of S (g/cm^3)
     fDensity_S : LREAL := 2.07;
     fDensity_S_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Cl (g/cm^3)
     fDensity_Cl : LREAL := 1.56;
     fDensity_Cl_Units : STRING := 'g/cm^3';
     fDensity_Cl_Caveat : STRING := 'T=-33.6, 0.44 C above boiling point';
-    
+
     // Elemental density of Ar (g/cm^3)
     fDensity_Ar : LREAL := 1.4;
     fDensity_Ar_Units : STRING := 'g/cm^3';
     fDensity_Ar_Caveat : STRING := 'T=-185.85';
-    
+
     // Elemental density of K (g/cm^3)
     fDensity_K : LREAL := 0.862;
     fDensity_K_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Ca (g/cm^3)
     fDensity_Ca : LREAL := 1.55;
     fDensity_Ca_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Sc (g/cm^3)
     fDensity_Sc : LREAL := 2.989;
     fDensity_Sc_Units : STRING := 'g/cm^3';
     fDensity_Sc_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Ti (g/cm^3)
     fDensity_Ti : LREAL := 4.54;
     fDensity_Ti_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of V (g/cm^3)
     fDensity_V : LREAL := 6.11;
     fDensity_V_Units : STRING := 'g/cm^3';
     fDensity_V_Caveat : STRING := 'T=18.7';
-    
+
     // Elemental density of Cr (g/cm^3)
     fDensity_Cr : LREAL := 7.19;
     fDensity_Cr_Units : STRING := 'g/cm^3';
     fDensity_Cr_Caveat : STRING := '7.18-7.20';
-    
+
     // Elemental density of Mn (g/cm^3)
     fDensity_Mn : LREAL := 7.33;
     fDensity_Mn_Units : STRING := 'g/cm^3';
     fDensity_Mn_Caveat : STRING := '7.21-7.44';
-    
+
     // Elemental density of Fe (g/cm^3)
     fDensity_Fe : LREAL := 7.874;
     fDensity_Fe_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Co (g/cm^3)
     fDensity_Co : LREAL := 8.9;
     fDensity_Co_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Ni (g/cm^3)
     fDensity_Ni : LREAL := 8.902;
     fDensity_Ni_Units : STRING := 'g/cm^3';
     fDensity_Ni_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Cu (g/cm^3)
     fDensity_Cu : LREAL := 8.96;
     fDensity_Cu_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Zn (g/cm^3)
     fDensity_Zn : LREAL := 7.133;
     fDensity_Zn_Units : STRING := 'g/cm^3';
     fDensity_Zn_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Ga (g/cm^3)
     fDensity_Ga : LREAL := 5.904;
     fDensity_Ga_Units : STRING := 'g/cm^3';
     fDensity_Ga_Caveat : STRING := 'T=29.6';
-    
+
     // Elemental density of Ge (g/cm^3)
     fDensity_Ge : LREAL := 5.323;
     fDensity_Ge_Units : STRING := 'g/cm^3';
     fDensity_Ge_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of As (g/cm^3)
     fDensity_As : LREAL := 5.73;
     fDensity_As_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Se (g/cm^3)
     fDensity_Se : LREAL := 4.79;
     fDensity_Se_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Br (g/cm^3)
     fDensity_Br : LREAL := 3.12;
     fDensity_Br_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Kr (g/cm^3)
     fDensity_Kr : LREAL := 2.16;
     fDensity_Kr_Units : STRING := 'g/cm^3';
     fDensity_Kr_Caveat : STRING := 'T=-153.22';
-    
+
     // Elemental density of Rb (g/cm^3)
     fDensity_Rb : LREAL := 1.532;
     fDensity_Rb_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Sr (g/cm^3)
     fDensity_Sr : LREAL := 2.54;
     fDensity_Sr_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Y (g/cm^3)
     fDensity_Y : LREAL := 4.469;
     fDensity_Y_Units : STRING := 'g/cm^3';
     fDensity_Y_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Zr (g/cm^3)
     fDensity_Zr : LREAL := 6.506;
     fDensity_Zr_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Nb (g/cm^3)
     fDensity_Nb : LREAL := 8.57;
     fDensity_Nb_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Mo (g/cm^3)
     fDensity_Mo : LREAL := 10.22;
     fDensity_Mo_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Tc (g/cm^3)
     fDensity_Tc : LREAL := 11.5;
     fDensity_Tc_Units : STRING := 'g/cm^3';
     fDensity_Tc_Caveat : STRING := 'calculated';
-    
+
     // Elemental density of Ru (g/cm^3)
     fDensity_Ru : LREAL := 12.41;
     fDensity_Ru_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Rh (g/cm^3)
     fDensity_Rh : LREAL := 12.41;
     fDensity_Rh_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Pd (g/cm^3)
     fDensity_Pd : LREAL := 12.02;
     fDensity_Pd_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Ag (g/cm^3)
     fDensity_Ag : LREAL := 10.5;
     fDensity_Ag_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Cd (g/cm^3)
     fDensity_Cd : LREAL := 8.65;
     fDensity_Cd_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of In (g/cm^3)
     fDensity_In : LREAL := 7.31;
     fDensity_In_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Sn (g/cm^3)
     fDensity_Sn : LREAL := 7.31;
     fDensity_Sn_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Sb (g/cm^3)
     fDensity_Sb : LREAL := 6.691;
     fDensity_Sb_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Te (g/cm^3)
     fDensity_Te : LREAL := 6.24;
     fDensity_Te_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of I (g/cm^3)
     fDensity_I : LREAL := 4.93;
     fDensity_I_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Xe (g/cm^3)
     fDensity_Xe : LREAL := 3.52;
     fDensity_Xe_Units : STRING := 'g/cm^3';
     fDensity_Xe_Caveat : STRING := 'T=-108.12';
-    
+
     // Elemental density of Cs (g/cm^3)
     fDensity_Cs : LREAL := 1.873;
     fDensity_Cs_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Ba (g/cm^3)
     fDensity_Ba : LREAL := 3.5;
     fDensity_Ba_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of La (g/cm^3)
     fDensity_La : LREAL := 6.145;
     fDensity_La_Units : STRING := 'g/cm^3';
     fDensity_La_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Ce (g/cm^3)
     fDensity_Ce : LREAL := 6.77;
     fDensity_Ce_Units : STRING := 'g/cm^3';
     fDensity_Ce_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Pr (g/cm^3)
     fDensity_Pr : LREAL := 6.773;
     fDensity_Pr_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Nd (g/cm^3)
     fDensity_Nd : LREAL := 7.008;
     fDensity_Nd_Units : STRING := 'g/cm^3';
     fDensity_Nd_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Pm (g/cm^3)
     fDensity_Pm : LREAL := 7.264;
     fDensity_Pm_Units : STRING := 'g/cm^3';
     fDensity_Pm_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Sm (g/cm^3)
     fDensity_Sm : LREAL := 7.52;
     fDensity_Sm_Units : STRING := 'g/cm^3';
     fDensity_Sm_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Eu (g/cm^3)
     fDensity_Eu : LREAL := 5.244;
     fDensity_Eu_Units : STRING := 'g/cm^3';
     fDensity_Eu_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Gd (g/cm^3)
     fDensity_Gd : LREAL := 7.901;
     fDensity_Gd_Units : STRING := 'g/cm^3';
     fDensity_Gd_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Tb (g/cm^3)
     fDensity_Tb : LREAL := 8.23;
     fDensity_Tb_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Dy (g/cm^3)
     fDensity_Dy : LREAL := 8.551;
     fDensity_Dy_Units : STRING := 'g/cm^3';
     fDensity_Dy_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Ho (g/cm^3)
     fDensity_Ho : LREAL := 8.795;
     fDensity_Ho_Units : STRING := 'g/cm^3';
     fDensity_Ho_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Er (g/cm^3)
     fDensity_Er : LREAL := 9.066;
     fDensity_Er_Units : STRING := 'g/cm^3';
     fDensity_Er_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Tm (g/cm^3)
     fDensity_Tm : LREAL := 9.321;
     fDensity_Tm_Units : STRING := 'g/cm^3';
     fDensity_Tm_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Yb (g/cm^3)
     fDensity_Yb : LREAL := 6.966;
     fDensity_Yb_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Lu (g/cm^3)
     fDensity_Lu : LREAL := 9.841;
     fDensity_Lu_Units : STRING := 'g/cm^3';
     fDensity_Lu_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Hf (g/cm^3)
     fDensity_Hf : LREAL := 13.31;
     fDensity_Hf_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Ta (g/cm^3)
     fDensity_Ta : LREAL := 16.654;
     fDensity_Ta_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of W (g/cm^3)
     fDensity_W : LREAL := 19.3;
     fDensity_W_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Re (g/cm^3)
     fDensity_Re : LREAL := 21.02;
     fDensity_Re_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Os (g/cm^3)
     fDensity_Os : LREAL := 22.57;
     fDensity_Os_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Ir (g/cm^3)
     fDensity_Ir : LREAL := 22.42;
     fDensity_Ir_Units : STRING := 'g/cm^3';
     fDensity_Ir_Caveat : STRING := 'T=17';
-    
+
     // Elemental density of Pt (g/cm^3)
     fDensity_Pt : LREAL := 21.45;
     fDensity_Pt_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Au (g/cm^3)
     fDensity_Au : LREAL := 19.3;
     fDensity_Au_Units : STRING := 'g/cm^3';
     fDensity_Au_Caveat : STRING := 'approximate';
-    
+
     // Elemental density of Hg (g/cm^3)
     fDensity_Hg : LREAL := 13.546;
     fDensity_Hg_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Tl (g/cm^3)
     fDensity_Tl : LREAL := 11.85;
     fDensity_Tl_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Pb (g/cm^3)
     fDensity_Pb : LREAL := 11.35;
     fDensity_Pb_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Bi (g/cm^3)
     fDensity_Bi : LREAL := 9.747;
     fDensity_Bi_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Po (g/cm^3)
     fDensity_Po : LREAL := 9.32;
     fDensity_Po_Units : STRING := 'g/cm^3';
-    
+
 (*
     // Elemental density of At (g/cm^3)
     fDensity_At : LREAL := None;
     fDensity_At_Units : STRING := 'g/cm^3';
     fDensity_At_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Rn (g/cm^3)
     fDensity_Rn : LREAL := None;
     fDensity_Rn_Units : STRING := 'g/cm^3';
     fDensity_Rn_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Fr (g/cm^3)
     fDensity_Fr : LREAL := None;
     fDensity_Fr_Units : STRING := 'g/cm^3';
     fDensity_Fr_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Ra (g/cm^3)
     fDensity_Ra : LREAL := None;
     fDensity_Ra_Units : STRING := 'g/cm^3';
     fDensity_Ra_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Ac (g/cm^3)
     fDensity_Ac : LREAL := None;
     fDensity_Ac_Units : STRING := 'g/cm^3';
     fDensity_Ac_Caveat : STRING := 'unavailable';
 *)
-    
+
     // Elemental density of Th (g/cm^3)
     fDensity_Th : LREAL := 11.72;
     fDensity_Th_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Pa (g/cm^3)
     fDensity_Pa : LREAL := 15.37;
     fDensity_Pa_Units : STRING := 'g/cm^3';
     fDensity_Pa_Caveat : STRING := 'calculated';
-    
+
     // Elemental density of U (g/cm^3)
     fDensity_U : LREAL := 18.95;
     fDensity_U_Units : STRING := 'g/cm^3';
     fDensity_U_Caveat : STRING := 'approximate';
-    
+
     // Elemental density of Np (g/cm^3)
     fDensity_Np : LREAL := 20.25;
     fDensity_Np_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Pu (g/cm^3)
     fDensity_Pu : LREAL := 19.84;
     fDensity_Pu_Units : STRING := 'g/cm^3';
     fDensity_Pu_Caveat : STRING := 'T=25';
-    
+
     // Elemental density of Am (g/cm^3)
     fDensity_Am : LREAL := 13.67;
     fDensity_Am_Units : STRING := 'g/cm^3';
-    
+
     // Elemental density of Cm (g/cm^3)
     fDensity_Cm : LREAL := 13.51;
     fDensity_Cm_Units : STRING := 'g/cm^3';
     fDensity_Cm_Caveat : STRING := 'calculated';
-    
+
     // Elemental density of Bk (g/cm^3)
     fDensity_Bk : LREAL := 14;
     fDensity_Bk_Units : STRING := 'g/cm^3';
     fDensity_Bk_Caveat : STRING := 'estimated';
-    
+
 (*
     // Elemental density of Cf (g/cm^3)
     fDensity_Cf : LREAL := None;
     fDensity_Cf_Units : STRING := 'g/cm^3';
     fDensity_Cf_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Es (g/cm^3)
     fDensity_Es : LREAL := None;
     fDensity_Es_Units : STRING := 'g/cm^3';
     fDensity_Es_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Fm (g/cm^3)
     fDensity_Fm : LREAL := None;
     fDensity_Fm_Units : STRING := 'g/cm^3';
     fDensity_Fm_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Md (g/cm^3)
     fDensity_Md : LREAL := None;
     fDensity_Md_Units : STRING := 'g/cm^3';
     fDensity_Md_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of No (g/cm^3)
     fDensity_No : LREAL := None;
     fDensity_No_Units : STRING := 'g/cm^3';
     fDensity_No_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Lr (g/cm^3)
     fDensity_Lr : LREAL := None;
     fDensity_Lr_Units : STRING := 'g/cm^3';
     fDensity_Lr_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Rf (g/cm^3)
     fDensity_Rf : LREAL := None;
     fDensity_Rf_Units : STRING := 'g/cm^3';
     fDensity_Rf_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Db (g/cm^3)
     fDensity_Db : LREAL := None;
     fDensity_Db_Units : STRING := 'g/cm^3';
     fDensity_Db_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Sg (g/cm^3)
     fDensity_Sg : LREAL := None;
     fDensity_Sg_Units : STRING := 'g/cm^3';
     fDensity_Sg_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Bh (g/cm^3)
     fDensity_Bh : LREAL := None;
     fDensity_Bh_Units : STRING := 'g/cm^3';
     fDensity_Bh_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Hs (g/cm^3)
     fDensity_Hs : LREAL := None;
     fDensity_Hs_Units : STRING := 'g/cm^3';
     fDensity_Hs_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Mt (g/cm^3)
     fDensity_Mt : LREAL := None;
     fDensity_Mt_Units : STRING := 'g/cm^3';
     fDensity_Mt_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Ds (g/cm^3)
     fDensity_Ds : LREAL := None;
     fDensity_Ds_Units : STRING := 'g/cm^3';
     fDensity_Ds_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Rg (g/cm^3)
     fDensity_Rg : LREAL := None;
     fDensity_Rg_Units : STRING := 'g/cm^3';
     fDensity_Rg_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Cn (g/cm^3)
     fDensity_Cn : LREAL := None;
     fDensity_Cn_Units : STRING := 'g/cm^3';
     fDensity_Cn_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Nh (g/cm^3)
     fDensity_Nh : LREAL := None;
     fDensity_Nh_Units : STRING := 'g/cm^3';
     fDensity_Nh_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Fl (g/cm^3)
     fDensity_Fl : LREAL := None;
     fDensity_Fl_Units : STRING := 'g/cm^3';
     fDensity_Fl_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Mc (g/cm^3)
     fDensity_Mc : LREAL := None;
     fDensity_Mc_Units : STRING := 'g/cm^3';
     fDensity_Mc_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Lv (g/cm^3)
     fDensity_Lv : LREAL := None;
     fDensity_Lv_Units : STRING := 'g/cm^3';
     fDensity_Lv_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Ts (g/cm^3)
     fDensity_Ts : LREAL := None;
     fDensity_Ts_Units : STRING := 'g/cm^3';
     fDensity_Ts_Caveat : STRING := 'unavailable';
 *)
-    
+
 (*
     // Elemental density of Og (g/cm^3)
     fDensity_Og : LREAL := None;
     fDensity_Og_Units : STRING := 'g/cm^3';
     fDensity_Og_Caveat : STRING := 'unavailable';
 *)
-    
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

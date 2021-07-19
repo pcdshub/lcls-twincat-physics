@@ -3,8 +3,8 @@
   <POU Name="RunTests" Id="{3c99bab2-48fb-4f3c-ae2b-1547c32b95ba}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM RunTests
 VAR
-	fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
-	fbTestTransmission : FB_TestTransmission;
+    fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
+    fbTestTransmission : FB_TestTransmission;
 END_VAR
 ]]></Declaration>
     <Implementation>

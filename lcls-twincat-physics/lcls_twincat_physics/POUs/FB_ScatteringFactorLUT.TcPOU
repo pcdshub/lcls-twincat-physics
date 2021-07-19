@@ -19,13 +19,13 @@ VAR
     fRow1 : POINTER TO ARRAY[0..2] OF LREAL;
     fRow2 : POINTER TO ARRAY[0..2] OF LREAL;
     fEnergyEV_RowDelta : LREAL;
-    
+
     iRowCount : UDINT;
     iRowIdx : UDINT;
     fTableLookupLow: LREAL;
     fTableLookupHigh: LREAL;
     fSlope : LREAL;
-    
+
 END_VAR
 VAR CONSTANT
 
@@ -3106,7 +3106,7 @@ DO
             // Interpolate output: f2
             fSlope := (fRow2^[2] - fRow1^[2]) / fEnergyEV_RowDelta;
             f2 := fRow1^[2] + fSlope * (fEnergyEV - fRow1^[0]);
- 
+
             bFound := TRUE;
             bError := FALSE;
         END_IF

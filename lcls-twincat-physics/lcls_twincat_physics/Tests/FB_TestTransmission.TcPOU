@@ -7,9 +7,9 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	fMu: LREAL;
-	bError: BOOL;
-	fTransmission: LREAL;
+    fMu: LREAL;
+    bError: BOOL;
+    fTransmission: LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -17,11 +17,11 @@ END_VAR
 
 (* Cherry-picked test values, verified by Python solid-attenuator IOC *)
 fMu := F_CalculateAbsorptionConstant(
-	sElement:='C',
-	fEnergyEV:=10000,
-	fDensity_gm3:=3.51E6,  (* C (Diamond) g/m^3 *)
-	fAtomicWeight:=12.0107,
-	bError=>bError,
+    sElement:='C',
+    fEnergyEV:=10000,
+    fDensity_gm3:=3.51E6,  (* C (Diamond) g/m^3 *)
+    fAtomicWeight:=12.0107,
+    bError=>bError,
 );
 AssertFalse(bError, 'F_CalculateAbsorptionConstant lookup reported error');
 AssertEquals_LREAL(724.7224642932565, fMu, Delta:=0.0001, Message:='Absorption constant value');
