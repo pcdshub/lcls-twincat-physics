@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
-    <POU Name="FB_ScatteringFactorLUT" Id="{01ad8d01-6b90-c34c-086b-4fed4a9c1079}" SpecialFunc="None">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_ScatteringFactorLUT" Id="{01ad8d01-6b90-c34c-086b-4fed4a9c1079}" SpecialFunc="None">
     <Declaration><![CDATA[
 (* WARNING: This file is auto-generated. Do not modify it.*)
 FUNCTION_BLOCK FB_ScatteringFactorLUT
@@ -3093,7 +3093,6 @@ ELSIF sTableName = 'Si' THEN
     fRow1 := ADR(fTable_Si[0, 0]);
     fTableLookupLow := 10.0000;
     fTableLookupHigh := 30000.0;
-    bFound := TRUE;
 ELSE
     bError := TRUE;
     bDone := TRUE;

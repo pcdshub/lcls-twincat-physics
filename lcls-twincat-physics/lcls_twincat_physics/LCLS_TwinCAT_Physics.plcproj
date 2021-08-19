@@ -12,6 +12,11 @@
     <Implicit_KindOfTask>{a4dc3cec-f067-4491-8706-ab80e1feb317}</Implicit_KindOfTask>
     <Implicit_Jitter_Distribution>{d9f8d78d-d698-40dc-865e-bca4e6c4fa13}</Implicit_Jitter_Distribution>
     <LibraryReferences>{47dd09c0-6d78-420b-8030-214226f4efca}</LibraryReferences>
+    <CombineIds>false</CombineIds>
+    <Company>SLAC</Company>
+    <Released>false</Released>
+    <Title>lcls-twincat-physics</Title>
+    <ProjectVersion>0.0.0</ProjectVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GVLs\GVL_AbsorptionTest.TcGVL">
@@ -30,6 +35,15 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_AtomicMass.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_ElementDensity.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_PhysicalConstants.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_ScatteringFactorLUT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -46,6 +60,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_TestTransmission.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_TestElementDensity.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
