@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
-    <POU Name="FB_ScatteringFactorLUT" Id="{01ad8d01-6b90-c34c-086b-4fed4a9c1079}" SpecialFunc="None">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_ScatteringFactorLUT" Id="{01ad8d01-6b90-c34c-086b-4fed4a9c1079}" SpecialFunc="None">
     <Declaration><![CDATA[
 (* WARNING: This file is auto-generated. Do not modify it.*)
 FUNCTION_BLOCK FB_ScatteringFactorLUT
@@ -25,7 +25,7 @@ VAR
     fRow1 : POINTER TO ARRAY[0..2] OF LREAL;
     fRow2 : POINTER TO ARRAY[0..2] OF LREAL;
     fEnergyEV_RowDelta : LREAL;
-    
+
     iRowCount : UDINT;
     iRowIdx : UDINT;
     fSlope : LREAL;
@@ -42,7 +42,6 @@ VAR
 
     fTable_Si : ARRAY[0..755, 0..2] OF LREAL;
 
-    
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -3125,7 +3124,7 @@ DO
             // Interpolate output: f2
             fSlope := (fRow2^[2] - fRow1^[2]) / fEnergyEV_RowDelta;
             f2 := fRow1^[2] + fSlope * (fEnergyEV - fRow1^[0]);
- 
+
             bFound := TRUE;
             bError := FALSE;
             bDone := TRUE;

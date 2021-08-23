@@ -15,6 +15,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[TEST('Absorption constant');
 
+
 (* Cherry-picked test values, verified by Python solid-attenuator IOC *)
 fMu := F_CalculateAbsorptionConstant(
     sElement:='C',

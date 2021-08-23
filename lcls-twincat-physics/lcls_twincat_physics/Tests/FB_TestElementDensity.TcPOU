@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_TestElementDensity" Id="{261ac554-92a7-43d8-87eb-033d058900e2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TestElementDensity EXTENDS TcUnit.FB_TestSuite
+VAR
+    fbElementDensity : FB_ElementDensity;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TEST('fbElementDensity Si lookup');
+
+fbElementDensity(sName:='Si');
+AssertTrue(fbElementDensity.bFound, 'Silicon not found');
+AssertEquals_LREAL(2.33, fbElementDensity.fValue, Delta:=0.0001, Message:='Element density constant value');
+TEST_FINISHED();
+
+TEST('fbElementDensity bad name lookup');
+fbElementDensity(sName:='Silicon');
+AssertFalse(fbElementDensity.bFound, 'Silicon should not be found');
+AssertEquals_LREAL(0.0, fbElementDensity.fValue, Delta:=0.0001, Message:='Element density constant value');
+TEST_FINISHED();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
