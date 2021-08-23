@@ -5,12 +5,12 @@
 VAR
     fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
     fbTestTransmission : FB_TestTransmission;
-	fbTestElementDensity : FB_TestElementDensity;
-	
-	(* Smoke test - just instantiate *)
-	fbPhysicalConstants : FB_PhysicalConstants;
-	fbAtomicMass : FB_AtomicMass;
-	
+    fbTestElementDensity : FB_TestElementDensity;
+
+    (* Smoke test - just instantiate *)
+    fbPhysicalConstants : FB_PhysicalConstants;
+    fbAtomicMass : FB_AtomicMass;
+
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[TcUnit.RUN();
