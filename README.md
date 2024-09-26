@@ -11,6 +11,7 @@ constants and look-up tables.
 * SciPy physical constants
 * Atomic Mass
 * Element Density
+* Atomic Number
 
 ### Related repositories
 
