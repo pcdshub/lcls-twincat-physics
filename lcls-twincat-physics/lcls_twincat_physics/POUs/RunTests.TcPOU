@@ -1,22 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="RunTests" Id="{3c99bab2-48fb-4f3c-ae2b-1547c32b95ba}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM RunTests
+    <Declaration><![CDATA[
+PROGRAM RunTests
 VAR
     fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
     fbTestTransmission : FB_TestTransmission;
     fbTestElementDensity : FB_TestElementDensity;
+    fbAtomicNumber_Test : FB_AtomicNumber_Test;
 
     (* Smoke test - just instantiate *)
     fbPhysicalConstants : FB_PhysicalConstants;
     fbAtomicMass : FB_AtomicMass;
 
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
     <Implementation>
-      <ST><![CDATA[TcUnit.RUN();
+      <ST><![CDATA[
+TcUnit.RUN();
 
 fbPhysicalConstants();
-fbAtomicMass();]]></ST>
+fbAtomicMass();
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
