@@ -1,0 +1,47 @@
+
+Settings
+--------
+
+.. list-table::
+    :header-rows: 1
+    :align: center
+
+    * - Setting
+      - Value
+      - Description
+    * - AMS Net ID
+      - 172.21.148.154.1.1
+      -
+    * - Target IP address
+      - 172.21.148.154
+      - Based on AMS Net ID by convention
+    * - AMS Port
+      - 851
+      -
+
+.. _LCLS_TwinCAT_Physics_pragmas:
+
+Pragmas
+-------
+
+Total pragmas found: 3
+Total linter errors: 0
+
+
+
+Libraries
+---------
+
+.. csv-table::
+    :header: Library, Vendor, Default, Version
+    :align: center
+
+        Tc2_Standard, Beckhoff Automation GmbH, Unset, Unset
+        Tc2_System, Beckhoff Automation GmbH, Unset, Unset
+        Tc3_Module, Beckhoff Automation GmbH, Unset, Unset
+        TcUnit, www.tcunit.org, Unset, Unset
+
+Symbols
+-------
+
+

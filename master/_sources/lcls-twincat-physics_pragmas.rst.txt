@@ -6,16 +6,16 @@ Pragmas
     :header: PLC Name, Total Pragmas, Errors
     :align: center
 
-    :ref:`lcls_twincat_physics <lcls_twincat_physics_overview_pragmas>`, 0, 0
+    :ref:`LCLS_TwinCAT_Physics <LCLS_TwinCAT_Physics_overview_pragmas>`, 3, 0
 
 
-.. _lcls_twincat_physics_overview_pragmas:
+.. _LCLS_TwinCAT_Physics_overview_pragmas:
 
 
-lcls_twincat_physics
+LCLS_TwinCAT_Physics
 ^^^^^^^^^^^^^^^^^^^^
 
-Total pragmas found: 0
+Total pragmas found: 3
 Total linter errors: 0
 
 
