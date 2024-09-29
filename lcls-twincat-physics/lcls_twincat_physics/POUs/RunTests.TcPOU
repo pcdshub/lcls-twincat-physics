@@ -8,6 +8,7 @@ VAR
     fbTestTransmission : FB_TestTransmission;
     fbTestElementDensity : FB_TestElementDensity;
     fbAtomicNumber_Test : FB_AtomicNumber_Test;
+    fbXRayDelta_Test : FB_XRayDelta_Test;
 
     (* Smoke test - just instantiate *)
     fbPhysicalConstants : FB_PhysicalConstants;

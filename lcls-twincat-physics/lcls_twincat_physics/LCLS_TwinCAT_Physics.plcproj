@@ -50,6 +50,9 @@
     <Compile Include="POUs\FB_ScatteringFactorLUT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_XRayDelta.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\F_CalculateAbsorptionConstant.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -60,6 +63,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_AtomicNumber_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_XRayDelta_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_ScatteringFactorLUT_Test.TcPOU">

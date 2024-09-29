@@ -1,0 +1,689 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_XRayDelta_Test" Id="{98858369-0487-4f19-ba02-1eea298ccad3}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_XRayDelta_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+    nTestID : INT;
+    fbXRayDelta : FB_XRayDelta;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+// Expected results taken from xraydb python module. Element = Be
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := 0.12441385528833308,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 0.0003515107795702183
+);
+
+// Expected results taken from xraydb python module. Element = Be
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 5000,
+    fF1 := 0.008629720262191965,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 1.366571452252288e-05
+);
+
+// Expected results taken from xraydb python module. Element = Be
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 9000,
+    fF1 := 0.0020031615525685797,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 4.21084077002856e-06
+);
+
+// Expected results taken from xraydb python module. Element = Be
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 13000,
+    fF1 := 0.0002571846823127274,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 2.0173331258730944e-06
+);
+
+// Expected results taken from xraydb python module. Element = Be
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 17000,
+    fF1 := -0.00046160739886157517,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 1.1794741795550217e-06
+);
+
+// Expected results taken from xraydb python module. Element = Be
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 21000,
+    fF1 := -0.000825468764269313,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 7.728730774042627e-07
+);
+
+// Expected results taken from xraydb python module. Element = Be
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 25000,
+    fF1 := -0.0010352010958358986,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 5.453106436966498e-07
+);
+
+// Expected results taken from xraydb python module. Element = Be
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := -0.0011666530513713296,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 4.052413187574221e-07
+);
+
+// Expected results taken from xraydb python module. Element = Ge
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := -10.582299446346644,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 0.0006517015706244444
+);
+
+// Expected results taken from xraydb python module. Element = Ge
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 5000,
+    fF1 := -0.29793323046048537,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 3.858544320197948e-05
+);
+
+// Expected results taken from xraydb python module. Element = Ge
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 9000,
+    fF1 := -1.415408554457494,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 1.1489300540287362e-05
+);
+
+// Expected results taken from xraydb python module. Element = Ge
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 13000,
+    fF1 := -0.8681522072380862,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 5.605238795472949e-06
+);
+
+// Expected results taken from xraydb python module. Element = Ge
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 17000,
+    fF1 := 0.06422040303493107,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 3.3759714695328783e-06
+);
+
+// Expected results taken from xraydb python module. Element = Ge
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 21000,
+    fF1 := 0.23900050873275772,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 2.224430826719195e-06
+);
+
+// Expected results taken from xraydb python module. Element = Ge
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 25000,
+    fF1 := 0.2981177442070939,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 1.5724365188043555e-06
+);
+
+// Expected results taken from xraydb python module. Element = Ge
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := 0.279006161044894,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 1.1678850102602785e-06
+);
+
+// Expected results taken from xraydb python module. Element = C
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := 0.32193839196465696,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 0.0004954024109219588
+);
+
+// Expected results taken from xraydb python module. Element = C
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 5000,
+    fF1 := 0.03915856012814577,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 1.8929723924106185e-05
+);
+
+// Expected results taken from xraydb python module. Element = C
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 9000,
+    fF1 := 0.012742893534931502,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 5.816951882238059e-06
+);
+
+// Expected results taken from xraydb python module. Element = C
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 13000,
+    fF1 := 0.0051344009870076006,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 2.7844785949661735e-06
+);
+
+// Expected results taken from xraydb python module. Element = C
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 17000,
+    fF1 := 0.0018717367867612546,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 1.6274090390203236e-06
+);
+
+// Expected results taken from xraydb python module. Element = C
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 21000,
+    fF1 := 0.00018315869109657742,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 1.066187961917793e-06
+);
+
+// Expected results taken from xraydb python module. Element = C
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 25000,
+    fF1 := -0.0008050488740442613,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 7.521783245863069e-07
+);
+
+// Expected results taken from xraydb python module. Element = C
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := -0.0014327706311398664,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 5.589325363478469e-07
+);
+
+// Expected results taken from xraydb python module. Element = Al
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := -1.4706548748585362,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 0.000479002541009039
+);
+
+// Expected results taken from xraydb python module. Element = Al
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 5000,
+    fF1 := 0.3394992244878562,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 2.2168315563333035e-05
+);
+
+// Expected results taken from xraydb python module. Element = Al
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 9000,
+    fF1 := 0.1791968771685957,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 6.759850703993127e-06
+);
+
+// Expected results taken from xraydb python module. Element = Al
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 13000,
+    fF1 := 0.10286314113023422,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 3.221162820729779e-06
+);
+
+// Expected results taken from xraydb python module. Element = Al
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 17000,
+    fF1 := 0.06327698503071992,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 1.8779648971035541e-06
+);
+
+// Expected results taken from xraydb python module. Element = Al
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 21000,
+    fF1 := 0.04088932071951213,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 1.2285753489315733e-06
+);
+
+// Expected results taken from xraydb python module. Element = Al
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 25000,
+    fF1 := 0.027012460560622523,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 8.659603129420084e-07
+);
+
+// Expected results taken from xraydb python module. Element = Al
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := 0.01794721755836219,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 6.431017450275689e-07
+);
+
+// Expected results taken from xraydb python module. Element = Si
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := -1.1466629849836463,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 0.0004425338118167865
+);
+
+// Expected results taken from xraydb python module. Element = Si
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 5000,
+    fF1 := 0.376633379957434,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 1.979920502603243e-05
+);
+
+// Expected results taken from xraydb python module. Element = Si
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 9000,
+    fF1 := 0.2187360053762612,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 6.0437506160007e-06
+);
+
+// Expected results taken from xraydb python module. Element = Si
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 13000,
+    fF1 := 0.12829708897707393,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 2.878284226710621e-06
+);
+
+// Expected results taken from xraydb python module. Element = Si
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 17000,
+    fF1 := 0.08035275509831682,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 1.6774371468815418e-06
+);
+
+// Expected results taken from xraydb python module. Element = Si
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 21000,
+    fF1 := 0.052804355045352136,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 1.097122127304369e-06
+);
+
+// Expected results taken from xraydb python module. Element = Si
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 25000,
+    fF1 := 0.03564968592197386,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 7.731843706678976e-07
+);
+
+// Expected results taken from xraydb python module. Element = Si
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := 0.024412307252506597,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 5.741418959262752e-07
+);
+
+TestInvalidDensityExpectError0Delta(
+    fDensity := 0.0,
+);
+
+TestInvalidDensityExpectError0Delta(
+    fDensity := -10.0,
+);
+
+TestInvalidAtomicMassExpectError0Delta(
+    fAtomicMass := 0.0,
+);
+
+TestInvalidAtomicMassExpectError0Delta(
+    fAtomicMass := -10.0,
+);
+
+TestInvalidPhotonEnergyExpectError0Delta(
+    fEnergy := 0,
+);
+
+TestInvalidPhotonEnergyExpectError0Delta(
+    fEnergy := -10.0,
+);
+
+TestInvalidAtomicNumberExpectError0Delta(
+    nAtomicNumber := 0,
+);
+
+TestInvalidAtomicNumberExpectError0Delta(
+    nAtomicNumber := -10,
+);]]></ST>
+    </Implementation>
+    <Method Name="TestInvalidAtomicMassExpectError0Delta" Id="{c8c24d13-5f2c-4a7f-b9db-3bf57a8f7b0f}">
+      <Declaration><![CDATA[
+METHOD TestInvalidAtomicMassExpectError0Delta
+VAR_INPUT
+    fAtomicMass : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidAtomicMassExpectError0Delta ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbXRayDelta(
+    fEnergy := 1000,
+    fF1 := 1.0,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := fAtomicMass,
+    fDelta =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.fDelta,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidAtomicNumberExpectError0Delta" Id="{b7a2a89e-cec8-4979-8aae-e8f2c1247c27}">
+      <Declaration><![CDATA[
+METHOD TestInvalidAtomicNumberExpectError0Delta
+VAR_INPUT
+    nAtomicNumber : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidAtomicNumberExpectError0Delta ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbXRayDelta(
+    fEnergy := 1000,
+    fF1 := 1.0,
+    fDensity := 1.85,
+    nAtomicNumber := nAtomicNumber,
+    fAtomicMass := 9.012182,
+    fDelta =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.fDelta,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidDensityExpectError0Delta" Id="{3229c94b-ab3b-4d00-b455-7560e1ba2ca8}">
+      <Declaration><![CDATA[
+METHOD TestInvalidDensityExpectError0Delta
+VAR_INPUT
+    fDensity : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidDensityExpectError0Delta ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbXRayDelta(
+    fEnergy := 1000,
+    fF1 := 1.0,
+    fDensity := fDensity,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.012182,
+    fDelta =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.fDelta,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidPhotonEnergyExpectError0Delta" Id="{fa2bc412-ad0e-48a6-ae3a-211b7b31eaeb}">
+      <Declaration><![CDATA[
+METHOD TestInvalidPhotonEnergyExpectError0Delta
+VAR_INPUT
+    fEnergy : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidPhotonEnergyExpectError0Delta ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbXRayDelta(
+    fEnergy := fEnergy,
+    fF1 := 1.0,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.012182,
+    fDelta =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.fDelta,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateDelta" Id="{98dcca39-02f5-4794-8d0d-043b48f5e73a}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccurateDelta
+VAR_INPUT
+    fEnergy : LREAL;
+    fF1 : LREAL;
+    fDensity : LREAL;
+    nAtomicNumber : INT;
+    fAtomicMass : LREAL;
+
+    fExpected : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestValidInputsExpectNoErrorAccurateDelta ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbXRayDelta(
+    fEnergy := fEnergy,
+    fF1 := fF1,
+    fDensity := fDensity,
+    nAtomicNumber := nAtomicNumber,
+    fAtomicMass := fAtomicMass,
+    fDelta =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertFalse(
+    Condition := fbXRayDelta.bError,
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbXRayDelta.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbXRayDelta.fDelta,
+    Delta := 0.001 * fExpected,
+    Message := 'X-ray delta did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

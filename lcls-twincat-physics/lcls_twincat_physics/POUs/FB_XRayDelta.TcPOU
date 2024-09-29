@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_XRayDelta" Id="{b112e3de-a339-4392-b69c-84309b59a9f4}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_XRayDelta
+(*
+Computes the xray delta, the real part of the index of refraction for the given
+photon energy, f1 scattering and material density.
+*)
+VAR_INPUT
+    fEnergy : LREAL; // The photon energy of the x-rays in eV.
+    fF1 : LREAL; // The f1 scattering factor.
+    fDensity : LREAL; // The density of the material in g/cm^3.
+    nAtomicNumber : INT; // The atomic number of the material.
+    fAtomicMass : LREAL; // The atomic mass of the material.
+END_VAR
+VAR_OUTPUT
+    fDelta : LREAL; // The real part of the index of refraction.
+    bError : BOOL; // TRUE if there was an error in the function.
+    sErrorMsg : T_MaxString; // Text to help with debugging when there is an error.
+END_VAR
+VAR
+    fLambda : LREAL; // Lambda in cm.
+    fPlanckHC : LREAL; // Planck's constant multiplied by speed of light divided my elementary charge. Result in cm / eV.
+    fRElectron : LREAL; // Classical electron radius in cm.
+    fWeight : LREAL; // The density per mol of the material.
+    fDeltaUnscaled : LREAL; // The x-ray delta value before it has been scaled.
+    fScale : LREAL; // The scaling factor
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// Initialize error message for troubleshooting help.
+sErrorMsg := '';
+bError := FALSE;
+fDelta := 0.0;
+
+// Check to make sure the photon energy is a nonzero, positive number before attempting to divide by it.
+IF fEnergy <= 0.0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The photon energy specified: [',
+        CONCAT(LREAL_TO_STRING(fEnergy),
+        '] must be greater than 0.'));
+    RETURN;
+END_IF
+
+// Calculate some values needed for computing the index of refraction.
+fPlanckHC := 1e10 * GVL_PhysicalConstants.fPlanckConstant_in_J_Hz_1 * GVL_PhysicalConstants.fSpeedOfLightInVacuum_in_m_s_1 / GVL_PhysicalConstants.fElementaryCharge_in_C; // cm / eV
+fLambda := 1e-8 * fPlanckHC / fEnergy; // cm
+fRElectron := 100 * GVL_PhysicalConstants.fClassicalElectronRadius_in_m; // cm
+
+// Check to make sure the density is a nonzero, positive number.
+IF fDensity <= 0.0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The density specified: [',
+        CONCAT(LREAL_TO_STRING(fDensity),
+        '] must be greater than 0.'));
+    RETURN;
+END_IF
+
+fWeight := fDensity * GVL_PhysicalConstants.fAvogadroConstant_in_mol_1;
+
+// Check to make sure the atomic number is a nonzero, positive number.
+IF nAtomicNumber <= 0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The atomic number specified: [',
+        CONCAT(LREAL_TO_STRING(nAtomicNumber),
+        '] must be greater than 0.'));
+    RETURN;
+END_IF
+
+fDeltaUnscaled := fWeight * (INT_TO_LREAL(nAtomicNumber) + fF1);
+
+// Check to make sure the atomic mass is a nonzero, positive number.
+IF fAtomicMass <= 0.0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The atomic mass specified: [',
+        CONCAT(LREAL_TO_STRING(fAtomicMass),
+        '] must be greater than 0.'));
+    RETURN;
+END_IF
+
+fScale := fLambda * fLambda * fRElectron / (2 * 3.1415926535 * fAtomicMass);
+fDelta := fDeltaUnscaled * fScale;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
