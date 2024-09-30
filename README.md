@@ -13,6 +13,12 @@ constants and look-up tables.
 * Element Density
 * Atomic Number
 
+### Included function blocks
+
+* Focal length calculation for a lens
+* Image distance calculation for a lens
+* Focal length compounding function for multiple lenses in a stack
+
 ### Related repositories
 
 * [tc3-table-generator](https://github.com/pcdshub/tc3-table-generator)

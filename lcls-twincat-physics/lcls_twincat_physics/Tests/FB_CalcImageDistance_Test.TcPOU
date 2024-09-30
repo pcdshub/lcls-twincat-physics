@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_CalcImageDistance_Test" Id="{5f8237c8-f0d3-4882-b3a4-76e150aa99d5}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcImageDistance_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+    nTestID : INT;
+    fbCalcImageDistance : FB_CalcImageDistance;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+TestInvalidFocalLengthExpectError0ImageDistance(
+    fFocalLength := 0
+);
+
+TestInvalidSourceDistanceExpectError0ImageDistance(
+    fSourceDistance := 0
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 1.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -0.07335454088577022,
+    fSourceDistance := -212.0986870327873,
+    fExpected := -0.07337991940354129
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 2.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 419.2107219420503,
+    fSourceDistance := -520.0,
+    fExpected := 232.0986870327873
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 3.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 0.07335454088577022,
+    fSourceDistance := -224.06184656231403,
+    fExpected := 0.07333053355161619
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 4.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 419.2107219420503,
+    fSourceDistance := -505.0,
+    fExpected := 229.06184656231403
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 5.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -0.07335454088577022,
+    fSourceDistance := 335.4454337872406,
+    fExpected := -0.07333850336758717
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 6.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 419.2107219420503,
+    fSourceDistance := 180.0,
+    fExpected := -315.4454337872406
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 7.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 0.07335454088577022,
+    fSourceDistance := -132.67497894100342,
+    fExpected := 0.07331400637563795
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 8.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 419.2107219420503,
+    fSourceDistance := -205.0,
+    fExpected := 137.67497894100342
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 9.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -3.7317531351813282,
+    fSourceDistance := 2751.588989207632,
+    fExpected := -3.7266989208940675
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 10.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 582.3277343708637,
+    fSourceDistance := 480.0,
+    fExpected := -2731.588989207632
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 11.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 3.7317531351813282,
+    fSourceDistance := 3305.8096521710627,
+    fExpected := 3.735970474047259
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 12.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 582.3277343708637,
+    fSourceDistance := 495.0,
+    fExpected := -3300.8096521710627
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 13.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -3.7317531351813282,
+    fSourceDistance := -139.6755241946705,
+    fExpected := -3.834192411018701
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 14.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 582.3277343708637,
+    fSourceDistance := -220.0,
+    fExpected := 159.6755241946705
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 15.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 3.7317531351813282,
+    fSourceDistance := -146.62324446936796,
+    fExpected := 3.6391324595549506
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 16.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 582.3277343708637,
+    fSourceDistance := -205.0,
+    fExpected := 151.62324446936796
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 17.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -3.7317531351813282,
+    fSourceDistance := 750.7959763718659,
+    fExpected := -3.7132965816083616
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 18.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 1398.6750255449715,
+    fSourceDistance := 480.0,
+    fExpected := -730.7959763718659
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 19.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 3.7317531351813282,
+    fSourceDistance := -366.0354332657208,
+    fExpected := 3.694091649862733
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 20.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 1398.6750255449715,
+    fSourceDistance := -505.0,
+    fExpected := 371.0354332657208
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 21.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -3.7317531351813282,
+    fSourceDistance := 226.5862509043469,
+    fExpected := -3.671288989010864
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 22.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 1398.6750255449715,
+    fSourceDistance := 180.0,
+    fExpected := -206.5862509043469
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 23.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 3.7317531351813282,
+    fSourceDistance := 231.59075264752954,
+    fExpected := 3.792869797203629
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 24.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 1398.6750255449715,
+    fSourceDistance := 195.0,
+    fExpected := -226.59075264752954
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 25.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -189.84602562926352,
+    fSourceDistance := -487.65282529363066,
+    fExpected := -310.86916374379393
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 26.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 21379.746819044565,
+    fSourceDistance := -520.0,
+    fExpected := 507.65282529363066
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 27.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 189.84602562926352,
+    fSourceDistance := -488.34690654140576,
+    fExpected := 136.70257376244723
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 28.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 21379.746819044565,
+    fSourceDistance := -505.0,
+    fExpected := 493.34690654140576
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 29.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -189.84602562926352,
+    fSourceDistance := 201.5283201387525,
+    fExpected := -97.75640903341669
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 30.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 21379.746819044565,
+    fSourceDistance := 180.0,
+    fExpected := -181.5283201387525
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 31.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 189.84602562926352,
+    fSourceDistance := -198.05302325979005,
+    fExpected := 96.93135220985143
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 32.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 21379.746819044565,
+    fSourceDistance := -205.0,
+    fExpected := 203.05302325979005
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 33.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -1672.9943505565627,
+    fSourceDistance := 500.0240992998742,
+    fExpected := -384.96566530582845
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 34.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 9560923.71423782,
+    fSourceDistance := 480.0,
+    fExpected := -480.0240992998742
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 35.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 1672.9943505565627,
+    fSourceDistance := 500.0256290808,
+    fExpected := -713.1818924661369
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 36.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 9560923.71423782,
+    fSourceDistance := 495.0,
+    fExpected := -495.0256290808
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 37.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -1672.9943505565627,
+    fSourceDistance := -199.99493784410666,
+    fExpected := 227.14903907325362
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 38.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 9560923.71423782,
+    fSourceDistance := -220.0,
+    fExpected := 219.99493784410666
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 39.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 1672.9943505565627,
+    fSourceDistance := -199.99560459844687,
+    fExpected := 178.64031555986364
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 40.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 9560923.71423782,
+    fSourceDistance := -205.0,
+    fExpected := 204.99560459844687
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 41.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -85109.9582581015,
+    fSourceDistance := 500.0173485517255,
+    fExpected := -497.09692546924
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 42.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 13281127.494096898,
+    fSourceDistance := 480.0,
+    fExpected := -480.0173485517255
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 43.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 85109.9582581015,
+    fSourceDistance := -499.98079867063683,
+    fExpected := 497.0608012755499
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 44.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 13281127.494096898,
+    fSourceDistance := -505.0,
+    fExpected := 504.98079867063683
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 45.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -85109.9582581015,
+    fSourceDistance := 200.002439584978,
+    fExpected := -199.53354972132308
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 46.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 13281127.494096898,
+    fSourceDistance := 180.0,
+    fExpected := -180.002439584978
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 47.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 85109.9582581015,
+    fSourceDistance := 200.0028631272704,
+    fExpected := -200.47396389599692
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 48.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 13281127.494096898,
+    fSourceDistance := 195.0,
+    fExpected := -195.0028631272704
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 49.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -85109.9582581015,
+    fSourceDistance := -499.9915235243968,
+    fExpected := 502.94615798703023
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 50.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 31899530.523204695,
+    fSourceDistance := -520.0,
+    fExpected := 519.9915235243968
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 51.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 85109.9582581015,
+    fSourceDistance := -499.992005494796,
+    fExpected := 497.0718775798869
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 52.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 31899530.523204695,
+    fSourceDistance := -505.0,
+    fExpected := 504.992005494796
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 53.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -85109.9582581015,
+    fSourceDistance := 200.00101569466048,
+    fExpected := -199.5321324995517
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 54.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 31899530.523204695,
+    fSourceDistance := 180.0,
+    fExpected := -180.00101569466048
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 55.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 85109.9582581015,
+    fSourceDistance := -199.9986825909585,
+    fExpected := 199.5298103224386
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 56.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 31899530.523204695,
+    fSourceDistance := -205.0,
+    fExpected := 204.9986825909585
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 57.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -4329811.41341976,
+    fSourceDistance := 500.0004725120334,
+    fExpected := -499.942739834492
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 58.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 487607109.42612886,
+    fSourceDistance := 480.0,
+    fExpected := -480.0004725120334
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 59.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 4329811.41341976,
+    fSourceDistance := 500.0005025054885,
+    fExpected := -500.05824852527354
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 60.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 487607109.42612886,
+    fSourceDistance := 495.0,
+    fExpected := -495.0005025054885
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 61.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := -4329811.41341976,
+    fSourceDistance := -199.99990073980214,
+    fExpected := 200.009139435028
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 62.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 487607109.42612886,
+    fSourceDistance := -220.0,
+    fExpected := 219.99990073980214
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 63.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 4329811.41341976,
+    fSourceDistance := -199.99991381384416,
+    fExpected := 199.99067597086704
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 64.
+TestValidInputsExpectNoErrorAccurateImageDistance(
+    fFocalLength := 487607109.42612886,
+    fSourceDistance := -205.0,
+    fExpected := 204.99991381384416
+);
+]]></ST>
+    </Implementation>
+    <Method Name="TestInvalidFocalLengthExpectError0ImageDistance" Id="{6b8150b9-77b9-4069-b1e7-9e118d825137}">
+      <Declaration><![CDATA[
+METHOD TestInvalidFocalLengthExpectError0ImageDistance
+VAR_INPUT
+    fFocalLength : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidFocalLengthExpectError0ImageDistance ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCalcImageDistance(
+    fFocalLength := fFocalLength,
+    fSourceDistance := 1.0,
+    fImageDistance =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbCalcImageDistance.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcImageDistance.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbCalcImageDistance.fImageDistance,
+    Delta := 0,
+    Message := 'Calculated image distance should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidSourceDistanceExpectError0ImageDistance" Id="{6dc9932c-0b20-4be4-a381-07de5a3a0e0d}">
+      <Declaration><![CDATA[
+METHOD TestInvalidSourceDistanceExpectError0ImageDistance
+VAR_INPUT
+    fSourceDistance : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidSourceDistanceExpectError0ImageDistance ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCalcImageDistance(
+    fFocalLength := 1.0,
+    fSourceDistance :=fSourceDistance,
+    fImageDistance =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbCalcImageDistance.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcImageDistance.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbCalcImageDistance.fImageDistance,
+    Delta := 0,
+    Message := 'Calculated image distance should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateImageDistance" Id="{43ee5803-5362-4de9-bcf2-bf0ebf137973}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccurateImageDistance
+VAR_INPUT
+    fFocalLength : LREAL;
+    fSourceDistance : LREAL;
+    fExpected : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestValidInputsExpectNoErrorAccurateImageDistance ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCalcImageDistance(
+    fFocalLength := fFocalLength,
+    fSourceDistance := fSourceDistance,
+    fImageDistance =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertFalse(
+    Condition := fbCalcImageDistance.bError,
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbCalcImageDistance.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbCalcImageDistance.fImageDistance,
+    Delta := ABS(0.001 * fExpected),
+    Message := 'Calculated image distance did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

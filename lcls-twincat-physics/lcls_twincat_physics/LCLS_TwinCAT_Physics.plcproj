@@ -41,6 +41,15 @@
     <Compile Include="POUs\FB_AtomicNumber.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_CalcFocalLengthSingleLens.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcImageDistance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CompoundLenses.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_ElementDensity.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -48,6 +57,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_ScatteringFactorLUT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_XRayDelta.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\F_CalculateAbsorptionConstant.TcPOU">
@@ -62,6 +74,15 @@
     <Compile Include="Tests\FB_AtomicNumber_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\FB_CompoundLenses_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcImageDistance_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_XRayDelta_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\FB_ScatteringFactorLUT_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -69,6 +90,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_TestElementDensity.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcFocalLengthSingleLens_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
