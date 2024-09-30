@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{69ED5FAD-9462-BF46-57D8-17F2B00C269C}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{AA6D7E60-2AF9-3C88-FDEC-E339C91CBA3D}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name GUID="{6F5942ED-BFA1-497D-8225-23C6DAAD0A09}" TcBaseType="true">ST_LibVersion</Name>
@@ -10142,6 +10142,185 @@
         </Property>
       </Properties>
     </DataType>
+    <DataType>
+      <Name>FB_CompoundLenses</Name>
+      <BitSize>2496</BitSize>
+      <SubItem>
+        <Name>fFocalLength1</Name>
+        <Type>LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>64</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>nMultiplier1</Name>
+        <Type>INT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>128</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>fFocalLength2</Name>
+        <Type>LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>192</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>nMultiplier2</Name>
+        <Type>INT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>256</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>fFocalLengthCompounded</Name>
+        <Type>LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>320</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Output</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>bError</Name>
+        <Type>BOOL</Type>
+        <Comment> TRUE if function block reports an error.</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>384</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Output</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>sErrorMsg</Name>
+        <Type Namespace="Tc2_System">T_MaxString</Type>
+        <Comment> Provides debugging help for errors.</Comment>
+        <BitSize>2048</BitSize>
+        <BitOffs>392</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Output</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <Properties>
+        <Property>
+          <Name>PouType</Name>
+          <Value>FunctionBlock</Value>
+        </Property>
+      </Properties>
+    </DataType>
+    <DataType>
+      <Name>FB_CompoundLenses_Test</Name>
+      <BitSize>33554304</BitSize>
+      <ExtendsType Namespace="TcUnit">FB_TestSuite</ExtendsType>
+      <SubItem>
+        <Name>nTestID</Name>
+        <Type>INT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>33551744</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>fbCompoundLenses</Name>
+        <Type>FB_CompoundLenses</Type>
+        <BitSize>2496</BitSize>
+        <BitOffs>33551808</BitOffs>
+      </SubItem>
+      <Method>
+        <Name>TestInvalidMultiplier1ExpectError0FocalLength</Name>
+        <Parameter>
+          <Name>nMultiplier1</Name>
+          <Type>INT</Type>
+          <BitSize>16</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>TestInvalidFocalLength1ExpectError0FocalLength</Name>
+        <Parameter>
+          <Name>fFocalLength1</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>TestValidInputsExpectNoErrorAccurateFocalLength</Name>
+        <Parameter>
+          <Name>fFocalLength1</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+        <Parameter>
+          <Name>nMultiplier1</Name>
+          <Type>INT</Type>
+          <BitSize>16</BitSize>
+        </Parameter>
+        <Parameter>
+          <Name>fFocalLength2</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+        <Parameter>
+          <Name>nMultiplier2</Name>
+          <Type>INT</Type>
+          <BitSize>16</BitSize>
+        </Parameter>
+        <Parameter>
+          <Name>fExpected</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>TestInvalidMultiplier2ExpectError0FocalLength</Name>
+        <Parameter>
+          <Name>nMultiplier2</Name>
+          <Type>INT</Type>
+          <BitSize>16</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>TestInvalidFocalLength2ExpectError0FocalLength</Name>
+        <Parameter>
+          <Name>fFocalLength2</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+      </Method>
+      <Properties>
+        <Property>
+          <Name>PouType</Name>
+          <Value>FunctionBlock</Value>
+        </Property>
+      </Properties>
+    </DataType>
   </DataTypes>
   <Modules>
     <Module GUID="{81AD023F-33C9-49F1-8DDF-B5604BA0E1BC}" TcSmClass="TComPlcObjDef">
@@ -10163,7 +10342,7 @@
           <AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
           <Name>PlcTask Internal</Name>
           <ContextId>0</ContextId>
-          <ByteSize>105644032</ByteSize>
+          <ByteSize>109903872</ByteSize>
           <Symbol>
             <Name>Global_Version.stLibVersion_Tc2_Standard</Name>
             <BitSize>288</BitSize>
@@ -34357,6 +34536,12 @@
             <BaseType>FB_XRayDelta_Test</BaseType>
             <BitOffs>811101440</BitOffs>
           </Symbol>
+          <Symbol>
+            <Name>RunTests.fbCompoundLenses_Test</Name>
+            <BitSize>33554304</BitSize>
+            <BaseType>FB_CompoundLenses_Test</BaseType>
+            <BitOffs>844656192</BitOffs>
+          </Symbol>
         </DataArea>
       </DataAreas>
       <Deployment/>
@@ -34368,7 +34553,7 @@
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-09-30T08:04:16</Value>
+          <Value>2024-09-30T09:51:21</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
@@ -34376,7 +34561,7 @@
         </Property>
         <Property>
           <Name>GlobalDataSize</Name>
-          <Value>104247296</Value>
+          <Value>108441600</Value>
         </Property>
       </Properties>
     </Module>

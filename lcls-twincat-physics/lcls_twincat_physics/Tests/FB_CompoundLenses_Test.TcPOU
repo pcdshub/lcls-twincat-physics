@@ -1,0 +1,595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_CompoundLenses_Test" Id="{f7d35265-95ed-426e-abbf-8e10febba493}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CompoundLenses_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+    nTestID : INT;
+    fbCompoundLenses : FB_CompoundLenses;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+TestInvalidFocalLength1ExpectError0FocalLength(
+    fFocalLength1 := 0.0
+);
+
+TestInvalidFocalLength2ExpectError0FocalLength(
+    fFocalLength2 := 0.0
+);
+
+TestInvalidMultiplier1ExpectError0FocalLength(
+    nMultiplier1 := 0
+);
+
+TestInvalidMultiplier1ExpectError0FocalLength(
+    nMultiplier1 := -1
+);
+
+TestInvalidMultiplier2ExpectError0FocalLength(
+    nMultiplier2 := 0
+);
+
+TestInvalidMultiplier2ExpectError0FocalLength(
+    nMultiplier2 := -1
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 1.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.008893754309452119,
+    nMultiplier1 := 1,
+    fFocalLength2 := 0.008893754309452119,
+    nMultiplier2 := 1,
+    fExpected := 0.004446877154726059
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 2.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.008893754309452119,
+    nMultiplier1 := 1,
+    fFocalLength2 := 0.008893754309452119,
+    nMultiplier2 := 2,
+    fExpected := 0.002964584769817373
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 3.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.008893754309452119,
+    nMultiplier1 := 2,
+    fFocalLength2 := 0.008893754309452119,
+    nMultiplier2 := 1,
+    fExpected := 0.002964584769817373
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 4.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.008893754309452119,
+    nMultiplier1 := 2,
+    fFocalLength2 := 0.008893754309452119,
+    nMultiplier2 := 2,
+    fExpected := 0.0022234385773630297
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 5.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.008893754309452119,
+    nMultiplier1 := 1,
+    fFocalLength2 := 0.45358146978205804,
+    nMultiplier2 := 1,
+    fExpected := 0.008722720572731886
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 6.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.008893754309452119,
+    nMultiplier1 := 1,
+    fFocalLength2 := 0.45358146978205804,
+    nMultiplier2 := 2,
+    fExpected := 0.008558140939284115
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 7.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.008893754309452119,
+    nMultiplier1 := 2,
+    fFocalLength2 := 0.45358146978205804,
+    nMultiplier2 := 1,
+    fExpected := 0.004403703590117068
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 8.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.008893754309452119,
+    nMultiplier1 := 2,
+    fFocalLength2 := 0.45358146978205804,
+    nMultiplier2 := 2,
+    fExpected := 0.004361360286365943
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 9.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.45358146978205804,
+    nMultiplier1 := 1,
+    fFocalLength2 := 0.008893754309452119,
+    nMultiplier2 := 1,
+    fExpected := 0.008722720572731886
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 10.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.45358146978205804,
+    nMultiplier1 := 1,
+    fFocalLength2 := 0.008893754309452119,
+    nMultiplier2 := 2,
+    fExpected := 0.004403703590117068
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 11.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.45358146978205804,
+    nMultiplier1 := 2,
+    fFocalLength2 := 0.008893754309452119,
+    nMultiplier2 := 1,
+    fExpected := 0.008558140939284115
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 12.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.45358146978205804,
+    nMultiplier1 := 2,
+    fFocalLength2 := 0.008893754309452119,
+    nMultiplier2 := 2,
+    fExpected := 0.004361360286365943
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 13.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.45358146978205804,
+    nMultiplier1 := 1,
+    fFocalLength2 := 0.45358146978205804,
+    nMultiplier2 := 1,
+    fExpected := 0.22679073489102902
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 14.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.45358146978205804,
+    nMultiplier1 := 1,
+    fFocalLength2 := 0.45358146978205804,
+    nMultiplier2 := 2,
+    fExpected := 0.15119382326068603
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 15.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.45358146978205804,
+    nMultiplier1 := 2,
+    fFocalLength2 := 0.45358146978205804,
+    nMultiplier2 := 1,
+    fExpected := 0.15119382326068603
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 16.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 0.45358146978205804,
+    nMultiplier1 := 2,
+    fFocalLength2 := 0.45358146978205804,
+    nMultiplier2 := 2,
+    fExpected := 0.11339536744551451
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 17.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 33.443194804611025,
+    nMultiplier1 := 1,
+    fFocalLength2 := 33.443194804611025,
+    nMultiplier2 := 1,
+    fExpected := 16.721597402305513
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 18.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 33.443194804611025,
+    nMultiplier1 := 1,
+    fFocalLength2 := 33.443194804611025,
+    nMultiplier2 := 2,
+    fExpected := 11.147731601537009
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 19.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 33.443194804611025,
+    nMultiplier1 := 2,
+    fFocalLength2 := 33.443194804611025,
+    nMultiplier2 := 1,
+    fExpected := 11.147731601537009
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 20.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 33.443194804611025,
+    nMultiplier1 := 2,
+    fFocalLength2 := 33.443194804611025,
+    nMultiplier2 := 2,
+    fExpected := 8.360798701152756
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 21.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 33.443194804611025,
+    nMultiplier1 := 1,
+    fFocalLength2 := 1705.6029350351625,
+    nMultiplier2 := 1,
+    fExpected := 32.80005644298389
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 22.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 33.443194804611025,
+    nMultiplier1 := 1,
+    fFocalLength2 := 1705.6029350351625,
+    nMultiplier2 := 2,
+    fExpected := 32.18118745349363
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 23.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 33.443194804611025,
+    nMultiplier1 := 2,
+    fFocalLength2 := 1705.6029350351625,
+    nMultiplier2 := 1,
+    fExpected := 16.559251796457886
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 24.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 33.443194804611025,
+    nMultiplier1 := 2,
+    fFocalLength2 := 1705.6029350351625,
+    nMultiplier2 := 2,
+    fExpected := 16.400028221491944
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 25.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 1705.6029350351625,
+    nMultiplier1 := 1,
+    fFocalLength2 := 33.443194804611025,
+    nMultiplier2 := 1,
+    fExpected := 32.80005644298389
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 26.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 1705.6029350351625,
+    nMultiplier1 := 1,
+    fFocalLength2 := 33.443194804611025,
+    nMultiplier2 := 2,
+    fExpected := 16.559251796457886
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 27.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 1705.6029350351625,
+    nMultiplier1 := 2,
+    fFocalLength2 := 33.443194804611025,
+    nMultiplier2 := 1,
+    fExpected := 32.18118745349363
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 28.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 1705.6029350351625,
+    nMultiplier1 := 2,
+    fFocalLength2 := 33.443194804611025,
+    nMultiplier2 := 2,
+    fExpected := 16.400028221491944
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 29.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 1705.6029350351625,
+    nMultiplier1 := 1,
+    fFocalLength2 := 1705.6029350351625,
+    nMultiplier2 := 1,
+    fExpected := 852.8014675175812
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 30.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 1705.6029350351625,
+    nMultiplier1 := 1,
+    fFocalLength2 := 1705.6029350351625,
+    nMultiplier2 := 2,
+    fExpected := 568.5343116783874
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 31.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 1705.6029350351625,
+    nMultiplier1 := 2,
+    fFocalLength2 := 1705.6029350351625,
+    nMultiplier2 := 1,
+    fExpected := 568.5343116783874
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 32.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fFocalLength1 := 1705.6029350351625,
+    nMultiplier1 := 2,
+    fFocalLength2 := 1705.6029350351625,
+    nMultiplier2 := 2,
+    fExpected := 426.4007337587906
+);
+]]></ST>
+    </Implementation>
+    <Method Name="TestInvalidFocalLength1ExpectError0FocalLength" Id="{ddc5643e-f623-46a5-99e6-6abd658d2c0f}">
+      <Declaration><![CDATA[
+METHOD TestInvalidFocalLength1ExpectError0FocalLength
+VAR_INPUT
+    fFocalLength1 : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidFocalLength1ExpectError0FocalLength ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCompoundLenses(
+    fFocalLength1 := fFocalLength1,
+    nMultiplier1 := 1,
+    fFocalLength2 := 1.0,
+    nMultiplier2 := 1,
+    fFocalLengthCompounded =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbCompoundLenses.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCompoundLenses.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbCompoundLenses.fFocalLengthCompounded,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidFocalLength2ExpectError0FocalLength" Id="{30af97da-0508-4930-85fa-248076408417}">
+      <Declaration><![CDATA[
+METHOD TestInvalidFocalLength2ExpectError0FocalLength
+VAR_INPUT
+    fFocalLength2 : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidFocalLength2ExpectError0FocalLength ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCompoundLenses(
+    fFocalLength1 := 1.0,
+    nMultiplier1 := 1,
+    fFocalLength2 := fFocalLength2,
+    nMultiplier2 := 1,
+    fFocalLengthCompounded =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbCompoundLenses.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCompoundLenses.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbCompoundLenses.fFocalLengthCompounded,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidMultiplier1ExpectError0FocalLength" Id="{873f1f64-9617-4fd5-8fb4-eb884b1ad749}">
+      <Declaration><![CDATA[
+METHOD TestInvalidMultiplier1ExpectError0FocalLength
+VAR_INPUT
+    nMultiplier1 : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidMultiplier1ExpectError0FocalLength ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCompoundLenses(
+    fFocalLength1 := 1.0,
+    nMultiplier1 := nMultiplier1,
+    fFocalLength2 := 1.0,
+    nMultiplier2 := 1,
+    fFocalLengthCompounded =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbCompoundLenses.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCompoundLenses.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbCompoundLenses.fFocalLengthCompounded,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidMultiplier2ExpectError0FocalLength" Id="{d1f5f9ef-a32a-4676-9390-a69d8563f3fb}">
+      <Declaration><![CDATA[
+METHOD TestInvalidMultiplier2ExpectError0FocalLength
+VAR_INPUT
+    nMultiplier2 : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidMultiplier2ExpectError0FocalLength ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCompoundLenses(
+    fFocalLength1 := 1.0,
+    nMultiplier1 := nMultiplier2,
+    fFocalLength2 := 1.0,
+    nMultiplier2 := 1,
+    fFocalLengthCompounded =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbCompoundLenses.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCompoundLenses.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbCompoundLenses.fFocalLengthCompounded,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength" Id="{ebe91652-846f-46fc-946b-f0c6b61f529d}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccurateFocalLength
+VAR_INPUT
+    fFocalLength1 : LREAL;
+    nMultiplier1 : INT;
+    fFocalLength2 : LREAL;
+    nMultiplier2 : INT;
+    fExpected : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestValidInputsExpectNoErrorAccurateFocalLength ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCompoundLenses(
+    fFocalLength1 := fFocalLength1,
+    nMultiplier1 := nMultiplier1,
+    fFocalLength2 := fFocalLength2,
+    nMultiplier2 := nMultiplier2,
+    fFocalLengthCompounded =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertFalse(
+    Condition := fbCompoundLenses.bError,
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbCompoundLenses.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbCompoundLenses.fFocalLengthCompounded,
+    Delta := 0.001 * fExpected,
+    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

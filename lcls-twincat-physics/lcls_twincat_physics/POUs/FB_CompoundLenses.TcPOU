@@ -4,10 +4,15 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_CompoundLenses
 VAR_INPUT
+    fFocalLength1 : LREAL;
+    nMultiplier1 : INT;
+    fFocalLength2 : LREAL;
+    nMultiplier2 : INT;
 END_VAR
 VAR_OUTPUT
-END_VAR
-VAR
+    fFocalLengthCompounded : LREAL;
+    bError : BOOL; // TRUE if function block reports an error.
+    sErrorMsg : T_MaxString; // Provides debugging help for errors.
 END_VAR
 ]]></Declaration>
     <Implementation>

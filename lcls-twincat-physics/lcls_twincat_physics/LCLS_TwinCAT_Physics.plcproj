@@ -74,6 +74,9 @@
     <Compile Include="Tests\FB_AtomicNumber_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\FB_CompoundLenses_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\FB_XRayDelta_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
