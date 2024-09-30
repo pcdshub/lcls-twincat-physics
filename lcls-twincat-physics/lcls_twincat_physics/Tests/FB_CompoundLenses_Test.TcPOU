@@ -581,7 +581,7 @@ AssertFalse(
 AssertEquals_LREAL(
     Expected := fExpected,
     Actual := fbCompoundLenses.fFocalLengthCompounded,
-    Delta := 0.001 * fExpected,
+    Delta := ABS(0.001 * fExpected),
     Message := 'Calculated focal length did not calculate close enough to the expected value.'
 );
 

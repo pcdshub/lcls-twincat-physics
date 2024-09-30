@@ -441,7 +441,7 @@ AssertFalse(
 AssertEquals_LREAL(
     Expected := fExpected,
     Actual := fbXRayDelta.fDelta,
-    Delta := 0.001 * fExpected,
+    Delta := ABS(0.001 * fExpected),
     Message := 'X-ray delta did not calculate close enough to the expected value.'
 );
 
