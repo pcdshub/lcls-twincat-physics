@@ -41,6 +41,15 @@
     <Compile Include="POUs\FB_AtomicNumber.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_CalcFocalLengthSingleLens.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcImageDistance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CompoundLenses.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_ElementDensity.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -75,6 +84,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_TestElementDensity.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcFocalLengthSingleLens_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

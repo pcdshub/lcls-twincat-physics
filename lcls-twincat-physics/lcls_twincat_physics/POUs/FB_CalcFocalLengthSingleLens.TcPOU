@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_CalcFocalLengthSingleLens" Id="{ced569d5-ba1a-4aad-a8c1-0a9a8f081151}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLens
+(*
+Take the real part of the index of refraction for the lens at the present state and the lens radius
+of curvature and calculate the focal length for that lens.
+*)
+VAR_INPUT
+    fDelta : LREAL; // The x-ray delta, the real part of the index of refraction, unitless value.
+    fRadius : LREAL; // The radius of curvature of the lens, in meters.
+END_VAR
+VAR_OUTPUT
+    fFocalLength : LREAL; // The calculated focal length, in meters.
+    bError : BOOL; // TRUE if function block reports an error.
+    sErrorMsg : T_MaxString; // Provides debugging help for errors.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// Initialize focal length and error values.
+fFocalLength := 0.0;
+bError := FALSE;
+sErrorMsg := '';
+
+// Check for an invalid delta input.
+IF fDelta = 0.0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The delta specified: [',
+        CONCAT(LREAL_TO_STRING(fDelta),
+        '] must not be 0.'));
+    RETURN;
+END_IF
+
+// Check for an invalid radius input.
+IF fRadius <= 0.0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The radius specified: [',
+        CONCAT(LREAL_TO_STRING(fRadius),
+        '] must be greater than 0.'));
+    RETURN;
+END_IF
+
+fFocalLength := fRadius / 2.0 / fDelta;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

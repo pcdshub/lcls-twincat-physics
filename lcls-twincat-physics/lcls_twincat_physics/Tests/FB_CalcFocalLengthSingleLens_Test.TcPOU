@@ -1,0 +1,843 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_CalcFocalLengthSingleLens_Test" Id="{84e8e88f-6983-4e91-9ebc-dec0075a6cd5}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLens_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+    nTestID : INT;
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+TestInvalidDeltaExpectError0FocalLength(
+    fDelta := 0
+);
+
+TestInvalidRadiusExpectError0FocalLength(
+    fRadius := 0.0
+);
+
+TestInvalidRadiusExpectError0FocalLength(
+    fRadius := -20.0
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0001,
+    fExpected := 0.008893754309452119
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0006000000000000001,
+    fExpected := 0.05336252585671271
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0011,
+    fExpected := 0.0978312974039733
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0016,
+    fExpected := 0.1423000689512339
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0021,
+    fExpected := 0.18676884049849446
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0026,
+    fExpected := 0.23123761204575505
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0031,
+    fExpected := 0.27570638359301564
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0036,
+    fExpected := 0.3201751551402762
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0041,
+    fExpected := 0.36464392668753687
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.004600000000000001,
+    fExpected := 0.4091126982347975
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0051,
+    fExpected := 0.45358146978205804
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0056,
+    fExpected := 0.4980502413293186
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0061,
+    fExpected := 0.5425190128765792
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.006600000000000001,
+    fExpected := 0.5869877844238398
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0071,
+    fExpected := 0.6314565559711004
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0076,
+    fExpected := 0.675925327518361
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0081,
+    fExpected := 0.7203940990656215
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0086,
+    fExpected := 0.7648628706128822
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0091,
+    fExpected := 0.8093316421601428
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0096,
+    fExpected := 0.8538004137074032
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0001,
+    fExpected := 7.386291264073484
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0006000000000000001,
+    fExpected := 44.31774758444091
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0011,
+    fExpected := 81.24920390480833
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0016,
+    fExpected := 118.18066022517574
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0021,
+    fExpected := 155.11211654554316
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0026,
+    fExpected := 192.04357286591056
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0031,
+    fExpected := 228.975029186278
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0036,
+    fExpected := 265.9064855066454
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0041,
+    fExpected := 302.83794182701286
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.004600000000000001,
+    fExpected := 339.76939814738034
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0051,
+    fExpected := 376.7008544677477
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0056,
+    fExpected := 413.6323107881151
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0061,
+    fExpected := 450.5637671084825
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.006600000000000001,
+    fExpected := 487.49522342885
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0071,
+    fExpected := 524.4266797492174
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0076,
+    fExpected := 561.3581360695848
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0081,
+    fExpected := 598.2895923899522
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0086,
+    fExpected := 635.2210487103196
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0091,
+    fExpected := 672.152505030687
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 6.769297095444538e-06,
+    fRadius := 0.0096,
+    fExpected := 709.0839613510544
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0001,
+    fExpected := 29.15893454819898
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0006000000000000001,
+    fExpected := 174.95360728919388
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0011,
+    fExpected := 320.74828003018877
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0016,
+    fExpected := 466.5429527711837
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0021,
+    fExpected := 612.3376255121785
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0026,
+    fExpected := 758.1322982531734
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0031,
+    fExpected := 903.9269709941683
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0036,
+    fExpected := 1049.7216437351633
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0041,
+    fExpected := 1195.5163164761582
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.004600000000000001,
+    fExpected := 1341.3109892171533
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0051,
+    fExpected := 1487.105661958148
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0056,
+    fExpected := 1632.9003346991428
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0061,
+    fExpected := 1778.695007440138
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.006600000000000001,
+    fExpected := 1924.4896801811328
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0071,
+    fExpected := 2070.2843529221277
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0076,
+    fExpected := 2216.0790256631226
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0081,
+    fExpected := 2361.873698404117
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0086,
+    fExpected := 2507.6683711451124
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0091,
+    fExpected := 2653.4630438861072
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0096,
+    fExpected := 2799.2577166271017
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0001,
+    fExpected := 65.31138136343843
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0006000000000000001,
+    fExpected := 391.8682881806306
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0011,
+    fExpected := 718.4251949978227
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0016,
+    fExpected := 1044.9821018150149
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0021,
+    fExpected := 1371.5390086322068
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0026,
+    fExpected := 1698.095915449399
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0031,
+    fExpected := 2024.652822266591
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0036,
+    fExpected := 2351.2097290837833
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0041,
+    fExpected := 2677.7666359009754
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.004600000000000001,
+    fExpected := 3004.323542718168
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0051,
+    fExpected := 3330.8804495353597
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0056,
+    fExpected := 3657.4373563525514
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0061,
+    fExpected := 3983.994263169744
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.006600000000000001,
+    fExpected := 4310.551169986937
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0071,
+    fExpected := 4637.108076804128
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0076,
+    fExpected := 4963.66498362132
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0081,
+    fExpected := 5290.221890438512
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0086,
+    fExpected := 5616.778797255704
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0091,
+    fExpected := 5943.335704072897
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 7.655633513822784e-07,
+    fRadius := 0.0096,
+    fExpected := 6269.892610890088
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0001,
+    fExpected := 115.84311231310711
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0006000000000000001,
+    fExpected := 695.0586738786427
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0011,
+    fExpected := 1274.2742354441784
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0016,
+    fExpected := 1853.4897970097138
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0021,
+    fExpected := 2432.705358575249
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0026,
+    fExpected := 3011.920920140785
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0031,
+    fExpected := 3591.1364817063204
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0036,
+    fExpected := 4170.352043271856
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0041,
+    fExpected := 4749.567604837392
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.004600000000000001,
+    fExpected := 5328.783166402928
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0051,
+    fExpected := 5907.998727968463
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0056,
+    fExpected := 6487.214289533998
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0061,
+    fExpected := 7066.429851099534
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.006600000000000001,
+    fExpected := 7645.645412665071
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0071,
+    fExpected := 8224.860974230605
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0076,
+    fExpected := 8804.07653579614
+);
+
+// Expected results taken from pcdscalc/be_lens_calc.py. Element = Be
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0081,
+    fExpected := 9383.292097361676
+);
+]]></ST>
+    </Implementation>
+    <Method Name="TestInvalidDeltaExpectError0FocalLength" Id="{423e18c6-5a97-4b67-a6d2-19839e16e0dc}">
+      <Declaration><![CDATA[
+METHOD TestInvalidDeltaExpectError0FocalLength
+VAR_INPUT
+    fDelta : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidDeltaExpectError0FocalLength ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCalcFocalLengthSingleLens(
+    fDelta := fDelta,
+    fRadius := 0.005,
+    fFocalLength =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthSingleLens.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthSingleLens.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbCalcFocalLengthSingleLens.fFocalLength,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidRadiusExpectError0FocalLength" Id="{b85fb0eb-eb67-4008-bf6e-a27e16601c45}">
+      <Declaration><![CDATA[
+METHOD TestInvalidRadiusExpectError0FocalLength
+VAR_INPUT
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidRadiusExpectError0FocalLength ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCalcFocalLengthSingleLens(
+    fDelta := 0.0004,
+    fRadius := fRadius,
+    fFocalLength =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthSingleLens.bError,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthSingleLens.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbCalcFocalLengthSingleLens.fFocalLength,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength" Id="{9e7e0620-b4ab-4e63-adf5-977fffee39e5}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccurateFocalLength
+VAR_INPUT
+    fDelta : LREAL;
+    fRadius : LREAL;
+
+    fExpected : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestValidInputsExpectNoErrorAccurateFocalLength ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbCalcFocalLengthSingleLens(
+    fDelta := fDelta,
+    fRadius := fRadius,
+    fFocalLength =>,
+    bError =>,
+    sErrorMsg =>
+);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthSingleLens.bError,
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthSingleLens.sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbCalcFocalLengthSingleLens.fFocalLength,
+    Delta := 0.001 * fExpected,
+    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

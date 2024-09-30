@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{42C46A48-6F27-87E5-8370-9119A9CB8441}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{69ED5FAD-9462-BF46-57D8-17F2B00C269C}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name GUID="{6F5942ED-BFA1-497D-8225-23C6DAAD0A09}" TcBaseType="true">ST_LibVersion</Name>
@@ -9767,6 +9767,138 @@
       </Properties>
     </DataType>
     <DataType>
+      <Name>FB_CalcFocalLengthSingleLens</Name>
+      <BitSize>2368</BitSize>
+      <SubItem>
+        <Name>fDelta</Name>
+        <Type>LREAL</Type>
+        <Comment> The x-ray delta, the real part of the index of refraction, unitless value.</Comment>
+        <BitSize>64</BitSize>
+        <BitOffs>64</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>fRadius</Name>
+        <Type>LREAL</Type>
+        <Comment> The radius of curvature of the lens, in meters.</Comment>
+        <BitSize>64</BitSize>
+        <BitOffs>128</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>fFocalLength</Name>
+        <Type>LREAL</Type>
+        <Comment> The calculated focal length, in meters.</Comment>
+        <BitSize>64</BitSize>
+        <BitOffs>192</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Output</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>bError</Name>
+        <Type>BOOL</Type>
+        <Comment> TRUE if function block reports an error.</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>256</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Output</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>sErrorMsg</Name>
+        <Type Namespace="Tc2_System">T_MaxString</Type>
+        <Comment> Provides debugging help for errors.</Comment>
+        <BitSize>2048</BitSize>
+        <BitOffs>264</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Output</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <Properties>
+        <Property>
+          <Name>PouType</Name>
+          <Value>FunctionBlock</Value>
+        </Property>
+      </Properties>
+    </DataType>
+    <DataType>
+      <Name>FB_CalcFocalLengthSingleLens_Test</Name>
+      <BitSize>33554176</BitSize>
+      <ExtendsType Namespace="TcUnit">FB_TestSuite</ExtendsType>
+      <SubItem>
+        <Name>nTestID</Name>
+        <Type>INT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>33551744</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>fbCalcFocalLengthSingleLens</Name>
+        <Type>FB_CalcFocalLengthSingleLens</Type>
+        <BitSize>2368</BitSize>
+        <BitOffs>33551808</BitOffs>
+      </SubItem>
+      <Method>
+        <Name>TestInvalidDeltaExpectError0FocalLength</Name>
+        <Parameter>
+          <Name>fDelta</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>TestValidInputsExpectNoErrorAccurateFocalLength</Name>
+        <Parameter>
+          <Name>fDelta</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+        <Parameter>
+          <Name>fRadius</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+        <Parameter>
+          <Name>fExpected</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>TestInvalidRadiusExpectError0FocalLength</Name>
+        <Parameter>
+          <Name>fRadius</Name>
+          <Type>LREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+      </Method>
+      <Properties>
+        <Property>
+          <Name>PouType</Name>
+          <Value>FunctionBlock</Value>
+        </Property>
+      </Properties>
+    </DataType>
+    <DataType>
       <Name>FB_XRayDelta</Name>
       <BitSize>2944</BitSize>
       <SubItem>
@@ -9904,7 +10036,7 @@
       <SubItem>
         <Name>fDeltaUnscaled</Name>
         <Type>LREAL</Type>
-        <Comment> The x-ray delta value before it has been scaled. </Comment>
+        <Comment> The x-ray delta value before it has been scaled.</Comment>
         <BitSize>64</BitSize>
         <BitOffs>2816</BitOffs>
       </SubItem>
@@ -10031,7 +10163,7 @@
           <AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
           <Name>PlcTask Internal</Name>
           <ContextId>0</ContextId>
-          <ByteSize>105709568</ByteSize>
+          <ByteSize>105644032</ByteSize>
           <Symbol>
             <Name>Global_Version.stLibVersion_Tc2_Standard</Name>
             <BitSize>288</BitSize>
@@ -34214,6 +34346,12 @@
             <BitOffs>770845504</BitOffs>
           </Symbol>
           <Symbol>
+            <Name>RunTests.fbCalcFocalLengthSingleLens_Test</Name>
+            <BitSize>33554176</BitSize>
+            <BaseType>FB_CalcFocalLengthSingleLens_Test</BaseType>
+            <BitOffs>776845376</BitOffs>
+          </Symbol>
+          <Symbol>
             <Name>RunTests.fbXRayDelta_Test</Name>
             <BitSize>33554752</BitSize>
             <BaseType>FB_XRayDelta_Test</BaseType>
@@ -34230,15 +34368,15 @@
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-09-29T07:59:10</Value>
+          <Value>2024-09-30T08:04:16</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
-          <Value>733184</Value>
+          <Value>745472</Value>
         </Property>
         <Property>
           <Name>GlobalDataSize</Name>
-          <Value>100069376</Value>
+          <Value>104247296</Value>
         </Property>
       </Properties>
     </Module>

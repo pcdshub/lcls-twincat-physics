@@ -9,6 +9,7 @@ VAR
     fbTestElementDensity : FB_TestElementDensity;
     fbAtomicNumber_Test : FB_AtomicNumber_Test;
     fbXRayDelta_Test : FB_XRayDelta_Test;
+    fbCalcFocalLengthSingleLens_Test : FB_CalcFocalLengthSingleLens_Test;
 
     (* Smoke test - just instantiate *)
     fbPhysicalConstants : FB_PhysicalConstants;
