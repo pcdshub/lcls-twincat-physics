@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{AA6D7E60-2AF9-3C88-FDEC-E339C91CBA3D}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{4F1A824A-F7FC-17F3-44DA-E3DB0DF67736}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name GUID="{6F5942ED-BFA1-497D-8225-23C6DAAD0A09}" TcBaseType="true">ST_LibVersion</Name>
@@ -10144,10 +10144,11 @@
     </DataType>
     <DataType>
       <Name>FB_CompoundLenses</Name>
-      <BitSize>2496</BitSize>
+      <BitSize>2688</BitSize>
       <SubItem>
         <Name>fFocalLength1</Name>
         <Type>LREAL</Type>
+        <Comment> Focal length, in m, of the first lens or group of lenses.</Comment>
         <BitSize>64</BitSize>
         <BitOffs>64</BitOffs>
         <Properties>
@@ -10160,8 +10161,12 @@
       <SubItem>
         <Name>nMultiplier1</Name>
         <Type>INT</Type>
+        <Comment> Multiplier for the number of contiguous lenses with the first focal length. Default of 1.</Comment>
         <BitSize>16</BitSize>
         <BitOffs>128</BitOffs>
+        <Default>
+          <Value>1</Value>
+        </Default>
         <Properties>
           <Property>
             <Name>ItemType</Name>
@@ -10172,6 +10177,7 @@
       <SubItem>
         <Name>fFocalLength2</Name>
         <Type>LREAL</Type>
+        <Comment> Focal length, in m, of the second lens or group of lenses.</Comment>
         <BitSize>64</BitSize>
         <BitOffs>192</BitOffs>
         <Properties>
@@ -10184,8 +10190,12 @@
       <SubItem>
         <Name>nMultiplier2</Name>
         <Type>INT</Type>
+        <Comment> Multiplier for the number of contiguous lenses with the second focal length. Default of 1.</Comment>
         <BitSize>16</BitSize>
         <BitOffs>256</BitOffs>
+        <Default>
+          <Value>1</Value>
+        </Default>
         <Properties>
           <Property>
             <Name>ItemType</Name>
@@ -10196,6 +10206,7 @@
       <SubItem>
         <Name>fFocalLengthCompounded</Name>
         <Type>LREAL</Type>
+        <Comment> The focal length resulting from the compounding of the two input focal lengths.</Comment>
         <BitSize>64</BitSize>
         <BitOffs>320</BitOffs>
         <Properties>
@@ -10231,6 +10242,24 @@
           </Property>
         </Properties>
       </SubItem>
+      <SubItem>
+        <Name>fFocalLength1Inverse</Name>
+        <Type>LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>2496</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>fFocalLength2Inverse</Name>
+        <Type>LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>2560</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>fFocalLengthCompoundedInverse</Name>
+        <Type>LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>2624</BitOffs>
+      </SubItem>
       <Properties>
         <Property>
           <Name>PouType</Name>
@@ -10240,7 +10269,7 @@
     </DataType>
     <DataType>
       <Name>FB_CompoundLenses_Test</Name>
-      <BitSize>33554304</BitSize>
+      <BitSize>33554496</BitSize>
       <ExtendsType Namespace="TcUnit">FB_TestSuite</ExtendsType>
       <SubItem>
         <Name>nTestID</Name>
@@ -10251,7 +10280,7 @@
       <SubItem>
         <Name>fbCompoundLenses</Name>
         <Type>FB_CompoundLenses</Type>
-        <BitSize>2496</BitSize>
+        <BitSize>2688</BitSize>
         <BitOffs>33551808</BitOffs>
       </SubItem>
       <Method>
@@ -10342,7 +10371,7 @@
           <AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
           <Name>PlcTask Internal</Name>
           <ContextId>0</ContextId>
-          <ByteSize>109903872</ByteSize>
+          <ByteSize>114098176</ByteSize>
           <Symbol>
             <Name>Global_Version.stLibVersion_Tc2_Standard</Name>
             <BitSize>288</BitSize>
@@ -34538,9 +34567,9 @@
           </Symbol>
           <Symbol>
             <Name>RunTests.fbCompoundLenses_Test</Name>
-            <BitSize>33554304</BitSize>
+            <BitSize>33554496</BitSize>
             <BaseType>FB_CompoundLenses_Test</BaseType>
-            <BitOffs>844656192</BitOffs>
+            <BitOffs>878558528</BitOffs>
           </Symbol>
         </DataArea>
       </DataAreas>
@@ -34553,7 +34582,7 @@
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-09-30T09:51:21</Value>
+          <Value>2024-09-30T10:32:24</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
@@ -34561,7 +34590,7 @@
         </Property>
         <Property>
           <Name>GlobalDataSize</Name>
-          <Value>108441600</Value>
+          <Value>108457984</Value>
         </Property>
       </Properties>
     </Module>

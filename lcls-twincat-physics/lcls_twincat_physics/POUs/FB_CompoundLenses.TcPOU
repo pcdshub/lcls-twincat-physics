@@ -3,21 +3,160 @@
   <POU Name="FB_CompoundLenses" Id="{50fa9e83-f4d5-493c-aa8e-ec40552a57a3}" SpecialFunc="None">
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_CompoundLenses
+(*
+Takes two focal lengths as input. Computes the compounded focal length using those focal lengths
+and the supplied multipliers.
+For example, for computing the focal length of a set of lenses, first compute the focal length
+of the first lens. Then, to compound it with the second lens in the stack, input the first focal
+length and the second focal length. This will produce a compounded result.
+Then, take the compounded result and input it back into the function as focal length 1, and
+set the multiplier to 1. Then input lens 3 as the second focal length.
+In this manner, a loop can be constructed to compound the focal lengths of all lenses in
+the stack or set.
+The purpose of the multiplier to to allow for efficiency in calculation in the cases where
+there are multiple of one kind of lenses in one spot in the stack. This is analogous to the
+"number" parameter in pcdscalc/be_lens_calcs.py/lens_set arrays.
+
+Example:
+
+IF nNumLensesInStack > 0 THEN
+
+    fbCalcFocalLengthSingleLens(
+        fDelta := afDelta[1],
+        fRadius := afRadius[1],
+        fFocalLength => afFocalLength[1],
+        bError =>,
+        sErrorMsg =>
+    );
+END_IF
+
+IF nNumLensesInStack > 1
+
+    fbCalcFocalLengthSingleLens(
+        fDelta := afDelta[2],
+        fRadius := afRadius[2],
+        fFocalLength => afFocalLength[2],
+        bError =>,
+        sErrorMsg =>
+    );
+
+    fbCompoundLenses(
+        fFocalLength1 := afFocalLength[1]
+        nMultiplier1 := nNumLenses[1],
+        fFocalLength2 := afFocalLength[2],
+        nMultiplier2 := nNumLenses[2],
+        fFocalLengthCompounded =>,
+        bError =>,
+        sErrorMsg =>
+    );
+END_IF
+
+FOR index := 3 TO nNumLensesInStack BY 1 DO
+
+    fbCalcFocalLengthSingleLens(
+        fDelta := afDelta[index],
+        fRadius := afRadius[index],
+        fFocalLength =>,
+        bError =>,
+        sErrorMsg =>
+    );
+
+    fbCompoundLenses(
+        fFocalLength1 := fbCompoundLenses.fFocalLengthCompounded,
+        nMultiplier1 := 1,
+        fFocalLength2 := fbCalcFocalLengthSingleLens1[index],
+        nMultiplier2 := nNumLenses[index],
+        fFocalLengthCompounded =>,
+        bError =>,
+        sErrorMsg =>
+    );
+END_FOR
+
+fFocalLengthLensSet := fbCompoundLenses.fFocalLengthCompounded;
+
+*)
 VAR_INPUT
-    fFocalLength1 : LREAL;
-    nMultiplier1 : INT;
-    fFocalLength2 : LREAL;
-    nMultiplier2 : INT;
+    fFocalLength1 : LREAL; // Focal length, in m, of the first lens or group of lenses.
+    nMultiplier1 : INT := 1; // Multiplier for the number of contiguous lenses with the first focal length. Default of 1.
+    fFocalLength2 : LREAL; // Focal length, in m, of the second lens or group of lenses.
+    nMultiplier2 : INT := 1; // Multiplier for the number of contiguous lenses with the second focal length. Default of 1.
 END_VAR
 VAR_OUTPUT
-    fFocalLengthCompounded : LREAL;
+    fFocalLengthCompounded : LREAL; // The focal length resulting from the compounding of the two input focal lengths.
     bError : BOOL; // TRUE if function block reports an error.
     sErrorMsg : T_MaxString; // Provides debugging help for errors.
+END_VAR
+VAR
+    fFocalLength1Inverse : LREAL;
+    fFocalLength2Inverse : LREAL;
+    fFocalLengthCompoundedInverse : LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
+// Initialize focal length and error values.
+fFocalLengthCompounded := 0.0;
+bError := FALSE;
+sErrorMsg := '';
 
+// Check for an invalid focal length 1 input.
+IF fFocalLength1 = 0.0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The focal length 1 specified: [',
+        CONCAT(LREAL_TO_STRING(fFocalLength1),
+        '] must not be 0.'));
+    RETURN;
+END_IF
+
+// Calculate the inverse of focal length 1.
+fFocalLength1Inverse := 1.0 / fFocalLength1;
+
+// Check for an invalid focal length 2 input.
+IF fFocalLength2 = 0.0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The focal length 2 specified: [',
+        CONCAT(LREAL_TO_STRING(fFocalLength2),
+        '] must not be 0.'));
+    RETURN;
+END_IF
+
+// Calculate the inverse of focal length 2.
+fFocalLength2Inverse := 1.0 / fFocalLength2;
+
+// Check for an invalid multiplier 1 input.
+IF nMultiplier1 <= 0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The multiplier 1 specified: [',
+        CONCAT(LREAL_TO_STRING(nMultiplier1),
+        '] must be greater than 0.'));
+    RETURN;
+END_IF
+
+// Check for an invalid multiplier 2 input.
+IF nMultiplier2 <= 0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The multiplier 2 specified: [',
+        CONCAT(LREAL_TO_STRING(nMultiplier2),
+        '] must be greater than 0.'));
+    RETURN;
+END_IF
+
+// Calculate the inverse of the compounded focal length.
+fFocalLengthCompoundedInverse :=
+    INT_TO_LREAL(nMultiplier1) * fFocalLength1Inverse +
+    INT_TO_LREAL(nMultiplier2) * fFocalLength2Inverse;
+
+// Check if the resultant inverse compounded focal length is 0. Prevent a divide by 0.
+IF fFocalLengthCompoundedInverse = 0.0 THEN
+    bError := TRUE;
+    sErrorMsg := CONCAT('The calculated inverse compound focal length: [',
+        CONCAT(LREAL_TO_STRING(fFocalLengthCompoundedInverse),
+        '] must not be 0.'));
+    RETURN;
+END_IF
+
+// Calculate the resultant compounded focal length.
+fFocalLengthCompounded := 1.0 / fFocalLengthCompoundedInverse;
 ]]></ST>
     </Implementation>
   </POU>
