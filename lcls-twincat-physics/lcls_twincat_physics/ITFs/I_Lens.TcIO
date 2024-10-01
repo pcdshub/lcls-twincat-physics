@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <Itf Name="I_Lens" Id="{8380e7cd-8922-468c-9bc8-67049010ef1b}">
+    <Declaration><![CDATA[
+INTERFACE I_Lens
+]]></Declaration>
+    <Property Name="Delta" Id="{42496626-8c16-4ba7-9289-cdd881d42cb1}">
+      <Declaration><![CDATA[
+PROPERTY Delta : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{9c5ca598-441c-4a34-84e3-55073494dd4c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Energy" Id="{363904a5-e3f0-4d05-840c-a1a4eea03772}">
+      <Declaration><![CDATA[
+PROPERTY Energy : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{12514455-67ce-44ce-89f9-5a1b59eb39d1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{30352178-f3bf-4986-b707-c27b0ad40194}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Error" Id="{7bf51103-b979-496d-a3f6-1a9fc6069fda}">
+      <Declaration><![CDATA[
+PROPERTY Error : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{cf41a3e8-5659-4516-b4de-3112e1673a71}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="ErrorMsg" Id="{2a2709c5-8e6f-4670-8b1e-c06b2fe7f1a9}">
+      <Declaration><![CDATA[
+PROPERTY ErrorMsg : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{0a46fe72-2275-473e-9ddd-f1e0d114aa9f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="f1" Id="{07193fcb-87f8-4ac9-b55d-034dbde78b6c}">
+      <Declaration><![CDATA[PROPERTY f1 : LREAL]]></Declaration>
+      <Get Name="Get" Id="{15e6b669-0015-4df7-a47a-ca1de16a908f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="FocalLength" Id="{fee325c2-3756-4383-a2b6-19ae22a67410}">
+      <Declaration><![CDATA[
+PROPERTY FocalLength : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{b5b301a0-8c4d-4387-9a91-47772da2143d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Material" Id="{f24ca67e-b634-4d08-be9b-c1a2488c5d17}">
+      <Declaration><![CDATA[
+PROPERTY Material : I_Material
+]]></Declaration>
+      <Get Name="Get" Id="{00afacb3-7434-4c19-894e-3762b24321b0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{4c543551-0218-4739-a88a-851ad21005e8}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Multiplier" Id="{133e4a1d-9481-49a5-b4df-eb3676683970}">
+      <Declaration><![CDATA[
+PROPERTY Multiplier : INT
+]]></Declaration>
+      <Get Name="Get" Id="{cfc4bdd1-0628-4d12-ba7e-8ef94be7e3f0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{e40f3da7-32b7-402b-a8d2-1dca20c55b83}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Radius" Id="{b4d4c109-16a7-40ac-aa76-972f60c274fd}">
+      <Declaration><![CDATA[
+PROPERTY Radius : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{241741a0-f5ed-4b0f-bb0a-9d9a105efca3}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{a4c344ef-5646-4cb5-a27d-f6d1d2e14660}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

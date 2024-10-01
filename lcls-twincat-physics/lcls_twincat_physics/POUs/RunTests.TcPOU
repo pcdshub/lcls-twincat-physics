@@ -12,6 +12,7 @@ VAR
     fbCalcFocalLengthSingleLens_Test : FB_CalcFocalLengthSingleLens_Test;
     fbCompoundLenses_Test : FB_CompoundLenses_Test;
     fbCalcImageDistance_Test : FB_CalcImageDistance_Test;
+    fbElement_Test : FB_Element_Test;
 
     (* Smoke test - just instantiate *)
     fbPhysicalConstants : FB_PhysicalConstants;

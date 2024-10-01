@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <Itf Name="I_Material" Id="{f784cdeb-39ab-411f-a13e-180df59a6a8d}">
+    <Declaration><![CDATA[
+INTERFACE I_Material
+]]></Declaration>
+    <Property Name="Density" Id="{6d976729-e6c5-47b7-98c2-040731278952}">
+      <Declaration><![CDATA[
+PROPERTY Density : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{6fabc6b2-aa2a-419d-9471-32a5a4c9971a}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{451ddcc2-8057-403d-8f4d-f4bd2ce17b53}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Error" Id="{bfcd506b-004b-49c7-a64f-8a8ec1253653}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{47cf4246-fd4a-441e-ae85-d602087ad75a}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="ErrorMsg" Id="{7e382c2e-ba3b-4040-beff-45ad65da4dc1}">
+      <Declaration><![CDATA[PROPERTY ErrorMsg : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{f5ee525e-0b18-4bef-8d10-7c65847544e3}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Mass" Id="{12ec4db5-79a0-40d7-9e7a-ecf291a477ad}">
+      <Declaration><![CDATA[PROPERTY Mass : LREAL]]></Declaration>
+      <Get Name="Get" Id="{f52e9fa3-11ec-4c36-9be7-accbd36e8fc7}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{248dc5a2-aa3a-4659-be07-0f602fada16e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Name" Id="{dc166a9c-6542-4ad3-9019-05093812e1f3}">
+      <Declaration><![CDATA[PROPERTY Name : STRING]]></Declaration>
+      <Get Name="Get" Id="{2d3c3db4-1a71-429a-adad-041227671eef}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{faa079f8-c9dd-4675-99c0-9cf1d8826ff6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Protons" Id="{78b6a48a-2dba-424f-8920-06459680d672}">
+      <Declaration><![CDATA[PROPERTY Protons : INT]]></Declaration>
+      <Get Name="Get" Id="{166452b9-eed1-45fc-92a3-1dc28e1d1788}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{49f3c512-a8f9-4490-b4f3-6a45a2b95916}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="SetState" Id="{5bcc3647-05bf-4c3c-a2cc-d320eb780a03}">
+      <Declaration><![CDATA[
+METHOD SetState
+VAR_INPUT
+    fMass : LREAL;
+    sName : STRING;
+    nProtons : INT;
+    fDensity : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
