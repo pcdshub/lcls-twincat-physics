@@ -5,43 +5,249 @@
 FUNCTION_BLOCK FB_XRayDelta_Test EXTENDS TcUnit.FB_TestSuite
 VAR
     nTestID : INT;
-    fbXRayDelta : FB_XRayDelta;
+    fbAtomicMass : FB_FallibleLREAL;
+    fbAtomicNumber : FB_FallibleINT;
+    fbDensity : FB_FallibleLREAL;
+    fbEnergy : FB_FallibleLREAL;
+    fbf1 : FB_FallibleLREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 nTestID := 0;
 
-TestInvalidDensityExpectError0Delta(
-    fDensity := 0.0,
+fbAtomicMass.Val := 0.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
 );
 
-TestInvalidDensityExpectError0Delta(
-    fDensity := -10.0,
+fbAtomicMass.Val := -10.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
 );
 
-TestInvalidAtomicMassExpectError0Delta(
-    fAtomicMass := 0.0,
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 0.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
 );
 
-TestInvalidAtomicMassExpectError0Delta(
-    fAtomicMass := -10.0,
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := -10.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
 );
 
-TestInvalidPhotonEnergyExpectError0Delta(
-    fEnergy := 0,
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := 0.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
 );
 
-TestInvalidPhotonEnergyExpectError0Delta(
-    fEnergy := -10.0,
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := -10.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
 );
 
-TestInvalidAtomicNumberExpectError0Delta(
-    nAtomicNumber := 0,
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 0;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
 );
 
-TestInvalidAtomicNumberExpectError0Delta(
-    nAtomicNumber := -10,
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := -10;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
+);
+
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.SetError(sMsg := 'Test');
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
+);
+
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.SetError(sMsg := 'Test');
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
+);
+
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.SetError(sMsg := 'Test');
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
+);
+
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.SetError(sMsg := 'Test');
+fbf1.Val := 1.0;
+fbf1.ClearError();
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
+);
+
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.ClearError();
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.ClearError();
+fbDensity.Val := 1.0;
+fbDensity.ClearError();
+fbEnergy.Val := 1.0;
+fbEnergy.ClearError();
+fbf1.Val := 1.0;
+fbf1.SetError(sMsg := 'Test');
+TestInvalidInputExpectError0Delta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass
 );
 
 // Expected results taken from xraydb python module.
@@ -210,184 +416,48 @@ TestValidInputsExpectNoErrorAccurateDelta(
 );
 ]]></ST>
     </Implementation>
-    <Method Name="TestInvalidAtomicMassExpectError0Delta" Id="{c8c24d13-5f2c-4a7f-b9db-3bf57a8f7b0f}">
+    <Method Name="TestInvalidInputExpectError0Delta" Id="{b6dc767c-cf65-41d6-8be0-32b5df8d14ad}">
       <Declaration><![CDATA[
-METHOD TestInvalidAtomicMassExpectError0Delta
+METHOD TestInvalidInputExpectError0Delta
 VAR_INPUT
-    fAtomicMass : LREAL;
+    iEnergy : I_FallibleLREAL;
+    if1 : I_FallibleLREAL;
+    iDensity : I_FallibleLREAL;
+    iAtomicNumber : I_FallibleINT;
+    iAtomicMass : I_FallibleLREAL;
+END_VAR
+VAR
+    fbDelta : FB_FallibleLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestInvalidAtomicMassExpectError0Delta ID: ',
+TEST(CONCAT('TestInvalidInputExpectError0Delta ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fbXRayDelta(
-    fEnergy := 1000,
-    fF1 := 1.0,
-    fDensity := 1.85,
-    nAtomicNumber := 4,
-    fAtomicMass := fAtomicMass,
-    fDelta =>,
-    bError =>,
-    sErrorMsg =>
+F_XRayDelta(
+    iEnergy := iEnergy,
+    if1 := if1,
+    iDensity := iDensity,
+    iAtomicNumber := iAtomicNumber,
+    iAtomicMass := iAtomicMass,
+    fbDelta => fbDelta
 );
 
 AssertTrue(
-    Condition := fbXRayDelta.bError,
+    Condition := fbDelta.GetError(),
     Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertTrue(
-    Condition := fbXRayDelta.sErrorMsg <> '',
+    Condition := fbDelta.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to not be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0,
-    Actual := fbXRayDelta.fDelta,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
-);
-
-TEST_FINISHED();
-
-nTestID := nTestID + 1;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestInvalidAtomicNumberExpectError0Delta" Id="{b7a2a89e-cec8-4979-8aae-e8f2c1247c27}">
-      <Declaration><![CDATA[
-METHOD TestInvalidAtomicNumberExpectError0Delta
-VAR_INPUT
-    nAtomicNumber : INT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST(CONCAT('TestInvalidAtomicNumberExpectError0Delta ID: ',
-    INT_TO_STRING(nTestID))
-);
-
-fbXRayDelta(
-    fEnergy := 1000,
-    fF1 := 1.0,
-    fDensity := 1.85,
-    nAtomicNumber := nAtomicNumber,
-    fAtomicMass := 9.012182,
-    fDelta =>,
-    bError =>,
-    sErrorMsg =>
-);
-
-AssertTrue(
-    Condition := fbXRayDelta.bError,
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertTrue(
-    Condition := fbXRayDelta.sErrorMsg <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fbXRayDelta.fDelta,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
-);
-
-TEST_FINISHED();
-
-nTestID := nTestID + 1;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestInvalidDensityExpectError0Delta" Id="{3229c94b-ab3b-4d00-b455-7560e1ba2ca8}">
-      <Declaration><![CDATA[
-METHOD TestInvalidDensityExpectError0Delta
-VAR_INPUT
-    fDensity : LREAL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST(CONCAT('TestInvalidDensityExpectError0Delta ID: ',
-    INT_TO_STRING(nTestID))
-);
-
-fbXRayDelta(
-    fEnergy := 1000,
-    fF1 := 1.0,
-    fDensity := fDensity,
-    nAtomicNumber := 4,
-    fAtomicMass := 9.012182,
-    fDelta =>,
-    bError =>,
-    sErrorMsg =>
-);
-
-AssertTrue(
-    Condition := fbXRayDelta.bError,
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertTrue(
-    Condition := fbXRayDelta.sErrorMsg <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fbXRayDelta.fDelta,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
-);
-
-TEST_FINISHED();
-
-nTestID := nTestID + 1;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestInvalidPhotonEnergyExpectError0Delta" Id="{fa2bc412-ad0e-48a6-ae3a-211b7b31eaeb}">
-      <Declaration><![CDATA[
-METHOD TestInvalidPhotonEnergyExpectError0Delta
-VAR_INPUT
-    fEnergy : LREAL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST(CONCAT('TestInvalidPhotonEnergyExpectError0Delta ID: ',
-    INT_TO_STRING(nTestID))
-);
-
-fbXRayDelta(
-    fEnergy := fEnergy,
-    fF1 := 1.0,
-    fDensity := 1.85,
-    nAtomicNumber := 4,
-    fAtomicMass := 9.012182,
-    fDelta =>,
-    bError =>,
-    sErrorMsg =>
-);
-
-AssertTrue(
-    Condition := fbXRayDelta.bError,
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertTrue(
-    Condition := fbXRayDelta.sErrorMsg <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fbXRayDelta.fDelta,
+    Actual := fbDelta.Val,
     Delta := 0,
     Message := 'X-ray delta should be 0 when an error is detected.'
 );
@@ -410,6 +480,14 @@ VAR_INPUT
 
     fExpected : LREAL;
 END_VAR
+VAR
+    fbAtomicMass : FB_FallibleLREAL;
+    fbAtomicNumber : FB_FallibleINT;
+    fbDensity : FB_FallibleLREAL;
+    fbEnergy : FB_FallibleLREAL;
+    fbf1 : FB_FallibleLREAL;
+    fbDelta : FB_FallibleLREAL;
+END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
@@ -417,30 +495,43 @@ TEST(CONCAT('TestValidInputsExpectNoErrorAccurateDelta ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fbXRayDelta(
-    fEnergy := fEnergy,
-    fF1 := fF1,
-    fDensity := fDensity,
-    nAtomicNumber := nAtomicNumber,
-    fAtomicMass := fAtomicMass,
-    fDelta =>,
-    bError =>,
-    sErrorMsg =>
+fbEnergy.Val := fEnergy;
+fbEnergy.ClearError();
+
+fbf1.Val := ff1;
+fbf1.ClearError();
+
+fbDensity.Val := fDensity;
+fbDensity.ClearError();
+
+fbAtomicNumber.Val := nAtomicNumber;
+fbAtomicNumber.ClearError();
+
+fbAtomicMass.Val := fAtomicMass;
+fbAtomicMass.ClearError();
+
+F_XRayDelta(
+    iEnergy := fbEnergy,
+    if1 := fbf1,
+    iDensity := fbDensity,
+    iAtomicNumber := fbAtomicNumber,
+    iAtomicMass := fbAtomicMass,
+    fbDelta => fbDelta
 );
 
 AssertFalse(
-    Condition := fbXRayDelta.bError,
+    Condition := fbDelta.GetError(),
     Message := 'Expected bError bit to be false but it was true.'
 );
 
 AssertFalse(
-    Condition := fbXRayDelta.sErrorMsg <> '',
+    Condition := fbDelta.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := fExpected,
-    Actual := fbXRayDelta.fDelta,
+    Actual := fbDelta.Val,
     Delta := ABS(0.001 * fExpected),
     Message := 'X-ray delta did not calculate close enough to the expected value.'
 );

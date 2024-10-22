@@ -4,14 +4,6 @@
     <Declaration><![CDATA[
 INTERFACE I_Lens
 ]]></Declaration>
-    <Property Name="Delta" Id="{42496626-8c16-4ba7-9289-cdd881d42cb1}">
-      <Declaration><![CDATA[
-PROPERTY Delta : LREAL
-]]></Declaration>
-      <Get Name="Get" Id="{9c5ca598-441c-4a34-84e3-55073494dd4c}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-    </Property>
     <Property Name="Energy" Id="{363904a5-e3f0-4d05-840c-a1a4eea03772}">
       <Declaration><![CDATA[
 PROPERTY Energy : LREAL
@@ -53,9 +45,18 @@ PROPERTY FocalLength : LREAL
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
+    <Method Name="GetDelta" Id="{18585902-8c14-4103-b71c-d60957054793}">
+      <Declaration><![CDATA[
+METHOD GetDelta : LREAL
+VAR_INPUT
+    fEnergy : LREAL;
+    iXRayDelta : I_XRayDelta;
+END_VAR
+]]></Declaration>
+    </Method>
     <Property Name="Material" Id="{f24ca67e-b634-4d08-be9b-c1a2488c5d17}">
       <Declaration><![CDATA[
-PROPERTY Material : I_Material
+PROPERTY Material : FB_Element
 ]]></Declaration>
       <Get Name="Get" Id="{00afacb3-7434-4c19-894e-3762b24321b0}">
         <Declaration><![CDATA[]]></Declaration>
@@ -86,5 +87,16 @@ PROPERTY Radius : LREAL
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Method Name="SetState" Id="{49ceaaa0-7087-47f6-bee4-9d13df8293ff}">
+      <Declaration><![CDATA[
+METHOD SetState
+VAR_INPUT
+    fEnergy : LREAL;
+    fRadius : LREAL;
+    nMultiplier : INT;
+    fbMaterial : FB_Element;
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

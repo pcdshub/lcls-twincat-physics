@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="F_CalcImageDistance" Id="{81fe0328-7a74-4932-bc70-1630590071fc}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION F_CalcImageDistance
+VAR_INPUT
+    iFocalLength : I_FallibleLREAL; // The focal length, in meters.
+    iSourceDistance : I_FallibleLREAL; // The distance, in meters, from the source to the lens.
+END_VAR
+VAR_OUTPUT
+    fbImageDistance : FB_FallibleLREAL; // The distance, in meters, to the image of the source created by the lens.
+END_VAR
+VAR
+    fFocalLengthInverse : LREAL;
+    fSourceDistanceInverse : LREAL;
+    fImageDistanceInverse : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// Initialize image distance and error values.
+fbImageDistance.Val := 0.0;
+fbImageDistance.ClearError();
+
+// Check to see if there is an error reported for focal length input.
+IF iFocalLength.GetError() THEN
+    fbImageDistance.SetError(
+        sMsg := CONCAT('The input focal length has an error: [',
+        CONCAT(iFocalLength.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check for an invalid focal length input.
+IF iFocalLength.Val = 0.0 THEN
+    fbImageDistance.SetError(
+        sMsg := CONCAT('The focal length specified: [',
+        CONCAT(LREAL_TO_STRING(iFocalLength.Val),
+        '] must not be 0.'))
+    );
+    RETURN;
+END_IF
+
+fFocalLengthInverse := 1.0 / iFocalLength.Val;
+
+// Check to see if there is an error reported for source distance input.
+IF iSourceDistance.GetError() THEN
+    fbImageDistance.SetError(
+        sMsg := CONCAT('The input source distance has an error: [',
+        CONCAT(iSourceDistance.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check for an invalid source distance input.
+IF iSourceDistance.Val = 0.0 THEN
+    fbImageDistance.SetError(
+        sMsg := CONCAT('The source distance specified: [',
+        CONCAT(LREAL_TO_STRING(iSourceDistance.Val),
+        '] must not be 0.'))
+    );
+    RETURN;
+END_IF
+
+fSourceDistanceInverse := 1.0 / iSourceDistance.Val;
+
+fImageDistanceInverse := fFocalLengthInverse - fSourceDistanceInverse;
+
+// Check for an invalid inverted image distance.
+IF fImageDistanceInverse = 0.0 THEN
+    fbImageDistance.SetError(
+        sMsg := CONCAT('The calculated inverse image distance: [',
+        CONCAT(LREAL_TO_STRING(fImageDistanceInverse),
+        '] must not be 0.'))
+    );
+    RETURN;
+END_IF
+
+fbImageDistance.Val := 1.0 / fImageDistanceInverse;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -32,13 +32,28 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
-    <Compile Include="ITFs\I_Lens.TcIO">
+    <Compile Include="ITFs\I_f1Chantler.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITFs\I_Material.TcIO">
+    <Compile Include="ITFs\I_Fallible.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_FallibleSTRING.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_FallibleLREAL.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_FallibleINT.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcFocalLengthSingleLens.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_f1Chantler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_AtomicMass.TcPOU">
@@ -47,22 +62,16 @@
     <Compile Include="POUs\FB_AtomicNumber.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_CalcFocalLengthSingleLens.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_CalcImageDistance.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_CompoundLenses.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FB_ElementDensity.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_Lens.TcPOU">
+    <Compile Include="POUs\FB_FallibleLREAL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_Element.TcPOU">
+    <Compile Include="POUs\FB_FallibleINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_FallibleSTRING.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_PhysicalConstants.TcPOU">
@@ -71,7 +80,10 @@
     <Compile Include="POUs\FB_ScatteringFactorLUT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_XRayDelta.TcPOU">
+    <Compile Include="POUs\F_CalcFocalLengthSingleLens.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\F_CalcImageDistance.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\F_CalculateAbsorptionConstant.TcPOU">
@@ -80,22 +92,22 @@
     <Compile Include="POUs\F_CalculateTransmission.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\RunTests.TcPOU">
+    <Compile Include="POUs\F_CompoundLenses.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\F_XRayDelta.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_AtomicNumber_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_Lens_Test.TcPOU">
+    <Compile Include="Tests\FB_CalcFocalLengthSingleLens2_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_CompoundLenses_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_CalcImageDistance_Test.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\FB_Element_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_XRayDelta_Test.TcPOU">
@@ -113,16 +125,34 @@
     <Compile Include="Tests\FB_CalcFocalLengthSingleLens_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\FB_f1Chantler_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_FallibleLREALMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\RunTests.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="ITFs" />
     <Folder Include="Tests" />
+    <Folder Include="Tests\Mocks" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="LCLS General">
+      <DefaultResolution>LCLS General, * (SLAC)</DefaultResolution>
+      <Namespace>LCLS_General</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Math">
+      <DefaultResolution>Tc2_Math, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Math</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -141,6 +171,9 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderResolution Include="LCLS General">
+      <Resolution>LCLS General, * (SLAC)</Resolution>
+    </PlaceholderResolution>
     <PlaceholderResolution Include="TcUnit">
       <Resolution>TcUnit, * (www.tcunit.org)</Resolution>
     </PlaceholderResolution>

@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="F_XRayDelta" Id="{b112e3de-a339-4392-b69c-84309b59a9f4}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION F_XRayDelta
+(*
+Computes the xray delta, the real part of the index of refraction for the given
+photon energy, f1 scattering and material density.
+*)
+VAR_INPUT
+    iEnergy : I_FallibleLREAL; // The photon energy of the x-rays in eV.
+    if1 : I_FallibleLREAL; // The f1 scattering factor.
+    iDensity : I_FallibleLREAL; // The density of the material in g/cm^3.
+    iAtomicNumber : I_FallibleINT; // The atomic number of the material.
+    iAtomicMass : I_FallibleLREAL; // The atomic mass of the material.
+END_VAR
+VAR_OUTPUT
+    fbDelta : FB_FallibleLREAL; // The real part of the index of refraction.
+END_VAR
+VAR
+    fLambda : LREAL; // Lambda in cm.
+    fPlanckHC : LREAL; // Planck's constant multiplied by speed of light divided my elementary charge. Result in cm / eV.
+    fRElectron : LREAL; // Classical electron radius in cm.
+    fWeight : LREAL; // The density per mol of the material.
+    fDeltaUnscaled : LREAL; // The x-ray delta value before it has been scaled.
+    fScale : LREAL; // The scaling factor
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// Initialize delta and error values.
+fbDelta.Val := 0.0;
+fbDelta.ClearError();
+
+// Check to see if there is an error reported for the photon energy input.
+IF iEnergy.GetError() THEN
+    fbDelta.SetError(
+        sMsg := CONCAT('The input photon energy has an error: [',
+        CONCAT(iEnergy.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check to make sure the photon energy is a nonzero, positive number before attempting to divide by it.
+IF iEnergy.Val <= 0.0 THEN
+    fbDelta.SetError(
+        sMsg := CONCAT('The photon energy specified: [',
+        CONCAT(LREAL_TO_STRING(iEnergy.Val),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+// Calculate some values needed for computing the index of refraction.
+fPlanckHC := 1e10 * GVL_PhysicalConstants.fPlanckConstant_in_J_Hz_1 * GVL_PhysicalConstants.fSpeedOfLightInVacuum_in_m_s_1 / GVL_PhysicalConstants.fElementaryCharge_in_C; // cm / eV
+fLambda := 1e-8 * fPlanckHC / iEnergy.Val; // cm
+fRElectron := 100 * GVL_PhysicalConstants.fClassicalElectronRadius_in_m; // cm
+
+// Check to see if there is an error reported for the density input.
+IF iDensity.GetError() THEN
+    fbDelta.SetError(
+        sMsg := CONCAT('The input density has an error: [',
+        CONCAT(iDensity.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check to make sure the density is a nonzero, positive number.
+IF iDensity.Val <= 0.0 THEN
+    fbDelta.SetError(
+        sMsg := CONCAT('The density specified: [',
+        CONCAT(LREAL_TO_STRING(iDensity.Val),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+fWeight := iDensity.Val * GVL_PhysicalConstants.fAvogadroConstant_in_mol_1;
+
+// Check to see if there is an error reported for the atomic number input.
+IF iAtomicNumber.GetError() THEN
+    fbDelta.SetError(
+        sMsg := CONCAT('The input atomic number has an error: [',
+        CONCAT(iAtomicNumber.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check to make sure the atomic number is a nonzero, positive number.
+IF iAtomicNumber.Val <= 0 THEN
+    fbDelta.SetError(
+        sMsg := CONCAT('The atomic number specified: [',
+        CONCAT(LREAL_TO_STRING(iAtomicNumber.Val),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+// Check to see if there is an error reported for the f1 input.
+IF if1.GetError() THEN
+    fbDelta.SetError(
+        sMsg := CONCAT('The input f1 has an error: [',
+        CONCAT(if1.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+fDeltaUnscaled := fWeight * (INT_TO_LREAL(iAtomicNumber.Val) + if1.Val);
+
+// Check to see if there is an error reported for the atomic mass input.
+IF iAtomicMass.GetError() THEN
+    fbDelta.SetError(
+        sMsg := CONCAT('The input atomic mass has an error: [',
+        CONCAT(iAtomicMass.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check to make sure the atomic mass is a nonzero, positive number.
+IF iAtomicMass.Val <= 0.0 THEN
+    fbDelta.SetError(
+        sMsg := CONCAT('The atomic mass specified: [',
+        CONCAT(LREAL_TO_STRING(iAtomicMass.Val),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+fScale := fLambda * fLambda * fRElectron / (2 * 3.1415926535 * iAtomicMass.Val);
+fbDelta.Val := fDeltaUnscaled * fScale;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

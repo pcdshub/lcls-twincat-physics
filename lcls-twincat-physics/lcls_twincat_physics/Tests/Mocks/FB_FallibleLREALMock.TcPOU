@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_FallibleLREALMock" Id="{fc0d4adc-5ab5-42f3-aed1-3f96b9aad2c8}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_FallibleLREALMock IMPLEMENTS I_FallibleLREAL
+VAR
+    bError : BOOL;
+    fVal : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ClearError" Id="{257abcd7-2766-4f1c-92bf-ac3f4824802a}">
+      <Declaration><![CDATA[METHOD ClearError]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetError" Id="{1db0c1f9-ea29-4eb4-b3c2-ed6d76aeeb6c}">
+      <Declaration><![CDATA[METHOD GetError : BOOL]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetError := THIS^.bError;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetErrorMsg" Id="{74cace86-ae75-47a5-9182-ceddc0340bcd}">
+      <Declaration><![CDATA[METHOD GetErrorMsg : T_MaxString]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{aec07e5e-daa8-4bda-ba33-93ef3b5971b6}">
+      <Declaration><![CDATA[METHOD PUBLIC SetError
+VAR_INPUT
+    sMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.bError := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Val" Id="{47717363-9808-4ba3-abcf-273c25c2c33e}">
+      <Declaration><![CDATA[PROPERTY Val : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{c315ab54-4a35-41e3-a268-ba2f2abc5808}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Val := THIS^.fVal;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{7926bd64-2e17-49c8-adc0-3a6d19fda8ac}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[THIS^.fVal := Val;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

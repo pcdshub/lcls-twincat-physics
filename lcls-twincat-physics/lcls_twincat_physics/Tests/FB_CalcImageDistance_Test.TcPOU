@@ -5,19 +5,48 @@
 FUNCTION_BLOCK FB_CalcImageDistance_Test EXTENDS TcUnit.FB_TestSuite
 VAR
     nTestID : INT;
-    fbCalcImageDistance : FB_CalcImageDistance;
+    fbFocalLength : FB_FallibleLREAL;
+    fbSourceDistance : FB_FallibleLREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 nTestID := 0;
 
-TestInvalidFocalLengthExpectError0ImageDistance(
-    fFocalLength := 0
+fbFocalLength.Val := 0.0;
+fbFocalLength.ClearError();
+fbSourceDistance.Val := 1.0;
+fbSourceDistance.ClearError();
+TestInvalidInputExpectError0ImageDistance(
+    iFocalLength := fbFocalLength,
+    iSourceDistance := fbFocalLength
 );
 
-TestInvalidSourceDistanceExpectError0ImageDistance(
-    fSourceDistance := 0
+fbFocalLength.Val := 1.0;
+fbFocalLength.SetError(sMsg := 'Test');
+fbSourceDistance.Val := 1.0;
+fbSourceDistance.ClearError();
+TestInvalidInputExpectError0ImageDistance(
+    iFocalLength := fbFocalLength,
+    iSourceDistance := fbFocalLength
+);
+
+fbFocalLength.Val := 1.0;
+fbFocalLength.ClearError();
+fbSourceDistance.Val := 0.0;
+fbSourceDistance.ClearError();
+TestInvalidInputExpectError0ImageDistance(
+    iFocalLength := fbFocalLength,
+    iSourceDistance := fbFocalLength
+);
+
+fbFocalLength.Val := 1.0;
+fbFocalLength.ClearError();
+fbSourceDistance.Val := 1.0;
+fbSourceDistance.SetError(sMsg := 'Test');
+TestInvalidInputExpectError0ImageDistance(
+    iFocalLength := fbFocalLength,
+    iSourceDistance := fbFocalLength
 );
 
 // Expected results taken from pcdscalc/be_lens_calcs.py.
@@ -533,84 +562,42 @@ TestValidInputsExpectNoErrorAccurateImageDistance(
 );
 ]]></ST>
     </Implementation>
-    <Method Name="TestInvalidFocalLengthExpectError0ImageDistance" Id="{6b8150b9-77b9-4069-b1e7-9e118d825137}">
+    <Method Name="TestInvalidInputExpectError0ImageDistance" Id="{6b8150b9-77b9-4069-b1e7-9e118d825137}">
       <Declaration><![CDATA[
-METHOD TestInvalidFocalLengthExpectError0ImageDistance
+METHOD TestInvalidInputExpectError0ImageDistance
 VAR_INPUT
-    fFocalLength : LREAL;
+    iFocalLength : I_FallibleLREAL;
+    iSourceDistance : I_FallibleLREAL;
+END_VAR
+VAR
+    fbImageDistance : FB_FallibleLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestInvalidFocalLengthExpectError0ImageDistance ID: ',
+TEST(CONCAT('TestInvalidInputExpectError0ImageDistance ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fbCalcImageDistance(
-    fFocalLength := fFocalLength,
-    fSourceDistance := 1.0,
-    fImageDistance =>,
-    bError =>,
-    sErrorMsg =>
+F_CalcImageDistance(
+    iFocalLength := iFocalLength,
+    iSourceDistance := iSourceDistance,
+    fbImageDistance => fbImageDistance
 );
 
 AssertTrue(
-    Condition := fbCalcImageDistance.bError,
+    Condition := fbImageDistance.GetError(),
     Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertTrue(
-    Condition := fbCalcImageDistance.sErrorMsg <> '',
+    Condition := fbImageDistance.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to not be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0,
-    Actual := fbCalcImageDistance.fImageDistance,
-    Delta := 0,
-    Message := 'Calculated image distance should be 0 when an error is detected.'
-);
-
-TEST_FINISHED();
-
-nTestID := nTestID + 1;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestInvalidSourceDistanceExpectError0ImageDistance" Id="{6dc9932c-0b20-4be4-a381-07de5a3a0e0d}">
-      <Declaration><![CDATA[
-METHOD TestInvalidSourceDistanceExpectError0ImageDistance
-VAR_INPUT
-    fSourceDistance : LREAL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST(CONCAT('TestInvalidSourceDistanceExpectError0ImageDistance ID: ',
-    INT_TO_STRING(nTestID))
-);
-
-fbCalcImageDistance(
-    fFocalLength := 1.0,
-    fSourceDistance :=fSourceDistance,
-    fImageDistance =>,
-    bError =>,
-    sErrorMsg =>
-);
-
-AssertTrue(
-    Condition := fbCalcImageDistance.bError,
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertTrue(
-    Condition := fbCalcImageDistance.sErrorMsg <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fbCalcImageDistance.fImageDistance,
+    Actual := fbImageDistance.Val,
     Delta := 0,
     Message := 'Calculated image distance should be 0 when an error is detected.'
 );
@@ -629,6 +616,11 @@ VAR_INPUT
     fSourceDistance : LREAL;
     fExpected : LREAL;
 END_VAR
+VAR
+    fbFocalLength : FB_FallibleLREAL;
+    fbSourceDistance : FB_FallibleLREAL;
+    fbImageDistance : FB_FallibleLREAL;
+END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
@@ -636,27 +628,31 @@ TEST(CONCAT('TestValidInputsExpectNoErrorAccurateImageDistance ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fbCalcImageDistance(
-    fFocalLength := fFocalLength,
-    fSourceDistance := fSourceDistance,
-    fImageDistance =>,
-    bError =>,
-    sErrorMsg =>
+fbFocalLength.Val := fFocalLength;
+fbFocalLength.ClearError();
+
+fbSourceDistance.Val := fSourceDistance;
+fbSourceDistance.ClearError();
+
+F_CalcImageDistance(
+    iFocalLength := fbFocalLength,
+    iSourceDistance := fbSourceDistance,
+    fbImageDistance => fbImageDistance
 );
 
 AssertFalse(
-    Condition := fbCalcImageDistance.bError,
+    Condition := fbImageDistance.GetError(),
     Message := 'Expected bError bit to be false but it was true.'
 );
 
 AssertFalse(
-    Condition := fbCalcImageDistance.sErrorMsg <> '',
+    Condition := fbImageDistance.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := fExpected,
-    Actual := fbCalcImageDistance.fImageDistance,
+    Actual := fbImageDistance.Val,
     Delta := ABS(0.001 * fExpected),
     Message := 'Calculated image distance did not calculate close enough to the expected value.'
 );

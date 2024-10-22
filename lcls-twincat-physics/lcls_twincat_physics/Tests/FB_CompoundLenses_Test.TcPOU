@@ -5,35 +5,164 @@
 FUNCTION_BLOCK FB_CompoundLenses_Test EXTENDS TcUnit.FB_TestSuite
 VAR
     nTestID : INT;
-    fbCompoundLenses : FB_CompoundLenses;
+    fbFocalLength1 : FB_FallibleLREAL;
+    fbMultiplier1 : FB_FallibleINT;
+    fbFocalLength2 : FB_FallibleLREAL;
+    fbMultiplier2 : FB_FallibleINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 nTestID := 0;
 
-TestInvalidFocalLength1ExpectError0FocalLength(
-    fFocalLength1 := 0.0
+fbFocalLength1.Val := 0.0;
+fbFocalLength1.ClearError();
+fbMultiplier1.Val := 1;
+fbMultiplier1.ClearError();
+fbFocalLength2.Val := 1.0;
+fbFocalLength2.ClearError();
+fbMultiplier2.Val := 1;
+fbMultiplier2.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
 );
 
-TestInvalidFocalLength2ExpectError0FocalLength(
-    fFocalLength2 := 0.0
+fbFocalLength1.Val := 1.0;
+fbFocalLength1.ClearError();
+fbMultiplier1.Val := 1;
+fbMultiplier1.ClearError();
+fbFocalLength2.Val := 0.0;
+fbFocalLength2.ClearError();
+fbMultiplier2.Val := 1;
+fbMultiplier2.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
 );
 
-TestInvalidMultiplier1ExpectError0FocalLength(
-    nMultiplier1 := 0
+fbFocalLength1.Val := 1.0;
+fbFocalLength1.ClearError();
+fbMultiplier1.Val := 0;
+fbMultiplier1.ClearError();
+fbFocalLength2.Val := 1.0;
+fbFocalLength2.ClearError();
+fbMultiplier2.Val := 1;
+fbMultiplier2.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
 );
 
-TestInvalidMultiplier1ExpectError0FocalLength(
-    nMultiplier1 := -1
+fbFocalLength1.Val := 1.0;
+fbFocalLength1.ClearError();
+fbMultiplier1.Val := 1;
+fbMultiplier1.ClearError();
+fbFocalLength2.Val := 1.0;
+fbFocalLength2.ClearError();
+fbMultiplier2.Val := 0;
+fbMultiplier2.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
 );
 
-TestInvalidMultiplier2ExpectError0FocalLength(
-    nMultiplier2 := 0
+fbFocalLength1.Val := 1.0;
+fbFocalLength1.ClearError();
+fbMultiplier1.Val := -1;
+fbMultiplier1.ClearError();
+fbFocalLength2.Val := 1.0;
+fbFocalLength2.ClearError();
+fbMultiplier2.Val := 1;
+fbMultiplier2.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
 );
 
-TestInvalidMultiplier2ExpectError0FocalLength(
-    nMultiplier2 := -1
+fbFocalLength1.Val := 1.0;
+fbFocalLength1.ClearError();
+fbMultiplier1.Val := 1;
+fbMultiplier1.ClearError();
+fbFocalLength2.Val := 1.0;
+fbFocalLength2.ClearError();
+fbMultiplier2.Val := -1;
+fbMultiplier2.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
+);
+
+fbFocalLength1.Val := 1.0;
+fbFocalLength1.SetError(sMsg := 'Test');
+fbMultiplier1.Val := 1;
+fbMultiplier1.ClearError();
+fbFocalLength2.Val := 1.0;
+fbFocalLength2.ClearError();
+fbMultiplier2.Val := 1;
+fbMultiplier2.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
+);
+
+fbFocalLength1.Val := 1.0;
+fbFocalLength1.ClearError();
+fbMultiplier1.Val := 1;
+fbMultiplier1.SetError(sMsg := 'Test');
+fbFocalLength2.Val := 1.0;
+fbFocalLength2.ClearError();
+fbMultiplier2.Val := 1;
+fbMultiplier2.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
+);
+
+fbFocalLength1.Val := 1.0;
+fbFocalLength1.ClearError();
+fbMultiplier1.Val := 1;
+fbMultiplier1.ClearError();
+fbFocalLength2.Val := 1.0;
+fbFocalLength2.SetError(sMsg := 'Test');
+fbMultiplier2.Val := 1;
+fbMultiplier2.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
+);
+
+fbFocalLength1.Val := 1.0;
+fbFocalLength1.ClearError();
+fbMultiplier1.Val := 1;
+fbMultiplier1.ClearError();
+fbFocalLength2.Val := 1.0;
+fbFocalLength2.ClearError();
+fbMultiplier2.Val := 1;
+fbMultiplier2.SetError(sMsg := 'Test');
+TestInvalidInputExpectError0FocalLength(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2
 );
 
 // Expected results taken from pcdscalc/be_lens_calcs.py.
@@ -357,182 +486,48 @@ TestValidInputsExpectNoErrorAccurateFocalLength(
 );
 ]]></ST>
     </Implementation>
-    <Method Name="TestInvalidFocalLength1ExpectError0FocalLength" Id="{ddc5643e-f623-46a5-99e6-6abd658d2c0f}">
+    <Method Name="TestInvalidInputExpectError0FocalLength" Id="{b281f112-8ce2-43a7-9e96-9df05b42c757}">
       <Declaration><![CDATA[
-METHOD TestInvalidFocalLength1ExpectError0FocalLength
+METHOD TestInvalidInputExpectError0FocalLength
 VAR_INPUT
-    fFocalLength1 : LREAL;
+    iFocalLength1 : I_FallibleLREAL;
+    iMultiplier1 : I_FallibleINT;
+    iFocalLength2 : I_FallibleLREAL;
+    iMultiplier2 : I_FallibleINT;
+END_VAR
+VAR
+    fbFocalLengthCompounded : FB_FallibleLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestInvalidFocalLength1ExpectError0FocalLength ID: ',
+TEST(CONCAT('TestInvalidInputExpectError0ImageDistance ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fbCompoundLenses(
-    fFocalLength1 := fFocalLength1,
-    nMultiplier1 := 1,
-    fFocalLength2 := 1.0,
-    nMultiplier2 := 1,
-    fFocalLengthCompounded =>,
-    bError =>,
-    sErrorMsg =>
+F_CompoundLenses(
+    iFocalLength1 := iFocalLength1,
+    iMultiplier1 := iMultiplier1,
+    iFocalLength2 := iFocalLength2,
+    iMultiplier2 := iMultiplier2,
+    fbFocalLengthCompounded => fbFocalLengthCompounded
 );
 
 AssertTrue(
-    Condition := fbCompoundLenses.bError,
+    Condition := fbFocalLengthCompounded.GetError(),
     Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertTrue(
-    Condition := fbCompoundLenses.sErrorMsg <> '',
+    Condition := fbFocalLengthCompounded.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to not be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0,
-    Actual := fbCompoundLenses.fFocalLengthCompounded,
+    Actual := fbFocalLengthCompounded.Val,
     Delta := 0,
-    Message := 'Calculated focal length should be 0 when an error is detected.'
-);
-
-TEST_FINISHED();
-
-nTestID := nTestID + 1;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestInvalidFocalLength2ExpectError0FocalLength" Id="{30af97da-0508-4930-85fa-248076408417}">
-      <Declaration><![CDATA[
-METHOD TestInvalidFocalLength2ExpectError0FocalLength
-VAR_INPUT
-    fFocalLength2 : LREAL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST(CONCAT('TestInvalidFocalLength2ExpectError0FocalLength ID: ',
-    INT_TO_STRING(nTestID))
-);
-
-fbCompoundLenses(
-    fFocalLength1 := 1.0,
-    nMultiplier1 := 1,
-    fFocalLength2 := fFocalLength2,
-    nMultiplier2 := 1,
-    fFocalLengthCompounded =>,
-    bError =>,
-    sErrorMsg =>
-);
-
-AssertTrue(
-    Condition := fbCompoundLenses.bError,
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertTrue(
-    Condition := fbCompoundLenses.sErrorMsg <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fbCompoundLenses.fFocalLengthCompounded,
-    Delta := 0,
-    Message := 'Calculated focal length should be 0 when an error is detected.'
-);
-
-TEST_FINISHED();
-
-nTestID := nTestID + 1;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestInvalidMultiplier1ExpectError0FocalLength" Id="{873f1f64-9617-4fd5-8fb4-eb884b1ad749}">
-      <Declaration><![CDATA[
-METHOD TestInvalidMultiplier1ExpectError0FocalLength
-VAR_INPUT
-    nMultiplier1 : INT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST(CONCAT('TestInvalidMultiplier1ExpectError0FocalLength ID: ',
-    INT_TO_STRING(nTestID))
-);
-
-fbCompoundLenses(
-    fFocalLength1 := 1.0,
-    nMultiplier1 := nMultiplier1,
-    fFocalLength2 := 1.0,
-    nMultiplier2 := 1,
-    fFocalLengthCompounded =>,
-    bError =>,
-    sErrorMsg =>
-);
-
-AssertTrue(
-    Condition := fbCompoundLenses.bError,
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertTrue(
-    Condition := fbCompoundLenses.sErrorMsg <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fbCompoundLenses.fFocalLengthCompounded,
-    Delta := 0,
-    Message := 'Calculated focal length should be 0 when an error is detected.'
-);
-
-TEST_FINISHED();
-
-nTestID := nTestID + 1;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestInvalidMultiplier2ExpectError0FocalLength" Id="{d1f5f9ef-a32a-4676-9390-a69d8563f3fb}">
-      <Declaration><![CDATA[
-METHOD TestInvalidMultiplier2ExpectError0FocalLength
-VAR_INPUT
-    nMultiplier2 : INT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST(CONCAT('TestInvalidMultiplier2ExpectError0FocalLength ID: ',
-    INT_TO_STRING(nTestID))
-);
-
-fbCompoundLenses(
-    fFocalLength1 := 1.0,
-    nMultiplier1 := nMultiplier2,
-    fFocalLength2 := 1.0,
-    nMultiplier2 := 1,
-    fFocalLengthCompounded =>,
-    bError =>,
-    sErrorMsg =>
-);
-
-AssertTrue(
-    Condition := fbCompoundLenses.bError,
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertTrue(
-    Condition := fbCompoundLenses.sErrorMsg <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fbCompoundLenses.fFocalLengthCompounded,
-    Delta := 0,
-    Message := 'Calculated focal length should be 0 when an error is detected.'
+    Message := 'Calculated focal length compounded should be 0 when an error is detected.'
 );
 
 TEST_FINISHED();
@@ -551,6 +546,13 @@ VAR_INPUT
     nMultiplier2 : INT;
     fExpected : LREAL;
 END_VAR
+VAR
+    fbFocalLength1 : FB_FallibleLREAL;
+    fbMultiplier1 : FB_FallibleINT;
+    fbFocalLength2 : FB_FallibleLREAL;
+    fbMultiplier2 : FB_FallibleINT;
+    fbFocalLengthCompounded : FB_FallibleLREAL;
+END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
@@ -558,29 +560,39 @@ TEST(CONCAT('TestValidInputsExpectNoErrorAccurateFocalLength ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fbCompoundLenses(
-    fFocalLength1 := fFocalLength1,
-    nMultiplier1 := nMultiplier1,
-    fFocalLength2 := fFocalLength2,
-    nMultiplier2 := nMultiplier2,
-    fFocalLengthCompounded =>,
-    bError =>,
-    sErrorMsg =>
+fbFocalLength1.Val := fFocalLength1;
+fbFocalLength1.ClearError();
+
+fbMultiplier1.Val := nMultiplier1;
+fbMultiplier1.ClearError();
+
+fbFocalLength2.Val := fFocalLength2;
+fbFocalLength2.ClearError();
+
+fbMultiplier2.Val := nMultiplier2;
+fbMultiplier2.ClearError();
+
+F_CompoundLenses(
+    iFocalLength1 := fbFocalLength1,
+    iMultiplier1 := fbMultiplier1,
+    iFocalLength2 := fbFocalLength2,
+    iMultiplier2 := fbMultiplier2,
+    fbFocalLengthCompounded => fbFocalLengthCompounded
 );
 
 AssertFalse(
-    Condition := fbCompoundLenses.bError,
+    Condition := fbFocalLengthCompounded.GetError(),
     Message := 'Expected bError bit to be false but it was true.'
 );
 
 AssertFalse(
-    Condition := fbCompoundLenses.sErrorMsg <> '',
+    Condition := fbFocalLengthCompounded.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := fExpected,
-    Actual := fbCompoundLenses.fFocalLengthCompounded,
+    Actual := fbFocalLengthCompounded.Val,
     Delta := ABS(0.001 * fExpected),
     Message := 'Calculated focal length did not calculate close enough to the expected value.'
 );

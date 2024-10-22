@@ -4,20 +4,21 @@
     <Declaration><![CDATA[
 PROGRAM RunTests
 VAR
+    fbAtomicNumber_Test : FB_AtomicNumber_Test;
+
+    fbCalcFocalLengthSingleLens_Test : FB_CalcFocalLengthSingleLens_Test;
+    fbCalcFocalLengthSingleLens2_Test : FB_CalcFocalLengthSingleLens2_Test;
+    fbCalcImageDistance_Test : FB_CalcImageDistance_Test;
+    fbCompoundLenses_Test : FB_CompoundLenses_Test;
+    fbf1Chantler_Test : FB_f1Chantler_Test;
     fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
     fbTestTransmission : FB_TestTransmission;
     fbTestElementDensity : FB_TestElementDensity;
-    fbAtomicNumber_Test : FB_AtomicNumber_Test;
     fbXRayDelta_Test : FB_XRayDelta_Test;
-    fbCalcFocalLengthSingleLens_Test : FB_CalcFocalLengthSingleLens_Test;
-    fbCompoundLenses_Test : FB_CompoundLenses_Test;
-    fbCalcImageDistance_Test : FB_CalcImageDistance_Test;
-    fbElement_Test : FB_Element_Test;
 
     (* Smoke test - just instantiate *)
     fbPhysicalConstants : FB_PhysicalConstants;
     fbAtomicMass : FB_AtomicMass;
-
 END_VAR
 ]]></Declaration>
     <Implementation>

@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="F_CompoundLenses" Id="{50fa9e83-f4d5-493c-aa8e-ec40552a57a3}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION F_CompoundLenses
+(*
+Takes two focal lengths as input. Computes the compounded focal length using those focal lengths
+and the supplied multipliers.
+For example, for computing the focal length of a set of lenses, first compute the focal length
+of the first lens. Then, to compound it with the second lens in the stack, input the first focal
+length and the second focal length. This will produce a compounded result.
+Then, take the compounded result and input it back into the function as focal length 1, and
+set the multiplier to 1. Then input lens 3 as the second focal length.
+In this manner, a loop can be constructed to compound the focal lengths of all lenses in
+the stack or set.
+The purpose of the multiplier to to allow for efficiency in calculation in the cases where
+there are multiple of one kind of lenses in one spot in the stack. This is analogous to the
+"number" parameter in pcdscalc/be_lens_calcs.py/lens_set arrays.
+*)
+VAR_INPUT
+    iFocalLength1 : I_FallibleLREAL; // Focal length, in m, of the first lens or group of lenses.
+    iMultiplier1 : I_FallibleINT; // Multiplier for the number of contiguous lenses with the first focal length. Default of 1.
+    iFocalLength2 : I_FallibleLREAL; // Focal length, in m, of the second lens or group of lenses.
+    iMultiplier2 : I_FallibleINT; // Multiplier for the number of contiguous lenses with the second focal length. Default of 1.
+END_VAR
+VAR_OUTPUT
+    fbFocalLengthCompounded : FB_FallibleLREAL; // The focal length resulting from the compounding of the two input focal lengths.
+END_VAR
+VAR
+    fFocalLength1Inverse : LREAL;
+    fFocalLength2Inverse : LREAL;
+    fFocalLengthCompoundedInverse : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// Initialize focal length and error values.
+fbFocalLengthCompounded.Val := 0.0;
+fbFocalLengthCompounded.ClearError();
+
+// Check to see if there is an error reported for focal length 1 input.
+IF iFocalLength1.GetError() THEN
+    fbFocalLengthCompounded.SetError(
+        sMsg := CONCAT('The input focal length 1 has an error: [',
+        CONCAT(iFocalLength1.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check for an invalid focal length 1 input.
+IF iFocalLength1.Val = 0.0 THEN
+    fbFocalLengthCompounded.SetError(
+        sMsg := CONCAT('The focal length 1 specified: [',
+        CONCAT(LREAL_TO_STRING(iFocalLength1.Val),
+        '] must not be 0.'))
+    );
+    RETURN;
+END_IF
+
+// Calculate the inverse of focal length 1.
+fFocalLength1Inverse := 1.0 / iFocalLength1.Val;
+
+// Check to see if there is an error reported for focal length 2 input.
+IF iFocalLength2.GetError() THEN
+    fbFocalLengthCompounded.SetError(
+        sMsg := CONCAT('The input focal length 2 has an error: [',
+        CONCAT(iFocalLength2.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check for an invalid focal length 2 input.
+IF iFocalLength2.Val = 0.0 THEN
+    fbFocalLengthCompounded.SetError(
+        sMsg := CONCAT('The focal length 2 specified: [',
+        CONCAT(LREAL_TO_STRING(iFocalLength2.Val),
+        '] must not be 0.'))
+    );
+    RETURN;
+END_IF
+
+// Calculate the inverse of focal length 2.
+fFocalLength2Inverse := 1.0 / iFocalLength2.Val;
+
+// Check to see if there is an error reported for the multiplier 1 input.
+IF iMultiplier1.GetError() THEN
+    fbFocalLengthCompounded.SetError(
+        sMsg := CONCAT('The input multiplier 1 has an error: [',
+        CONCAT(iMultiplier1.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check for an invalid multiplier 1 input.
+IF iMultiplier1.Val <= 0 THEN
+    fbFocalLengthCompounded.SetError(
+        sMsg := CONCAT('The multiplier 1 specified: [',
+        CONCAT(LREAL_TO_STRING(iMultiplier1.Val),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+// Check for an invalid multiplier 2 input.
+IF iMultiplier2.Val <= 0 THEN
+    fbFocalLengthCompounded.SetError(
+        sMsg := CONCAT('The multiplier 2 specified: [',
+        CONCAT(LREAL_TO_STRING(iMultiplier2.Val),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+// Check to see if there is an error reported for the multiplier 2 input.
+IF iMultiplier2.GetError() THEN
+    fbFocalLengthCompounded.SetError(
+        sMsg := CONCAT('The input multiplier 2 has an error: [',
+        CONCAT(iMultiplier2.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Calculate the inverse of the compounded focal length.
+fFocalLengthCompoundedInverse :=
+    INT_TO_LREAL(iMultiplier1.Val) * fFocalLength1Inverse +
+    INT_TO_LREAL(iMultiplier2.Val) * fFocalLength2Inverse;
+
+// Check if the resultant inverse compounded focal length is 0. Prevent a divide by 0.
+IF fFocalLengthCompoundedInverse = 0.0 THEN
+    fbFocalLengthCompounded.SetError(
+        sMsg := 'The calculated inverse compound focal length was 0 and it must not be 0.'
+    );
+    RETURN;
+END_IF
+
+// Calculate the resultant compounded focal length.
+fbFocalLengthCompounded.Val := 1.0 / fFocalLengthCompoundedInverse;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

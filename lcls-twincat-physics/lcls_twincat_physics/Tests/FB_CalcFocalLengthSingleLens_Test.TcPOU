@@ -5,23 +5,57 @@
 FUNCTION_BLOCK FB_CalcFocalLengthSingleLens_Test EXTENDS TcUnit.FB_TestSuite
 VAR
     nTestID : INT;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens;
+    fbDelta : FB_FallibleLREAL;
+    fbRadius : FB_FallibleLREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 nTestID := 0;
 
-TestInvalidDeltaExpectError0FocalLength(
-    fDelta := 0
+fbDelta.Val := 0.0;
+fbDelta.ClearError();
+fbRadius.Val := 1.0;
+fbRadius.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iDelta := fbDelta,
+    iRadius := fbRadius
 );
 
-TestInvalidRadiusExpectError0FocalLength(
-    fRadius := 0.0
+fbDelta.Val := 1.0;
+fbDelta.SetError(sMsg := 'Test');
+fbRadius.Val := 1.0;
+fbRadius.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iDelta := fbDelta,
+    iRadius := fbRadius
 );
 
-TestInvalidRadiusExpectError0FocalLength(
-    fRadius := -20.0
+fbDelta.Val := 1.0;
+fbDelta.ClearError();
+fbRadius.Val := 0.0;
+fbRadius.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iDelta := fbDelta,
+    iRadius := fbRadius
+);
+
+fbDelta.Val := 1.0;
+fbDelta.ClearError();
+fbRadius.Val := -20.0;
+fbRadius.ClearError();
+TestInvalidInputExpectError0FocalLength(
+    iDelta := fbDelta,
+    iRadius := fbRadius
+);
+
+fbDelta.Val := 1.0;
+fbDelta.ClearError();
+fbRadius.Val := -20.0;
+fbRadius.SetError(sMsg := 'Test');
+TestInvalidInputExpectError0FocalLength(
+    iDelta := fbDelta,
+    iRadius := fbRadius
 );
 
 // Expected results taken from pcdscalc/be_lens_calcs.py.
@@ -73,84 +107,42 @@ TestValidInputsExpectNoErrorAccurateFocalLength(
 );
 ]]></ST>
     </Implementation>
-    <Method Name="TestInvalidDeltaExpectError0FocalLength" Id="{423e18c6-5a97-4b67-a6d2-19839e16e0dc}">
+    <Method Name="TestInvalidInputExpectError0FocalLength" Id="{1f8e00a3-0729-46b9-a59a-8487054c78d2}">
       <Declaration><![CDATA[
-METHOD TestInvalidDeltaExpectError0FocalLength
+METHOD TestInvalidInputExpectError0FocalLength
 VAR_INPUT
-    fDelta : LREAL;
+    iDelta : I_FallibleLREAL;
+    iRadius : I_FallibleLREAL;
+END_VAR
+VAR
+    fbFocalLength : FB_FallibleLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestInvalidDeltaExpectError0FocalLength ID: ',
+TEST(CONCAT('TestInvalidInputExpectError0FocalLength ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fbCalcFocalLengthSingleLens(
-    fDelta := fDelta,
-    fRadius := 0.005,
-    fFocalLength =>,
-    bError =>,
-    sErrorMsg =>
+F_CalcFocalLengthSingleLens(
+    iDelta := fbDelta,
+    iRadius := fbRadius,
+    fbFocalLength => fbFocalLength,
 );
 
 AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.bError,
+    Condition := fbFocalLength.GetError(),
     Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.sErrorMsg <> '',
+    Condition := fbFocalLength.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to not be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0,
-    Actual := fbCalcFocalLengthSingleLens.fFocalLength,
-    Delta := 0,
-    Message := 'Calculated focal length should be 0 when an error is detected.'
-);
-
-TEST_FINISHED();
-
-nTestID := nTestID + 1;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestInvalidRadiusExpectError0FocalLength" Id="{b85fb0eb-eb67-4008-bf6e-a27e16601c45}">
-      <Declaration><![CDATA[
-METHOD TestInvalidRadiusExpectError0FocalLength
-VAR_INPUT
-    fRadius : LREAL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST(CONCAT('TestInvalidRadiusExpectError0FocalLength ID: ',
-    INT_TO_STRING(nTestID))
-);
-
-fbCalcFocalLengthSingleLens(
-    fDelta := 0.0004,
-    fRadius := fRadius,
-    fFocalLength =>,
-    bError =>,
-    sErrorMsg =>
-);
-
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.bError,
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.sErrorMsg <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fbCalcFocalLengthSingleLens.fFocalLength,
+    Actual := fbFocalLength.Val,
     Delta := 0,
     Message := 'Calculated focal length should be 0 when an error is detected.'
 );
@@ -170,6 +162,11 @@ VAR_INPUT
 
     fExpected : LREAL;
 END_VAR
+VAR
+    fbDelta : FB_FallibleLREAL;
+    fbRadius : FB_FallibleLREAL;
+    fbFocalLength : FB_FallibleLREAL;
+END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
@@ -177,27 +174,31 @@ TEST(CONCAT('TestValidInputsExpectNoErrorAccurateFocalLength ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fbCalcFocalLengthSingleLens(
-    fDelta := fDelta,
-    fRadius := fRadius,
-    fFocalLength =>,
-    bError =>,
-    sErrorMsg =>
+fbDelta.Val := fDelta;
+fbDelta.ClearError();
+
+fbRadius.Val := fRadius;
+fbRadius.ClearError();
+
+F_CalcFocalLengthSingleLens(
+    iDelta := fbDelta,
+    iRadius := fbRadius,
+    fbFocalLength => fbFocalLength,
 );
 
 AssertFalse(
-    Condition := fbCalcFocalLengthSingleLens.bError,
+    Condition := fbFocalLength.GetError(),
     Message := 'Expected bError bit to be false but it was true.'
 );
 
 AssertFalse(
-    Condition := fbCalcFocalLengthSingleLens.sErrorMsg <> '',
+    Condition := fbFocalLength.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := fExpected,
-    Actual := fbCalcFocalLengthSingleLens.fFocalLength,
+    Actual := fbFocalLength.Val,
     Delta := ABS(0.001 * fExpected),
     Message := 'Calculated focal length did not calculate close enough to the expected value.'
 );

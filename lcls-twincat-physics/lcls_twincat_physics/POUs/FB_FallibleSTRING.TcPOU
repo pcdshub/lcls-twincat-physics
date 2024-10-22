@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_FallibleSTRING" Id="{1b890771-a463-46cb-9b7e-1d661e78cbf7}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_FallibleSTRING IMPLEMENTS I_FallibleSTRING
+VAR
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+    sVal : STRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ClearError" Id="{a565d3a2-0dec-45b5-bd57-56476d6a51d4}">
+      <Declaration><![CDATA[METHOD ClearError]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+bError := FALSE;
+sErrorMsg := '';
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetError" Id="{1d1435eb-3c03-49e9-b64b-dc70a252707a}">
+      <Declaration><![CDATA[METHOD GetError : BOOL]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetError := bError;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetErrorMsg" Id="{abc96ace-b996-4094-bf54-60d2eedbbe7c}">
+      <Declaration><![CDATA[METHOD GetErrorMsg : Tc2_System.T_MaxString]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetErrorMsg := sErrorMsg;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{5d0ab8e7-9945-4568-be08-ad0fc810caaf}">
+      <Declaration><![CDATA[
+METHOD SetError
+VAR_INPUT
+    sMsg	: Tc2_System.T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+bError := TRUE;
+sErrorMsg := sMsg;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Val" Id="{aeada6db-8db7-440a-a0bb-2bd912d36b46}">
+      <Declaration><![CDATA[PROPERTY Val : STRING]]></Declaration>
+      <Get Name="Get" Id="{962bb435-90f6-4ca7-931b-3d84dee457c0}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Val := sVal;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{3c84aeb3-1be6-4983-879f-26b7332097e7}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+sVal := Val;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

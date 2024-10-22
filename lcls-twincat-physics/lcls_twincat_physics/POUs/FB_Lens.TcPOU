@@ -54,66 +54,25 @@ VAR
 
     {attribute 'pytmc' := 'pv: Material'}
     fbMaterial : FB_Element;
+
+    fbXRayDelta : FB_XRayDelta;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Property Name="Delta" Id="{953307c9-701a-489d-bb16-3ab7bbcd9dab}">
-      <Declaration><![CDATA[
-PROPERTY Delta : LREAL
-]]></Declaration>
-      <Get Name="Get" Id="{9dc56aac-ad27-4ad2-8159-763355bf3777}">
-        <Declaration><![CDATA[
-VAR
-    fbXRayDelta : FB_XRayDelta;
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-fbXRayDelta(
-    fEnergy := Energy,
-    fF1 := f1,
-    fDensity := fbMaterial.Density,
-    nAtomicNumber := fbMaterial.Protons,
-    fAtomicMass := fbMaterial.Mass,
-    fDelta =>,
-    bError =>,
-    sErrorMsg =>
-);
-
-IF fbXRayDelta.bError THEN
-    bError := TRUE;
-    sErrorMsg := fbXRayDelta.sErrorMsg;
-ELSE
-    fDelta := fbXRayDelta.fDelta;
-END_IF
-
-Delta := fDelta;
-]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Property Name="Energy" Id="{241c4d6d-a08b-4aaf-94a8-16094f2379be}">
       <Declaration><![CDATA[
 PROPERTY Energy : LREAL
 ]]></Declaration>
       <Get Name="Get" Id="{e154584a-9896-4183-8b97-09943c7dafe4}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
+        <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-// Check for a negative photon energy.
-IF fEnergy < 0.0 THEN
-    // If we have an invalid photon energy value, give an error.
-    bError := TRUE;
-    sErrorMsg := CONCAT('Invalid photon energy value of: [',
-        CONCAT(LREAL_TO_STRING(fEnergy),
-        ']. Must be greater than or equal to 0.'));
-END_IF
+EnergyCheck(fEnergy := fEnergy);
 
 Energy := fEnergy;
+
 ]]></ST>
         </Implementation>
       </Get>
@@ -121,11 +80,36 @@ Energy := fEnergy;
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
+EnergyCheck(fEnergy := Energy);
+
 fEnergy := Energy;
 ]]></ST>
         </Implementation>
       </Set>
     </Property>
+    <Method Name="EnergyCheck" Id="{52eb129e-b57d-422d-b4a8-939e64516602}">
+      <Declaration><![CDATA[
+METHOD EnergyCheck : BOOL
+VAR_INPUT
+    fEnergy : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Check for a negative photon energy.
+IF fEnergy < 0.0 THEN
+    // If we have an invalid photon energy value, give an error.
+    bError := TRUE;
+    sErrorMsg := CONCAT('Invalid photon energy value of: [',
+        CONCAT(LREAL_TO_STRING(fEnergy),
+        ']. Must be greater than or equal to 0.'));
+    EnergyCheck := FALSE;
+ELSE
+    EnergyCheck := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Error" Id="{6d034299-a490-4dad-8873-8a89e1e2c6fa}">
       <Declaration><![CDATA[
 PROPERTY Error : BOOL
@@ -134,8 +118,22 @@ PROPERTY Error : BOOL
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-Error := bError;
-]]></ST>
+bError := FALSE;
+sErrorMsg := '';
+
+GetDelta(
+    fEnergy := Energy,
+    iXRayDelta := fbXRayDelta
+);
+bError := bError OR fbXRayDelta.Error;
+fEnergy := Energy;
+fF1 := f1;
+fFocalLength := FocalLength;
+fbMaterial := Material;
+nMultiplier := Multiplier;
+fRadius := Radius;
+
+Error := bError;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -147,6 +145,8 @@ PROPERTY ErrorMsg : T_MaxString
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
+bError := Error;
+
 ErrorMsg := sErrorMsg;
 ]]></ST>
         </Implementation>
@@ -225,8 +225,13 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[
+GetDelta(
+    fEnergy := Energy,
+    iXRayDelta := fbXRayDelta
+);
+
 fbCalcFocalLengthSingleLens(
-    fDelta := Delta,
+    fDelta := fDelta,
     fRadius := Radius,
     fFocalLength =>,
     bError =>,
@@ -245,6 +250,34 @@ FocalLength := fFocalLength;
         </Implementation>
       </Get>
     </Property>
+    <Method Name="GetDelta" Id="{3b95e4ed-6c18-486e-aebb-242c686a9af0}">
+      <Declaration><![CDATA[
+METHOD GetDelta : LREAL
+VAR_INPUT
+    fEnergy : LREAL;
+    iXRayDelta : I_XRayDelta;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+iXRayDelta.GetDelta(
+    fEnergy := Energy,
+    fF1 := f1,
+    fDensity := fbMaterial.Density,
+    nAtomicNumber := fbMaterial.Protons,
+    fAtomicMass := fbMaterial.Mass,
+    fDelta => fDelta
+);
+
+IF iXRayDelta.Error THEN
+    bError := TRUE;
+    sErrorMsg := iXRayDelta.ErrorMsg;
+END_IF
+
+GetDelta := fDelta;
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Material" Id="{23cb63db-07d0-4116-ab90-923d7879ff4f}">
       <Declaration><![CDATA[
 PROPERTY Material : FB_Element
@@ -253,6 +286,8 @@ PROPERTY Material : FB_Element
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
+MaterialCheck(iMaterial := fbMaterial);
+
 Material := fbMaterial;
 ]]></ST>
         </Implementation>
@@ -261,11 +296,32 @@ Material := fbMaterial;
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
+MaterialCheck(iMaterial := Material);
+
 fbMaterial := Material;
 ]]></ST>
         </Implementation>
       </Set>
     </Property>
+    <Method Name="MaterialCheck" Id="{7465d5c3-6b4a-43d2-8f38-5784b7838265}">
+      <Declaration><![CDATA[
+METHOD MaterialCheck : BOOL
+VAR_INPUT
+    iMaterial : I_Material;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF iMaterial.Error THEN
+    bError := TRUE;
+    sErrorMsg := iMaterial.ErrorMsg;
+    MaterialCheck := FALSE;
+ELSE
+    MaterialCheck := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Multiplier" Id="{98fc8c2e-c6d7-409d-b4a9-db30074d0ee6}">
       <Declaration><![CDATA[
 PROPERTY Multiplier : INT
@@ -274,14 +330,7 @@ PROPERTY Multiplier : INT
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-// Check for an invalid multiplier.
-IF nMultiplier <= 0 THEN
-    // If we have an invalid multiplier value, give an error.
-    bError := TRUE;
-    sErrorMsg := CONCAT('Invalid multiplier value of: [',
-        CONCAT(LREAL_TO_STRING(nMultiplier),
-        ']. Must be greater than 0.'));
-END_IF
+MultiplierCheck(nMultiplier := nMultiplier);
 
 Multiplier := nMultiplier;
 ]]></ST>
@@ -291,11 +340,36 @@ Multiplier := nMultiplier;
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
+MultiplierCheck(nMultiplier := Multiplier);
+
 nMultiplier := Multiplier;
 ]]></ST>
         </Implementation>
       </Set>
     </Property>
+    <Method Name="MultiplierCheck" Id="{a17efb44-24f2-47e4-a4fe-5ca3252a8df4}">
+      <Declaration><![CDATA[
+METHOD MultiplierCheck : BOOL
+VAR_INPUT
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Check for an invalid multiplier.
+IF nMultiplier <= 0 THEN
+    // If we have an invalid multiplier value, give an error.
+    bError := TRUE;
+    sErrorMsg := CONCAT('Invalid multiplier value of: [',
+        CONCAT(INT_TO_STRING(nMultiplier),
+        ']. Must be greater than 0.'));
+    MultiplierCheck := FALSE;
+ELSE
+    MultiplierCheck := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Radius" Id="{3104537e-912b-4e56-9c53-aa6b3018a730}">
       <Declaration><![CDATA[
 PROPERTY Radius : LREAL
@@ -304,14 +378,7 @@ PROPERTY Radius : LREAL
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-// Check for an invalid radius of curvature.
-IF fRadius <= 0.0 THEN
-    // If we have an invalid radius value, give an error.
-    bError := TRUE;
-    sErrorMsg := CONCAT('Invalid radius of curvature value of: [',
-        CONCAT(LREAL_TO_STRING(fRadius),
-        ']. Must be greater than 0.'));
-END_IF
+RadiusCheck(fRadius := fRadius);
 
 Radius := fRadius;
 ]]></ST>
@@ -321,10 +388,54 @@ Radius := fRadius;
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
+RadiusCheck(fRadius := Radius);
+
 fRadius := Radius;
 ]]></ST>
         </Implementation>
       </Set>
     </Property>
+    <Method Name="RadiusCheck" Id="{3fafe854-a63a-4d37-9340-fd10336ebf32}">
+      <Declaration><![CDATA[
+METHOD RadiusCheck : BOOL
+VAR_INPUT
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Check for an invalid radius of curvature.
+IF fRadius <= 0.0 THEN
+    // If we have an invalid radius value, give an error.
+    bError := TRUE;
+    sErrorMsg := CONCAT('Invalid radius of curvature value of: [',
+        CONCAT(LREAL_TO_STRING(fRadius),
+        ']. Must be greater than 0.'));
+    RadiusCheck := FALSE;
+ELSE
+    RadiusCheck := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetState" Id="{7694f6e5-d3e6-4bcf-8620-c36f8bf2b44c}">
+      <Declaration><![CDATA[
+METHOD SetState
+VAR_INPUT
+    fEnergy : LREAL;
+    fRadius : LREAL;
+    nMultiplier : INT;
+    fbMaterial : FB_Element;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Energy := fEnergy;
+Radius := fRadius;
+Multiplier := nMultiplier;
+Material := fbMaterial;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

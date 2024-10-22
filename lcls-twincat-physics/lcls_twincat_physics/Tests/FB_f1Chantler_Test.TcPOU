@@ -1,0 +1,680 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_f1Chantler_Test" Id="{06cdb937-8fc1-4cc7-8819-e31aa3c3fd8b}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_f1Chantler_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+    nTestID : INT;
+    fbName : FB_FallibleSTRING;
+    fbEnergy : FB_FallibleLREAL;
+    fbf1Chantler : FB_f1Chantler;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+fbName.Val := 'INVALID';
+fbName.ClearError();
+fbEnergy.Val := fbf1Chantler.fMineV + 5.0;
+fbEnergy.ClearError();
+TestInvalidInputExpectError0f1(
+    iName := fbName,
+    iEnergy := fbEnergy
+);
+
+fbName.Val := 'Be';
+fbName.ClearError();
+fbEnergy.Val := fbf1Chantler.fMineV - 5.0;
+fbEnergy.ClearError();
+TestInvalidInputExpectError0f1(
+    iName := fbName,
+    iEnergy := fbEnergy
+);
+
+fbName.Val := 'Be';
+fbName.SetError(sMsg := 'Test');
+fbEnergy.Val := fbf1Chantler.fMineV + 5.0;
+fbEnergy.ClearError();
+TestInvalidInputExpectError0f1(
+    iName := fbName,
+    iEnergy := fbEnergy
+);
+
+fbName.Val := 'Be';
+fbName.ClearError();
+fbEnergy.Val := fbf1Chantler.fMineV + 5.0;
+fbEnergy.SetError(sMsg := 'Test');
+TestInvalidInputExpectError0f1(
+    iName := fbName,
+    iEnergy := fbEnergy
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 1.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 161,
+    fExpected := -0.5306984098044704,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 2.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 21,
+    fExpected := -2.123886232867015,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 3.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 399,
+    fExpected := 0.31191423367590515,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 4.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 255,
+    fExpected := 0.262536828269197,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 5.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 363,
+    fExpected := 0.32247312772937037,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 6.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 28190,
+    fExpected := -0.0011442852664117623,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 7.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 3781,
+    fExpected := 0.014975917174923116,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 8.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 20104,
+    fExpected := -0.0007615277577037861,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 9.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 9714,
+    fExpected := 0.0015460917282778043,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 10.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := 6623,
+    fExpected := 0.004631384304512833,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 11.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := fbf1Chantler.fMineV,
+    fExpected := -2.4294438349327128,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 12.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := fbf1Chantler.fMideV,
+    fExpected := 0.26943343451846447,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 13.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Be',
+    fEnergy := fbf1Chantler.fMaxeV,
+    fExpected := -0.0011891027571978691,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 14.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 433,
+    fExpected := -9.245333636156277,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 15.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 272,
+    fExpected := -12.420856020854735,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 16.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 202,
+    fExpected := -16.076001098100118,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 17.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 388,
+    fExpected := -9.765051455357087,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 18.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 269,
+    fExpected := -12.531340454229586,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 19.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 10636,
+    fExpected := -2.7397605206924074,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 20.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 2114,
+    fExpected := -1.176213537202671,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 21.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 11481,
+    fExpected := -2.627107257318766,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 22.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 1454,
+    fExpected := -7.778169553546321,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 23.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := 2982,
+    fExpected := 0.08150318772977165,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 24.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := fbf1Chantler.fMineV,
+    fExpected := -26.956244973517393,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 25.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := fbf1Chantler.fMideV,
+    fExpected := -8.74065454641305,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 26.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Ge',
+    fEnergy := fbf1Chantler.fMaxeV,
+    fExpected := 0.2718978423391419,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 27.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 88,
+    fExpected := -1.7905107874082156,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 28.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 173,
+    fExpected := -1.955875139687239,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 29.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 119,
+    fExpected := -1.7763791179406256,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 30.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 479,
+    fExpected := 0.012264643897022963,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 31.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 198,
+    fExpected := -2.1239481591033886,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 32.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 10005,
+    fExpected := 0.01009691538680331,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 33.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 11800,
+    fExpected := 0.006728041120005272,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 34.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 27764,
+    fExpected := -0.0012656314987391725,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 35.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 6341,
+    fExpected := 0.025640371977233102,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 36.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := 20067,
+    fExpected := 0.000495210914232496,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 37.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := fbf1Chantler.fMineV,
+    fExpected := -4.034809546958578,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 38.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := fbf1Chantler.fMideV,
+    fExpected := 0.08497948578666858,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 39.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'C',
+    fEnergy := fbf1Chantler.fMaxeV,
+    fExpected := -0.0015405612917652732,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 40.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 220,
+    fExpected := -2.0836866769959115,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 41.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 54,
+    fExpected := -11.33004006628206,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 42.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 479,
+    fExpected := -0.857071915158071,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 43.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 468,
+    fExpected := -0.8519949071104258,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 44.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 108,
+    fExpected := -10.571130373200587,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 45.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 21034,
+    fExpected := 0.040743104587352,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 46.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 27967,
+    fExpected := 0.01998173890725053,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 47.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 15960,
+    fExpected := 0.0713701437046366,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 48.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 8429,
+    fExpected := 0.19498209904835598,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 49.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := 19625,
+    fExpected := 0.047333704030637386,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 50.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := fbf1Chantler.fMineV,
+    fExpected := -9.841987238083947,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 51.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := fbf1Chantler.fMideV,
+    fExpected := -0.869426759269928,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 52.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Al',
+    fEnergy := fbf1Chantler.fMaxeV,
+    fExpected := 0.016335968831693966,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 53.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 212,
+    fExpected := -3.657757155832552,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 54.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 381,
+    fExpected := -0.8904345758370672,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 55.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 476,
+    fExpected := -0.7226589944565931,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 56.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 131,
+    fExpected := -11.002375387130227,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 57.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 34,
+    fExpected := -10.55746617436239,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 58.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 18596,
+    fExpected := 0.0676623887689438,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 59.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 5088,
+    fExpected := 0.37290266382575743,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 60.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 10615,
+    fExpected := 0.1751969825549461,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 61.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 17155,
+    fExpected := 0.0789982407620465,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 62.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := 21416,
+    fExpected := 0.0506400785098938,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 63.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := fbf1Chantler.fMineV,
+    fExpected := -9.414860851053234,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 64.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := fbf1Chantler.fMideV,
+    fExpected := -0.7153854459913279,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 65.
+TestValidInputsExpectNoErrorAccuratef1(
+    sName := 'Si',
+    fEnergy := fbf1Chantler.fMaxeV,
+    fExpected := 0.022336431539015367,
+);
+]]></ST>
+    </Implementation>
+    <Method Name="TestInvalidInputExpectError0f1" Id="{157f7fce-b91c-45ca-8879-feb41d5c00ea}">
+      <Declaration><![CDATA[
+METHOD TestInvalidInputExpectError0f1
+VAR_INPUT
+    iName : I_FallibleSTRING;
+    iEnergy	: I_FallibleLREAL;
+END_VAR
+VAR
+    fbf1 : FB_FallibleLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidInputExpectError0f1 ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbf1Chantler.Getf1(
+    iName := iName,
+    iEnergy := iEnergy,
+    fbf1 => fbf1
+);
+
+AssertTrue(
+    Condition := fbf1.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbf1.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbf1.Val,
+    Delta := 0,
+    Message := 'f1 should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccuratef1" Id="{1382ac5c-b507-4b84-ac52-f63746dd0460}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccuratef1
+VAR_INPUT
+    sName : STRING;
+    fEnergy : LREAL;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbName : FB_FallibleSTRING;
+    fbEnergy : FB_FallibleLREAL;
+    fbf1 : FB_FallibleLREAL;
+    ff1Actual : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestValidInputsExpectNoErrorAccurateDelta ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbName.Val := sName;
+fbName.ClearError();
+
+fbEnergy.Val := fEnergy;
+fbEnergy.ClearError();
+
+fbf1Chantler.Getf1(
+    iName := fbName,
+    iEnergy := fbEnergy,
+    fbf1 => fbf1
+);
+
+ff1Actual := fbf1.Val;
+
+AssertFalse(
+    Condition := fbf1.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbf1.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbf1.Val,
+    Delta := ABS(0.001 * fExpected),
+    Message := 'f1 did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
