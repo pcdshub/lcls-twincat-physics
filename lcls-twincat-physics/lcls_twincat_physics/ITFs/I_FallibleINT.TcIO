@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1">
   <Itf Name="I_FallibleINT" Id="{9aed38e0-684d-430f-a26a-a236f4e39527}">
     <Declaration><![CDATA[INTERFACE I_FallibleINT EXTENDS I_Fallible]]></Declaration>
     <Property Name="Val" Id="{86952b0e-9d30-4a56-89f3-07afe624326d}">
@@ -7,9 +7,6 @@
       <Get Name="Get" Id="{ccc13ada-480b-4804-9ff5-c11adbb234ef}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
-      <Set Name="Set" Id="{f522d0d5-c1d5-440d-a23e-58e1d8e39a7d}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Set>
     </Property>
   </Itf>
 </TcPlcObject>

@@ -1,254 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_XRayDelta_Test" Id="{98858369-0487-4f19-ba02-1eea298ccad3}" SpecialFunc="None">
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_XRayDelta_Test EXTENDS TcUnit.FB_TestSuite
 VAR
     nTestID : INT;
-    fbAtomicMass : FB_FallibleLREAL;
-    fbAtomicNumber : FB_FallibleINT;
-    fbDensity : FB_FallibleLREAL;
-    fbEnergy : FB_FallibleLREAL;
-    fbf1 : FB_FallibleLREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 nTestID := 0;
 
-fbAtomicMass.Val := 0.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+Test0AtomicMassExpectError0Delta();
 
-fbAtomicMass.Val := -10.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+Test0AtomicNumberExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 0.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+Test0DensityExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := -10.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+Test0EnergyExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := 0.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+TestInvalidAtomicMassExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := -10.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+TestInvalidAtomicNumberExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 0;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+TestInvalidDensityExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := -10;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+TestInvalidEnergyExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.SetError(sMsg := 'Test');
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+TestInvalidf1ExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.SetError(sMsg := 'Test');
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+TestNegAtomicMassExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.SetError(sMsg := 'Test');
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+TestNegAtomicNumberExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.SetError(sMsg := 'Test');
-fbf1.Val := 1.0;
-fbf1.ClearError();
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+TestNegDensityExpectError0Delta();
 
-fbAtomicMass.Val := 1.0;
-fbAtomicMass.ClearError();
-fbAtomicNumber.Val := 1;
-fbAtomicNumber.ClearError();
-fbDensity.Val := 1.0;
-fbDensity.ClearError();
-fbEnergy.Val := 1.0;
-fbEnergy.ClearError();
-fbf1.Val := 1.0;
-fbf1.SetError(sMsg := 'Test');
-TestInvalidInputExpectError0Delta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass
-);
+TestNegEnergyExpectError0Delta();
 
 // Expected results taken from xraydb python module.
 // Element = Be. Test Count = 1.
@@ -416,55 +203,722 @@ TestValidInputsExpectNoErrorAccurateDelta(
 );
 ]]></ST>
     </Implementation>
-    <Method Name="TestInvalidInputExpectError0Delta" Id="{b6dc767c-cf65-41d6-8be0-32b5df8d14ad}">
+    <Method Name="SetInitialValues" Id="{f04845fb-8191-4651-bfc2-72b1efacd442}">
       <Declaration><![CDATA[
-METHOD TestInvalidInputExpectError0Delta
-VAR_INPUT
-    iEnergy : I_FallibleLREAL;
-    if1 : I_FallibleLREAL;
-    iDensity : I_FallibleLREAL;
-    iAtomicNumber : I_FallibleINT;
-    iAtomicMass : I_FallibleLREAL;
-END_VAR
-VAR
-    fbDelta : FB_FallibleLREAL;
+METHOD PRIVATE SetInitialValues
+VAR_IN_OUT
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestInvalidInputExpectError0Delta ID: ',
-    INT_TO_STRING(nTestID))
-);
+fbFallibleLREALEnergyMock.Val := 1.0;
+fbFallibleLREALEnergyMock.ClearError();
 
-F_XRayDelta(
-    iEnergy := iEnergy,
-    if1 := if1,
-    iDensity := iDensity,
-    iAtomicNumber := iAtomicNumber,
-    iAtomicMass := iAtomicMass,
-    fbDelta => fbDelta
-);
+fbFallibleLREALf1Mock.Val := 1.0;
+fbFallibleLREALf1Mock.ClearError();
+
+fbFallibleLREALDensityMock.Val := 1.0;
+fbFallibleLREALDensityMock.ClearError();
+
+fbFallibleINTAtomicNumberMock.Val := 1;
+fbFallibleINTAtomicNumberMock.ClearError();
+
+fbFallibleLREALAtomicMassMock.Val := 1.0;
+fbFallibleLREALAtomicMassMock.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0AtomicMassExpectError0Delta" Id="{b6dc767c-cf65-41d6-8be0-32b5df8d14ad}">
+      <Declaration><![CDATA[
+METHOD Test0AtomicMassExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0AtomicMassExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALAtomicMassMock.Val := 0.0;
+
+// Here the test starts
+fbXRayDelta();
 
 AssertTrue(
-    Condition := fbDelta.GetError(),
+    Condition := fbXRayDelta.GetError(),
     Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertTrue(
-    Condition := fbDelta.GetErrorMsg() <> '',
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to not be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0,
-    Actual := fbDelta.Val,
+    Actual := fbXRayDelta.Val,
     Delta := 0,
     Message := 'X-ray delta should be 0 when an error is detected.'
 );
 
 TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0AtomicNumberExpectError0Delta" Id="{19f8aed2-3809-4397-9ebb-60e03b7208cf}">
+      <Declaration><![CDATA[
+METHOD Test0AtomicNumberExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0AtomicNumberExpectError0Delta');
 
-nTestID := nTestID + 1;
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleINTAtomicNumberMock.Val := 0;
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0DensityExpectError0Delta" Id="{a22c9ec5-6265-4c4b-81b1-88d5546cb3c5}">
+      <Declaration><![CDATA[
+METHOD Test0DensityExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0DensityExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALDensityMock.Val := 0.0;
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0EnergyExpectError0Delta" Id="{27c084a3-dc63-4167-a57f-ff90d70c622f}">
+      <Declaration><![CDATA[
+METHOD Test0EnergyExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0EnergyExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALEnergyMock.Val := 0.0;
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidAtomicMassExpectError0Delta" Id="{6e484356-c61f-45c5-80a8-578577b9fc57}">
+      <Declaration><![CDATA[
+METHOD TestInvalidAtomicMassExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidAtomicMassExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALAtomicMassMock.SetError(sMsg := 'Error');
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidAtomicNumberExpectError0Delta" Id="{3355aca2-7ce9-4988-a7a7-b26447d00b03}">
+      <Declaration><![CDATA[
+METHOD TestInvalidAtomicNumberExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidAtomicNumberExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleINTAtomicNumberMock.SetError(sMsg := 'Error');
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidDensityExpectError0Delta" Id="{f5acbee1-872e-4cda-96a2-37a0b7e1386c}">
+      <Declaration><![CDATA[
+METHOD TestInvalidDensityExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidDensityExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALDensityMock.SetError(sMsg := 'Error');
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidEnergyExpectError0Delta" Id="{708d60b9-322c-4b04-ac4c-a6f261d3e002}">
+      <Declaration><![CDATA[
+METHOD TestInvalidEnergyExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidEnergyExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALEnergyMock.SetError(sMsg := 'Error');
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidf1ExpectError0Delta" Id="{08fa7b63-15ab-4b32-8dda-f701b1acc049}">
+      <Declaration><![CDATA[
+METHOD TestInvalidf1ExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidf1ExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALf1Mock.SetError(sMsg := 'Error');
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegAtomicMassExpectError0Delta" Id="{1fe53040-1c34-4a85-99a3-d4bfb0bd91fb}">
+      <Declaration><![CDATA[
+METHOD TestNegAtomicMassExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegAtomicMassExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALAtomicMassMock.Val := -10.0;
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegAtomicNumberExpectError0Delta" Id="{da7f21be-bbb5-4949-8587-a784e59a2f1d}">
+      <Declaration><![CDATA[
+METHOD TestNegAtomicNumberExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegAtomicNumberExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleINTAtomicNumberMock.Val := -10;
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegDensityExpectError0Delta" Id="{7770c05a-bc0a-490d-8217-61adc2d656a7}">
+      <Declaration><![CDATA[
+METHOD TestNegDensityExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegDensityExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALDensityMock.Val := 0.0;
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegEnergyExpectError0Delta" Id="{74f08a4b-e970-41a6-8f17-caa755927812}">
+      <Declaration><![CDATA[
+METHOD TestNegEnergyExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegEnergyExpectError0Delta');
+
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALEnergyMock.Val := 0.0;
+
+// Here the test starts
+fbXRayDelta();
+
+AssertTrue(
+    Condition := fbXRayDelta.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbXRayDelta.Val,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
@@ -481,57 +935,52 @@ VAR_INPUT
     fExpected : LREAL;
 END_VAR
 VAR
-    fbAtomicMass : FB_FallibleLREAL;
-    fbAtomicNumber : FB_FallibleINT;
-    fbDensity : FB_FallibleLREAL;
-    fbEnergy : FB_FallibleLREAL;
-    fbf1 : FB_FallibleLREAL;
-    fbDelta : FB_FallibleLREAL;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbFallibleLREALf1Mock : FB_FallibleLREALMock;
+    fbFallibleLREALDensityMock : FB_FallibleLREALMock;
+    fbFallibleINTAtomicNumberMock : FB_FallibleINTMock;
+    fbFallibleLREALAtomicMassMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbXRayDelta : FB_XRayDelta(iEnergy := fbFallibleLREALEnergyMock,
+                               if1 := fbFallibleLREALf1Mock,
+                               iDensity := fbFallibleLREALDensityMock,
+                               iAtomicNumber := fbFallibleINTAtomicNumberMock,
+                               iAtomicMass := fbFallibleLREALAtomicMassMock);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestValidInputsExpectNoErrorAccurateDelta ID: ',
-    INT_TO_STRING(nTestID))
-);
+TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccurateDelta ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
 
-fbEnergy.Val := fEnergy;
-fbEnergy.ClearError();
+// Test fixture
+SetInitialValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+                 fbFallibleLREALf1Mock := fbFallibleLREALf1Mock,
+                 fbFallibleLREALDensityMock := fbFallibleLREALDensityMock,
+                 fbFallibleINTAtomicNumberMock := fbFallibleINTAtomicNumberMock,
+                 fbFallibleLREALAtomicMassMock := fbFallibleLREALAtomicMassMock);
+fbFallibleLREALEnergyMock.Val := fEnergy;
+fbFallibleLREALf1Mock.Val := fF1;
+fbFallibleLREALDensityMock.Val := fDensity;
+fbFallibleINTAtomicNumberMock.Val := nAtomicNumber;
+fbFallibleLREALAtomicMassMock.Val := fAtomicMass;
 
-fbf1.Val := ff1;
-fbf1.ClearError();
-
-fbDensity.Val := fDensity;
-fbDensity.ClearError();
-
-fbAtomicNumber.Val := nAtomicNumber;
-fbAtomicNumber.ClearError();
-
-fbAtomicMass.Val := fAtomicMass;
-fbAtomicMass.ClearError();
-
-F_XRayDelta(
-    iEnergy := fbEnergy,
-    if1 := fbf1,
-    iDensity := fbDensity,
-    iAtomicNumber := fbAtomicNumber,
-    iAtomicMass := fbAtomicMass,
-    fbDelta => fbDelta
-);
+// Here the test starts
+fbXRayDelta();
 
 AssertFalse(
-    Condition := fbDelta.GetError(),
+    Condition := fbXRayDelta.GetError(),
     Message := 'Expected bError bit to be false but it was true.'
 );
 
 AssertFalse(
-    Condition := fbDelta.GetErrorMsg() <> '',
+    Condition := fbXRayDelta.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := fExpected,
-    Actual := fbDelta.Val,
+    Actual := fbXRayDelta.Val,
     Delta := ABS(0.001 * fExpected),
     Message := 'X-ray delta did not calculate close enough to the expected value.'
 );

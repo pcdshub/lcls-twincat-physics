@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CalcFocalLengthSingleLens" Id="{4986d52d-63ec-4366-87a7-ec07b5c7c44d}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_CalcFocalLengthSingleLens IMPLEMENTS I_FallibleLREAL
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLens IMPLEMENTS I_FallibleLREAL
 VAR
     iDelta : I_FallibleLREAL; // The x-ray delta, the real part of the index of refraction, unitless value.
     iRadius : I_FallibleLREAL; // The radius of curvature of the lens, in meters.
     bError : BOOL;
     sErrorMsg : T_MaxString;
-    fVal : LREAL;
-END_VAR]]></Declaration>
+    fFocalLength : LREAL;
+END_VAR
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 // Initialize focal length and error values.
-fVal := 0.0;
+fFocalLength := 0.0;
 ClearError();
 
 // Check for an invalid delta input.
@@ -53,11 +55,13 @@ IF iRadius.Val <= 0.0 THEN
     RETURN;
 END_IF
 
-fVal := iRadius.Val / 2.0 / iDelta.Val;
+fFocalLength := iRadius.Val / 2.0 / iDelta.Val;
 ]]></ST>
     </Implementation>
-    <Method Name="ClearError" Id="{fc5a4168-9a37-467f-a8ac-4ea2f476213e}">
-      <Declaration><![CDATA[METHOD PRIVATE ClearError]]></Declaration>
+    <Method Name="ClearError" Id="{17870871-9589-40ff-885f-ae6d5652f31a}">
+      <Declaration><![CDATA[
+METHOD PRIVATE ClearError
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 bError := FALSE;
@@ -66,7 +70,8 @@ sErrorMsg := '';
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{20bb0204-195a-417d-97fe-efa1e33a672d}">
-      <Declaration><![CDATA[METHOD FB_init : BOOL
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
     bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
@@ -75,12 +80,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.iDelta := iDelta;
-THIS^.iRadius := iRadius;]]></ST>
+        <ST><![CDATA[
+THIS^.iDelta := iDelta;
+THIS^.iRadius := iRadius;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetError" Id="{12d3d12f-3744-4ace-9453-3e29c5b30638}">
-      <Declaration><![CDATA[{warning 'add method implementation'}
+      <Declaration><![CDATA[
 METHOD GetError : BOOL
 ]]></Declaration>
       <Implementation>
@@ -99,7 +106,7 @@ GetErrorMsg := sErrorMsg;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetError" Id="{3d16ff3b-f56d-4037-b1bd-a55e0df5af20}">
+    <Method Name="SetError" Id="{9072d347-c6b6-42f4-8959-cbcc641cbfb5}">
       <Declaration><![CDATA[
 METHOD PRIVATE SetError
 VAR_INPUT
@@ -114,14 +121,14 @@ sErrorMsg := sMsg;
       </Implementation>
     </Method>
     <Property Name="Val" Id="{c44c1fc1-2e4c-481c-af6d-4c5b8d0bb142}">
-      <Declaration><![CDATA[{warning 'add property implementation'}
+      <Declaration><![CDATA[
 PROPERTY Val : LREAL
 ]]></Declaration>
       <Get Name="Get" Id="{f1453825-354f-42e4-8511-485167ada3ae}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-Val := fVal;
+Val := fFocalLength;
 ]]></ST>
         </Implementation>
       </Get>

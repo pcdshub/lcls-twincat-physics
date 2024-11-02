@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="RunTests" Id="{3c99bab2-48fb-4f3c-ae2b-1547c32b95ba}" SpecialFunc="None">
     <Declaration><![CDATA[
 PROGRAM RunTests
 VAR
     fbAtomicNumber_Test : FB_AtomicNumber_Test;
-
     fbCalcFocalLengthSingleLens_Test : FB_CalcFocalLengthSingleLens_Test;
-    fbCalcFocalLengthSingleLens2_Test : FB_CalcFocalLengthSingleLens2_Test;
     fbCalcImageDistance_Test : FB_CalcImageDistance_Test;
     fbCompoundLenses_Test : FB_CompoundLenses_Test;
     fbf1Chantler_Test : FB_f1Chantler_Test;
+    fbLagrangePolyInterp_Test : FB_LagrangePolyInterp_Test;
     fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
     fbTestTransmission : FB_TestTransmission;
     fbTestElementDensity : FB_TestElementDensity;

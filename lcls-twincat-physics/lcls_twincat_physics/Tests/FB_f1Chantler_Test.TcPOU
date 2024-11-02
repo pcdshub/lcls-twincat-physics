@@ -1,54 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_f1Chantler_Test" Id="{06cdb937-8fc1-4cc7-8819-e31aa3c3fd8b}" SpecialFunc="None">
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_f1Chantler_Test EXTENDS TcUnit.FB_TestSuite
 VAR
     nTestID : INT;
-    fbName : FB_FallibleSTRING;
-    fbEnergy : FB_FallibleLREAL;
-    fbf1Chantler : FB_f1Chantler;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-nTestID := 0;
+nTestID := 1;
 
-fbName.Val := 'INVALID';
-fbName.ClearError();
-fbEnergy.Val := fbf1Chantler.fMineV + 5.0;
-fbEnergy.ClearError();
-TestInvalidInputExpectError0f1(
-    iName := fbName,
-    iEnergy := fbEnergy
-);
+Test0EnergyExpectError0f1();
 
-fbName.Val := 'Be';
-fbName.ClearError();
-fbEnergy.Val := fbf1Chantler.fMineV - 5.0;
-fbEnergy.ClearError();
-TestInvalidInputExpectError0f1(
-    iName := fbName,
-    iEnergy := fbEnergy
-);
+TestBadNameExpectError0f1();
 
-fbName.Val := 'Be';
-fbName.SetError(sMsg := 'Test');
-fbEnergy.Val := fbf1Chantler.fMineV + 5.0;
-fbEnergy.ClearError();
-TestInvalidInputExpectError0f1(
-    iName := fbName,
-    iEnergy := fbEnergy
-);
+TestInvalidEnergyExpectError0f1();
 
-fbName.Val := 'Be';
-fbName.ClearError();
-fbEnergy.Val := fbf1Chantler.fMineV + 5.0;
-fbEnergy.SetError(sMsg := 'Test');
-TestInvalidInputExpectError0f1(
-    iName := fbName,
-    iEnergy := fbEnergy
-);
+TestInvalidNameExpectError0f1();
+
+TestNegEnergyExpectError0f1();
+
+TestOverrangeEnergyExpectError0f1();
+
+TestUnderrangeEnergyExpectError0f1();
 
 // Expected results taken from xraydb python module.
 // Element = Be. Test Count = 1.
@@ -132,26 +107,23 @@ TestValidInputsExpectNoErrorAccuratef1(
 
 // Expected results taken from xraydb python module.
 // Element = Be. Test Count = 11.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMinEnergyExpectNoErrorAccuratef1(
     sName := 'Be',
-    fEnergy := fbf1Chantler.fMineV,
     fExpected := -2.4294438349327128,
 );
 
 // Expected results taken from xraydb python module.
 // Element = Be. Test Count = 12.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMidEnergyExpectNoErrorAccuratef1(
     sName := 'Be',
-    fEnergy := fbf1Chantler.fMideV,
-    fExpected := 0.26943343451846447,
+    fExpected := 0.008629720262191965,
 );
 
 // Expected results taken from xraydb python module.
 // Element = Be. Test Count = 13.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMaxEnergyExpectNoErrorAccuratef1(
     sName := 'Be',
-    fEnergy := fbf1Chantler.fMaxeV,
-    fExpected := -0.0011891027571978691,
+    fExpected := -0.0011907552829884109,
 );
 
 // Expected results taken from xraydb python module.
@@ -236,26 +208,23 @@ TestValidInputsExpectNoErrorAccuratef1(
 
 // Expected results taken from xraydb python module.
 // Element = Ge. Test Count = 24.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMinEnergyExpectNoErrorAccuratef1(
     sName := 'Ge',
-    fEnergy := fbf1Chantler.fMineV,
     fExpected := -26.956244973517393,
 );
 
 // Expected results taken from xraydb python module.
 // Element = Ge. Test Count = 25.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMidEnergyExpectNoErrorAccuratef1(
     sName := 'Ge',
-    fEnergy := fbf1Chantler.fMideV,
-    fExpected := -8.74065454641305,
+    fExpected := -0.29793323046048537,
 );
 
 // Expected results taken from xraydb python module.
 // Element = Ge. Test Count = 26.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMaxEnergyExpectNoErrorAccuratef1(
     sName := 'Ge',
-    fEnergy := fbf1Chantler.fMaxeV,
-    fExpected := 0.2718978423391419,
+    fExpected := 0.2713280910369932,
 );
 
 // Expected results taken from xraydb python module.
@@ -340,26 +309,23 @@ TestValidInputsExpectNoErrorAccuratef1(
 
 // Expected results taken from xraydb python module.
 // Element = C. Test Count = 37.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMinEnergyExpectNoErrorAccuratef1(
     sName := 'C',
-    fEnergy := fbf1Chantler.fMineV,
     fExpected := -4.034809546958578,
 );
 
 // Expected results taken from xraydb python module.
 // Element = C. Test Count = 38.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMidEnergyExpectNoErrorAccuratef1(
     sName := 'C',
-    fEnergy := fbf1Chantler.fMideV,
-    fExpected := 0.08497948578666858,
+    fExpected := 0.03915856012814577,
 );
 
 // Expected results taken from xraydb python module.
 // Element = C. Test Count = 39.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMaxEnergyExpectNoErrorAccuratef1(
     sName := 'C',
-    fEnergy := fbf1Chantler.fMaxeV,
-    fExpected := -0.0015405612917652732,
+    fExpected := -0.0015485086082272352,
 );
 
 // Expected results taken from xraydb python module.
@@ -444,26 +410,23 @@ TestValidInputsExpectNoErrorAccuratef1(
 
 // Expected results taken from xraydb python module.
 // Element = Al. Test Count = 50.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMinEnergyExpectNoErrorAccuratef1(
     sName := 'Al',
-    fEnergy := fbf1Chantler.fMineV,
     fExpected := -9.841987238083947,
 );
 
 // Expected results taken from xraydb python module.
 // Element = Al. Test Count = 51.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMidEnergyExpectNoErrorAccuratef1(
     sName := 'Al',
-    fEnergy := fbf1Chantler.fMideV,
-    fExpected := -0.869426759269928,
+    fExpected := 0.3394992244878562,
 );
 
 // Expected results taken from xraydb python module.
 // Element = Al. Test Count = 52.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMaxEnergyExpectNoErrorAccuratef1(
     sName := 'Al',
-    fEnergy := fbf1Chantler.fMaxeV,
-    fExpected := 0.016335968831693966,
+    fExpected := 0.016216406305812413,
 );
 
 // Expected results taken from xraydb python module.
@@ -548,72 +511,514 @@ TestValidInputsExpectNoErrorAccuratef1(
 
 // Expected results taken from xraydb python module.
 // Element = Si. Test Count = 63.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMinEnergyExpectNoErrorAccuratef1(
     sName := 'Si',
-    fEnergy := fbf1Chantler.fMineV,
     fExpected := -9.414860851053234,
 );
 
 // Expected results taken from xraydb python module.
 // Element = Si. Test Count = 64.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMidEnergyExpectNoErrorAccuratef1(
     sName := 'Si',
-    fEnergy := fbf1Chantler.fMideV,
-    fExpected := -0.7153854459913279,
+    fExpected := 0.376633379957434,
 );
 
 // Expected results taken from xraydb python module.
 // Element = Si. Test Count = 65.
-TestValidInputsExpectNoErrorAccuratef1(
+TestMaxEnergyExpectNoErrorAccuratef1(
     sName := 'Si',
-    fEnergy := fbf1Chantler.fMaxeV,
-    fExpected := 0.022336431539015367,
+    fExpected := 0.02218264321929083,
 );
 ]]></ST>
     </Implementation>
-    <Method Name="TestInvalidInputExpectError0f1" Id="{157f7fce-b91c-45ca-8879-feb41d5c00ea}">
+    <Method Name="SetInitialNameAndEnergyValues" Id="{da87eaa3-ff50-4910-96ab-c8611acaf28b}">
       <Declaration><![CDATA[
-METHOD TestInvalidInputExpectError0f1
-VAR_INPUT
-    iName : I_FallibleSTRING;
-    iEnergy	: I_FallibleLREAL;
-END_VAR
-VAR
-    fbf1 : FB_FallibleLREAL;
+METHOD PRIVATE SetInitialNameAndEnergyValues
+VAR_IN_OUT
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestInvalidInputExpectError0f1 ID: ',
-    INT_TO_STRING(nTestID))
-);
+fbFallibleSTRINGNameMock.Val := 'Be';
+fbFallibleSTRINGNameMock.ClearError();
 
-fbf1Chantler.Getf1(
-    iName := iName,
-    iEnergy := iEnergy,
-    fbf1 => fbf1
-);
+fbFallibleLREALEnergyMock.Val := 50.0;
+fbFallibleLREALEnergyMock.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0EnergyExpectError0f1" Id="{697e390f-4f8c-4c28-8b8e-2c4ae951ce3a}">
+      <Declaration><![CDATA[
+METHOD Test0EnergyExpectError0f1
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0EnergyExpectError0f1');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleLREALEnergyMock.Val := 0.0;
+
+// Here the test starts
+fbf1Chantler();
 
 AssertTrue(
-    Condition := fbf1.GetError(),
+    Condition := fbf1Chantler.GetError(),
     Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertTrue(
-    Condition := fbf1.GetErrorMsg() <> '',
+    Condition := fbf1Chantler.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to not be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0,
-    Actual := fbf1.Val,
+    Actual := fbf1Chantler.Val,
     Delta := 0,
     Message := 'f1 should be 0 when an error is detected.'
 );
 
 TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestBadNameExpectError0f1" Id="{157f7fce-b91c-45ca-8879-feb41d5c00ea}">
+      <Declaration><![CDATA[
+METHOD TestBadNameExpectError0f1
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestBadNameExpectError0f1');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleSTRINGNameMock.Val := 'NOT AN ELEMENT';
+
+// Here the test starts
+fbf1Chantler();
+
+AssertTrue(
+    Condition := fbf1Chantler.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbf1Chantler.Val,
+    Delta := 0,
+    Message := 'f1 should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidEnergyExpectError0f1" Id="{3d980aa4-21f6-4c47-baf9-595157e71a2e}">
+      <Declaration><![CDATA[
+METHOD TestInvalidEnergyExpectError0f1
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidEnergyExpectError0f1');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleLREALEnergyMock.SetError('Error');
+
+// Here the test starts
+fbf1Chantler();
+
+AssertTrue(
+    Condition := fbf1Chantler.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbf1Chantler.Val,
+    Delta := 0,
+    Message := 'f1 should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidNameExpectError0f1" Id="{5fbcaa76-b382-41a3-b7e3-8d7202affcbf}">
+      <Declaration><![CDATA[
+METHOD TestInvalidNameExpectError0f1
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidNameExpectError0f1');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleSTRINGNameMock.SetError('Error');
+
+// Here the test starts
+fbf1Chantler();
+
+AssertTrue(
+    Condition := fbf1Chantler.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbf1Chantler.Val,
+    Delta := 0,
+    Message := 'f1 should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMaxEnergyExpectNoErrorAccuratef1" Id="{fd790ac0-717f-41fa-a16f-234417771c89}">
+      <Declaration><![CDATA[
+METHOD TestMaxEnergyExpectNoErrorAccuratef1
+VAR_INPUT
+    sName : STRING;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestMaxEnergyExpectNoErrorAccuratef1 ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleSTRINGNameMock.Val := sName;
+fbFallibleLREALEnergyMock.Val := fbf1Chantler.fMaxeV;
+
+// Here the test starts
+fbf1Chantler();
+
+AssertFalse(
+    Condition := fbf1Chantler.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() = '',
+    Message := CONCAT('Expected sErrorMsg to be empty but it was: [',
+               CONCAT(fbf1Chantler.GetErrorMsg(),
+               ']'))
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbf1Chantler.Val,
+    Delta := ABS(0.01 * fExpected),
+    Message := 'f1 did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
 
 nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMidEnergyExpectNoErrorAccuratef1" Id="{aa06a7b5-9d32-48ad-9a24-0565051b4b8f}">
+      <Declaration><![CDATA[
+METHOD TestMidEnergyExpectNoErrorAccuratef1
+VAR_INPUT
+    sName : STRING;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestMidEnergyExpectNoErrorAccuratef1 ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleSTRINGNameMock.Val := sName;
+fbFallibleLREALEnergyMock.Val := fbf1Chantler.fMideV;
+
+// Here the test starts
+fbf1Chantler();
+
+AssertFalse(
+    Condition := fbf1Chantler.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() = '',
+    Message := CONCAT('Expected sErrorMsg to be empty but it was: [',
+               CONCAT(fbf1Chantler.GetErrorMsg(),
+               ']'))
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbf1Chantler.Val,
+    Delta := ABS(0.01 * fExpected),
+    Message := 'f1 did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMinEnergyExpectNoErrorAccuratef1" Id="{f84e8631-edae-42e2-bf80-54e889a27a14}">
+      <Declaration><![CDATA[
+METHOD TestMinEnergyExpectNoErrorAccuratef1
+VAR_INPUT
+    sName : STRING;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestMinEnergyExpectNoErrorAccuratef1 ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleSTRINGNameMock.Val := sName;
+fbFallibleLREALEnergyMock.Val := fbf1Chantler.fMineV;
+
+// Here the test starts
+fbf1Chantler();
+
+AssertFalse(
+    Condition := fbf1Chantler.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() = '',
+    Message := CONCAT('Expected sErrorMsg to be empty but it was: [',
+               CONCAT(fbf1Chantler.GetErrorMsg(),
+               ']'))
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbf1Chantler.Val,
+    Delta := ABS(0.01 * fExpected),
+    Message := 'f1 did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegEnergyExpectError0f1" Id="{415186b2-24af-4112-893c-bf6a320a8165}">
+      <Declaration><![CDATA[
+METHOD TestNegEnergyExpectError0f1
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegEnergyExpectError0f1');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleLREALEnergyMock.Val := -10.0;
+
+// Here the test starts
+fbf1Chantler();
+
+AssertTrue(
+    Condition := fbf1Chantler.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbf1Chantler.Val,
+    Delta := 0,
+    Message := 'f1 should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestOverrangeEnergyExpectError0f1" Id="{6f2d54a4-00af-4657-9ec8-a9c903ea5205}">
+      <Declaration><![CDATA[
+METHOD TestOverrangeEnergyExpectError0f1
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestOverrangeEnergyExpectError0f1');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleLREALEnergyMock.Val := 30005.0;
+
+// Here the test starts
+fbf1Chantler();
+
+AssertTrue(
+    Condition := fbf1Chantler.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbf1Chantler.Val,
+    Delta := 0,
+    Message := 'f1 should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestUnderrangeEnergyExpectError0f1" Id="{70b95c35-10c5-4de1-b068-aaeff37f00f2}">
+      <Declaration><![CDATA[
+METHOD TestUnderrangeEnergyExpectError0f1
+VAR
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestUnderrangeEnergyExpectError0f1');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleLREALEnergyMock.Val := 5.0;
+
+// Here the test starts
+fbf1Chantler();
+
+AssertTrue(
+    Condition := fbf1Chantler.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fbf1Chantler.Val,
+    Delta := 0,
+    Message := 'f1 should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
@@ -627,46 +1032,43 @@ VAR_INPUT
     fExpected : LREAL;
 END_VAR
 VAR
-    fbName : FB_FallibleSTRING;
-    fbEnergy : FB_FallibleLREAL;
-    fbf1 : FB_FallibleLREAL;
-    ff1Actual : LREAL;
+    fbFallibleSTRINGNameMock : FB_FallibleSTRINGMock;
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    // Subject under test
+    fbf1Chantler : FB_f1Chantler(iName := fbFallibleSTRINGNameMock,
+                                 iEnergy := fbFallibleLREALEnergyMock);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestValidInputsExpectNoErrorAccurateDelta ID: ',
-    INT_TO_STRING(nTestID))
-);
+TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccuratef1 ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
 
-fbName.Val := sName;
-fbName.ClearError();
+// Test fixture
+SetInitialNameAndEnergyValues(fbFallibleSTRINGNameMock := fbFallibleSTRINGNameMock,
+                              fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+fbFallibleSTRINGNameMock.Val := sName;
+fbFallibleLREALEnergyMock.Val := fEnergy;
 
-fbEnergy.Val := fEnergy;
-fbEnergy.ClearError();
-
-fbf1Chantler.Getf1(
-    iName := fbName,
-    iEnergy := fbEnergy,
-    fbf1 => fbf1
-);
-
-ff1Actual := fbf1.Val;
+// Here the test starts
+fbf1Chantler();
 
 AssertFalse(
-    Condition := fbf1.GetError(),
+    Condition := fbf1Chantler.GetError(),
     Message := 'Expected bError bit to be false but it was true.'
 );
 
-AssertFalse(
-    Condition := fbf1.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to be empty.'
+AssertTrue(
+    Condition := fbf1Chantler.GetErrorMsg() = '',
+    Message := CONCAT('Expected sErrorMsg to be empty but it was: [',
+               CONCAT(fbf1Chantler.GetErrorMsg(),
+               ']'))
 );
 
 AssertEquals_LREAL(
     Expected := fExpected,
-    Actual := fbf1.Val,
-    Delta := ABS(0.001 * fExpected),
+    Actual := fbf1Chantler.Val,
+    Delta := ABS(0.01 * fExpected),
     Message := 'f1 did not calculate close enough to the expected value.'
 );
 
