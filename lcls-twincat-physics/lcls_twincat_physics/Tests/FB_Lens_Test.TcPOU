@@ -1,624 +1,304 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
-  <POU Name="FB_Lens_Test" Id="{9add33cb-e8c3-4b34-834a-827d76bb686e}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Lens_Test" Id="{92b12951-f187-4f4b-affe-53258e124d48}" SpecialFunc="None">
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_Lens_Test EXTENDS TcUnit.FB_TestSuite
-VAR
-    nTestID : INT;
-    fbLens : FB_Lens;
-    fbElement : FB_Element;
-    fbXRayDelta : FB_XRayDelta;
-END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-nTestID := 0;
+Test0MultiplierExpectErrorValueUnchanged();
 
-// Expected results taken from xraydb python module.
-// Element = Be. Test Count = 1.
-fbElement.SetState(
-    fMass := 9.0122,
-    sName := 'Be',
-    nProtons := 4,
-    fDensity := 1.85
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.0003515107795702183,
-    fExpectedf1 := 0.12441385528833308,
-    fExpectedFocalLength := 0.14224314844948285
-);
+Test0RadiusExpectErrorValueUnchanged();
 
-// Expected results taken from xraydb python module.
-// Element = Be. Test Count = 2.
-fbElement.SetState(
-    fMass := 9.0122,
-    sName := 'Be',
-    nProtons := 4,
-    fDensity := 1.85
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.0003515107795702183,
-    fExpectedf1 := 0.12441385528833308,
-    fExpectedFocalLength := 7.254400570923625
-);
+TestNegMultiplierExpectErrorValueUnchanged();
 
-// Expected results taken from xraydb python module.
-// Element = Be. Test Count = 3.
-fbElement.SetState(
-    fMass := 9.0122,
-    sName := 'Be',
-    nProtons := 4,
-    fDensity := 1.85
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 1.515079754661661e-06,
-    fExpectedf1 := -0.00016936488385900804,
-    fExpectedFocalLength := 33.00156301749654
-);
+TestNegRadiusExpectErrorValueUnchanged();
 
-// Expected results taken from xraydb python module.
-// Element = Be. Test Count = 4.
-fbElement.SetState(
-    fMass := 9.0122,
-    sName := 'Be',
-    nProtons := 4,
-    fDensity := 1.85
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 1.515079754661661e-06,
-    fExpectedf1 := -0.00016936488385900804,
-    fExpectedFocalLength := 1683.0797138923235
-);
+TestSetMaterialGetMaterialNameExpectNoErrorValueSet();
 
-// Expected results taken from xraydb python module.
-// Element = Be. Test Count = 5.
-fbElement.SetState(
-    fMass := 9.0122,
-    sName := 'Be',
-    nProtons := 4,
-    fDensity := 1.85
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 4.052413187574221e-07,
-    fExpectedf1 := -0.0011666530513713296,
-    fExpectedFocalLength := 123.38327235069052
-);
+TestSetMultiplierGetMultiplierExpectNoErrorValueSet();
 
-// Expected results taken from xraydb python module.
-// Element = Be. Test Count = 6.
-fbElement.SetState(
-    fMass := 9.0122,
-    sName := 'Be',
-    nProtons := 4,
-    fDensity := 1.85
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 4.052413187574221e-07,
-    fExpectedf1 := -0.0011666530513713296,
-    fExpectedFocalLength := 6292.546889885217
-);
-
-// Expected results taken from xraydb python module.
-// Element = Ge. Test Count = 7.
-fbElement.SetState(
-    fMass := 72.63,
-    sName := 'Ge',
-    nProtons := 32,
-    fDensity := 5.323
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.0006517015706244444,
-    fExpectedf1 := -10.582299446346644,
-    fExpectedFocalLength := 0.14224314844948285
-);
-
-// Expected results taken from xraydb python module.
-// Element = Ge. Test Count = 8.
-fbElement.SetState(
-    fMass := 72.63,
-    sName := 'Ge',
-    nProtons := 32,
-    fDensity := 5.323
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.0006517015706244444,
-    fExpectedf1 := -10.582299446346644,
-    fExpectedFocalLength := 7.254400570923625
-);
-
-// Expected results taken from xraydb python module.
-// Element = Ge. Test Count = 9.
-fbElement.SetState(
-    fMass := 72.63,
-    sName := 'Ge',
-    nProtons := 32,
-    fDensity := 5.323
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 4.299358473449007e-06,
-    fExpectedf1 := -0.20855631741810937,
-    fExpectedFocalLength := 33.00156301749654
-);
-
-// Expected results taken from xraydb python module.
-// Element = Ge. Test Count = 10.
-fbElement.SetState(
-    fMass := 72.63,
-    sName := 'Ge',
-    nProtons := 32,
-    fDensity := 5.323
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 4.299358473449007e-06,
-    fExpectedf1 := -0.20855631741810937,
-    fExpectedFocalLength := 1683.0797138923235
-);
-
-// Expected results taken from xraydb python module.
-// Element = Ge. Test Count = 11.
-fbElement.SetState(
-    fMass := 72.63,
-    sName := 'Ge',
-    nProtons := 32,
-    fDensity := 5.323
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 1.1678850102602785e-06,
-    fExpectedf1 := 0.279006161044894,
-    fExpectedFocalLength := 123.38327235069052
-);
-
-// Expected results taken from xraydb python module.
-// Element = Ge. Test Count = 12.
-fbElement.SetState(
-    fMass := 72.63,
-    sName := 'Ge',
-    nProtons := 32,
-    fDensity := 5.323
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 1.1678850102602785e-06,
-    fExpectedf1 := 0.279006161044894,
-    fExpectedFocalLength := 6292.546889885217
-);
-
-// Expected results taken from xraydb python module.
-// Element = C. Test Count = 13.
-fbElement.SetState(
-    fMass := 12.011,
-    sName := 'C',
-    nProtons := 6,
-    fDensity := 2.267
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.0004954024109219588,
-    fExpectedf1 := 0.32193839196465696,
-    fExpectedFocalLength := 0.14224314844948285
-);
-
-// Expected results taken from xraydb python module.
-// Element = C. Test Count = 14.
-fbElement.SetState(
-    fMass := 12.011,
-    sName := 'C',
-    nProtons := 6,
-    fDensity := 2.267
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.0004954024109219588,
-    fExpectedf1 := 0.32193839196465696,
-    fExpectedFocalLength := 7.254400570923625
-);
-
-// Expected results taken from xraydb python module.
-// Element = C. Test Count = 15.
-fbElement.SetState(
-    fMass := 12.011,
-    sName := 'C',
-    nProtons := 6,
-    fDensity := 2.267
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 2.0907821307300117e-06,
-    fExpectedf1 := 0.003208693114407701,
-    fExpectedFocalLength := 33.00156301749654
-);
-
-// Expected results taken from xraydb python module.
-// Element = C. Test Count = 16.
-fbElement.SetState(
-    fMass := 12.011,
-    sName := 'C',
-    nProtons := 6,
-    fDensity := 2.267
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 2.0907821307300117e-06,
-    fExpectedf1 := 0.003208693114407701,
-    fExpectedFocalLength := 1683.0797138923235
-);
-
-// Expected results taken from xraydb python module.
-// Element = C. Test Count = 17.
-fbElement.SetState(
-    fMass := 12.011,
-    sName := 'C',
-    nProtons := 6,
-    fDensity := 2.267
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 5.589325363478469e-07,
-    fExpectedf1 := -0.0014327706311398664,
-    fExpectedFocalLength := 123.38327235069052
-);
-
-// Expected results taken from xraydb python module.
-// Element = C. Test Count = 18.
-fbElement.SetState(
-    fMass := 12.011,
-    sName := 'C',
-    nProtons := 6,
-    fDensity := 2.267
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 5.589325363478469e-07,
-    fExpectedf1 := -0.0014327706311398664,
-    fExpectedFocalLength := 6292.546889885217
-);
-
-// Expected results taken from xraydb python module.
-// Element = Al. Test Count = 19.
-fbElement.SetState(
-    fMass := 26.9815,
-    sName := 'Al',
-    nProtons := 13,
-    fDensity := 2.7
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.000479002541009039,
-    fExpectedf1 := -1.4706548748585362,
-    fExpectedFocalLength := 0.14224314844948285
-);
-
-// Expected results taken from xraydb python module.
-// Element = Al. Test Count = 20.
-fbElement.SetState(
-    fMass := 26.9815,
-    sName := 'Al',
-    nProtons := 13,
-    fDensity := 2.7
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.000479002541009039,
-    fExpectedf1 := -1.4706548748585362,
-    fExpectedFocalLength := 7.254400570923625
-);
-
-// Expected results taken from xraydb python module.
-// Element = Al. Test Count = 21.
-fbElement.SetState(
-    fMass := 26.9815,
-    sName := 'Al',
-    nProtons := 13,
-    fDensity := 2.7
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 2.4152346347291635e-06,
-    fExpectedf1 := 0.08002784442214417,
-    fExpectedFocalLength := 33.00156301749654
-);
-
-// Expected results taken from xraydb python module.
-// Element = Al. Test Count = 22.
-fbElement.SetState(
-    fMass := 26.9815,
-    sName := 'Al',
-    nProtons := 13,
-    fDensity := 2.7
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 2.4152346347291635e-06,
-    fExpectedf1 := 0.08002784442214417,
-    fExpectedFocalLength := 1683.0797138923235
-);
-
-// Expected results taken from xraydb python module.
-// Element = Al. Test Count = 23.
-fbElement.SetState(
-    fMass := 26.9815,
-    sName := 'Al',
-    nProtons := 13,
-    fDensity := 2.7
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 6.431017450275689e-07,
-    fExpectedf1 := 0.01794721755836219,
-    fExpectedFocalLength := 123.38327235069052
-);
-
-// Expected results taken from xraydb python module.
-// Element = Al. Test Count = 24.
-fbElement.SetState(
-    fMass := 26.9815,
-    sName := 'Al',
-    nProtons := 13,
-    fDensity := 2.7
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 6.431017450275689e-07,
-    fExpectedf1 := 0.01794721755836219,
-    fExpectedFocalLength := 6292.546889885217
-);
-
-// Expected results taken from xraydb python module.
-// Element = Si. Test Count = 25.
-fbElement.SetState(
-    fMass := 28.085,
-    sName := 'Si',
-    nProtons := 14,
-    fDensity := 2.329
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.0004425338118167865,
-    fExpectedf1 := -1.1466629849836463,
-    fExpectedFocalLength := 0.14224314844948285
-);
-
-// Expected results taken from xraydb python module.
-// Element = Si. Test Count = 26.
-fbElement.SetState(
-    fMass := 28.085,
-    sName := 'Si',
-    nProtons := 14,
-    fDensity := 2.329
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 1000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 0.0004425338118167865,
-    fExpectedf1 := -1.1466629849836463,
-    fExpectedFocalLength := 7.254400570923625
-);
-
-// Expected results taken from xraydb python module.
-// Element = Si. Test Count = 27.
-fbElement.SetState(
-    fMass := 28.085,
-    sName := 'Si',
-    nProtons := 14,
-    fDensity := 2.329
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 2.1576978855198457e-06,
-    fExpectedf1 := 0.10076225971581065,
-    fExpectedFocalLength := 33.00156301749654
-);
-
-// Expected results taken from xraydb python module.
-// Element = Si. Test Count = 28.
-fbElement.SetState(
-    fMass := 28.085,
-    sName := 'Si',
-    nProtons := 14,
-    fDensity := 2.329
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 15000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 2.1576978855198457e-06,
-    fExpectedf1 := 0.10076225971581065,
-    fExpectedFocalLength := 1683.0797138923235
-);
-
-// Expected results taken from xraydb python module.
-// Element = Si. Test Count = 29.
-fbElement.SetState(
-    fMass := 28.085,
-    sName := 'Si',
-    nProtons := 14,
-    fDensity := 2.329
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0001,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 5.741418959262752e-07,
-    fExpectedf1 := 0.024412307252506597,
-    fExpectedFocalLength := 123.38327235069052
-);
-
-// Expected results taken from xraydb python module.
-// Element = Si. Test Count = 30.
-fbElement.SetState(
-    fMass := 28.085,
-    sName := 'Si',
-    nProtons := 14,
-    fDensity := 2.329
-);
-TestValidStateExpectNoErrorAccurateState(
-    fEnergy := 29000,
-    fRadius := 0.0051,
-    nMultiplier := 1,
-    fbElement := fbElement,
-    fExpectedDelta := 5.741418959262752e-07,
-    fExpectedf1 := 0.024412307252506597,
-    fExpectedFocalLength := 6292.546889885217
-);
+TestSetRadiusGetRadiusExpectNoErrorValueSet();
 ]]></ST>
     </Implementation>
-    <Method Name="TestValidStateExpectNoErrorAccurateState" Id="{f49502d8-148a-4213-9cbf-07c6f3490873}">
+    <Method Name="Test0MultiplierExpectErrorValueUnchanged" Id="{58ab7bba-1af7-4126-a694-319bd07664ed}">
       <Declaration><![CDATA[
-METHOD TestValidStateExpectNoErrorAccurateState
-VAR_INPUT
-    fEnergy : LREAL;
-    fRadius : LREAL;
+METHOD Test0MultiplierExpectErrorValueUnchanged
+VAR
+    // Subject under test
+    fbLens : FB_Lens();
     nMultiplier : INT;
-    fbElement : FB_Element;
-
-    fExpectedDelta : LREAL;
-    fExpectedFocalLength : LREAL;
-    fExpectedf1 : LREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestValidStateExpectNoErrorAccurateState ID: ',
-    INT_TO_STRING(nTestID))
-);
+TEST('Test0MultiplierExpectErrorValueUnchanged');
 
-fbLens.SetState(
-    fEnergy := fEnergy,
-    fRadius := fRadius,
-    nMultiplier := nMultiplier,
-    fbMaterial := fbElement
+// Test Fixture
+nMultiplier := 34;
+
+fbLens.Multiplier := nMultiplier;
+
+// Here the test starts
+fbLens.Multiplier := 0;
+
+AssertTrue(
+    Condition := fbLens.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertFalse(
-    Condition := fbLens.Error,
+    Condition := fbLens.GetErrorMsg() = '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_INT(
+    Expected := nMultiplier,
+    Actual := fbLens.Multiplier,
+    Message := 'Multiplier value should not have changed.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0RadiusExpectErrorValueUnchanged" Id="{f01b0918-fc1e-4201-a9ec-6f5427cd144b}">
+      <Declaration><![CDATA[
+METHOD Test0RadiusExpectErrorValueUnchanged
+VAR
+    // Subject under test
+    fbLens : FB_Lens();
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0RadiusExpectErrorValueUnchanged');
+
+// Test Fixture
+fRadius := 34;
+
+fbLens.Radius := fRadius;
+
+// Here the test starts
+fbLens.Radius := 0.0;
+
+AssertTrue(
+    Condition := fbLens.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbLens.GetErrorMsg() = '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fRadius,
+    Actual := fbLens.Radius,
+    Delta := 0.0,
+    Message := 'Radius value should not have changed.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegMultiplierExpectErrorValueUnchanged" Id="{9b2ca019-0af7-4039-af09-ecb85beb274e}">
+      <Declaration><![CDATA[
+METHOD TestNegMultiplierExpectErrorValueUnchanged
+VAR
+    // Subject under test
+    fbLens : FB_Lens();
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegMultiplierExpectErrorValueUnchanged');
+
+// Test Fixture
+nMultiplier := 34;
+
+fbLens.Multiplier := nMultiplier;
+
+// Here the test starts
+fbLens.Multiplier := -1;
+
+AssertTrue(
+    Condition := fbLens.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbLens.GetErrorMsg() = '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_INT(
+    Expected := nMultiplier,
+    Actual := fbLens.Multiplier,
+    Message := 'Multiplier value should not have changed.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegRadiusExpectErrorValueUnchanged" Id="{6c0156ba-e1b0-4bf8-82f3-6f279e001cf6}">
+      <Declaration><![CDATA[
+METHOD TestNegRadiusExpectErrorValueUnchanged
+VAR
+    // Subject under test
+    fbLens : FB_Lens();
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegRadiusExpectErrorValueUnchanged');
+
+// Test Fixture
+fRadius := 34;
+
+fbLens.Radius := fRadius;
+
+// Here the test starts
+fbLens.Radius := -1.0;
+
+AssertTrue(
+    Condition := fbLens.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbLens.GetErrorMsg() = '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fRadius,
+    Actual := fbLens.Radius,
+    Delta := 0.0,
+    Message := 'Radius value should not have changed.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSetMaterialGetMaterialNameExpectNoErrorValueSet" Id="{953ecb6d-08f9-429b-842b-ececdd9772b1}">
+      <Declaration><![CDATA[
+METHOD TestSetMaterialGetMaterialNameExpectNoErrorValueSet
+VAR
+    // Subject under test
+    fbLens : FB_Lens();
+    sMaterialName : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetMaterialGetMaterialNameExpectNoErrorValueSet');
+
+sMaterialName := 'Material1';
+
+// Here the test starts
+fbLens.MaterialName:= sMaterialName;
+
+AssertFalse(
+    Condition := fbLens.GetError(),
     Message := 'Expected bError bit to be false but it was true.'
 );
 
+AssertTrue(
+    Condition := fbLens.GetErrorMsg() = '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_STRING(
+    Expected := sMaterialName,
+    Actual := fbLens.MaterialName,
+    Message := 'Material name did not set properly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSetMultiplierGetMultiplierExpectNoErrorValueSet" Id="{03be4f49-5981-42f2-87a9-82f80d1a6e2c}">
+      <Declaration><![CDATA[
+METHOD TestSetMultiplierGetMultiplierExpectNoErrorValueSet
+VAR
+    // Subject under test
+    fbLens : FB_Lens();
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetMultiplierGetMultiplierExpectNoErrorValueSet');
+
+nMultiplier := 34;
+
+// Here the test starts
+fbLens.Multiplier := nMultiplier;
+
 AssertFalse(
-    Condition := fbLens.ErrorMsg <> '',
+    Condition := fbLens.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbLens.GetErrorMsg() = '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_INT(
+    Expected := nMultiplier,
+    Actual := fbLens.Multiplier,
+    Message := 'Multiplier did not set properly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSetRadiusGetRadiusExpectNoErrorValueSet" Id="{92f78dad-ab8f-4d8a-be01-dff5659448da}">
+      <Declaration><![CDATA[
+METHOD TestSetRadiusGetRadiusExpectNoErrorValueSet
+VAR
+    // Subject under test
+    fbLens : FB_Lens();
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetRadiusGetRadiusExpectNoErrorValueSet');
+
+fRadius := 27.34;
+
+// Here the test starts
+fbLens.Radius := fRadius;
+
+AssertFalse(
+    Condition := fbLens.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbLens.GetErrorMsg() = '',
     Message := 'Expected sErrorMsg to be empty.'
 );
 
 AssertEquals_LREAL(
-    Expected := fExpectedDelta,
-    Actual := fbLens.GetDelta(
-            fEnergy := fEnergy,
-            iXRayDelta := fbXRayDelta
-        ),
-    Delta := ABS(0.001 * fExpectedDelta),
-    Message := 'Calculated delta did not calculate close enough to the expected value.'
-);
-
-AssertEquals_LREAL(
-    Expected := fExpectedf1,
-    Actual := fbLens.f1,
-    Delta := ABS(0.001 * fExpectedf1),
-    Message := 'Lookup of f1 did not return close enough to the expected value.'
-);
-
-AssertEquals_LREAL(
-    Expected := fExpectedFocalLength,
-    Actual := fbLens.FocalLength,
-    Delta := ABS(0.001 * fExpectedFocalLength),
-    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+    Expected := fRadius,
+    Actual := fbLens.Radius,
+    Delta := 0.0,
+    Message := 'Radius did not set properly.'
 );
 
 TEST_FINISHED();
-
-nTestID := nTestID + 1;
 ]]></ST>
       </Implementation>
     </Method>

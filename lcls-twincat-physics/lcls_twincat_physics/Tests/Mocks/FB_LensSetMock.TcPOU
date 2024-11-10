@@ -4,8 +4,8 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_LensSetMock EXTENDS FB_FallibleMock IMPLEMENTS I_LensSet
 VAR
-    afFocalLengths : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF LREAL;
-    anMultipliers : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF INT;
+    afFocalLength : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF LREAL;
+    afbLensMock : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF FB_LensMock;
     nNumLenses : INT;
 END_VAR
 ]]></Declaration>
@@ -21,7 +21,20 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-GetFocalLengthOf := afFocalLengths[nLensNum];
+GetFocalLengthOf := afFocalLength[nLensNum];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetMaterialNameOf" Id="{6affd749-035c-48ba-9fa7-a9449e8df733}">
+      <Declaration><![CDATA[
+METHOD GetMaterialNameOf : T_MaxString
+VAR_INPUT
+    nLensNum	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetMaterialNameOf := afbLensMock[nLensNum].MaterialName;
 ]]></ST>
       </Implementation>
     </Method>
@@ -34,7 +47,20 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-GetMultiplierOf := anMultipliers[nLensNum];
+GetMultiplierOf := afbLensMock[nLensNum].Multiplier;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetRadiusOf" Id="{6323a8a8-1b92-4816-9017-2664cdfa46e3}">
+      <Declaration><![CDATA[
+METHOD GetRadiusOf : LREAL
+VAR_INPUT
+    nLensNum	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetRadiusOf := afbLensMock[nLensNum].Radius;
 ]]></ST>
       </Implementation>
     </Method>
@@ -69,7 +95,21 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-afFocalLengths[nLensNum] := fFocalLength;
+afFocalLength[nLensNum] := fFocalLength;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMaterialNameOf" Id="{37855da5-e9a8-4247-be85-98c220363308}">
+      <Declaration><![CDATA[
+METHOD SetMaterialNameOf
+VAR_INPUT
+    nLensNum	: INT;
+    sMaterialName : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+afbLensMock[nLensNum].MaterialName := sMaterialName;
 ]]></ST>
       </Implementation>
     </Method>
@@ -83,7 +123,21 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-anMultipliers[nLensNum] := nMultiplier;
+afbLensMock[nLensNum].Multiplier := nMultiplier;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetRadiusOf" Id="{ae316088-ffb3-4f48-8984-1fe3e09c2632}">
+      <Declaration><![CDATA[
+METHOD SetRadiusOf
+VAR_INPUT
+    nLensNum : INT;
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+afbLensMock[nLensNum].Radius := fRadius;
 ]]></ST>
       </Implementation>
     </Method>
@@ -99,8 +153,10 @@ END_VAR
 ClearError();
 
 FOR nIndex := 1 TO GVL_Physics.nMaxNumLensesInSet BY 1 DO
-    afFocalLengths[nIndex] := 1.0;
-    anMultipliers[nIndex] := 1;
+    afFocalLength[nIndex] := 1.0;
+    afbLensMock[nIndex].Multiplier := 1;
+    afbLensMock[nIndex].Radius := 1.0;
+    afbLensMock[nIndex].MaterialName := 'Be';
 END_FOR
 ]]></ST>
       </Implementation>

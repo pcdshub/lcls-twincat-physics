@@ -11,11 +11,13 @@ END_VAR
       <ST><![CDATA[
 nTestID := 0;
 
-TestInvalidDeltaExpectError0FocalLength();
-
 Test0DeltaExpectError0FocalLength();
 
 Test0RadiusExpectError0FocalLength();
+
+TestInvalidDeltaExpectError0FocalLength();
+
+TestInvalidLensExpectError0FocalLength();
 
 // Expected results taken from pcdscalc/be_lens_calcs.py.
 // Element = Be. Test Count = 1.
@@ -66,16 +68,19 @@ TestValidInputsExpectNoErrorAccurateFocalLength(
 );
 ]]></ST>
     </Implementation>
-    <Method Name="SetInitialDeltaAndRadiusValues" Id="{bdf9ec0b-14ec-48c2-a21f-eb2530271dd3}">
+    <Method Name="SetInitialDeltaAndLensValues" Id="{bdf9ec0b-14ec-48c2-a21f-eb2530271dd3}">
       <Declaration><![CDATA[
-METHOD PRIVATE SetInitialDeltaAndRadiusValues
+METHOD PRIVATE SetInitialDeltaAndLensValues
 VAR_IN_OUT
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 fbCalcXRayDeltaMock.SetValid();
+
+fbLensMock.SetValid();
 ]]></ST>
       </Implementation>
     </Method>
@@ -84,6 +89,7 @@ fbCalcXRayDeltaMock.SetValid();
 METHOD PRIVATE Test0DeltaExpectError0FocalLength
 VAR
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
     // Subject under test
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
     fResult : LREAL;
@@ -94,14 +100,14 @@ END_VAR
 TEST('Test0DeltaExpectError0FocalLength');
 
 // Test Fixture
-SetInitialDeltaAndRadiusValues(fbCalcXRayDeltaMock := fbCalcXRayDeltaMock);
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
+);
 
 fbCalcXRayDeltaMock.SetResult(0.0);
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(
-    sElementName := 'Be',
-    fRadius := 1.0
-);
+fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthSingleLens.GetError(),
@@ -129,6 +135,7 @@ TEST_FINISHED();
 METHOD PRIVATE Test0RadiusExpectError0FocalLength
 VAR
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
     // Subject under test
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
     fResult : LREAL;
@@ -139,13 +146,14 @@ END_VAR
 TEST('Test0RadiusExpectError0FocalLength');
 
 // Test Fixture
-SetInitialDeltaAndRadiusValues(fbCalcXRayDeltaMock := fbCalcXRayDeltaMock);
-
-
-fResult := fbCalcFocalLengthSingleLens.Calculate(
-    sElementName := 'Be',
-    fRadius := 0.0
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
 );
+
+fbLensMock.Radius := 0.0;
+
+fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthSingleLens.GetError(),
@@ -173,6 +181,7 @@ TEST_FINISHED();
 METHOD PRIVATE TestInvalidDeltaExpectError0FocalLength
 VAR
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
     // Subject under test
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
     fResult : LREAL;
@@ -183,14 +192,60 @@ END_VAR
 TEST('TestInvalidDeltaExpectError0FocalLength');
 
 // Test fixture
-SetInitialDeltaAndRadiusValues(fbCalcXRayDeltaMock := fbCalcXRayDeltaMock);
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
+);
 
 fbCalcXRayDeltaMock.SetError(sMsg := 'Error');
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(
-    sElementName := 'Be',
-    fRadius := 1.0
+fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthSingleLens.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
 );
+
+AssertTrue(
+    Condition := fbCalcFocalLengthSingleLens.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidLensExpectError0FocalLength" Id="{eb958df2-7b0a-4723-a248-f2c9d68420eb}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInvalidLensExpectError0FocalLength
+VAR
+    fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
+    // Subject under test
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidLensExpectError0FocalLength');
+
+// Test fixture
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
+);
+
+fbLensMock.SetError(sMsg := 'Error');
+
+fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthSingleLens.GetError(),
@@ -224,6 +279,7 @@ VAR_INPUT
 END_VAR
 VAR
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
     // Subject under test
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
     fResult : LREAL;
@@ -235,16 +291,16 @@ TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccurateFocalLength ID: ',
             STR2 := INT_TO_STRING(nTestID)));
 
 // Test fixture
-SetInitialDeltaAndRadiusValues(fbCalcXRayDeltaMock := fbCalcXRayDeltaMock);
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
+);
 
 fbCalcXRayDeltaMock.SetResult(fDelta);
+fbLensMock.Radius := fRadius;
 
 // Here the test starts
-
-fResult := fbCalcFocalLengthSingleLens.Calculate(
-    sElementName := 'Be',
-    fRadius := fRadius
-);
+fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
 
 AssertFalse(
     Condition := fbCalcFocalLengthSingleLens.GetError(),

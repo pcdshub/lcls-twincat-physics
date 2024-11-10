@@ -59,6 +59,9 @@
     <Compile Include="ITFs\I_CalcXRayDelta.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ITFs\I_Lens.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ITFs\I_LensCompounder.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -90,6 +93,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_CalcImageDistance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_Lens.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_LensCompounder.TcPOU">
@@ -155,6 +161,18 @@
     <Compile Include="Tests\FB_CalcXRayDeltaElement_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\FB_LensSetCompounder_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_Lens_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_LensSet_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_Transmission_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\LookupTables\FB_AtomicMass_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -173,10 +191,13 @@
     <Compile Include="Tests\LookupTables\FB_ElementDensity_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\LookupTables\FB_Transmission_Test.TcPOU">
+    <Compile Include="Tests\Mocks\FB_CalcFocalLengthSingleLensMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Mocks\FB_CalcXRayDeltaMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_LensMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Mocks\FB_StringLookupElementMock.TcPOU">

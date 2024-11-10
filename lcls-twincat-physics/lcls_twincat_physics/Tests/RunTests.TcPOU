@@ -17,7 +17,9 @@ VAR
     fbCalcImageDistance_Test : FB_CalcImageDistance_Test;
     fbCalcXRayDeltaElement_Test : FB_CalcXRayDeltaElement_Test;
     fbLagrangePolyInterp_Test : FB_LagrangePolyInterp_Test;
+    fbLens_Test : FB_Lens_Test;
     fbLensCompounder_Test : FB_LensCompounder_Test;
+    fbLensSet_Test : FB_LensSet_Test;
 
     (* Smoke test - just instantiate *)
     fbPhysicalConstants : FB_PhysicalConstants;

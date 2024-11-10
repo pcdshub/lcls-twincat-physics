@@ -8,8 +8,7 @@ INTERFACE I_CalcFocalLengthSingleLens EXTENDS I_Fallible
       <Declaration><![CDATA[
 METHOD Calculate : LREAL
 VAR_INPUT
-    sElementName : STRING;
-    fRadius : LREAL;
+    iLens : I_Lens;
 END_VAR
 ]]></Declaration>
     </Method>

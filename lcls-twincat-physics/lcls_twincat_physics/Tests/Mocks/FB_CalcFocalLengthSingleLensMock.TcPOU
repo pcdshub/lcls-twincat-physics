@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLengthSingleLensMock" Id="{6906ef4b-70f5-42bd-b512-b76eb2dac2e2}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLensMock EXTENDS FB_Fallible IMPLEMENTS I_CalcFocalLengthSingleLens
+VAR
+    fFocalLength : LREAL; // The focal length of the lens, in meters.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{b2c83659-42d3-4010-bd66-b5ff217644cd}">
+      <Declaration><![CDATA[
+METHOD Calculate : LREAL
+VAR_INPUT
+    iLens	: I_Lens;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Calculate := fFocalLength;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{835781e9-6739-4758-b0fe-16be034758e3}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fFocalLength := fResult;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

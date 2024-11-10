@@ -16,8 +16,7 @@ END_VAR
       <Declaration><![CDATA[
 METHOD Calculate : LREAL
 VAR_INPUT
-    sElementName : STRING;
-    fRadius : LREAL;
+    iLens : I_Lens;
 END_VAR
 VAR
     fDelta : LREAL;
@@ -29,7 +28,17 @@ END_VAR
 fFocalLength := 0.0;
 ClearError();
 
-fDelta := iCalcXRayDelta.Calculate(sElementName := sElementName);
+// Check for an invalid lens input.
+IF iLens.GetError() THEN
+    SetError(
+        sMsg := CONCAT('The input lens has the following error message: [',
+        CONCAT(iLens.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+fDelta := iCalcXRayDelta.Calculate(sElementName := iLens.MaterialName);
 
 // Check for an invalid delta input.
 IF iCalcXRayDelta.GetError() THEN
@@ -50,16 +59,16 @@ IF fDelta = 0.0 THEN
     RETURN;
 END_IF
 
-IF fRadius <= 0.0 THEN
+IF iLens.Radius <= 0.0 THEN
     SetError(
         sMsg := CONCAT('The radius specified: [',
-        CONCAT(LREAL_TO_STRING(fRadius),
+        CONCAT(LREAL_TO_STRING(iLens.Radius),
         '] must be greater than 0.'))
     );
     RETURN;
 END_IF
 
-fFocalLength := fRadius / 2.0 / fDelta;
+fFocalLength := iLens.Radius / 2.0 / fDelta;
 
 Calculate := fFocalLength;
 ]]></ST>
