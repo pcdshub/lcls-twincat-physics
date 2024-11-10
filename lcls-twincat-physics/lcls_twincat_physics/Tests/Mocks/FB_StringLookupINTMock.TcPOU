@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_StringLookupINTMock" Id="{d0b4a7e9-2d3c-4985-b1c8-bb2c34a08f90}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_StringLookupINTMock EXTENDS FB_FallibleMock IMPLEMENTS I_StringLookupINT
+VAR
+    nValue : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Lookup" Id="{5c037a72-ea45-45f3-9d22-aab555885a73}">
+      <Declaration><![CDATA[
+METHOD Lookup : INT
+VAR_INPUT
+    sLookup	: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Lookup := nValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{f5e0b920-bdf0-4251-957b-b2087937d68e}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LensSetCompounder" Id="{0f0490d7-2e74-4a81-9802-0da9be64993a}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_LensSetCompounder EXTENDS FB_Fallible IMPLEMENTS I_LensSetCompounder
+VAR
+    iCalcImageDistance : I_CalcImageDistance;
+
+    bFirstCompound : BOOL := TRUE;
+    fFocalLengthInverse : LREAL;
+    fVirtualSourceDistance : LREAL;
+    fVirtualSourceDistanceInverse : LREAL;
+    fPrevSourceDistance : LREAL;
+    fSourceDistanceInverse : LREAL;
+    fFocalLengthCompounded : LREAL;
+    fFocalLengthCompoundedInverse : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Compound" Id="{3753333e-1cf4-40b2-ad60-b4ae049886c5}">
+      <Declaration><![CDATA[
+METHOD Compound : LREAL
+VAR_INPUT
+    fFocalLength	: LREAL;
+    fSourceDistance	: LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Check for an invalid focal length input.
+IF fFocalLength = 0.0 THEN
+    SetError(
+        sMsg := CONCAT('The focal length specified: [',
+        CONCAT(LREAL_TO_STRING(fFocalLength),
+        '] must not be 0.'))
+    );
+    RETURN;
+END_IF
+
+// Calculate the inverse of focal length input.
+fFocalLengthInverse := 1.0 / fFocalLength;
+
+// Check for an invalid source distance input.
+IF fSourceDistance = 0.0 THEN
+    SetError(
+        sMsg := CONCAT('The source distance specified: [',
+        CONCAT(LREAL_TO_STRING(fSourceDistance),
+        '] must not be 0.'))
+    );
+    RETURN;
+END_IF
+
+IF NOT bFirstCompound THEN
+    fVirtualSourceDistance := fSourceDistance - fPrevSourceDistance - fFocalLengthCompounded;
+
+    // Check for an invalid virtual source distance.
+    IF fVirtualSourceDistance = 0.0 THEN
+        SetError(
+            sMsg := 'The virtual source is exactly on the lens set: fSourceDistance - fPrevSourceDistance - fFocalLengthCompounded = 0.0'
+        );
+        RETURN;
+    END_IF
+
+    fFocalLengthCompounded := iCalcImageDistance.Calculate(
+        fFocalLength := fFocalLength,
+        fSourceDistance := fVirtualSourceDistance
+    );
+ELSE
+    bFirstCompound := FALSE;
+
+    fFocalLengthCompounded := iCalcImageDistance.Calculate(
+        fFocalLength := fFocalLength,
+        fSourceDistance := fSourceDistance
+    );
+END_IF
+
+IF iCalcImageDistance.GetError() THEN
+    SetError(sMsg :=
+        CONCAT('Error returned when attempting to calculate the image distance: ',
+        iCalcImageDistance.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+Compound := fFocalLengthCompounded;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_Init" Id="{2224ebdb-b331-4bf2-8b50-4a64b4eba865}">
+      <Declaration><![CDATA[
+METHOD FB_Init: BOOL
+VAR_INPUT
+    bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
+    bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
+
+    iCalcImageDistance : I_CalcImageDistance;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iCalcImageDistance := iCalcImageDistance;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="FocalLengthCompounded" Id="{5cee8c7d-c793-4c55-a4d3-3c2e0da20c3b}">
+      <Declaration><![CDATA[
+PROPERTY FocalLengthCompounded : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{cc431736-65d4-4b88-b626-1954361f0a1d}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+FocalLengthCompounded := fFocalLengthCompounded;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Reset" Id="{964519e4-1caa-4e37-9ecd-f4a5e090d640}">
+      <Declaration><![CDATA[
+METHOD Reset
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+bFirstCompound := TRUE;
+ClearError();
+fFocalLengthCompounded := 0.0;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

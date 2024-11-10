@@ -32,46 +32,76 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
-    <Compile Include="ITFs\I_Fallible.TcIO">
+    <Compile Include="ITFs\Fallibles\I_Fallible.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITFs\I_FallibleSTRING.TcIO">
+    <Compile Include="ITFs\Fallibles\I_FallibleINT.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITFs\I_FallibleLREAL.TcIO">
+    <Compile Include="ITFs\Fallibles\I_FallibleLREAL.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITFs\I_FallibleINT.TcIO">
+    <Compile Include="ITFs\Fallibles\I_FallibleSTRING.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcFocalLengthSingleLens.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcFocalLengthLensSet.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcImageDistance.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcLREAL.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcXRayDelta.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_LensCompounder.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_LensSetCompounder.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_LensSet.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\LookupTables\I_StringLookupINT.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\LookupTables\I_StringLookupLREAL.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\LookupTables\I_StringLookupElement.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Fallibles\FB_Fallible.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcFocalLengthLensSet.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_CalcFocalLengthSingleLens.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_CompoundLenses.TcPOU">
+    <Compile Include="POUs\FB_CalcImageDistance.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_f1Chantler.TcPOU">
+    <Compile Include="POUs\FB_LensCompounder.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_AtomicMass.TcPOU">
+    <Compile Include="POUs\FB_LensSet.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_AtomicNumber.TcPOU">
+    <Compile Include="POUs\FB_LensSetCompounder.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ElementDensity.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_PhysicalConstants.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_ScatteringFactorLUT.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_XRayDelta.TcPOU">
+    <Compile Include="POUs\FB_CalcXRayDeltaElement.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\F_CalculateAbsorptionConstant.TcPOU">
@@ -80,40 +110,73 @@
     <Compile Include="POUs\F_CalculateTransmission.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_CalcImageDistance.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\F_LagrangePolyInterp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_AtomicNumber_Test.TcPOU">
+    <Compile Include="POUs\LookupTables\FB_AtomicMass.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_AtomicNumber.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_ElementDensity.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_ElementLUT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_f1Chantler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_PhysicalConstants.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_ScatteringFactorLUT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcFocalLength2LensSets.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_CalcFocalLengthSingleLens_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\FB_CalcFocalLengthLensSet_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\FB_LagrangePolyInterp_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_CompoundLenses_Test.TcPOU">
+    <Compile Include="Tests\FB_LensCompounder_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_CalcImageDistance_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_XRayDelta_Test.TcPOU">
+    <Compile Include="Tests\FB_CalcXRayDeltaElement_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_ScatteringFactorLUT_Test.TcPOU">
+    <Compile Include="Tests\LookupTables\FB_AtomicMass_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_TestTransmission.TcPOU">
+    <Compile Include="Tests\LookupTables\FB_AtomicNumber_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_TestElementDensity.TcPOU">
+    <Compile Include="Tests\LookupTables\FB_f1Chantler_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_f1Chantler_Test.TcPOU">
+    <Compile Include="Tests\LookupTables\FB_ScatteringFactorLUT_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\LookupTables\FB_ElementDensity_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\LookupTables\FB_Transmission_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcXRayDeltaMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_StringLookupElementMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Mocks\FB_FallibleLREALMock.TcPOU">
@@ -122,7 +185,25 @@
     <Compile Include="Tests\Mocks\FB_FallibleINTMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Mocks\FB_FallibleMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Mocks\FB_FallibleSTRINGMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_LensCompounderMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_LensSetMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_StringLookupINTMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_StringLookupLREALMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcLREALMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\RunTests.TcPOU">
@@ -133,8 +214,13 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="ITFs" />
+    <Folder Include="ITFs\Fallibles" />
+    <Folder Include="ITFs\LookupTables" />
+    <Folder Include="POUs\LookupTables" />
+    <Folder Include="POUs\Fallibles" />
     <Folder Include="Tests" />
     <Folder Include="Tests\Mocks" />
+    <Folder Include="Tests\LookupTables" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -165,11 +251,8 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <PlaceholderResolution Include="LCLS General">
-      <Resolution>LCLS General, * (SLAC)</Resolution>
-    </PlaceholderResolution>
     <PlaceholderResolution Include="TcUnit">
-      <Resolution>TcUnit, * (www.tcunit.org)</Resolution>
+      <Resolution>TcUnit, 1.3.1 (www.tcunit.org)</Resolution>
     </PlaceholderResolution>
   </ItemGroup>
   <ItemGroup>
@@ -180,8 +263,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -236,14 +319,14 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Boolean">System.Boolean</Type>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

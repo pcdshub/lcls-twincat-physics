@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Fallible" Id="{c55cc743-07c1-462b-8940-bcc4a22fbcc1}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_Fallible IMPLEMENTS I_Fallible
+VAR
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ClearError" Id="{ccb35ac6-4574-420e-b77e-651907b31f9d}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+bError := FALSE;
+sErrorMsg := '';
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetError" Id="{d9c22293-5bd7-4710-b478-a308a4bc051c}">
+      <Declaration><![CDATA[
+METHOD PUBLIC GetError : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetError := bError;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetErrorMsg" Id="{a84e666b-44cf-4d5c-a081-3f78810c6b43}">
+      <Declaration><![CDATA[
+METHOD PUBLIC GetErrorMsg : T_MaxString
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetErrorMsg := sErrorMsg;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{553deb08-e445-4322-beec-8f9e06539b61}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    sMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+bError := TRUE;
+sErrorMsg := sMsg;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

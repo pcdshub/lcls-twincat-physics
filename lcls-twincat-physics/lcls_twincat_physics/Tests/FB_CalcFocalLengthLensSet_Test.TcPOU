@@ -1,0 +1,591 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLengthLensSet_Test" Id="{bdeecc39-c97b-4a05-9f5c-8a087e02414a}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthLensSet_Test EXTENDS FB_TestSuite
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+Test0NumLensesExpectError0FocalLength();
+
+TestInvalidLensSetExpectError0FocalLength();
+
+TestNegNumLensesExpectError0FocalLength();
+
+TestTooManyNumLensesExpectError0FocalLength();
+
+TestValidInputsExpectNoErrorAccurateFocalLength_1();
+
+TestValidInputsExpectNoErrorAccurateFocalLength_10();
+
+TestValidInputsExpectNoErrorAccurateFocalLength_2();
+
+TestValidInputsExpectNoErrorAccurateFocalLength_5();
+
+TestValidInputsExpectNoErrorMockedValue();
+]]></ST>
+    </Implementation>
+    <Method Name="SetInitialLensSetValues" Id="{d50a08e3-4acc-4042-8a6d-3b07f3a92af7}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetInitialLensSetValues
+VAR_IN_OUT
+    fbLensSetMock :  FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbLensSetMock.SetValid();
+
+fbLensCompounderMock.SetValid();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0NumLensesExpectError0FocalLength" Id="{ac0d9e71-6fa9-4bd0-8455-608b027d66e2}">
+      <Declaration><![CDATA[
+METHOD PRIVATE Test0NumLensesExpectError0FocalLength
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounderMock);
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0NumLensesExpectError0FocalLength');
+
+// Test Fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 0;
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidLensCompounderExpectError0FocalLength" Id="{32481fac-6149-429b-b483-2b9ac94cc161}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInvalidLensCompounderExpectError0FocalLength
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounderMock);
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidLensCompounderExpectError0FocalLength');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensCompounderMock.SetError(sMsg := 'Error');
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidLensSetExpectError0FocalLength" Id="{b02dd673-232a-4ee4-94da-bfc0d51ec8c4}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInvalidLensSetExpectError0FocalLength
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounderMock);
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidLensSetExpectError0FocalLength');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.SetError(sMsg := 'Error');
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegNumLensesExpectError0FocalLength" Id="{240e54ed-ae24-47e9-afa8-953584d03cb5}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestNegNumLensesExpectError0FocalLength
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounderMock);
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegNumLensesExpectError0FocalLength');
+
+// Test Fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := -1;
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTooManyNumLensesExpectError0FocalLength" Id="{33d300af-7422-4d56-a50d-3a7ff1ca2aa1}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestTooManyNumLensesExpectError0FocalLength
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounderMock);
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestTooManyNumLensesExpectError0FocalLength');
+
+// Test Fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := GVL_Physics.nMaxNumLensesInSet + 1;
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'Calculated focal length should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength_1" Id="{5a123922-cbe3-48b4-af26-a583c74a1e37}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorAccurateFocalLength_1
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbLensCompounder : FB_LensCompounder;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounder);
+    fExpected : LREAL;
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorAccurateFocalLength_1');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 1;
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 5.432559656205233);
+fbLensSetMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 3);
+
+fExpected := 1.8108532187350777;
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fResult,
+    Delta := ABS(0.001 * fExpected),
+    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength_10" Id="{787dd553-c354-4bc1-9d3c-e083d9b9af05}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorAccurateFocalLength_10
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbLensCompounder : FB_LensCompounder;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounder);
+    fExpected : LREAL;
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorAccurateFocalLength_10');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 10;
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 19.69800070159425);
+fbLensSetMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 3);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 55.638324970529936);
+fbLensSetMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 2);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 66.79888157901009);
+fbLensSetMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 4);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 24.881111922393764);
+fbLensSetMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 3);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 5, fFocalLength := 30.956111911946092);
+fbLensSetMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 1);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 6, fFocalLength := 64.90379268437974);
+fbLensSetMock.SetMultiplierOf(nLensNum := 6, nMultiplier := 2);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 7, fFocalLength := 61.91924743476632);
+fbLensSetMock.SetMultiplierOf(nLensNum := 7, nMultiplier := 1);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 8, fFocalLength := 62.95394057932008);
+fbLensSetMock.SetMultiplierOf(nLensNum := 8, nMultiplier := 4);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 9, fFocalLength := 59.47408396471871);
+fbLensSetMock.SetMultiplierOf(nLensNum := 9, nMultiplier := 2);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 10, fFocalLength := 50.443559675608995);
+fbLensSetMock.SetMultiplierOf(nLensNum := 10, nMultiplier := 1);
+
+fExpected := 1.7700360383677682;
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fResult,
+    Delta := ABS(0.001 * fExpected),
+    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength_2" Id="{3b3ff841-a462-4925-b6a0-a982b07292c5}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorAccurateFocalLength_2
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbLensCompounder : FB_LensCompounder;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounder);
+    fExpected : LREAL;
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorAccurateFocalLength_2');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 2;
+fbLensSetMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 6.153516761536901);
+fbLensSetMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 8.222486140054887);
+fbLensSetMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 4);
+
+fExpected := 1.2323037049718681;
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fResult,
+    Delta := ABS(0.001 * fExpected),
+    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength_5" Id="{18f02f6c-6944-49aa-9948-377ec69e1463}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorAccurateFocalLength_5
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbLensCompounder : FB_LensCompounder;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounder);
+    fExpected : LREAL;
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorAccurateFocalLength_5');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 5;
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 39.362860668188816);
+fbLensSetMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 61.60434037545666);
+fbLensSetMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 2);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 9.653370814361024);
+fbLensSetMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 2);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 54.01837955732301);
+fbLensSetMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 3);
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 5, fFocalLength := 59.10420657122162);
+fbLensSetMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 1);
+
+fExpected := 2.4170860090881234;
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fResult,
+    Delta := ABS(0.001 * fExpected),
+    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorMockedValue" Id="{532c4a57-f4c7-48cc-ad4a-84fcc6a44d34}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorMockedValue
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        iLensCompounder := fbLensCompounderMock);
+    fExpected : LREAL;
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorMockedValue');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 1;
+
+fbLensSetMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 770.6879219348848);
+fbLensSetMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
+
+fExpected := 770.6879219348848;
+fbLensCompounderMock.FocalLengthCompounded := fExpected;
+
+// Subject Under Test
+fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbCalcFocalLengthLensSet.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fResult,
+    Delta := ABS(0.001 * fExpected),
+    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

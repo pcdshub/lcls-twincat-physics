@@ -1,0 +1,902 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcXRayDeltaElement_Test" Id="{98858369-0487-4f19-ba02-1eea298ccad3}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcXRayDeltaElement_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+    nTestID : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+Test0AtomicMassExpectError0Delta();
+
+Test0AtomicNumberExpectError0Delta();
+
+Test0DensityExpectError0Delta();
+
+Test0EnergyExpectError0Delta();
+
+TestInvalidElementExpectError0Delta();
+
+TestInvalidEnergyExpectError0Delta();
+
+TestInvalidf1ExpectError0Delta();
+
+TestNegAtomicMassExpectError0Delta();
+
+TestNegAtomicNumberExpectError0Delta();
+
+TestNegDensityExpectError0Delta();
+
+TestNegEnergyExpectError0Delta();
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 1.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := 0.12441385528833308,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 0.0003515107795702183
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 2.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 15000,
+    fF1 := -0.00016936488385900804,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 1.515079754661661e-06
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 3.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := -0.0011666530513713296,
+    fDensity := 1.85,
+    nAtomicNumber := 4,
+    fAtomicMass := 9.0122,
+    fExpected := 4.052413187574221e-07
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 4.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := -10.582299446346644,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 0.0006517015706244444
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 5.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 15000,
+    fF1 := -0.20855631741810937,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 4.299358473449007e-06
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 6.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := 0.279006161044894,
+    fDensity := 5.323,
+    nAtomicNumber := 32,
+    fAtomicMass := 72.63,
+    fExpected := 1.1678850102602785e-06
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 7.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := 0.32193839196465696,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 0.0004954024109219588
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 8.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 15000,
+    fF1 := 0.003208693114407701,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 2.0907821307300117e-06
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 9.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := -0.0014327706311398664,
+    fDensity := 2.267,
+    nAtomicNumber := 6,
+    fAtomicMass := 12.011,
+    fExpected := 5.589325363478469e-07
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 10.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := -1.4706548748585362,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 0.000479002541009039
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 11.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 15000,
+    fF1 := 0.08002784442214417,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 2.4152346347291635e-06
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 12.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := 0.01794721755836219,
+    fDensity := 2.7,
+    nAtomicNumber := 13,
+    fAtomicMass := 26.9815,
+    fExpected := 6.431017450275689e-07
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 13.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 1000,
+    fF1 := -1.1466629849836463,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 0.0004425338118167865
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 14.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 15000,
+    fF1 := 0.10076225971581065,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 2.1576978855198457e-06
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 15.
+TestValidInputsExpectNoErrorAccurateDelta(
+    fEnergy := 29000,
+    fF1 := 0.024412307252506597,
+    fDensity := 2.329,
+    nAtomicNumber := 14,
+    fAtomicMass := 28.085,
+    fExpected := 5.741418959262752e-07
+);
+]]></ST>
+    </Implementation>
+    <Method Name="SetInitialValues" Id="{f04845fb-8191-4651-bfc2-72b1efacd442}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetInitialValues
+VAR_IN_OUT
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbFallibleLREALEnergyMock.Val := 1.0;
+fbFallibleLREALEnergyMock.ClearError();
+
+fbStringLookupLREALMock.Value := 1.0;
+fbStringLookupLREALMock.ClearError();
+
+fbStringLookupElementMock.Density := 1.0;
+fbStringLookupElementMock.AtomicNumber := 1;
+fbStringLookupElementMock.AtomicMass := 1.0;
+fbStringLookupElementMock.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0AtomicMassExpectError0Delta" Id="{b6dc767c-cf65-41d6-8be0-32b5df8d14ad}">
+      <Declaration><![CDATA[
+METHOD Test0AtomicMassExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0AtomicMassExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.AtomicMass := 0.0;
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0AtomicNumberExpectError0Delta" Id="{19f8aed2-3809-4397-9ebb-60e03b7208cf}">
+      <Declaration><![CDATA[
+METHOD Test0AtomicNumberExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0AtomicNumberExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.AtomicNumber := 0;
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0DensityExpectError0Delta" Id="{a22c9ec5-6265-4c4b-81b1-88d5546cb3c5}">
+      <Declaration><![CDATA[
+METHOD Test0DensityExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0DensityExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.Density := 0.0;
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0EnergyExpectError0Delta" Id="{27c084a3-dc63-4167-a57f-ff90d70c622f}">
+      <Declaration><![CDATA[
+METHOD Test0EnergyExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0EnergyExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbFallibleLREALEnergyMock.Val := 0.0;
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidElementExpectError0Delta" Id="{6e484356-c61f-45c5-80a8-578577b9fc57}">
+      <Declaration><![CDATA[
+METHOD TestInvalidElementExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidElementExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.SetError(sMsg := 'Error');
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidEnergyExpectError0Delta" Id="{708d60b9-322c-4b04-ac4c-a6f261d3e002}">
+      <Declaration><![CDATA[
+METHOD TestInvalidEnergyExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidEnergyExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbFallibleLREALEnergyMock.SetError(sMsg := 'Error');
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidf1ExpectError0Delta" Id="{0fc9efb7-0fe3-4d4f-9e8d-8ecac8e37e76}">
+      <Declaration><![CDATA[
+METHOD TestInvalidf1ExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidScattererExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupLREALMock.SetError(sMsg := 'Error');
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegAtomicMassExpectError0Delta" Id="{1fe53040-1c34-4a85-99a3-d4bfb0bd91fb}">
+      <Declaration><![CDATA[
+METHOD TestNegAtomicMassExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegAtomicMassExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.AtomicMass := -10.0;
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegAtomicNumberExpectError0Delta" Id="{da7f21be-bbb5-4949-8587-a784e59a2f1d}">
+      <Declaration><![CDATA[
+METHOD TestNegAtomicNumberExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegAtomicNumberExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.AtomicNumber := -10;
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegDensityExpectError0Delta" Id="{7770c05a-bc0a-490d-8217-61adc2d656a7}">
+      <Declaration><![CDATA[
+METHOD TestNegDensityExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegDensityExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.Density := 0.0;
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegEnergyExpectError0Delta" Id="{74f08a4b-e970-41a6-8f17-caa755927812}">
+      <Declaration><![CDATA[
+METHOD TestNegEnergyExpectError0Delta
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegEnergyExpectError0Delta');
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbFallibleLREALEnergyMock.Val := 0.0;
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0,
+    Actual := fResult,
+    Delta := 0,
+    Message := 'X-ray delta should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateDelta" Id="{98dcca39-02f5-4794-8d0d-043b48f5e73a}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccurateDelta
+VAR_INPUT
+    fEnergy : LREAL;
+    fF1 : LREAL;
+    fDensity : LREAL;
+    nAtomicNumber : INT;
+    fAtomicMass : LREAL;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    // Subject under test
+    fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
+        iEnergy := fbFallibleLREALEnergyMock,
+        if1LUT := fbStringLookupLREALMock,
+        iElementLUT := fbStringLookupElementMock
+    );
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccurateDelta ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialValues(
+    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbStringLookupLREALMock := fbStringLookupLREALMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+fbFallibleLREALEnergyMock.Val := fEnergy;
+fbStringLookupLREALMock.Value := fF1;
+fbStringLookupElementMock.Density := fDensity;
+fbStringLookupElementMock.AtomicNumber := nAtomicNumber;
+fbStringLookupElementMock.AtomicMass := fAtomicMass;
+
+// Here the test starts
+fResult := fbCalcXRayDeltaElement.Calculate(
+    sElementName := 'Be'
+);
+
+AssertFalse(
+    Condition := fbCalcXRayDeltaElement.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fResult,
+    Delta := ABS(0.001 * fExpected),
+    Message := 'X-ray delta did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

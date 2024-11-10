@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_StringLookupLREALMock" Id="{682595e9-23e7-433f-b4e7-703251f5a029}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_StringLookupLREALMock EXTENDS FB_FallibleMock IMPLEMENTS I_StringLookupLREAL
+VAR
+    fValue : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Lookup" Id="{630af135-431d-4e29-ba31-858823424239}">
+      <Declaration><![CDATA[
+METHOD Lookup : LREAL
+VAR_INPUT
+    sLookup	: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Lookup := fValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{d166fb74-2990-4b60-a23f-5d3fe53ca986}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{1a2296e6-151f-4fc5-818d-1a3ab6f535e7}">
+      <Declaration><![CDATA[PROPERTY Value : LREAL]]></Declaration>
+      <Get Name="Get" Id="{0676378a-fc9d-475f-9e99-03547d0a3663}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Value := fValue;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{6b9486c5-a536-4abc-befd-6b1a14c80d31}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+fValue := Value;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

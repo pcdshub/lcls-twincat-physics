@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_StringLookupElementMock" Id="{18e1cb23-bba9-4318-ba60-0ac68051a2a0}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_StringLookupElementMock EXTENDS FB_FallibleMock IMPLEMENTS I_StringLookupElement;
+VAR
+    fAtomicMass : LREAL;
+    nAtomicNumber : INT;
+    fDensity : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="AtomicMass" Id="{635032a6-311e-4d7c-9b55-f9024148140d}">
+      <Declaration><![CDATA[PROPERTY AtomicMass : LREAL]]></Declaration>
+      <Get Name="Get" Id="{f7c57037-db88-45ae-a7df-97c3b6733e71}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+AtomicMass := fAtomicMass;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{6e4e3849-a0c8-41a4-8ebe-a5f025f04260}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+fAtomicMass := AtomicMass;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="AtomicNumber" Id="{06122f6b-f517-481a-9749-dc246c897461}">
+      <Declaration><![CDATA[PROPERTY AtomicNumber : INT]]></Declaration>
+      <Get Name="Get" Id="{e9d734fe-c826-493a-b424-586d3f706478}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+AtomicNumber := nAtomicNumber;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2b4c4e29-c09c-46cb-98bb-b25e81a01b1b}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+nAtomicNumber := AtomicNumber;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Density" Id="{b79e1095-9dde-44a0-a231-d917464f7a3d}">
+      <Declaration><![CDATA[PROPERTY Density : LREAL]]></Declaration>
+      <Get Name="Get" Id="{f0b638fa-d258-48cb-b13e-0dd7005455a7}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Density := fDensity;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8ff93d78-1bb5-4ac0-b979-6e67459ed291}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+fDensity := Density;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="LookupAtomicMass" Id="{1dcfeecf-8505-43bc-a7d2-9b5fa59ddc2b}">
+      <Declaration><![CDATA[
+METHOD LookupAtomicMass : LREAL
+VAR_INPUT
+    sLookup	: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+LookupAtomicMass := fAtomicMass;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LookupAtomicNumber" Id="{69859d7c-928a-4813-9e19-d45971dbc25d}">
+      <Declaration><![CDATA[
+METHOD LookupAtomicNumber : INT
+VAR_INPUT
+    sLookup	: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+LookupAtomicNumber := nAtomicNumber;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LookupDensity" Id="{c68ca04a-b56a-4ca8-ad9e-4621f979c04d}">
+      <Declaration><![CDATA[
+METHOD LookupDensity : LREAL
+VAR_INPUT
+    sLookup	: STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+LookupDensity := fDensity;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{f7ff3f37-db96-476e-86c7-5553fd9ef068}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fAtomicMass := 1.0;
+nAtomicNumber := 1;
+fDensity := 1.0;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

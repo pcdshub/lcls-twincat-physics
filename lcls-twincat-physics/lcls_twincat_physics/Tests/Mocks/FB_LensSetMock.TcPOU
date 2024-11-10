@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LensSetMock" Id="{81efb5ab-6e66-4093-a776-0c018358a642}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_LensSetMock EXTENDS FB_FallibleMock IMPLEMENTS I_LensSet
+VAR
+    afFocalLengths : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF LREAL;
+    anMultipliers : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF INT;
+    nNumLenses : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetFocalLengthOf" Id="{21a2a6be-40a8-4267-bf0e-88371cd3e5c5}">
+      <Declaration><![CDATA[
+METHOD GetFocalLengthOf : LREAL
+VAR_INPUT
+    nLensNum	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetFocalLengthOf := afFocalLengths[nLensNum];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetMultiplierOf" Id="{db5ca255-0f22-4631-b5c6-b246d7c3e034}">
+      <Declaration><![CDATA[
+METHOD GetMultiplierOf : INT
+VAR_INPUT
+    nLensNum	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetMultiplierOf := anMultipliers[nLensNum];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="NumLenses" Id="{0de8fc65-e8dc-4248-ab31-049f75250b77}">
+      <Declaration><![CDATA[
+PROPERTY NumLenses : INT
+]]></Declaration>
+      <Get Name="Get" Id="{9bca06c1-467c-4734-8686-595d1621e3e3}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+NumLenses := nNumLenses;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{049e4945-30a7-44eb-aa9f-e85882a20364}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+nNumLenses := NumLenses;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="SetFocalLengthOf" Id="{71d25dac-1ed7-4154-aab9-117de7fd9bd6}">
+      <Declaration><![CDATA[
+METHOD SetFocalLengthOf
+VAR_INPUT
+    nLensNum	: INT;
+    fFocalLength : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+afFocalLengths[nLensNum] := fFocalLength;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetMultiplierOf" Id="{a2d3085f-8a83-4983-8c40-581e8915de41}">
+      <Declaration><![CDATA[
+METHOD SetMultiplierOf
+VAR_INPUT
+    nLensNum	: INT;
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+anMultipliers[nLensNum] := nMultiplier;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{8028786d-6bf1-49c2-919b-77cc8caff0f8}">
+      <Declaration><![CDATA[
+METHOD SetValid
+VAR
+    nIndex : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+
+FOR nIndex := 1 TO GVL_Physics.nMaxNumLensesInSet BY 1 DO
+    afFocalLengths[nIndex] := 1.0;
+    anMultipliers[nIndex] := 1;
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

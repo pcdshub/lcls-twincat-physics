@@ -2,70 +2,66 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CalcFocalLengthSingleLens" Id="{4986d52d-63ec-4366-87a7-ec07b5c7c44d}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcFocalLengthSingleLens IMPLEMENTS I_FallibleLREAL
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLens EXTENDS FB_Fallible IMPLEMENTS I_CalcFocalLengthSingleLens
 VAR
-    iDelta : I_FallibleLREAL; // The x-ray delta, the real part of the index of refraction, unitless value.
-    iRadius : I_FallibleLREAL; // The radius of curvature of the lens, in meters.
-    bError : BOOL;
-    sErrorMsg : T_MaxString;
-    fFocalLength : LREAL;
+    iCalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
+
+    fFocalLength : LREAL; // The focal length of the lens, in meters.
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{ccac877d-2b8a-4013-bf1b-351f6a9d80e6}">
+      <Declaration><![CDATA[
+METHOD Calculate : LREAL
+VAR_INPUT
+    sElementName : STRING;
+    fRadius : LREAL;
+END_VAR
+VAR
+    fDelta : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
 // Initialize focal length and error values.
 fFocalLength := 0.0;
 ClearError();
 
+fDelta := iCalcXRayDelta.Calculate(sElementName := sElementName);
+
 // Check for an invalid delta input.
-IF iDelta.GetError() THEN
+IF iCalcXRayDelta.GetError() THEN
     SetError(
         sMsg := CONCAT('The input delta has the following error message: [',
-        CONCAT(iDelta.GetErrorMsg(),
+        CONCAT(iCalcXRayDelta.GetErrorMsg(),
         ']'))
     );
     RETURN;
 END_IF
 
-IF iDelta.Val = 0.0 THEN
+IF fDelta = 0.0 THEN
     SetError(
-        sMsg := CONCAT('The delta specified: [',
-        CONCAT(LREAL_TO_STRING(iDelta.Val),
+        sMsg := CONCAT('The delta calculated: [',
+        CONCAT(LREAL_TO_STRING(fDelta),
         '] must not be 0.'))
     );
     RETURN;
 END_IF
 
-// Check for an invalid radius input.
-IF iRadius.GetError() THEN
-    SetError(
-        sMsg := CONCAT('The input radius has the following error message: [',
-        CONCAT(iRadius.GetErrorMsg(),
-        ']'))
-    );
-    RETURN;
-END_IF
-
-IF iRadius.Val <= 0.0 THEN
+IF fRadius <= 0.0 THEN
     SetError(
         sMsg := CONCAT('The radius specified: [',
-        CONCAT(LREAL_TO_STRING(iRadius.Val),
+        CONCAT(LREAL_TO_STRING(fRadius),
         '] must be greater than 0.'))
     );
     RETURN;
 END_IF
 
-fFocalLength := iRadius.Val / 2.0 / iDelta.Val;
-]]></ST>
-    </Implementation>
-    <Method Name="ClearError" Id="{17870871-9589-40ff-885f-ae6d5652f31a}">
-      <Declaration><![CDATA[
-METHOD PRIVATE ClearError
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-bError := FALSE;
-sErrorMsg := '';
+fFocalLength := fRadius / 2.0 / fDelta;
+
+Calculate := fFocalLength;
 ]]></ST>
       </Implementation>
     </Method>
@@ -75,63 +71,15 @@ METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
     bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-    iDelta : I_FallibleLREAL; // The x-ray delta, the real part of the index of refraction, unitless value.
-    iRadius : I_FallibleLREAL; // The radius of curvature of the lens, in meters.
+
+    iCalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.iDelta := iDelta;
-THIS^.iRadius := iRadius;
+THIS^.iCalcXRayDelta := iCalcXRayDelta;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetError" Id="{12d3d12f-3744-4ace-9453-3e29c5b30638}">
-      <Declaration><![CDATA[
-METHOD GetError : BOOL
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-GetError := bError;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetErrorMsg" Id="{c8ab1d8e-b5e2-470c-a07a-20ce355bd936}">
-      <Declaration><![CDATA[
-METHOD GetErrorMsg : Tc2_System.T_MaxString
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-GetErrorMsg := sErrorMsg;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="SetError" Id="{9072d347-c6b6-42f4-8959-cbcc641cbfb5}">
-      <Declaration><![CDATA[
-METHOD PRIVATE SetError
-VAR_INPUT
-    sMsg	: Tc2_System.T_MaxString;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-bError := TRUE;
-sErrorMsg := sMsg;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Property Name="Val" Id="{c44c1fc1-2e4c-481c-af6d-4c5b8d0bb142}">
-      <Declaration><![CDATA[
-PROPERTY Val : LREAL
-]]></Declaration>
-      <Get Name="Get" Id="{f1453825-354f-42e4-8511-485167ada3ae}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-Val := fFocalLength;
-]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
   </POU>
 </TcPlcObject>

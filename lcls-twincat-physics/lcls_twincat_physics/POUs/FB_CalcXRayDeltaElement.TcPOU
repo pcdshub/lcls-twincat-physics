@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcXRayDeltaElement" Id="{0334636a-5ae2-4305-bdc8-1c2dc0315818}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcXRayDeltaElement EXTENDS FB_Fallible IMPLEMENTS I_CalcXRayDelta
+VAR
+    iEnergy : I_FallibleLREAL; // The photon energy of the x-rays in eV.
+    if1LUT : I_StringLookupLREAL;
+    iElementLUT : I_StringLookupElement;
+
+    fLambda : LREAL; // Lambda in cm.
+    fPlanckHC : LREAL; // Planck's constant multiplied by speed of light divided my elementary charge. Result in cm / eV.
+    fRElectron : LREAL; // Classical electron radius in cm.
+    fWeight : LREAL; // The density per mol of the material.
+    ff1 : LREAL; // The f1 scattering factor.
+    fDeltaUnscaled : LREAL; // The x-ray delta value before it has been scaled.
+    fScale : LREAL; // The scaling factor
+    fDelta : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{a3112c95-7197-446f-992d-1ba2a326980b}">
+      <Declaration><![CDATA[
+METHOD Calculate : LREAL
+VAR_INPUT
+    sElementName	: STRING;
+END_VAR
+VAR
+    fDensity : LREAL;
+    fAtomicMass : LREAL;
+    nAtomicNumber : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Initialize delta and error values.
+fDelta := 0.0;
+ClearError();
+
+// Check to see if there is an error reported for the photon energy input.
+IF iEnergy.GetError() THEN
+    SetError(
+        sMsg := CONCAT('The input photon energy has an error: [',
+        CONCAT(iEnergy.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check to make sure the photon energy is a nonzero, positive number before attempting to divide by it.
+IF iEnergy.Val <= 0.0 THEN
+    SetError(
+        sMsg := CONCAT('The photon energy specified: [',
+        CONCAT(LREAL_TO_STRING(iEnergy.Val),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+// Calculate some values needed for computing the index of refraction.
+fLambda := 1e-8 * fPlanckHC / iEnergy.Val; // cm
+
+fDensity := iElementLUT.LookupDensity(sLookup := sElementName);
+fAtomicMass := iElementLUT.LookupAtomicMass(sLookup := sElementName);
+nAtomicNumber := iElementLUT.LookupAtomicNumber(sLookup := sElementName);
+
+// Check to see if there is an error reported for the density input.
+IF iElementLUT.GetError() THEN
+    SetError(
+        sMsg := CONCAT('The input element lookup table has an error: [',
+        CONCAT(iElementLUT.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+// Check to make sure the density is a nonzero, positive number.
+IF fDensity <= 0.0 THEN
+    SetError(
+        sMsg := CONCAT('The density specified: [',
+        CONCAT(LREAL_TO_STRING(fDensity),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+fWeight := fDensity * GVL_PhysicalConstants.fAvogadroConstant_in_mol_1;
+
+// Check to make sure the atomic number is a nonzero, positive number.
+IF nAtomicNumber <= 0 THEN
+    SetError(
+        sMsg := CONCAT('The atomic number specified: [',
+        CONCAT(LREAL_TO_STRING(nAtomicNumber),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+ff1 := if1LUT.Lookup(sLookup := sElementName);
+
+// Check to see if there is an error reported for the scatterer input.
+IF if1LUT.GetError() THEN
+    SetError(
+        sMsg := CONCAT('The f1 lookup table has an error: [',
+        CONCAT(if1LUT.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+fDeltaUnscaled := fWeight * (INT_TO_LREAL(nAtomicNumber) + ff1);
+
+// Check to make sure the atomic mass is a nonzero, positive number.
+IF fAtomicMass <= 0.0 THEN
+    SetError(
+        sMsg := CONCAT('The atomic mass specified: [',
+        CONCAT(LREAL_TO_STRING(fAtomicMass),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+fScale := fLambda * fLambda * fRElectron / (2 * 3.1415926535 * fAtomicMass);
+fDelta := fDeltaUnscaled * fScale;
+
+Calculate := fDelta;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ff1f27e8-e214-4d14-afe7-c319064f044c}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    iEnergy : I_FallibleLREAL; // The photon energy of the x-rays in eV.
+    if1LUT : I_StringLookupLREAL;
+    iElementLUT : I_StringLookupElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iEnergy := iEnergy;
+THIS^.if1LUT := if1LUT;
+THIS^.iElementLUT := iElementLUT;
+
+fPlanckHC := 1e10 * GVL_PhysicalConstants.fPlanckConstant_in_J_Hz_1 * GVL_PhysicalConstants.fSpeedOfLightInVacuum_in_m_s_1 / GVL_PhysicalConstants.fElementaryCharge_in_C; // cm / eV
+fRElectron := 100 * GVL_PhysicalConstants.fClassicalElectronRadius_in_m; // cm
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

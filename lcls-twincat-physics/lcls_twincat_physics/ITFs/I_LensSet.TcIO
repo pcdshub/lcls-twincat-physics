@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_LensSet" Id="{af8928da-13fc-4163-8eee-ff4c1855e013}">
+    <Declaration><![CDATA[
+INTERFACE I_LensSet EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="GetFocalLengthOf" Id="{a44f57d4-6faf-454a-afd0-8c63627056bd}">
+      <Declaration><![CDATA[
+METHOD GetFocalLengthOf : LREAL
+VAR_INPUT
+    nLensNum : INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetMultiplierOf" Id="{31d62eab-b19c-48ea-b5d4-36044a92d787}">
+      <Declaration><![CDATA[
+METHOD GetMultiplierOf : INT
+VAR_INPUT
+    nLensNum : INT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="NumLenses" Id="{7f9d4f52-506b-44d3-a51f-13e55de73178}">
+      <Declaration><![CDATA[
+PROPERTY NumLenses : INT
+]]></Declaration>
+      <Get Name="Get" Id="{ad7b4714-f6a1-4b3b-9746-9146660d587b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

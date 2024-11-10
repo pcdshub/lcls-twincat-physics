@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LensSet" Id="{9055d704-4d25-40c5-873f-804fc0b293d8}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_LensSet EXTENDS FB_Fallible IMPLEMENTS I_LensSet
+VAR
+    iCalcFocalLengthSingleLens : I_CalcFocalLengthSingleLens;
+
+    sMaterialName : T_MaxString;;
+    afRadius : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF LREAL;
+    anMultiplier : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF INT;
+    nNumLenses : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{fe559d94-9129-430f-9008-66737ede8a73}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    iCalcFocalLengthSingleLens : I_CalcFocalLengthSingleLens;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iCalcFocalLengthSingleLens := iCalcFocalLengthSingleLens;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetFocalLengthOf" Id="{1c9b1209-03ff-43db-86e9-e0c5cdd2a72e}">
+      <Declaration><![CDATA[
+METHOD GetFocalLengthOf : LREAL
+VAR_INPUT
+    nLensNum	: INT;
+END_VAR
+VAR
+    fFocalLength : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF NOT IndexInRange(nLensNum) THEN
+    SetError(sMsg := IndexOutOfRangeErrorMsg(nLensNum := nLensNum));
+    RETURN;
+END_IF
+
+fFocalLength := iCalcFocalLengthSingleLens.Calculate(
+    sElementName := sMaterialName,
+    fRadius := afRadius[nLensNum]
+);
+
+IF iCalcFocalLengthSingleLens.GetError() THEN
+    SetError(sMsg :=
+        CONCAT('Error returned when attempting the calculate focal length for lens number: [',
+        CONCAT(INT_TO_STRING(nLensNum),
+        CONCAT(']. Error message is: ',
+        iCalcFocalLengthSingleLens.GetErrorMsg())))
+    );
+    RETURN;
+END_IF
+
+GetFocalLengthOf := fFocalLength;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetMultiplierOf" Id="{cf92e14b-e5e6-4f30-bfb0-2bd8a1aa55dd}">
+      <Declaration><![CDATA[
+METHOD GetMultiplierOf : INT
+VAR_INPUT
+    nLensNum	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF NOT IndexInRange(nLensNum) THEN
+    SetError(sMsg := IndexOutOfRangeErrorMsg(nLensNum := nLensNum));
+    RETURN;
+END_IF
+
+GetMultiplierOf := anMultiplier[nLensNum];]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IndexInRange" Id="{736b6ca6-387b-4727-80f6-b6d61a70ddd3}">
+      <Declaration><![CDATA[
+METHOD PUBLIC IndexInRange : BOOL
+VAR_INPUT
+    nIndex : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IndexInRange := nIndex > 0 AND nIndex <= NumLenses;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IndexOutOfRangeErrorMsg" Id="{b2d5c30b-5f25-4b92-8eb7-0371b1cc775a}">
+      <Declaration><![CDATA[
+METHOD IndexOutOfRangeErrorMsg : T_MaxString
+VAR_INPUT
+    nLensNum : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IndexOutOfRangeErrorMsg :=
+        CONCAT('Requested index is out of the allowable range. ',
+        CONCAT('0 < [',
+        CONCAT(INT_TO_STRING(nLensNum),
+        CONCAT('] <= ',
+        CONCAT(INT_TO_STRING(NumLenses),
+        ' is not true.')))));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="NonPositiveMultiplierErrorMsg" Id="{36a5c803-9bc8-4d9b-91e4-bff88830b366}">
+      <Declaration><![CDATA[
+METHOD NonPositiveMultiplierErrorMsg : T_MaxString
+VAR_INPUT
+    nLensNum : INT;
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+NonPositiveMultiplierErrorMsg :=
+        CONCAT('Attempted to set muliplier to a non-positive value of: [',
+        CONCAT(INT_TO_STRING(nMultiplier),
+        ']'));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="NonPositiveRadiusErrorMsg" Id="{6a25cf61-04f3-440b-b7bc-351cdddb3c46}">
+      <Declaration><![CDATA[
+METHOD NonPositiveRadiusErrorMsg : T_MaxString
+VAR_INPUT
+    nLensNum : INT;
+    fRadius: LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+NonPositiveRadiusErrorMsg :=
+        CONCAT('Attempted to set radius to a non-positive value of: [',
+        CONCAT(LREAL_TO_STRING(fRadius),
+        ']'));]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="NumLenses" Id="{1ababeff-88b4-4598-8f6f-5898604237f0}">
+      <Declaration><![CDATA[{warning 'Add property implementation'}
+PROPERTY NumLenses : INT
+]]></Declaration>
+      <Get Name="Get" Id="{a045bb85-1352-478d-b38c-0658422571a9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetMultiplierOf" Id="{64026241-a25f-4372-9868-f8b9e830a9e6}">
+      <Declaration><![CDATA[
+METHOD SetMultiplierOf : INT
+VAR_INPUT
+    nLensNum	: INT;
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF NOT IndexInRange(nLensNum) THEN
+    SetError(sMsg := IndexOutOfRangeErrorMsg(nLensNum := nLensNum));
+    RETURN;
+END_IF
+
+IF nMultiplier <= 0 THEN
+    SetError(sMsg := NonPositiveMultiplierErrorMsg(
+        nLensNum := nLensNum,
+        nMultiplier := nMultiplier
+    ));
+    RETURN;
+END_IF
+
+anMultiplier[nLensNum] := nMultiplier;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetRadiusOf" Id="{597de808-0ace-440d-99fd-44c3824ba2f2}">
+      <Declaration><![CDATA[
+METHOD SetRadiusOf : INT
+VAR_INPUT
+    nLensNum : INT;
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF NOT IndexInRange(nLensNum) THEN
+    SetError(sMsg := IndexOutOfRangeErrorMsg(nLensNum := nLensNum));
+    RETURN;
+END_IF
+
+IF fRadius <= 0.0 THEN
+    SetError(sMsg := NonPositiveRadiusErrorMsg(
+        nLensNum := nLensNum,
+        fRadius := fRadius
+    ));
+    RETURN;
+END_IF
+
+afRadius[nLensNum] := fRadius;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

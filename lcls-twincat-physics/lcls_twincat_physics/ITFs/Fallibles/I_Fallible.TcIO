@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_Fallible" Id="{1f0d17b4-8afe-43af-a630-1d3684ca167f}">
+    <Declaration><![CDATA[INTERFACE I_Fallible
+]]></Declaration>
+    <Method Name="GetError" Id="{12a6abc9-7d4a-4820-bf65-1b5eb91442ba}">
+      <Declaration><![CDATA[METHOD GetError : BOOL]]></Declaration>
+    </Method>
+    <Method Name="GetErrorMsg" Id="{5723660d-5329-4105-9756-0ce30eca9d55}">
+      <Declaration><![CDATA[METHOD GetErrorMsg : T_MaxString]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

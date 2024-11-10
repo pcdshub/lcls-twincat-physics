@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_CalcXRayDelta" Id="{dc69db79-eeb2-42dd-978a-33fdd2556306}">
+    <Declaration><![CDATA[
+INTERFACE I_CalcXRayDelta EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Calculate" Id="{d40de753-cc51-40d1-ae5d-ee3d341a0999}">
+      <Declaration><![CDATA[
+METHOD Calculate : LREAL
+VAR_INPUT
+    sElementName : STRING;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

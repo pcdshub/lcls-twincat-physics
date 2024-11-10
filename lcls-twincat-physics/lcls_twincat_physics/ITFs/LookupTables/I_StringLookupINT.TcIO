@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_StringLookupINT" Id="{b48e5a51-e158-43eb-999a-3d2fa3442133}">
+    <Declaration><![CDATA[
+INTERFACE I_StringLookupINT EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Lookup" Id="{6524db21-4a66-485c-ae51-00a36a3176da}">
+      <Declaration><![CDATA[
+METHOD Lookup : INT
+VAR_INPUT
+    sLookup : STRING;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

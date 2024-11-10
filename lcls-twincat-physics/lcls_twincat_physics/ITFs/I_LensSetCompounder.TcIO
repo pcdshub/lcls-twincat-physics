@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_LensSetCompounder" Id="{3bb8a747-47ad-48be-9f6b-bd8d2a64ee36}">
+    <Declaration><![CDATA[
+INTERFACE I_LensSetCompounder EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Compound" Id="{10181a56-66cb-4ee4-86a4-1ee71e6ce912}">
+      <Declaration><![CDATA[
+METHOD Compound : LREAL
+VAR_INPUT
+    fFocalLength : LREAL;
+    fSourceDistance : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="FocalLengthCompounded" Id="{a699a99b-cdeb-4edc-9aba-ff0abe45dff8}">
+      <Declaration><![CDATA[
+PROPERTY FocalLengthCompounded : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{1bff1399-2255-4356-8b0e-46b81527c1de}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Reset" Id="{b8f90921-d231-4706-a1d2-5c3ccbdb351f}">
+      <Declaration><![CDATA[
+METHOD Reset
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

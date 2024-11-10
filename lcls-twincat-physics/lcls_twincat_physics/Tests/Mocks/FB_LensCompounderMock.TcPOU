@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LensCompounderMock" Id="{f3a1ef28-98f7-4a8c-a126-ddef21ffe39c}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_LensCompounderMock EXTENDS FB_FallibleMock IMPLEMENTS I_LensCompounder
+VAR
+    fFocalLengthCompounded : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Compound" Id="{785c0eab-8b59-435e-bd8e-fdfd5fe072fc}">
+      <Declaration><![CDATA[
+METHOD Compound : LREAL
+VAR_INPUT
+    fFocalLength	: LREAL;
+    nMultiplier	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="FocalLengthCompounded" Id="{6ab06aab-6e17-48c9-8772-1a82ae1a3661}">
+      <Declaration><![CDATA[
+PROPERTY FocalLengthCompounded : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{24dd4de6-a091-4797-9830-75cb541a3d9e}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+FocalLengthCompounded := fFocalLengthCompounded;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{b9d8817e-a904-469f-93e9-2a1fa4393935}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+fFocalLengthCompounded := FocalLengthCompounded;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Reset" Id="{899c1ae2-1f7c-43b4-bab3-4851756d6c8f}">
+      <Declaration><![CDATA[
+METHOD Reset
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{c1823eea-07dc-4ea6-ac07-5ee9857edefe}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+FocalLengthCompounded := 1.0;
+ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

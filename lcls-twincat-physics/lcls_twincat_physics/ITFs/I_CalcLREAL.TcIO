@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_CalcLREAL" Id="{5d461b0f-5eb0-46d4-89ed-d12b402454d0}">
+    <Declaration><![CDATA[
+INTERFACE I_CalcLREAL EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Calculate" Id="{01fcd5ca-c5aa-44a6-bbf6-7c6df2be8780}">
+      <Declaration><![CDATA[
+METHOD Calculate : LREAL
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

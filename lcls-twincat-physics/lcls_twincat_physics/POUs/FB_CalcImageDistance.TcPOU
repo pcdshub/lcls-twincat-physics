@@ -2,12 +2,8 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CalcImageDistance" Id="{85972a9f-836a-4795-bb47-ce7ac4834d74}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcImageDistance IMPLEMENTS I_FallibleLREAL
+FUNCTION_BLOCK FB_CalcImageDistance EXTENDS FB_Fallible IMPLEMENTS I_CalcImageDistance
 VAR
-    iFocalLength : I_FallibleLREAL; // The focal length, in meters.
-    iSourceDistance : I_FallibleLREAL; // The distance, in meters, from the source to the lens.
-    bError : BOOL;
-    sErrorMsg : T_MaxString;
     fFocalLengthInverse : LREAL;
     fSourceDistanceInverse : LREAL;
     fImageDistanceInverse : LREAL;
@@ -15,54 +11,45 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{24dc5037-bbac-4834-9c1a-8a671b6b88cd}">
+      <Declaration><![CDATA[
+METHOD Calculate : LREAL
+VAR_INPUT
+    fFocalLength : LREAL; // The focal length, in meters.
+    fSourceDistance : LREAL; // The distance, in meters, from the source to the lens.
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
 // Initialize image distance and error values.
 fImageDistance := 0.0;
 ClearError();
 
-// Check to see if there is an error reported for focal length input.
-IF iFocalLength.GetError() THEN
-    SetError(
-        sMsg := CONCAT('The input focal length has an error: [',
-        CONCAT(iFocalLength.GetErrorMsg(),
-        ']'))
-    );
-    RETURN;
-END_IF
-
 // Check for an invalid focal length input.
-IF iFocalLength.Val = 0.0 THEN
+IF fFocalLength = 0.0 THEN
     SetError(
         sMsg := CONCAT('The focal length specified: [',
-        CONCAT(LREAL_TO_STRING(iFocalLength.Val),
+        CONCAT(LREAL_TO_STRING(fFocalLength),
         '] must not be 0.'))
     );
     RETURN;
 END_IF
 
-fFocalLengthInverse := 1.0 / iFocalLength.Val;
-
-// Check to see if there is an error reported for source distance input.
-IF iSourceDistance.GetError() THEN
-    SetError(
-        sMsg := CONCAT('The input source distance has an error: [',
-        CONCAT(iSourceDistance.GetErrorMsg(),
-        ']'))
-    );
-    RETURN;
-END_IF
+fFocalLengthInverse := 1.0 / fFocalLength;
 
 // Check for an invalid source distance input.
-IF iSourceDistance.Val = 0.0 THEN
+IF fSourceDistance = 0.0 THEN
     SetError(
         sMsg := CONCAT('The source distance specified: [',
-        CONCAT(LREAL_TO_STRING(iSourceDistance.Val),
+        CONCAT(LREAL_TO_STRING(fSourceDistance),
         '] must not be 0.'))
     );
     RETURN;
 END_IF
 
-fSourceDistanceInverse := 1.0 / iSourceDistance.Val;
+fSourceDistanceInverse := 1.0 / fSourceDistance;
 
 fImageDistanceInverse := fFocalLengthInverse - fSourceDistanceInverse;
 
@@ -77,82 +64,10 @@ IF fImageDistanceInverse = 0.0 THEN
 END_IF
 
 fImageDistance := 1.0 / fImageDistanceInverse;
-]]></ST>
-    </Implementation>
-    <Method Name="ClearError" Id="{dd1144a6-7815-49ff-93d7-d050362bda07}">
-      <Declaration><![CDATA[
-METHOD PRIVATE ClearError
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-bError := FALSE;
-sErrorMsg := '';
+
+Calculate := fImageDistance;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{dbb333f2-2721-4315-9066-f29d381efa76}">
-      <Declaration><![CDATA[
-METHOD FB_init : BOOL
-VAR_INPUT
-    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-    iFocalLength : I_FallibleLREAL; // The focal length, in meters.
-    iSourceDistance : I_FallibleLREAL; // The distance, in meters, from the source to the lens.
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-THIS^.iFocalLength := iFocalLength;
-THIS^.iSourceDistance := iSourceDistance;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetError" Id="{c9dac130-c675-4372-b636-23029dde8932}">
-      <Declaration><![CDATA[
-METHOD GetError : BOOL
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-GetError := bError;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetErrorMsg" Id="{4a9d55a1-c6d6-4cd6-b4e9-dccf99cf6f06}">
-      <Declaration><![CDATA[
-METHOD GetErrorMsg : T_MaxString
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-GetErrorMsg := sErrorMsg;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="SetError" Id="{83aa30a8-730c-4aaa-8255-6611642ac89c}">
-      <Declaration><![CDATA[
-METHOD PRIVATE SetError
-VAR_INPUT
-    sMsg	: Tc2_System.T_MaxString;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-bError := TRUE;
-sErrorMsg := sMsg;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Property Name="Val" Id="{8fdb46c0-3221-4757-83ed-96f0724c7610}">
-      <Declaration><![CDATA[
-PROPERTY Val : LREAL
-]]></Declaration>
-      <Get Name="Get" Id="{4e285e3c-b6ed-400e-839b-96bafce53062}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-Val := fImageDistance;
-]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
   </POU>
 </TcPlcObject>

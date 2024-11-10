@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_CalcFocalLengthSingleLens" Id="{e12f78e2-8770-4788-8553-7f4967f11469}">
+    <Declaration><![CDATA[
+INTERFACE I_CalcFocalLengthSingleLens EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Calculate" Id="{dd290774-7390-4466-a975-f33897623e2d}">
+      <Declaration><![CDATA[
+METHOD Calculate : LREAL
+VAR_INPUT
+    sElementName : STRING;
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

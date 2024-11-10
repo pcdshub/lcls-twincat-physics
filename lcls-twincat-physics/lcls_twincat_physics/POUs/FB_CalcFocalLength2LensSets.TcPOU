@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLength2LensSets" Id="{765016df-8fcb-4824-a16c-775f522a9b6b}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLength2LensSets EXTENDS FB_Fallible
+VAR
+    iEnergy : I_FallibleLREAL;
+
+    fbf1LUT : FB_f1Chantler(iEnergy := iEnergy);
+    fbAtomicMassLUT : FB_AtomicMass;
+    fbAtomicNumberLUT : FB_AtomicNumber;
+    fbDensityLUT : FB_ElementDensity;
+    fbElementLUT : FB_ElementLUT(
+        iAtomicMassLUT := fbAtomicMassLUT,
+        iAtomicNumberLUT := fbAtomicNumberLUT,
+        iDensityLUT := fbDensityLUT
+    );
+    fbCalcXRayDelta : FB_CalcXRayDeltaElement(
+        iEnergy := iEnergy,
+        if1LUT := fbf1LUT,
+        iElementLUT := fbElementLUT
+    );
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDelta);
+    fbLensSetUpstream : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensSetDownstream : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensCompounder : FB_LensCompounder;
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(iLensCompounder := fbLensCompounder);
+    fbCalcImageDistance : FB_CalcImageDistance;
+    fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistance);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_Init" Id="{b6c80088-2bb6-423b-86e6-b931e94ef36c}">
+      <Declaration><![CDATA[
+METHOD FB_Init: BOOL
+VAR_INPUT
+    bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
+    bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
+
+    iEnergy : I_FallibleLREAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iEnergy := iEnergy;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

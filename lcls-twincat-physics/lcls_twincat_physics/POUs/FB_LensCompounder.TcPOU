@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LensCompounder" Id="{f9cc42ed-aeb8-4fef-8be4-9364111ed1a4}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_LensCompounder EXTENDS FB_Fallible IMPLEMENTS I_LensCompounder
+VAR
+    bFirstCompound : BOOL := TRUE;
+    fFocalLength1Inverse : LREAL;
+    fFocalLength2Inverse : LREAL;
+    fFocalLengthCompoundedInverse : LREAL;
+    fFocalLengthCompounded : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Compound" Id="{a3ada262-9e56-4d19-98a8-21adb0f78d19}">
+      <Declaration><![CDATA[
+METHOD Compound : LREAL
+VAR_INPUT
+    fFocalLength	: LREAL;
+    nMultiplier	: INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Check for an invalid focal length input.
+IF fFocalLength = 0.0 THEN
+    SetError(
+        sMsg := CONCAT('The focal length specified: [',
+        CONCAT(LREAL_TO_STRING(fFocalLength),
+        '] must not be 0.'))
+    );
+    RETURN;
+END_IF
+
+// Calculate the inverse of focal length input.
+fFocalLength1Inverse := 1.0 / fFocalLength;
+
+IF NOT bFirstCompound THEN
+    // Check for an invalid compounded focal length.
+    IF fFocalLengthCompounded = 0.0 THEN
+        SetError(
+            sMsg := CONCAT('The current compounded focal length must not be 0: [',
+            CONCAT(LREAL_TO_STRING(fFocalLengthCompounded),
+            '] must not be 0.'))
+        );
+        RETURN;
+    END_IF
+
+    // Calculate the inverse of the present compounded focal length.
+    fFocalLength2Inverse := 1.0 / fFocalLengthCompounded;
+ELSE
+    bFirstCompound := FALSE;
+END_IF
+
+// Check for an invalid multiplier input.
+IF nMultiplier <= 0 THEN
+    SetError(
+        sMsg := CONCAT('The multiplier specified: [',
+        CONCAT(LREAL_TO_STRING(nMultiplier),
+        '] must be greater than 0.'))
+    );
+    RETURN;
+END_IF
+
+// Calculate the inverse of the compounded focal length.
+fFocalLengthCompoundedInverse := INT_TO_LREAL(nMultiplier) * fFocalLength1Inverse + fFocalLength2Inverse;
+
+// Check if the resultant inverse compounded focal length is 0. Prevent a divide by 0.
+IF fFocalLengthCompoundedInverse = 0.0 THEN
+    SetError(
+        sMsg := 'The calculated inverse compound focal length was 0 and it must not be 0.'
+    );
+    RETURN;
+END_IF
+
+// Calculate the resultant compounded focal length.
+fFocalLengthCompounded := 1.0 / fFocalLengthCompoundedInverse;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="FocalLengthCompounded" Id="{7d429e18-eddd-4714-9bca-68ada33fb459}">
+      <Declaration><![CDATA[
+PROPERTY FocalLengthCompounded : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{e01b39c1-1a32-48db-bd74-e4b615700285}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+FocalLengthCompounded := fFocalLengthCompounded;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Reset" Id="{775e5bba-edca-420a-87f5-347a62f686b1}">
+      <Declaration><![CDATA[
+METHOD Reset
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Initialize focal length and error values.
+fFocalLengthCompounded := 0.0;
+ClearError();
+bFirstCompound := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
