@@ -7,6 +7,7 @@ VAR
     fbAtomicMass_Test : FB_AtomicMass_Test;
     fbAtomicNumber_Test : FB_AtomicNumber_Test;
     fbElementDensity_Test : FB_ElementDensity_Test;
+    fbElementLUT_Test : FB_ElementLUT_Test;
     fbf1Chantler_Test : FB_f1Chantler_Test;
     fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
     fbTransmission_Test : FB_Transmission_Test;

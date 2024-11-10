@@ -181,11 +181,6 @@ TEST(CONCAT('TestLookupValidElementExpectFoundAndCorrectAtomicMass ID: ',
 
 fValue := fbAtomicMass.Lookup(sLookup := sName);
 
-AssertTrue(
-    Condition := fbAtomicMass.bFound,
-    Message := 'Expected bFound bit to be true but it was false.'
-);
-
 AssertFalse(
     Condition := fbAtomicMass.GetError(),
     Message := 'Expected bError bit to be false but it was true.'

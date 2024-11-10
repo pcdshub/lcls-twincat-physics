@@ -158,6 +158,9 @@
     <Compile Include="Tests\LookupTables\FB_AtomicMass_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\LookupTables\FB_ElementLUT_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\LookupTables\FB_AtomicNumber_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>

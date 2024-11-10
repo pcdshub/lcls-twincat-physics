@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ElementLUT_Test" Id="{3ff69030-7098-4c44-963f-c70efce3cce1}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_ElementLUT_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+    nTestID : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+TestLookupAtomicMassInvalidExpectErrorAnd0AtomicMass();
+
+TestLookupAtomicMassExpectNoErrorAndCorrectAtomicMass();
+
+TestLookupAtomicNumberExpectErrorAndNegAtomicNumber();
+
+TestLookupAtomicNumberExpectNoErrorAndCorrectAtomicNumber();
+
+TestLookupDensityInvalidExpectErrorAnd0Density();
+
+TestLookupDensityExpectNoErrorAndCorrectDensity();
+]]></ST>
+    </Implementation>
+    <Method Name="TestLookupAtomicMassExpectNoErrorAndCorrectAtomicMass" Id="{b98aa2b8-156a-4478-b39a-bdc366fd7e17}">
+      <Declaration><![CDATA[
+METHOD TestLookupAtomicMassExpectNoErrorAndCorrectAtomicMass
+VAR
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fValue : LREAL;
+    fbElementLUT : FB_ElementLUT(
+        iAtomicMassLUT := fbAtomicMassLUTMock,
+        iAtomicNumberLUT := fbAtomicNumberLUTMock,
+        iDensityLUT := fbDensityLUTMock
+    );
+    fExpectedMass : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupAtomicMassExpectNoErrorAndCorrectAtomicMass');
+
+fExpectedMass := 123.4;
+
+fbAtomicMassLUTMock.Value := fExpectedMass;
+
+fValue := fbElementLUT.LookupAtomicMass(sLookup := 'Be');
+
+AssertFalse(
+    Condition := fbElementLUT.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbElementLUT.GetErrorMsg() = '',
+    Message := 'Expected there to be no error message but there was one.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpectedMass,
+    Actual := fValue,
+    Delta := 1e-9,
+    Message := CONCAT('Expected atomic mass to be [',
+        CONCAT(LREAL_TO_STRING(fExpectedMass),
+        CONCAT('] but it was [',
+        CONCAT(LREAL_TO_STRING(fValue),
+        ']'))))
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupAtomicMassInvalidExpectErrorAnd0AtomicMass" Id="{8522e912-618a-41d3-9098-b6783a18e8f2}">
+      <Declaration><![CDATA[
+METHOD TestLookupAtomicMassInvalidExpectErrorAnd0AtomicMass
+VAR
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fValue : LREAL;
+    fbElementLUT : FB_ElementLUT(
+        iAtomicMassLUT := fbAtomicMassLUTMock,
+        iAtomicNumberLUT := fbAtomicNumberLUTMock,
+        iDensityLUT := fbDensityLUTMock
+    );
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupAtomicMassInvalidExpectErrorAnd0AtomicMass');
+
+fbAtomicMassLUTMock.SetError(sMsg := 'Error');
+
+fValue := fbElementLUT.LookupAtomicMass(sLookup := 'Be');
+
+AssertTrue(
+    Condition := fbElementLUT.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbElementLUT.GetErrorMsg() = '',
+    Message := 'Expected there to be an error message but there was none.'
+);
+
+AssertTrue(
+    Condition := fValue = 0.0,
+    Message := CONCAT('Expected atomic mass to be 0 but it was [',
+        CONCAT(LREAL_TO_STRING(fValue),
+        '].'))
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupAtomicNumberExpectErrorAndNegAtomicNumber" Id="{f5dce7d6-0895-4115-b996-ce0de61ab839}">
+      <Declaration><![CDATA[
+METHOD TestLookupAtomicNumberExpectErrorAndNegAtomicNumber
+VAR
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    nValue : LREAL;
+    fbElementLUT : FB_ElementLUT(
+        iAtomicMassLUT := fbAtomicMassLUTMock,
+        iAtomicNumberLUT := fbAtomicNumberLUTMock,
+        iDensityLUT := fbDensityLUTMock
+    );
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupAtomicNumberExpectErrorAndNegAtomicNumber');
+
+fbAtomicNumberLUTMock.SetError(sMsg := 'Error');
+
+nValue := fbElementLUT.LookupAtomicNumber(sLookup := 'Be');
+
+AssertTrue(
+    Condition := fbElementLUT.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbElementLUT.GetErrorMsg() = '',
+    Message := 'Expected there to be an error message but there was none.'
+);
+
+AssertTrue(
+    Condition := nValue < 0.0,
+    Message := CONCAT('Expected atomic number to be negative but it was [',
+        CONCAT(LREAL_TO_STRING(nValue),
+        '].'))
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupAtomicNumberExpectNoErrorAndCorrectAtomicNumber" Id="{4d6c9674-8db1-4ae3-b6ef-4ec1f0e35989}">
+      <Declaration><![CDATA[
+METHOD TestLookupAtomicNumberExpectNoErrorAndCorrectAtomicNumber
+VAR
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    nValue : INT;
+    fbElementLUT : FB_ElementLUT(
+        iAtomicMassLUT := fbAtomicMassLUTMock,
+        iAtomicNumberLUT := fbAtomicNumberLUTMock,
+        iDensityLUT := fbDensityLUTMock
+    );
+    nExpectedNumber : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupAtomicNumberExpectNoErrorAndCorrectAtomicNumber');
+
+nExpectedNumber := 152;
+
+fbAtomicNumberLUTMock.Value := nExpectedNumber;
+
+nValue := fbElementLUT.LookupAtomicNumber(sLookup := 'Be');
+
+
+AssertFalse(
+    Condition := fbElementLUT.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbElementLUT.GetErrorMsg() = '',
+    Message := 'Expected there to be no error message but there was one.'
+);
+
+AssertEquals_INT(
+    Expected := nExpectedNumber,
+    Actual := nValue,
+    Message := CONCAT('Expected atomic number to be [',
+        CONCAT(INT_TO_STRING(nExpectedNumber),
+        CONCAT('] but it was [',
+        CONCAT(INT_TO_STRING(nValue),
+        ']'))))
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupDensityExpectNoErrorAndCorrectDensity" Id="{cc3f6451-4afe-4949-824e-164497207237}">
+      <Declaration><![CDATA[
+METHOD TestLookupDensityExpectNoErrorAndCorrectDensity
+VAR
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fValue : LREAL;
+    fbElementLUT : FB_ElementLUT(
+        iAtomicMassLUT := fbAtomicMassLUTMock,
+        iAtomicNumberLUT := fbAtomicNumberLUTMock,
+        iDensityLUT := fbDensityLUTMock
+    );
+    fExpectedDensity : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupDensityExpectNoErrorAndCorrectDensity');
+
+fExpectedDensity := 65.3;
+
+fbDensityLUTMock.Value := fExpectedDensity;
+
+fValue := fbElementLUT.LookupDensity(sLookup := 'Be');
+
+AssertFalse(
+    Condition := fbElementLUT.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbElementLUT.GetErrorMsg() = '',
+    Message := 'Expected there to be no error message but there was one.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpectedDensity,
+    Actual := fValue,
+    Delta := 1e-9,
+    Message := CONCAT('Expected density to be [',
+        CONCAT(LREAL_TO_STRING(fExpectedDensity),
+        CONCAT('] but it was [',
+        CONCAT(LREAL_TO_STRING(fValue),
+        ']'))))
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupDensityInvalidExpectErrorAnd0Density" Id="{20dba153-5bdf-4929-9b1f-5d59a28fbe9e}">
+      <Declaration><![CDATA[
+METHOD TestLookupDensityInvalidExpectErrorAnd0Density
+VAR
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fValue : LREAL;
+    fbElementLUT : FB_ElementLUT(
+        iAtomicMassLUT := fbAtomicMassLUTMock,
+        iAtomicNumberLUT := fbAtomicNumberLUTMock,
+        iDensityLUT := fbDensityLUTMock
+    );
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupDensityInvalidExpectErrorAnd0Density');
+
+fbDensityLUTMock.SetError(sMsg := 'Error');
+
+fValue := fbElementLUT.LookupDensity(sLookup := 'Be');
+
+AssertTrue(
+    Condition := fbElementLUT.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbElementLUT.GetErrorMsg() = '',
+    Message := 'Expected there to be an error message but there was none.'
+);
+
+AssertTrue(
+    Condition := fValue = 0.0,
+    Message := CONCAT('Expected density to be 0 but it was [',
+        CONCAT(LREAL_TO_STRING(fValue),
+        '].'))
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

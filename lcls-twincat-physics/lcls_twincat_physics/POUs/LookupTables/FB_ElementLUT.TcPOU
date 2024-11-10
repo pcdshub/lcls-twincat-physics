@@ -32,25 +32,57 @@ THIS^.iDensityLUT := iDensityLUT;
       </Implementation>
     </Method>
     <Method Name="LookupAtomicMass" Id="{b49da3c3-29e7-4735-b051-4bef81174655}">
-      <Declaration><![CDATA[{warning 'Add method implementation '}
+      <Declaration><![CDATA[
 METHOD LookupAtomicMass : LREAL
 VAR_INPUT
     sLookup	: STRING;
 END_VAR
+VAR
+    fAtomicMass : LREAL;
+END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[
+fAtomicMass := iAtomicMassLUT.Lookup(sLookup := sLookup);
+
+IF iAtomicMassLUT.GetError() THEN
+    SetError(
+        sMsg := CONCAT('The atomic mass lookup table has an error: ',
+        iAtomicMassLUT.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+LookupAtomicMass := fAtomicMass;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="LookupAtomicNumber" Id="{9aa2ed00-c722-4992-b0e5-7489d0c70f8e}">
-      <Declaration><![CDATA[{warning 'Add method implementation '}
+      <Declaration><![CDATA[
 METHOD LookupAtomicNumber : INT
 VAR_INPUT
     sLookup	: STRING;
 END_VAR
+VAR
+    nAtomicNumber : INT;
+END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[
+LookupAtomicNumber := -1;
+
+nAtomicNumber := iAtomicNumberLUT.Lookup(sLookup := sLookup);
+
+IF iAtomicNumberLUT.GetError() THEN
+    SetError(
+        sMsg := CONCAT('The atomic number lookup table has an error: ',
+        iAtomicNumberLUT.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+LookupAtomicNumber := nAtomicNumber;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="LookupDensity" Id="{b0ef6550-2f85-4569-94b6-5ef5f47fa201}">
@@ -59,9 +91,24 @@ METHOD LookupDensity : LREAL
 VAR_INPUT
     sLookup	: STRING;
 END_VAR
+VAR
+    fDensity : LREAL;
+END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[
+fDensity := iDensityLUT.Lookup(sLookup := sLookup);
+
+IF iDensityLUT.GetError() THEN
+    SetError(
+        sMsg := CONCAT('The density lookup table has an error: ',
+        iDensityLUT.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+LookupDensity := fDensity;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

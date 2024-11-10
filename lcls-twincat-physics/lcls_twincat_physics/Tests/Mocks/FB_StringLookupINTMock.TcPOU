@@ -33,5 +33,26 @@ ClearError();
 ]]></ST>
       </Implementation>
     </Method>
+    <Property Name="Value" Id="{549f9beb-0972-43ae-9ac1-fa1088bda929}">
+      <Declaration><![CDATA[
+PROPERTY Value : INT
+]]></Declaration>
+      <Get Name="Get" Id="{e7a1b1b9-d2b6-4281-aad6-e931af3ded02}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Value := nValue;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{7a124785-655d-4006-a23a-e9d21360a96e}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+nValue := Value;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
   </POU>
 </TcPlcObject>
