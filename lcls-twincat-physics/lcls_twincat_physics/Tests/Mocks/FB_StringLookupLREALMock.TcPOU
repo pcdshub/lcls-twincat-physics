@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_StringLookupLREALMock" Id="{682595e9-23e7-433f-b4e7-703251f5a029}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_StringLookupLREALMock EXTENDS FB_FallibleMock IMPLEMENTS I_StringLookupLREAL
+FUNCTION_BLOCK FB_StringLookupLREALMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_StringLookupLREAL
 VAR
     fValue : LREAL;
 END_VAR

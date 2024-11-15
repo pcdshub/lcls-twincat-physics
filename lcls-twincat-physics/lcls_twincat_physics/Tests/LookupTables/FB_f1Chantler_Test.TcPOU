@@ -533,13 +533,13 @@ TestMaxEnergyExpectNoErrorAccuratef1(
       <Declaration><![CDATA[
 METHOD PRIVATE SetInitialNameAndEnergyValues
 VAR_IN_OUT
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fbFallibleLREALEnergyMock.Val := 50.0;
-fbFallibleLREALEnergyMock.ClearError();
+fbQuantityLREALPublicEnergyMock.Val := 50.0;
+fbQuantityLREALPublicEnergyMock.ClearError();
 ]]></ST>
       </Implementation>
     </Method>
@@ -547,9 +547,9 @@ fbFallibleLREALEnergyMock.ClearError();
       <Declaration><![CDATA[
 METHOD Test0EnergyExpectError0f1
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -558,9 +558,9 @@ END_VAR
 TEST('Test0EnergyExpectError0f1');
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbFallibleLREALEnergyMock.Val := 0.0;
+fbQuantityLREALPublicEnergyMock.Val := 0.0;
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := 'Be');
@@ -590,9 +590,9 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestBadNameExpectError0f1
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -601,7 +601,7 @@ END_VAR
 TEST('TestBadNameExpectError0f1');
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := 'Invalid');
@@ -631,9 +631,9 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestInvalidEnergyExpectError0f1
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -642,9 +642,9 @@ END_VAR
 TEST('TestInvalidEnergyExpectError0f1');
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbFallibleLREALEnergyMock.SetError('Error');
+fbQuantityLREALPublicEnergyMock.SetError('Error');
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := 'Be');
@@ -679,9 +679,9 @@ VAR_INPUT
     fExpected : LREAL;
 END_VAR
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -691,9 +691,9 @@ TEST(CONCAT(STR1 := 'TestMaxEnergyExpectNoErrorAccuratef1 ID: ',
             STR2 := INT_TO_STRING(nTestID)));
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbFallibleLREALEnergyMock.Val := fbf1Chantler.fMaxeV;
+fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMaxeV;
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := sName);
@@ -732,9 +732,9 @@ VAR_INPUT
     fExpected : LREAL;
 END_VAR
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -744,9 +744,9 @@ TEST(CONCAT(STR1 := 'TestMidEnergyExpectNoErrorAccuratef1 ID: ',
             STR2 := INT_TO_STRING(nTestID)));
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbFallibleLREALEnergyMock.Val := fbf1Chantler.fMideV;
+fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMideV;
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := sName);
@@ -785,9 +785,9 @@ VAR_INPUT
     fExpected : LREAL;
 END_VAR
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -797,9 +797,9 @@ TEST(CONCAT(STR1 := 'TestMinEnergyExpectNoErrorAccuratef1 ID: ',
             STR2 := INT_TO_STRING(nTestID)));
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbFallibleLREALEnergyMock.Val := fbf1Chantler.fMineV;
+fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMineV;
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := sName);
@@ -833,9 +833,9 @@ nTestID := nTestID + 1;
       <Declaration><![CDATA[
 METHOD TestNegEnergyExpectError0f1
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -844,9 +844,9 @@ END_VAR
 TEST('TestNegEnergyExpectError0f1');
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbFallibleLREALEnergyMock.Val := -10.0;
+fbQuantityLREALPublicEnergyMock.Val := -10.0;
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := 'Be');
@@ -876,9 +876,9 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestOverrangeEnergyExpectError0f1
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -887,9 +887,9 @@ END_VAR
 TEST('TestOverrangeEnergyExpectError0f1');
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbFallibleLREALEnergyMock.Val := fbf1Chantler.fMaxeV + 1.0;
+fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMaxeV + 1.0;
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := 'Be');
@@ -919,9 +919,9 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestUnderrangeEnergyExpectError0f1
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -930,9 +930,9 @@ END_VAR
 TEST('TestUnderrangeEnergyExpectError0f1');
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbFallibleLREALEnergyMock.Val := fbf1Chantler.fMineV - 1.0;
+fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMineV - 1.0;
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := 'Be');
@@ -968,9 +968,9 @@ VAR_INPUT
     fExpected : LREAL;
 END_VAR
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbFallibleLREALEnergyMock);
+    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -980,9 +980,9 @@ TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccuratef1 ID: ',
             STR2 := INT_TO_STRING(nTestID)));
 
 // Test fixture
-SetInitialNameAndEnergyValues(fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock);
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbFallibleLREALEnergyMock.Val := fEnergy;
+fbQuantityLREALPublicEnergyMock.Val := fEnergy;
 
 // Here the test starts
 fResult := fbf1Chantler.Lookup(sLookup := sName);

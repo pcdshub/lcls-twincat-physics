@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_LensSetMock" Id="{81efb5ab-6e66-4093-a776-0c018358a642}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_LensSetMock EXTENDS FB_FallibleMock IMPLEMENTS I_LensSet
+FUNCTION_BLOCK FB_LensSetMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_LensSet
 VAR
     afFocalLength : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF LREAL;
     afbLensMock : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF FB_LensMock;

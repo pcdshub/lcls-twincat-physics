@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_QuantityLREAL" Id="{08c54946-8856-4097-9af1-048809742ee4}">
+    <Declaration><![CDATA[
+INTERFACE I_QuantityLREAL EXTENDS I_Quantity
+]]></Declaration>
+    <Property Name="Val" Id="{b2d2511a-043b-42b2-ab27-3fd7bcd93780}">
+      <Declaration><![CDATA[
+PROPERTY Val : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{c1344037-d6a5-4916-85aa-0ca191577215}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

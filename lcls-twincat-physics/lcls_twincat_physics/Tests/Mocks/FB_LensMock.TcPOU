@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_LensMock" Id="{8e5e1b9f-38a8-4173-b9ab-660968f25168}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_LensMock EXTENDS FB_FallibleMock IMPLEMENTS I_Lens
+FUNCTION_BLOCK FB_LensMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_Lens
 VAR
     sMaterialName : T_MaxString;
     nMultiplier : INT;

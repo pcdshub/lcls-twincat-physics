@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_CalcXRayDeltaMock" Id="{7e76b36a-b6f5-47d3-8356-cf5207a967e6}" SpecialFunc="None">
+  <POU Name="FB_CalcFocalLengthLensSetMock" Id="{db9e08db-5cbf-4afa-b31b-28bcb5b02fc5}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcXRayDeltaMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcXRayDelta
+FUNCTION_BLOCK FB_CalcFocalLengthLensSetMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcFocalLengthLensSet
 VAR
-    fResult : LREAL;
+    fFocalLength : LREAL; // The focal length of the lens, in meters.
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Calculate" Id="{5bac6286-2214-4e59-adf7-609a7f98ff61}">
+    <Method Name="Calculate" Id="{9449408e-a2a8-4a84-848f-08f055b3b183}">
       <Declaration><![CDATA[
 METHOD Calculate : LREAL
 VAR_INPUT
-    sChemicalFormula : T_MaxString;
+    iLensSet : I_LensSet;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-Calculate := fResult;
+Calculate := fFocalLength;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetResult" Id="{46e7158a-7ca6-4c4a-904d-ba67c1b04a23}">
+    <Method Name="SetResult" Id="{b90caf58-8ba2-4f62-ae29-0aec1937810d}">
       <Declaration><![CDATA[
 METHOD SetResult
 VAR_INPUT
@@ -32,17 +32,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.fResult := fResult;
+fFocalLength := fResult;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetValid" Id="{e4af4d1f-4e6c-4927-9bea-b5784d00c67b}">
+    <Method Name="SetValid" Id="{4f9c11d6-93e5-42e8-a4e7-e7a7d4a383f5}">
       <Declaration><![CDATA[
 METHOD SetValid
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fResult := 1.0;
+fFocalLength := 1.0;
 ClearError();
 ]]></ST>
       </Implementation>

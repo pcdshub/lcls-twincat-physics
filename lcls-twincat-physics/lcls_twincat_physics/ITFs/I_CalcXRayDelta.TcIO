@@ -8,7 +8,7 @@ INTERFACE I_CalcXRayDelta EXTENDS I_Fallible
       <Declaration><![CDATA[
 METHOD Calculate : LREAL
 VAR_INPUT
-    sElementName : STRING;
+    sChemicalFormula : T_MaxString;
 END_VAR
 ]]></Declaration>
     </Method>

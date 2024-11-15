@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CalcFocalLengthSingleLensMock" Id="{6906ef4b-70f5-42bd-b512-b76eb2dac2e2}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcFocalLengthSingleLensMock EXTENDS FB_Fallible IMPLEMENTS I_CalcFocalLengthSingleLens
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLensMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcFocalLengthSingleLens
 VAR
     fFocalLength : LREAL; // The focal length of the lens, in meters.
 END_VAR
@@ -33,6 +33,17 @@ END_VAR
       <Implementation>
         <ST><![CDATA[
 fFocalLength := fResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{dad76da5-b9b0-428c-86cd-6f3a241cdfd8}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fFocalLength := 1.0;
+ClearError();
 ]]></ST>
       </Implementation>
     </Method>

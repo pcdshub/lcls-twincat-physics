@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_Quantity" Id="{2968f420-eb06-4ec9-8610-471e30e82d60}">
+    <Declaration><![CDATA[
+INTERFACE I_Quantity EXTENDS I_Fallible
+]]></Declaration>
+    <Property Name="Units" Id="{68f968ed-7630-4d1a-a3e0-ed26644f9ec7}">
+      <Declaration><![CDATA[
+PROPERTY Units : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{0e0a0f8f-9c5c-47f0-86a0-0f895a7ef1ea}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

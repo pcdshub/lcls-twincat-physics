@@ -6,7 +6,12 @@ FUNCTION_BLOCK FB_CalcFocalLengthSingleLens EXTENDS FB_Fallible IMPLEMENTS I_Cal
 VAR
     iCalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
 
-    fFocalLength : LREAL; // The focal length of the lens, in meters.
+    {attribute 'pytmc' := '
+        pv: FocalLength
+        io: i
+        field: DESC Calculated focal length of lens.
+    '}
+    fFocalLength : LREAL; // The focal length of the lens.
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -38,7 +43,7 @@ IF iLens.GetError() THEN
     RETURN;
 END_IF
 
-fDelta := iCalcXRayDelta.Calculate(sElementName := iLens.MaterialName);
+fDelta := iCalcXRayDelta.Calculate(sChemicalFormula := iLens.MaterialName);
 
 // Check for an invalid delta input.
 IF iCalcXRayDelta.GetError() THEN

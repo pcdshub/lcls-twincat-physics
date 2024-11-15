@@ -1,0 +1,1910 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ConvertUnits_Test" Id="{f018bc01-d3ce-4e8f-9cb5-36892bbdbe6d}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_ConvertUnits_Test EXTENDS TcUnit.FB_TestSuite
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+TestInputUnitSameAsDesiredUnitExpectNoErrorCorrectResult();
+
+TestInvalidInputDesiredUnitExpectErrorNoChange();
+
+TestInvalidInputUnitExpectErrorNoChange();
+
+TestValidInputExpectNoErrorCorrectResult_1();
+
+TestValidInputExpectNoErrorCorrectResult_2();
+]]></ST>
+    </Implementation>
+    <Method Name="AssertErrorCorrectResult" Id="{7af576fa-cbeb-4cc0-8c0c-c1a071214a33}">
+      <Declaration><![CDATA[
+METHOD PRIVATE AssertErrorCorrectResult
+VAR_INPUT
+    iQuantity : I_QuantityLREAL;
+    fExpected : LREAL;
+    sExpected : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertTrue(
+    Condition := iQuantity.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := iQuantity.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := iQuantity.Val,
+    Delta := ABS(1e-9 * fExpected),
+    Message := 'Unit value should be unchanged.'
+);
+
+AssertEquals_STRING(
+    Expected := sExpected,
+    Actual := iQuantity.Units,
+    Message := 'Unit text should be unchanged.'
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertNoErrorCorrectResult" Id="{0d328063-0570-4380-a824-b4d1d338b779}">
+      <Declaration><![CDATA[
+METHOD PRIVATE AssertNoErrorCorrectResult
+VAR_INPUT
+    iQuantity : I_QuantityLREAL;
+    fExpected : LREAL;
+    sExpected : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertFalse(
+    Condition := iQuantity.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := iQuantity.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := iQuantity.Val,
+    Delta := ABS(1e-9 * fExpected),
+    Message := 'Unit did not convert properly.'
+);
+
+AssertEquals_STRING(
+    Expected := sExpected,
+    Actual := iQuantity.Units,
+    Message := 'Unit did not update properly.'
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInputUnitSameAsDesiredUnitExpectNoErrorCorrectResult" Id="{26efc5b2-cff8-48cc-afc4-ed66abaf61bc}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInputUnitSameAsDesiredUnitExpectNoErrorCorrectResult
+VAR
+    fbQuantityMock : FB_QuantityLREALPublicMock;
+    fbConvertUnits : FB_ConvertUnits;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInputUnitSameAsDesiredUnitExpectNoErrorCorrectResult');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -7411.376452318382;
+fbQuantityMock.Units := 'km/s';
+
+// Convert km/s to km/s
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'km/s'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -7411.376452318382,
+    sExpected := 'km/s'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidInputDesiredUnitExpectErrorNoChange" Id="{45b5049b-0abc-49ca-ac33-4ab16fc3a46a}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInvalidInputDesiredUnitExpectErrorNoChange
+VAR
+    fbQuantityMock : FB_QuantityLREALPublicMock;
+    fbConvertUnits : FB_ConvertUnits;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidInputDesiredUnitExpectErrorNoChange');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 223.456;
+fbQuantityMock.Units := 'km/s';
+
+// Convert km/s to mm/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'INVALID'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 223.456,
+    sExpected := 'km/s'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidInputUnitExpectErrorNoChange" Id="{5c14575d-7b64-4976-9fcb-23a09d4b0b70}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInvalidInputUnitExpectErrorNoChange
+VAR
+    fbQuantityMock : FB_QuantityLREALPublicMock;
+    fbConvertUnits : FB_ConvertUnits;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidInputUnitExpectErrorNoChange');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 123.456;
+fbQuantityMock.Units := 'INVALID';
+
+// Convert km/s to mm/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mm/min'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 123.456,
+    sExpected := 'INVALID'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputExpectNoErrorCorrectResult_1" Id="{a3b7fcd8-3d69-4322-847d-c592e096ac35}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputExpectNoErrorCorrectResult_1
+VAR
+    fbQuantityMock : FB_QuantityLREALPublicMock;
+    fbConvertUnits : FB_ConvertUnits;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputExpectNoErrorCorrectResult[km/s]TO[mm/min]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -7411.376452318382;
+fbQuantityMock.Units := 'km/s';
+
+// Convert km/s to mm/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mm/min'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -444682587139.1029,
+    sExpected := 'mm/min'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[meter/second]TO[nm/s]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 2374.953102225765;
+fbQuantityMock.Units := 'meter/second';
+
+// Convert meter/second to nm/s
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'nm/s'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 2374953102225.765,
+    sExpected := 'nm/s'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[µm/s]TO[µm/h]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 6648.771015662052;
+fbQuantityMock.Units := 'µm/s';
+
+// Convert µm/s to µm/h
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'µm/h'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 23935575.656383388,
+    sExpected := 'µm/h'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[pm/s**2]TO[millimeter/second**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -4419.114285409207;
+fbQuantityMock.Units := 'pm/s**2';
+
+// Convert pm/s**2 to millimeter/second**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'millimeter/second**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -4.419114285409207e-06,
+    sExpected := 'millimeter/second**2'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[m/min]TO[foot/hour]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 7951.512393406025;
+fbQuantityMock.Units := 'm/min';
+
+// Convert m/min to foot/hour
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'foot/hour'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 1565258.3451586664,
+    sExpected := 'foot/hour'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[cm/min]TO[yard/minute]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 9622.190574520482;
+fbQuantityMock.Units := 'cm/min';
+
+// Convert cm/min to yard/minute
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yard/minute'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 105.2295557143535,
+    sExpected := 'yard/minute'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[micrometer/minute]TO[m/h]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -9175.783387146359;
+fbQuantityMock.Units := 'micrometer/minute';
+
+// Convert micrometer/minute to m/h
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'm/h'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -0.5505470032287815,
+    sExpected := 'm/h'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[m/h]TO[meter/minute]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 8768.576537834328;
+fbQuantityMock.Units := 'm/h';
+
+// Convert m/h to meter/minute
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'meter/minute'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 146.1429422972388,
+    sExpected := 'meter/minute'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[cm/h]TO[micron/minute]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 998.4630971740917;
+fbQuantityMock.Units := 'cm/h';
+
+// Convert cm/h to micron/minute
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'micron/minute'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 166410.51619568194,
+    sExpected := 'micron/minute'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[picometer/hour]TO[mile/hour]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 1724.1997823509573;
+fbQuantityMock.Units := 'picometer/hour';
+
+// Convert picometer/hour to mile/hour
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mile/hour'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 1.071368074414766e-12,
+    sExpected := 'mile/hour'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[micron/second]TO[mm/h]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -5046.963331460712;
+fbQuantityMock.Units := 'micron/second';
+
+// Convert micron/second to mm/h
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mm/h'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -18169.06799325856,
+    sExpected := 'mm/h'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mile/minute]TO[nm/s]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -2683.33312730521;
+fbQuantityMock.Units := 'mile/minute';
+
+// Convert mile/minute to nm/s
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'nm/s'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -71973434473831.27,
+    sExpected := 'nm/s'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mil/minute]TO[mil/min]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 5035.665135781797;
+fbQuantityMock.Units := 'mil/minute';
+
+// Convert mil/minute to mil/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mil/min'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 5035.665135781797,
+    sExpected := 'mil/min'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[µ/min]TO[millimeter/second]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -3607.2634755331583;
+fbQuantityMock.Units := 'µ/min';
+
+// Convert µ/min to millimeter/second
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'millimeter/second'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -0.06012105792555264,
+    sExpected := 'millimeter/second'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mi/h]TO[micron/hour]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 9296.42610445336;
+fbQuantityMock.Units := 'mi/h';
+
+// Convert mi/h to micron/hour
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'micron/hour'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 14961147572645.387,
+    sExpected := 'micron/hour'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[micron/hour]TO[inch/hour]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -1638.8639171459035;
+fbQuantityMock.Units := 'micron/hour';
+
+// Convert micron/hour to inch/hour
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'inch/hour'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -0.06452220146243716,
+    sExpected := 'inch/hour'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[month]TO[s]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -7271.288076705105;
+fbQuantityMock.Units := 'month';
+
+// Convert month to s
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 's'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -19122033384.119083,
+    sExpected := 's'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[cA]TO[centiampere]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 7437.164511601404;
+fbQuantityMock.Units := 'cA';
+
+// Convert cA to centiampere
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'centiampere'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 7437.164511601404,
+    sExpected := 'centiampere'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[nanometer]TO[in]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 2159.3095075250712;
+fbQuantityMock.Units := 'nanometer';
+
+// Convert nanometer to in
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'in'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 8.501218533563274e-05,
+    sExpected := 'in'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[yd/s**2]TO[yd/s**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -4313.894119509429;
+fbQuantityMock.Units := 'yd/s**2';
+
+// Convert yd/s**2 to yd/s**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yd/s**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -4313.894119509429,
+    sExpected := 'yd/s**2'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[picometer/minute]TO[yd/h]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -4045.3885892193493;
+fbQuantityMock.Units := 'picometer/minute';
+
+// Convert picometer/minute to yd/h
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yd/h'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -2.6544544548683397e-07,
+    sExpected := 'yd/h'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[s]TO[d]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 3416.2778887021104;
+fbQuantityMock.Units := 's';
+
+// Convert s to d
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'd'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 0.0395402533414596,
+    sExpected := 'd'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[nm/s]TO[foot/minute]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 3288.8485181621636;
+fbQuantityMock.Units := 'nm/s';
+
+// Convert nm/s to foot/minute
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'foot/minute'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 0.0006474111256224732,
+    sExpected := 'foot/minute'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mil]TO[mil]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 8998.868034372186;
+fbQuantityMock.Units := 'mil';
+
+// Convert mil to mil
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mil'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 8998.868034372186,
+    sExpected := 'mil'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[hour]TO[year]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 4877.280698569617;
+fbQuantityMock.Units := 'hour';
+
+// Convert hour to year
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'year'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 0.5563861166517929,
+    sExpected := 'year'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[km]TO[nm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 7839.278900216999;
+fbQuantityMock.Units := 'km';
+
+// Convert km to nm
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'nm'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 7839278900216998.0,
+    sExpected := 'nm'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[cm/s]TO[yard/hour]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 9166.914521615545;
+fbQuantityMock.Units := 'cm/s';
+
+// Convert cm/s to yard/hour
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yard/hour'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 360902.14652029704,
+    sExpected := 'yard/hour'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[in/s**2]TO[micron/second**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -9253.831253462256;
+fbQuantityMock.Units := 'in/s**2';
+
+// Convert in/s**2 to micron/second**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'micron/second**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -235047313.83794132,
+    sExpected := 'micron/second**2'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mil/s]TO[mil/second]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 1018.8421332744911;
+fbQuantityMock.Units := 'mil/s';
+
+// Convert mil/s to mil/second
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mil/second'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 1018.8421332744911,
+    sExpected := 'mil/second'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[kelvin]TO[°R]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 2503.923741808503;
+fbQuantityMock.Units := 'kelvin';
+
+// Convert kelvin to °R
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := '°R'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 4507.062735255306,
+    sExpected := '°R'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[yard]TO[yd]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -3523.8358824659954;
+fbQuantityMock.Units := 'yard';
+
+// Convert yard to yd
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yd'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -3523.8358824659954,
+    sExpected := 'yd'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mile/second]TO[mi/s]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 9765.222823737004;
+fbQuantityMock.Units := 'mile/second';
+
+// Convert mile/second to mi/s
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mi/s'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 9765.222823737004,
+    sExpected := 'mi/s'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[inch/minute]TO[in/min]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 6487.133394890192;
+fbQuantityMock.Units := 'inch/minute';
+
+// Convert inch/minute to in/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'in/min'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 6487.133394890192,
+    sExpected := 'in/min'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[micrometer]TO[yd]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -6301.105251378427;
+fbQuantityMock.Units := 'micrometer';
+
+// Convert micrometer to yd
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yd'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -0.006890972497133013,
+    sExpected := 'yd'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[nm/h]TO[nanometer/second]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -643.1291758588759;
+fbQuantityMock.Units := 'nm/h';
+
+// Convert nm/h to nanometer/second
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'nanometer/second'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -0.1786469932941322,
+    sExpected := 'nanometer/second'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mi/s**2]TO[micron/second**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -889.4655008312075;
+fbQuantityMock.Units := 'mi/s**2';
+
+// Convert mi/s**2 to micron/second**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'micron/second**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -1431455966969.6987,
+    sExpected := 'micron/second**2'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mm/s]TO[nm/h]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -184.54613075875386;
+fbQuantityMock.Units := 'mm/s';
+
+// Convert mm/s to nm/h
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'nm/h'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -664366070731.5138,
+    sExpected := 'nm/h'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[km/s**2]TO[yard/second**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -5670.457187205524;
+fbQuantityMock.Units := 'km/s**2';
+
+// Convert km/s**2 to yard/second**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yard/second**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -6201287.3875825945,
+    sExpected := 'yard/second**2'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[foot/second]TO[ft/s]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 9071.570368486104;
+fbQuantityMock.Units := 'foot/second';
+
+// Convert foot/second to ft/s
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'ft/s'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 9071.570368486104,
+    sExpected := 'ft/s'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[µA]TO[cA]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 7771.898581632297;
+fbQuantityMock.Units := 'µA';
+
+// Convert µA to cA
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'cA'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 0.7771898581632296,
+    sExpected := 'cA'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[picoampere]TO[pA]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -2687.0019826450343;
+fbQuantityMock.Units := 'picoampere';
+
+// Convert picoampere to pA
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'pA'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -2687.0019826450343,
+    sExpected := 'pA'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[keV]TO[kiloelectron_volt]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 7004.745483285846;
+fbQuantityMock.Units := 'keV';
+
+// Convert keV to kiloelectron_volt
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'kiloelectron_volt'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 7004.745483285846,
+    sExpected := 'kiloelectron_volt'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[millimeter/minute]TO[millimeter/second]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -3233.6490702593255;
+fbQuantityMock.Units := 'millimeter/minute';
+
+// Convert millimeter/minute to millimeter/second
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'millimeter/second'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -53.894151170988756,
+    sExpected := 'millimeter/second'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[ft]TO[nanometer]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 3973.780648923668;
+fbQuantityMock.Units := 'ft';
+
+// Convert ft to nanometer
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'nanometer'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 1211208341791.9338,
+    sExpected := 'nanometer'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[foot/second**2]TO[µ/s**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 1028.0793913019806;
+fbQuantityMock.Units := 'foot/second**2';
+
+// Convert foot/second**2 to µ/s**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'µ/s**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 313358598.46884364,
+    sExpected := 'µ/s**2'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[kA]TO[picoampere]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 4074.321899241664;
+fbQuantityMock.Units := 'kA';
+
+// Convert kA to picoampere
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'picoampere'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 4.074321899241664e+18,
+    sExpected := 'picoampere'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[eV]TO[kiloelectron_volt]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -3839.129717878429;
+fbQuantityMock.Units := 'eV';
+
+// Convert eV to kiloelectron_volt
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'kiloelectron_volt'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -3.839129717878429,
+    sExpected := 'kiloelectron_volt'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[km/h]TO[ft/min]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 3169.797538569581;
+fbQuantityMock.Units := 'km/h';
+
+// Convert km/h to ft/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'ft/min'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 173326.63706089134,
+    sExpected := 'ft/min'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[nanoampere]TO[nA]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 8424.681178808307;
+fbQuantityMock.Units := 'nanoampere';
+
+// Convert nanoampere to nA
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'nA'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 8424.681178808307,
+    sExpected := 'nA'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[micrometer/hour]TO[centimeter/second]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -7968.677520785683;
+fbQuantityMock.Units := 'micrometer/hour';
+
+// Convert micrometer/hour to centimeter/second
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'centimeter/second'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -0.00022135215335515785,
+    sExpected := 'centimeter/second'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[micron]TO[pm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -2522.328476341353;
+fbQuantityMock.Units := 'micron';
+
+// Convert micron to pm
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'pm'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -2522328476.341353,
+    sExpected := 'pm'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[milligram]TO[microgram]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 347.068827584455;
+fbQuantityMock.Units := 'milligram';
+
+// Convert milligram to microgram
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'microgram'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 347068.827584455,
+    sExpected := 'microgram'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mi]TO[in]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 319.1656998864728;
+fbQuantityMock.Units := 'mi';
+
+// Convert mi to in
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'in'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 20222338.74480692,
+    sExpected := 'in'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[millisecond]TO[h]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -2753.3494048974135;
+fbQuantityMock.Units := 'millisecond';
+
+// Convert millisecond to h
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'h'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -0.0007648192791381705,
+    sExpected := 'h'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[nanometer/second**2]TO[km/s**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 3350.0425498013064;
+fbQuantityMock.Units := 'nanometer/second**2';
+
+// Convert nanometer/second**2 to km/s**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'km/s**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 3.3500425498013072e-09,
+    sExpected := 'km/s**2'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[millimeter/hour]TO[yd/min]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -3164.9092116551155;
+fbQuantityMock.Units := 'millimeter/hour';
+
+// Convert millimeter/hour to yd/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yd/min'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -0.057686446698292426,
+    sExpected := 'yd/min'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[kg]TO[mg]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 67.11077377181937;
+fbQuantityMock.Units := 'kg';
+
+// Convert kg to mg
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mg'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 67110773.77181937,
+    sExpected := 'mg'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[delta_degree_Celsius]TO[K]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 344.8616695177843;
+fbQuantityMock.Units := 'delta_degree_Celsius';
+
+// Convert delta_degree_Celsius to K
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'K'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 344.8616695177843,
+    sExpected := 'K'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[picometer/second]TO[picometer/minute]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -9189.480096652054;
+fbQuantityMock.Units := 'picometer/second';
+
+// Convert picometer/second to picometer/minute
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'picometer/minute'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -551368.8057991232,
+    sExpected := 'picometer/minute'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[kilometer/minute]TO[km/min]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -9844.997633052504;
+fbQuantityMock.Units := 'kilometer/minute';
+
+// Convert kilometer/minute to km/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'km/min'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -9844.997633052504,
+    sExpected := 'km/min'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[nanogram]TO[mg]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -4398.679992071917;
+fbQuantityMock.Units := 'nanogram';
+
+// Convert nanogram to mg
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mg'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -0.004398679992071918,
+    sExpected := 'mg'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[meter]TO[µ]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 6117.491766906918;
+fbQuantityMock.Units := 'meter';
+
+// Convert meter to µ
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'µ'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 6117491766.906919,
+    sExpected := 'µ'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[centimeter/second**2]TO[inch/second**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 2555.5611839140875;
+fbQuantityMock.Units := 'centimeter/second**2';
+
+// Convert centimeter/second**2 to inch/second**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'inch/second**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 1006.126450359877,
+    sExpected := 'inch/second**2'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[nanometer/minute]TO[cm/s]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 3835.0129809582813;
+fbQuantityMock.Units := 'nanometer/minute';
+
+// Convert nanometer/minute to cm/s
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'cm/s'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 6.391688301597135e-06,
+    sExpected := 'cm/s'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[yard/second]TO[cm/s]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -272.2331121803054;
+fbQuantityMock.Units := 'yard/second';
+
+// Convert yard/second to cm/s
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'cm/s'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -24892.995777767126,
+    sExpected := 'cm/s'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[in/h]TO[yd/min]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -5722.034113522541;
+fbQuantityMock.Units := 'in/h';
+
+// Convert in/h to yd/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yd/min'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -2.6490898673715466,
+    sExpected := 'yd/min'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[week]TO[millisecond]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 9006.22457970713;
+fbQuantityMock.Units := 'week';
+
+// Convert week to millisecond
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'millisecond'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 5446964625806.872,
+    sExpected := 'millisecond'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[cg]TO[nanogram]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 2048.620038278621;
+fbQuantityMock.Units := 'cg';
+
+// Convert cg to nanogram
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'nanogram'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 20486200382.786205,
+    sExpected := 'nanogram'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mA]TO[pA]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -1489.5707155362034;
+fbQuantityMock.Units := 'mA';
+
+// Convert mA to pA
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'pA'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -1489570715536.2034,
+    sExpected := 'pA'
+);
+
+TEST_FINISHED();
+
+
+TEST('TestValidInputExpectNoErrorCorrectResult[cm]TO[pm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -4666.1693512222155;
+fbQuantityMock.Units := 'cm';
+
+// Convert cm to pm
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'pm'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -46661693512222.16,
+    sExpected := 'pm'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mm]TO[mm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -495.4096673460208;
+fbQuantityMock.Units := 'mm';
+
+// Convert mm to mm
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mm'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -495.4096673460208,
+    sExpected := 'mm'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[m/s**2]TO[yd/s**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -2322.7603818674543;
+fbQuantityMock.Units := 'm/s**2';
+
+// Convert m/s**2 to yd/s**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'yd/s**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -2540.20164246222,
+    sExpected := 'yd/s**2'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[mm/s**2]TO[inch/second**2]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -4251.165040746261;
+fbQuantityMock.Units := 'mm/s**2';
+
+// Convert mm/s**2 to inch/second**2
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'inch/second**2'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -167.36870239158512,
+    sExpected := 'inch/second**2'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[foot/hour]TO[pm/min]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 2683.2197486977566;
+fbQuantityMock.Units := 'foot/hour';
+
+// Convert foot/hour to pm/min
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'pm/min'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 13630756323384.602,
+    sExpected := 'pm/min'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[picogram]TO[kg]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 8123.2317345259;
+fbQuantityMock.Units := 'picogram';
+
+// Convert picogram to kg
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'kg'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 8.1232317345259e-12,
+    sExpected := 'kg'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[A]TO[kA]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 9199.525459208973;
+fbQuantityMock.Units := 'A';
+
+// Convert A to kA
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'kA'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 9.199525459208973,
+    sExpected := 'kA'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputExpectNoErrorCorrectResult_2" Id="{660c6260-7db6-429e-b0b1-ec83f95fd33e}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputExpectNoErrorCorrectResult_2
+VAR
+    fbQuantityMock : FB_QuantityLREALPublicMock;
+    fbConvertUnits : FB_ConvertUnits;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputExpectNoErrorCorrectResult[MPa]TO[bar]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -2842.688739327755;
+fbQuantityMock.Units := 'MPa';
+
+// Convert MPa to bar
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'bar'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -28426.887393277546,
+    sExpected := 'bar'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[kilopascal]TO[millipascal]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -198.62344110686354;
+fbQuantityMock.Units := 'kilopascal';
+
+// Convert kilopascal to millipascal
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'millipascal'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -198623441.10686353,
+    sExpected := 'millipascal'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[nPa]TO[psi]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 7303.218244234016;
+fbQuantityMock.Units := 'nPa';
+
+// Convert nPa to psi
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'psi'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 1.0592422522936925e-09,
+    sExpected := 'psi'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[picopascal]TO[psi]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 8950.937977871123;
+fbQuantityMock.Units := 'picopascal';
+
+// Convert picopascal to psi
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'psi'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 1.2982237948738415e-12,
+    sExpected := 'psi'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[torr]TO[pPa]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 120.64545642308985;
+fbQuantityMock.Units := 'torr';
+
+// Convert torr to pPa
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'pPa'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 1.6084737989565238e+16,
+    sExpected := 'pPa'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[microtorr]TO[mPa]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -9879.901686397212;
+fbQuantityMock.Units := 'microtorr';
+
+// Convert microtorr to mPa
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'mPa'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -1317.2118925976283,
+    sExpected := 'mPa'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[µPa]TO[bar]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -8111.923582924192;
+fbQuantityMock.Units := 'µPa';
+
+// Convert µPa to bar
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'bar'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := -8.111923582924193e-08,
+    sExpected := 'bar'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[pound_force_per_square_inch]TO[pascal]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 9681.878057300735;
+fbQuantityMock.Units := 'pound_force_per_square_inch';
+
+// Convert pound_force_per_square_inch to pascal
+fbConvertUnits.ConvertLREAL(
+    iQuantity := fbQuantityMock,
+    sDesiredUnits := 'pascal'
+);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityMock,
+    fExpected := 66754199.34714099,
+    sExpected := 'pascal'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

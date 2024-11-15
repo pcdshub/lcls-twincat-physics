@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_QuantityINTPublicMock" Id="{25a1d111-4045-47b7-859c-1db48ea9bedf}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_QuantityINTPublicMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_QuantityINT
+VAR
+    nVal : INT;
+    sUnits : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Units" Id="{04680986-f99a-4221-a383-34b986d809d4}">
+      <Declaration><![CDATA[
+PROPERTY Units : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{ff38750f-3172-428e-96a8-893ff8478e42}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Units := sUnits;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{278d3eed-2b0b-448c-957c-67a2427ee7ac}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+sUnits := Units;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Val" Id="{1388d4ff-d7bf-4c33-ae6d-7a137c96929d}">
+      <Declaration><![CDATA[
+PROPERTY Val : INT
+]]></Declaration>
+      <Get Name="Get" Id="{e281da4e-4dc4-4aca-801f-3155e3fabfe6}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Val := THIS^.nVal;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{f1c02087-ad76-4076-8c49-3337df0388b7}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+THIS^.nVal := Val;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

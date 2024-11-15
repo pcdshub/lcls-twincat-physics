@@ -7,6 +7,12 @@ VAR
     fFocalLengthInverse : LREAL;
     fSourceDistanceInverse : LREAL;
     fImageDistanceInverse : LREAL;
+
+    {attribute 'pytmc' := '
+        pv: ImageDistance
+        io: i
+        field: DESC Calculated image distance.
+    '}
     fImageDistance : LREAL;
 END_VAR
 ]]></Declaration>

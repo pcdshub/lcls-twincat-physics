@@ -4,7 +4,7 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_f1Chantler EXTENDS FB_Fallible IMPLEMENTS I_StringLookupLREAL
 VAR
-    iEnergy : I_FallibleLREAL; // The photon energy of the x-rays in eV.
+    iEnergy : I_QuantityLREAL; // The photon energy of the x-rays in eV.
 
     ff1 : LREAL;
     afX : ARRAY[1..5] OF LREAL;
@@ -40,7 +40,7 @@ VAR_INPUT
     bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
     bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 
-    iEnergy : I_FallibleLREAL; // The photon energy of the x-rays in eV.
+    iEnergy : I_QuantityLREAL; // The photon energy of the x-rays in eV.
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -93,7 +93,7 @@ END_IF
       <Declaration><![CDATA[
 METHOD Getf1 : LREAL
 VAR_INPUT
-    iEnergy	: I_FallibleLREAL;
+    iEnergy	: I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>

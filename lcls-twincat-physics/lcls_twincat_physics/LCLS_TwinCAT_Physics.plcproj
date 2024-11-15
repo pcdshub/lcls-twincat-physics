@@ -17,6 +17,9 @@
     <Released>false</Released>
     <Title>lcls-twincat-physics</Title>
     <ProjectVersion>0.0.0</ProjectVersion>
+    <AllowChecksForLibrary>false</AllowChecksForLibrary>
+    <POUsForPropertyAccessIncluded>false</POUsForPropertyAccessIncluded>
+    <GlobalVersionStructureIncluded>false</GlobalVersionStructureIncluded>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GVLs\GVL_AbsorptionTest.TcGVL">
@@ -35,13 +38,10 @@
     <Compile Include="ITFs\Fallibles\I_Fallible.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITFs\Fallibles\I_FallibleINT.TcIO">
+    <Compile Include="ITFs\Fallibles\I_FalliblePublic.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITFs\Fallibles\I_FallibleLREAL.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ITFs\Fallibles\I_FallibleSTRING.TcIO">
+    <Compile Include="ITFs\I_CalcFocalLength2LensSets.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ITFs\I_CalcFocalLengthSingleLens.TcIO">
@@ -53,10 +53,10 @@
     <Compile Include="ITFs\I_CalcImageDistance.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITFs\I_CalcLREAL.TcIO">
+    <Compile Include="ITFs\I_CalcXRayDelta.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITFs\I_CalcXRayDelta.TcIO">
+    <Compile Include="ITFs\I_ConvertUnitsLREAL.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ITFs\I_Lens.TcIO">
@@ -80,10 +80,31 @@
     <Compile Include="ITFs\LookupTables\I_StringLookupElement.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ITFs\Quantities\I_Quantity.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityLREAL.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityLREALPublic.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityINT.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityINTPublic.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityPublic.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Fallibles\FB_Fallible.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Fallibles\FB_FalliblePublic.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_CalcFocalLengthLensSet.TcPOU">
@@ -93,6 +114,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_CalcImageDistance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_ConvertUnits.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_Lens.TcPOU">
@@ -143,6 +167,18 @@
     <Compile Include="POUs\FB_CalcFocalLength2LensSets.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Quantities\FB_QuantityLREALPublic.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Quantities\FB_QuantityINTPublic.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Fallibles\FB_Fallible_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcFocalLength2LensSet_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\FB_CalcFocalLengthSingleLens_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -170,6 +206,9 @@
     <Compile Include="Tests\FB_LensSet_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\FB_ConvertUnits_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\FB_Transmission_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -194,25 +233,34 @@
     <Compile Include="Tests\Mocks\FB_CalcFocalLengthSingleLensMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcFocalLengthLensSetMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcImageDistanceMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Mocks\FB_CalcXRayDeltaMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_ConvertUnitsLREALMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_FalliblePublicMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_LensSetCompounderMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Mocks\FB_LensMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Mocks\FB_QuantityLREALPublicMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Mocks\FB_StringLookupElementMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\FB_FallibleLREALMock.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\FB_FallibleINTMock.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\FB_FallibleMock.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Tests\Mocks\FB_FallibleSTRINGMock.TcPOU">
+    <Compile Include="Tests\Mocks\FB_QuantityINTPublicMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Mocks\FB_LensCompounderMock.TcPOU">
@@ -227,9 +275,6 @@
     <Compile Include="Tests\Mocks\FB_StringLookupLREALMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Mocks\FB_CalcLREALMock.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Tests\RunTests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -240,11 +285,14 @@
     <Folder Include="ITFs" />
     <Folder Include="ITFs\Fallibles" />
     <Folder Include="ITFs\LookupTables" />
+    <Folder Include="ITFs\Quantities" />
     <Folder Include="POUs\LookupTables" />
     <Folder Include="POUs\Fallibles" />
+    <Folder Include="POUs\Quantities" />
     <Folder Include="Tests" />
     <Folder Include="Tests\Mocks" />
     <Folder Include="Tests\LookupTables" />
+    <Folder Include="Tests\Fallibles" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

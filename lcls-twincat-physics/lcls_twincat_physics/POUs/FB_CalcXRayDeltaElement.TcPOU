@@ -4,7 +4,7 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_CalcXRayDeltaElement EXTENDS FB_Fallible IMPLEMENTS I_CalcXRayDelta
 VAR
-    iEnergy : I_FallibleLREAL; // The photon energy of the x-rays in eV.
+    iEnergy : I_QuantityLREAL; // The photon energy of the x-rays in eV.
     if1LUT : I_StringLookupLREAL;
     iElementLUT : I_StringLookupElement;
 
@@ -15,6 +15,12 @@ VAR
     ff1 : LREAL; // The f1 scattering factor.
     fDeltaUnscaled : LREAL; // The x-ray delta value before it has been scaled.
     fScale : LREAL; // The scaling factor
+
+    {attribute 'pytmc' := '
+        pv: Delta
+        io: i
+        field: DESC Calculated delta value.
+    '}
     fDelta : LREAL;
 END_VAR
 ]]></Declaration>
@@ -25,7 +31,7 @@ END_VAR
       <Declaration><![CDATA[
 METHOD Calculate : LREAL
 VAR_INPUT
-    sElementName	: STRING;
+    sChemicalFormula : T_MaxString;
 END_VAR
 VAR
     fDensity : LREAL;
@@ -62,9 +68,9 @@ END_IF
 // Calculate some values needed for computing the index of refraction.
 fLambda := 1e-8 * fPlanckHC / iEnergy.Val; // cm
 
-fDensity := iElementLUT.LookupDensity(sLookup := sElementName);
-fAtomicMass := iElementLUT.LookupAtomicMass(sLookup := sElementName);
-nAtomicNumber := iElementLUT.LookupAtomicNumber(sLookup := sElementName);
+fDensity := iElementLUT.LookupDensity(sLookup := sChemicalFormula);
+fAtomicMass := iElementLUT.LookupAtomicMass(sLookup := sChemicalFormula);
+nAtomicNumber := iElementLUT.LookupAtomicNumber(sLookup := sChemicalFormula);
 
 // Check to see if there is an error reported for the density input.
 IF iElementLUT.GetError() THEN
@@ -98,7 +104,7 @@ IF nAtomicNumber <= 0 THEN
     RETURN;
 END_IF
 
-ff1 := if1LUT.Lookup(sLookup := sElementName);
+ff1 := if1LUT.Lookup(sLookup := sChemicalFormula);
 
 // Check to see if there is an error reported for the scatterer input.
 IF if1LUT.GetError() THEN
@@ -136,7 +142,7 @@ VAR_INPUT
     bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
     bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 
-    iEnergy : I_FallibleLREAL; // The photon energy of the x-rays in eV.
+    iEnergy : I_QuantityLREAL; // The photon energy of the x-rays.
     if1LUT : I_StringLookupLREAL;
     iElementLUT : I_StringLookupElement;
 END_VAR

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_FalliblePublic" Id="{89b23eb2-9e8f-4419-acc0-6743009400bd}">
+    <Declaration><![CDATA[INTERFACE I_FalliblePublic EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="ClearError" Id="{7a06bc68-b3cc-4d54-b1d6-37d3b5bac468}">
+      <Declaration><![CDATA[
+METHOD ClearError
+]]></Declaration>
+    </Method>
+    <Method Name="SetError" Id="{49397cf3-2cc3-4d58-bdc0-973ef16a8d2b}">
+      <Declaration><![CDATA[
+METHOD SetError
+VAR_INPUT
+    sMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

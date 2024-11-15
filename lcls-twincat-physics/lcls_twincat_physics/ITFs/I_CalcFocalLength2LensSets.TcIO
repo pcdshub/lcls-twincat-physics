@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_CalcFocalLength2LensSets" Id="{d4edc7bc-d565-4b61-b194-55a618b4808f}">
+    <Declaration><![CDATA[INTERFACE I_CalcFocalLength2LensSets EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Calculate" Id="{6b83f25a-840f-4753-b9a5-90d617f728a3}">
+      <Declaration><![CDATA[
+METHOD Calculate : LREAL
+VAR_INPUT
+    iSourceDistance : I_QuantityLREAL; // Distance from source to downstream lens.
+    iDistanceBetween : I_QuantityLREAL; // Distance between the two lens sets.
+    iLensSetUpstream : I_LensSet;
+    iLensSetDownstream : I_LensSet;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

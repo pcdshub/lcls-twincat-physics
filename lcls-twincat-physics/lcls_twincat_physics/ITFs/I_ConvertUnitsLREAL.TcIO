@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_ConvertUnitsLREAL" Id="{55f893e7-7529-4e2a-810b-ffc51e01748c}">
+    <Declaration><![CDATA[INTERFACE I_ConvertUnitsLREAL EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="ConvertCopyLREAL" Id="{8c4614a7-f27b-4200-8c1b-600b2d2f5c07}">
+      <Declaration><![CDATA[
+METHOD ConvertCopyLREAL : FB_QuantityLREALPublic
+VAR_INPUT
+	iQuantity	: I_QuantityLREAL;
+	sDesiredUnits	: T_MaxString;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ConvertLREAL" Id="{e59093cd-292f-4260-90d5-4f9ae5707c3f}">
+      <Declaration><![CDATA[
+METHOD ConvertLREAL
+VAR_INPUT
+	iQuantity	: I_QuantityLREALPublic;
+	sDesiredUnits	: T_MaxString;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

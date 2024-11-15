@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Fallible_Test" Id="{8cba201b-995e-4a53-ab27-125a677e950d}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_Fallible_Test EXTENDS TcUnit.FB_TestSuite
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+TestGetErrorExpectErrorStatus();
+
+TestGetErrorMsgExpectErrorMsg();
+]]></ST>
+    </Implementation>
+    <Method Name="TestGetErrorExpectErrorStatus" Id="{7af2bd4d-126f-48e4-a5e0-0cfb44d45ac2}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestGetErrorExpectErrorStatus
+VAR
+    fbFallible : FB_Fallible;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestGetErrorExpectErrorStatus');
+
+// Test fixture
+
+// Subject Under Test
+AssertFalse(
+    Condition := fbFallible.GetError(),
+    Message := 'Expected GetError to be false, but it was true.'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestGetErrorMsgExpectErrorMsg" Id="{b950e335-0166-4227-9f34-82d4d878960b}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestGetErrorMsgExpectErrorMsg
+VAR
+    fbFallible : FB_Fallible;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestGetErrorMsgExpectErrorMsg');
+
+// Test fixture
+
+// Subject Under Test
+AssertTrue(
+    Condition := fbFallible.GetErrorMsg() = '',
+    Message := 'Expected GetErrorMsg to return an empty string, but it was not empty.'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

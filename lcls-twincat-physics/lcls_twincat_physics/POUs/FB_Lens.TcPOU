@@ -4,8 +4,25 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_Lens EXTENDS FB_Fallible IMPLEMENTS I_Lens
 VAR
+    {attribute 'pytmc' := '
+        pv: MaterialName
+        io: io
+        field: DESC Name of lens material.
+    '}
     sMaterialName : T_MaxString;
+
+    {attribute 'pytmc' := '
+        pv: Multiplier
+        io: io
+        field: DESC Number of lenses of same kind.
+    '}
     nMultiplier : INT;
+
+    {attribute 'pytmc' := '
+        pv: Radius
+        io: io
+        field: DESC Lens radius of curvature.
+    '}
     fRadius : LREAL;
 END_VAR
 ]]></Declaration>

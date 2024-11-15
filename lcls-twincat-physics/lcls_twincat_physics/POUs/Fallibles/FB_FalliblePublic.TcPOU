@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_Fallible" Id="{c55cc743-07c1-462b-8940-bcc4a22fbcc1}" SpecialFunc="None">
+  <POU Name="FB_FalliblePublic" Id="{b31e2ad8-b7ee-4d66-a0d2-490aab45eadc}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_Fallible IMPLEMENTS I_Fallible
+FUNCTION_BLOCK FB_FalliblePublic IMPLEMENTS I_FalliblePublic
 VAR
     {attribute 'pytmc' := '
         pv: Error
@@ -21,9 +21,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="ClearError" Id="{ccb35ac6-4574-420e-b77e-651907b31f9d}">
+    <Method Name="ClearError" Id="{e508f329-7528-441e-8224-c35c1c1d76fc}">
       <Declaration><![CDATA[
-METHOD PROTECTED ClearError
+METHOD ClearError
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
@@ -32,7 +32,7 @@ sErrorMsg := '';
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetError" Id="{d9c22293-5bd7-4710-b478-a308a4bc051c}">
+    <Method Name="GetError" Id="{9e2f6e28-2861-47e9-a8e4-2a94f8af3a74}">
       <Declaration><![CDATA[
 METHOD PUBLIC GetError : BOOL
 ]]></Declaration>
@@ -42,7 +42,7 @@ GetError := bError;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetErrorMsg" Id="{a84e666b-44cf-4d5c-a081-3f78810c6b43}">
+    <Method Name="GetErrorMsg" Id="{6d3edd89-1b7c-4e6d-b76c-799a48331a0a}">
       <Declaration><![CDATA[
 METHOD PUBLIC GetErrorMsg : T_MaxString
 ]]></Declaration>
@@ -52,9 +52,9 @@ GetErrorMsg := sErrorMsg;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetError" Id="{553deb08-e445-4322-beec-8f9e06539b61}">
+    <Method Name="SetError" Id="{c14920fb-6747-422b-8d39-c0e873f896ca}">
       <Declaration><![CDATA[
-METHOD PROTECTED SetError
+METHOD SetError
 VAR_INPUT
     sMsg : T_MaxString;
 END_VAR

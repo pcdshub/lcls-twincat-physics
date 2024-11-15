@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_QuantityINTPublic" Id="{e7fa7469-c069-418d-bb6f-524f2b84f173}">
+    <Declaration><![CDATA[
+INTERFACE I_QuantityINTPublic EXTENDS I_QuantityPublic, I_QuantityINT
+]]></Declaration>
+    <Property Name="Val" Id="{694b2bda-9c0a-4684-acf8-e024e150e79c}">
+      <Declaration><![CDATA[
+PROPERTY Val : INT
+]]></Declaration>
+      <Set Name="Set" Id="{1c971d17-99ee-4619-a1ea-f47cfb171139}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

@@ -101,6 +101,9 @@ METHOD Reset
         <ST><![CDATA[
 // Initialize focal length and error values.
 fFocalLengthCompounded := 0.0;
+fFocalLength1Inverse := 0.0;
+fFocalLength2Inverse := 0.0;
+fFocalLengthCompoundedInverse := 0.0;
 ClearError();
 bFirstCompound := TRUE;
 ]]></ST>

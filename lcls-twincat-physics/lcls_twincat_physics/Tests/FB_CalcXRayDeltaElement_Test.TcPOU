@@ -203,15 +203,15 @@ TestValidInputsExpectNoErrorAccurateDelta(
       <Declaration><![CDATA[
 METHOD PRIVATE SetInitialValues
 VAR_IN_OUT
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fbFallibleLREALEnergyMock.Val := 1.0;
-fbFallibleLREALEnergyMock.ClearError();
+fbQuantityLREALPublicEnergyMock.Val := 1.0;
+fbQuantityLREALPublicEnergyMock.ClearError();
 
 fbStringLookupLREALMock.Value := 1.0;
 fbStringLookupLREALMock.ClearError();
@@ -227,12 +227,12 @@ fbStringLookupElementMock.ClearError();
       <Declaration><![CDATA[
 METHOD Test0AtomicMassExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -245,7 +245,7 @@ TEST('Test0AtomicMassExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
@@ -254,7 +254,7 @@ fbStringLookupElementMock.AtomicMass := 0.0;
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -282,12 +282,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD Test0AtomicNumberExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -300,7 +300,7 @@ TEST('Test0AtomicNumberExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
@@ -309,7 +309,7 @@ fbStringLookupElementMock.AtomicNumber := 0;
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -337,12 +337,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD Test0DensityExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -355,7 +355,7 @@ TEST('Test0DensityExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
@@ -364,7 +364,7 @@ fbStringLookupElementMock.Density := 0.0;
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -392,12 +392,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD Test0EnergyExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -410,16 +410,16 @@ TEST('Test0EnergyExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
 
-fbFallibleLREALEnergyMock.Val := 0.0;
+fbQuantityLREALPublicEnergyMock.Val := 0.0;
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -447,12 +447,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestInvalidElementExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -465,7 +465,7 @@ TEST('TestInvalidElementExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
@@ -474,7 +474,7 @@ fbStringLookupElementMock.SetError(sMsg := 'Error');
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -502,12 +502,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestInvalidEnergyExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -520,16 +520,16 @@ TEST('TestInvalidEnergyExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
 
-fbFallibleLREALEnergyMock.SetError(sMsg := 'Error');
+fbQuantityLREALPublicEnergyMock.SetError(sMsg := 'Error');
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -557,12 +557,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestInvalidf1ExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -571,11 +571,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestInvalidScattererExpectError0Delta');
+TEST('TestInvalidf1ExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
@@ -584,7 +584,7 @@ fbStringLookupLREALMock.SetError(sMsg := 'Error');
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -612,12 +612,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestNegAtomicMassExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -630,7 +630,7 @@ TEST('TestNegAtomicMassExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
@@ -639,7 +639,7 @@ fbStringLookupElementMock.AtomicMass := -10.0;
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -667,12 +667,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestNegAtomicNumberExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -685,7 +685,7 @@ TEST('TestNegAtomicNumberExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
@@ -694,7 +694,7 @@ fbStringLookupElementMock.AtomicNumber := -10;
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -722,12 +722,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestNegDensityExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -740,7 +740,7 @@ TEST('TestNegDensityExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
@@ -749,7 +749,7 @@ fbStringLookupElementMock.Density := 0.0;
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -777,12 +777,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestNegEnergyExpectError0Delta
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -795,16 +795,16 @@ TEST('TestNegEnergyExpectError0Delta');
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
 
-fbFallibleLREALEnergyMock.Val := 0.0;
+fbQuantityLREALPublicEnergyMock.Val := 0.0;
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertTrue(
@@ -841,12 +841,12 @@ VAR_INPUT
     fExpected : LREAL;
 END_VAR
 VAR
-    fbFallibleLREALEnergyMock : FB_FallibleLREALMock;
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbFallibleLREALEnergyMock,
+        iEnergy := fbQuantityLREALPublicEnergyMock,
         if1LUT := fbStringLookupLREALMock,
         iElementLUT := fbStringLookupElementMock
     );
@@ -860,11 +860,11 @@ TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccurateDelta ID: ',
 
 // Test fixture
 SetInitialValues(
-    fbFallibleLREALEnergyMock := fbFallibleLREALEnergyMock,
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
-fbFallibleLREALEnergyMock.Val := fEnergy;
+fbQuantityLREALPublicEnergyMock.Val := fEnergy;
 fbStringLookupLREALMock.Value := fF1;
 fbStringLookupElementMock.Density := fDensity;
 fbStringLookupElementMock.AtomicNumber := nAtomicNumber;
@@ -872,7 +872,7 @@ fbStringLookupElementMock.AtomicMass := fAtomicMass;
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
-    sElementName := 'Be'
+    sChemicalFormula := 'Be'
 );
 
 AssertFalse(

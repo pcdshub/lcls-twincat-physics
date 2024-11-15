@@ -6,6 +6,9 @@ FUNCTION_BLOCK FB_CalcFocalLengthLensSet EXTENDS FB_Fallible IMPLEMENTS I_CalcFo
 VAR
     iLensCompounder : I_LensCompounder;
 
+    //{attribute 'pytmc' := 'pv: FocalLength'}
+    //fbFocalLength : FB_QuantityLREALPublic;
+
     fFocalLength : LREAL;
     nIndex : INT;
 END_VAR

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_LensCompounderMock" Id="{f3a1ef28-98f7-4a8c-a126-ddef21ffe39c}" SpecialFunc="None">
+  <POU Name="FB_LensSetCompounderMock" Id="{67b527a3-9387-46bb-810d-7075318f36e8}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_LensCompounderMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_LensCompounder
+FUNCTION_BLOCK FB_LensSetCompounderMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_LensSetCompounder
 VAR
     fFocalLengthCompounded : LREAL;
 END_VAR
@@ -10,12 +10,12 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Compound" Id="{785c0eab-8b59-435e-bd8e-fdfd5fe072fc}">
+    <Method Name="Compound" Id="{75ebd25a-6006-41a6-afc8-68dd6ba211e1}">
       <Declaration><![CDATA[
 METHOD Compound : LREAL
 VAR_INPUT
-    fFocalLength	: LREAL;
-    nMultiplier	: INT;
+    fFocalLength : LREAL;
+    fSourceDistance : LREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -24,11 +24,11 @@ Compound := fFocalLengthCompounded;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="FocalLengthCompounded" Id="{6ab06aab-6e17-48c9-8772-1a82ae1a3661}">
+    <Property Name="FocalLengthCompounded" Id="{d1476ebb-7381-42e7-ac29-8da927049a2a}">
       <Declaration><![CDATA[
 PROPERTY FocalLengthCompounded : LREAL
 ]]></Declaration>
-      <Get Name="Get" Id="{24dd4de6-a091-4797-9830-75cb541a3d9e}">
+      <Get Name="Get" Id="{22758c88-8920-4018-9f08-e1291c47f8ef}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
@@ -36,7 +36,7 @@ FocalLengthCompounded := fFocalLengthCompounded;
 ]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{b9d8817e-a904-469f-93e9-2a1fa4393935}">
+      <Set Name="Set" Id="{4c95bdfb-c76f-4025-9341-3094748cd28d}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
@@ -45,7 +45,7 @@ fFocalLengthCompounded := FocalLengthCompounded;
         </Implementation>
       </Set>
     </Property>
-    <Method Name="Reset" Id="{899c1ae2-1f7c-43b4-bab3-4851756d6c8f}">
+    <Method Name="Reset" Id="{01cee560-272e-4fe8-acac-ea83151ba838}">
       <Declaration><![CDATA[
 METHOD Reset
 ]]></Declaration>
@@ -53,7 +53,7 @@ METHOD Reset
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetValid" Id="{c1823eea-07dc-4ea6-ac07-5ee9857edefe}">
+    <Method Name="SetValid" Id="{32c5277f-0827-4d86-91f4-c676cc2b02f3}">
       <Declaration><![CDATA[
 METHOD SetValid
 ]]></Declaration>

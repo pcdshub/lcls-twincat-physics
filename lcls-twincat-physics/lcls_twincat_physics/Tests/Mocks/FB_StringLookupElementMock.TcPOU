@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_StringLookupElementMock" Id="{18e1cb23-bba9-4318-ba60-0ac68051a2a0}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_StringLookupElementMock EXTENDS FB_FallibleMock IMPLEMENTS I_StringLookupElement;
+FUNCTION_BLOCK FB_StringLookupElementMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_StringLookupElement;
 VAR
     fAtomicMass : LREAL;
     nAtomicNumber : INT;

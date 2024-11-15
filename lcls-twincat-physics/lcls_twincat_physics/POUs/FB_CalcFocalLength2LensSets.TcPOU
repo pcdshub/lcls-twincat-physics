@@ -2,36 +2,121 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CalcFocalLength2LensSets" Id="{765016df-8fcb-4824-a16c-775f522a9b6b}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcFocalLength2LensSets EXTENDS FB_Fallible
+FUNCTION_BLOCK FB_CalcFocalLength2LensSets EXTENDS FB_Fallible IMPLEMENTS I_CalcFocalLength2LensSets
 VAR
-    iEnergy : I_FallibleLREAL;
+    iConvertUnits : I_ConvertUnitsLREAL;
+    iLensSetCompounder : I_LensSetCompounder;
+    iCalcFocalLengthLensSet : I_CalcFocalLengthLensSet;
 
-    fbf1LUT : FB_f1Chantler(iEnergy := iEnergy);
-    fbAtomicMassLUT : FB_AtomicMass;
-    fbAtomicNumberLUT : FB_AtomicNumber;
-    fbDensityLUT : FB_ElementDensity;
-    fbElementLUT : FB_ElementLUT(
-        iAtomicMassLUT := fbAtomicMassLUT,
-        iAtomicNumberLUT := fbAtomicNumberLUT,
-        iDensityLUT := fbDensityLUT
-    );
-    fbCalcXRayDelta : FB_CalcXRayDeltaElement(
-        iEnergy := iEnergy,
-        if1LUT := fbf1LUT,
-        iElementLUT := fbElementLUT
-    );
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDelta);
-    fbLensSetUpstream : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
-    fbLensSetDownstream : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
-    fbLensCompounder : FB_LensCompounder;
-    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(iLensCompounder := fbLensCompounder);
-    fbCalcImageDistance : FB_CalcImageDistance;
-    fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistance);
+    {attribute 'pytmc' := 'pv: FocalLength'}
+    fbFocalLength : FB_QuantityLREALPublic;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Calculate" Id="{7fb9b932-86ed-4807-9dba-f0f190f19c1a}">
+      <Declaration><![CDATA[
+METHOD Calculate : LREAL
+VAR_INPUT
+    iSourceDistance : I_QuantityLREAL; // Distance from source to downstream lens.
+    iDistanceBetween : I_QuantityLREAL; // Distance between the two lens sets.
+    iLensSetUpstream : I_LensSet;
+    iLensSetDownstream : I_LensSet;
+END_VAR
+VAR
+    fFocalLengthUpstream : LREAL;
+    fFocalLengthDownstream : LREAL;
+    fbSourceDistance : FB_QuantityLREALPublic;
+    fbDistanceBetween : FB_QuantityLREALPublic;
+    fFocalLengthCompounded : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+
+fFocalLengthUpstream := iCalcFocalLengthLensSet.Calculate(iLensSet := iLensSetUpstream);
+
+IF iCalcFocalLengthLensSet.GetError() THEN
+    SetError(sMsg :=
+        CONCAT('Error returned when attempting to calculate the focal length of the upstream lens set: ',
+        iCalcFocalLengthLensSet.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+fFocalLengthDownstream := iCalcFocalLengthLensSet.Calculate(iLensSet := iLensSetDownstream);
+
+IF iCalcFocalLengthLensSet.GetError() THEN
+    SetError(sMsg :=
+        CONCAT('Error returned when attempting to calculate the focal length of the downstream lens set: ',
+        iCalcFocalLengthLensSet.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+iLensSetCompounder.Reset();
+
+fbSourceDistance := iConvertUnits.ConvertCopyLREAL(
+    iQuantity := iSourceDistance,
+    sDesiredUnits := fbFocalLength.Units
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(sMsg :=
+        CONCAT('Error returned when attempting to convert units of source distance input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+fbDistanceBetween := iConvertUnits.ConvertCopyLREAL(
+    iQuantity := iDistanceBetween,
+    sDesiredUnits := fbFocalLength.Units
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(sMsg :=
+        CONCAT('Error returned when attempting to convert units of distance between input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+
+fFocalLengthCompounded := iLensSetCompounder.Compound(
+    fFocalLength := fFocalLengthUpstream,
+    fSourceDistance := iSourceDistance.Val - iDistanceBetween.Val
+);
+
+IF iLensSetCompounder.GetError() THEN
+    SetError(sMsg :=
+        CONCAT('Error returned when attempting to compound the focal length of the upstream lens set: ',
+        iLensSetCompounder.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+fFocalLengthCompounded := iLensSetCompounder.Compound(
+    fFocalLength := fFocalLengthDownstream,
+    fSourceDistance := iSourceDistance.Val
+);
+
+IF iLensSetCompounder.GetError() THEN
+    SetError(sMsg :=
+        CONCAT('Error returned when attempting to compound the focal length of the downstream lens set: ',
+        iLensSetCompounder.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+fbFocalLength.Val := fFocalLengthCompounded;
+
+Calculate := fbFocalLength.Val;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_Init" Id="{b6c80088-2bb6-423b-86e6-b931e94ef36c}">
       <Declaration><![CDATA[
 METHOD FB_Init: BOOL
@@ -39,11 +124,34 @@ VAR_INPUT
     bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
     bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
 
-    iEnergy : I_FallibleLREAL;
-END_VAR]]></Declaration>
+    iConvertUnits : I_ConvertUnitsLREAL;
+    iLensSetCompounder : I_LensSetCompounder;
+    iCalcFocalLengthLensSet : I_CalcFocalLengthLensSet;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.iEnergy := iEnergy;
+THIS^.iConvertUnits := iConvertUnits;
+THIS^.iLensSetCompounder := iLensSetCompounder;
+THIS^.iCalcFocalLengthLensSet := iCalcFocalLengthLensSet;
+
+fbFocalLength.Units := 'm';
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{8ac67ccb-16d7-474d-8982-b2e646a3254c}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    sMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+bError := TRUE;
+sErrorMsg := sMsg;
+
+fbFocalLength.SetError(sMsg := sMsg);
 ]]></ST>
       </Implementation>
     </Method>

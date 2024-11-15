@@ -76,6 +76,8 @@ ELSE
     );
 END_IF
 
+fPrevSourceDistance := fSourceDistance;
+
 IF iCalcImageDistance.GetError() THEN
     SetError(sMsg :=
         CONCAT('Error returned when attempting to calculate the image distance: ',
@@ -125,6 +127,13 @@ METHOD Reset
 bFirstCompound := TRUE;
 ClearError();
 fFocalLengthCompounded := 0.0;
+fFocalLengthInverse := 0.0;
+fVirtualSourceDistance := 0.0;
+fVirtualSourceDistanceInverse := 0.0;
+fPrevSourceDistance := 0.0;
+fSourceDistanceInverse := 0.0;
+fFocalLengthCompounded := 0.0;
+fFocalLengthCompoundedInverse := 0.0;
 ]]></ST>
       </Implementation>
     </Method>

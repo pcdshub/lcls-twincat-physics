@@ -3,351 +3,32 @@
   <POU Name="FB_LensSetCompounder_Test" Id="{5993f0f3-1baa-4de2-b246-1c47c7a4f45d}" SpecialFunc="None">
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_LensSetCompounder_Test EXTENDS TcUnit.FB_TestSuite
-VAR
-    nTestID : INT;
-END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-nTestID := 0;
-
 Test0FocalLengthExpectError0FocalLength();
 
-Test0MultiplierExpectError0FocalLength();
+Test0SourceDistanceExpectError0FocalLength();
 
-TestNegMultiplierExpectError0FocalLength();
+TestActualImageDistanceExpectNoErrorAccurateFocalLength();
+
+TestInvalidImageDistanceExpectError0FocalLength();
+
+TestMockedImageDistanceExpectNoErrorAccurateFocalLength();
 
 TestResetExpectNoErrorAccurateFocalLength();
 
 TestResetExpectNoErrorAccurateFocalLength_1();
 
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 1.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.008893754309452119,
-    nMultiplier1 := 1,
-    fFocalLength2 := 0.008893754309452119,
-    nMultiplier2 := 1,
-    fExpected := 0.004446877154726059
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 2.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.008893754309452119,
-    nMultiplier1 := 1,
-    fFocalLength2 := 0.008893754309452119,
-    nMultiplier2 := 2,
-    fExpected := 0.002964584769817373
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 3.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.008893754309452119,
-    nMultiplier1 := 2,
-    fFocalLength2 := 0.008893754309452119,
-    nMultiplier2 := 1,
-    fExpected := 0.002964584769817373
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 4.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.008893754309452119,
-    nMultiplier1 := 2,
-    fFocalLength2 := 0.008893754309452119,
-    nMultiplier2 := 2,
-    fExpected := 0.0022234385773630297
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 5.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.008893754309452119,
-    nMultiplier1 := 1,
-    fFocalLength2 := 0.45358146978205804,
-    nMultiplier2 := 1,
-    fExpected := 0.008722720572731886
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 6.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.008893754309452119,
-    nMultiplier1 := 1,
-    fFocalLength2 := 0.45358146978205804,
-    nMultiplier2 := 2,
-    fExpected := 0.008558140939284115
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 7.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.008893754309452119,
-    nMultiplier1 := 2,
-    fFocalLength2 := 0.45358146978205804,
-    nMultiplier2 := 1,
-    fExpected := 0.004403703590117068
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 8.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.008893754309452119,
-    nMultiplier1 := 2,
-    fFocalLength2 := 0.45358146978205804,
-    nMultiplier2 := 2,
-    fExpected := 0.004361360286365943
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 9.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.45358146978205804,
-    nMultiplier1 := 1,
-    fFocalLength2 := 0.008893754309452119,
-    nMultiplier2 := 1,
-    fExpected := 0.008722720572731886
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 10.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.45358146978205804,
-    nMultiplier1 := 1,
-    fFocalLength2 := 0.008893754309452119,
-    nMultiplier2 := 2,
-    fExpected := 0.004403703590117068
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 11.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.45358146978205804,
-    nMultiplier1 := 2,
-    fFocalLength2 := 0.008893754309452119,
-    nMultiplier2 := 1,
-    fExpected := 0.008558140939284115
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 12.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.45358146978205804,
-    nMultiplier1 := 2,
-    fFocalLength2 := 0.008893754309452119,
-    nMultiplier2 := 2,
-    fExpected := 0.004361360286365943
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 13.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.45358146978205804,
-    nMultiplier1 := 1,
-    fFocalLength2 := 0.45358146978205804,
-    nMultiplier2 := 1,
-    fExpected := 0.22679073489102902
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 14.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.45358146978205804,
-    nMultiplier1 := 1,
-    fFocalLength2 := 0.45358146978205804,
-    nMultiplier2 := 2,
-    fExpected := 0.15119382326068603
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 15.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.45358146978205804,
-    nMultiplier1 := 2,
-    fFocalLength2 := 0.45358146978205804,
-    nMultiplier2 := 1,
-    fExpected := 0.15119382326068603
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 16.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 0.45358146978205804,
-    nMultiplier1 := 2,
-    fFocalLength2 := 0.45358146978205804,
-    nMultiplier2 := 2,
-    fExpected := 0.11339536744551451
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 17.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 33.443194804611025,
-    nMultiplier1 := 1,
-    fFocalLength2 := 33.443194804611025,
-    nMultiplier2 := 1,
-    fExpected := 16.721597402305513
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 18.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 33.443194804611025,
-    nMultiplier1 := 1,
-    fFocalLength2 := 33.443194804611025,
-    nMultiplier2 := 2,
-    fExpected := 11.147731601537009
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 19.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 33.443194804611025,
-    nMultiplier1 := 2,
-    fFocalLength2 := 33.443194804611025,
-    nMultiplier2 := 1,
-    fExpected := 11.147731601537009
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 20.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 33.443194804611025,
-    nMultiplier1 := 2,
-    fFocalLength2 := 33.443194804611025,
-    nMultiplier2 := 2,
-    fExpected := 8.360798701152756
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 21.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 33.443194804611025,
-    nMultiplier1 := 1,
-    fFocalLength2 := 1705.6029350351625,
-    nMultiplier2 := 1,
-    fExpected := 32.80005644298389
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 22.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 33.443194804611025,
-    nMultiplier1 := 1,
-    fFocalLength2 := 1705.6029350351625,
-    nMultiplier2 := 2,
-    fExpected := 32.18118745349363
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 23.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 33.443194804611025,
-    nMultiplier1 := 2,
-    fFocalLength2 := 1705.6029350351625,
-    nMultiplier2 := 1,
-    fExpected := 16.559251796457886
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 24.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 33.443194804611025,
-    nMultiplier1 := 2,
-    fFocalLength2 := 1705.6029350351625,
-    nMultiplier2 := 2,
-    fExpected := 16.400028221491944
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 25.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 1705.6029350351625,
-    nMultiplier1 := 1,
-    fFocalLength2 := 33.443194804611025,
-    nMultiplier2 := 1,
-    fExpected := 32.80005644298389
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 26.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 1705.6029350351625,
-    nMultiplier1 := 1,
-    fFocalLength2 := 33.443194804611025,
-    nMultiplier2 := 2,
-    fExpected := 16.559251796457886
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 27.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 1705.6029350351625,
-    nMultiplier1 := 2,
-    fFocalLength2 := 33.443194804611025,
-    nMultiplier2 := 1,
-    fExpected := 32.18118745349363
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 28.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 1705.6029350351625,
-    nMultiplier1 := 2,
-    fFocalLength2 := 33.443194804611025,
-    nMultiplier2 := 2,
-    fExpected := 16.400028221491944
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 29.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 1705.6029350351625,
-    nMultiplier1 := 1,
-    fFocalLength2 := 1705.6029350351625,
-    nMultiplier2 := 1,
-    fExpected := 852.8014675175812
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 30.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 1705.6029350351625,
-    nMultiplier1 := 1,
-    fFocalLength2 := 1705.6029350351625,
-    nMultiplier2 := 2,
-    fExpected := 568.5343116783874
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 31.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 1705.6029350351625,
-    nMultiplier1 := 2,
-    fFocalLength2 := 1705.6029350351625,
-    nMultiplier2 := 1,
-    fExpected := 568.5343116783874
-);
-
-// Expected results taken from pcdscalc/be_lens_calcs.py.
-// Element = Be. Test Count = 32.
-TestValidInputsExpectNoErrorAccurateFocalLength(
-    fFocalLength1 := 1705.6029350351625,
-    nMultiplier1 := 2,
-    fFocalLength2 := 1705.6029350351625,
-    nMultiplier2 := 2,
-    fExpected := 426.4007337587906
-);
 ]]></ST>
     </Implementation>
     <Method Name="Test0FocalLengthExpectError0FocalLength" Id="{4e09a27c-194e-43ea-ae5a-bafa98ac407f}">
       <Declaration><![CDATA[
 METHOD Test0FocalLengthExpectError0FocalLength
 VAR
+    fbCalcImageDistanceMock : FB_CalcImageDistanceMock;
     // Subject under test
-    fbLensCompounder : FB_LensCompounder();
+    fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistanceMock);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -355,27 +36,27 @@ END_VAR
 TEST('Test0FocalLengthExpectError0FocalLength');
 
 // Test fixture
-fbLensCompounder.Reset();
+fbLensSetCompounder.Reset();
 
 // Here the test starts
-fbLensCompounder.Compound(
+fbLensSetCompounder.Compound(
     fFocalLength := 0.0,
-    nMultiplier := 1
+    fSourceDistance := 1.0
 );
 
 AssertTrue(
-    Condition := fbLensCompounder.GetError(),
+    Condition := fbLensSetCompounder.GetError(),
     Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertTrue(
-    Condition := fbLensCompounder.GetErrorMsg() <> '',
+    Condition := fbLensSetCompounder.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to not be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0,
-    Actual := fbLensCompounder.FocalLengthCompounded,
+    Actual := fbLensSetCompounder.FocalLengthCompounded,
     Delta := 0,
     Message := 'Calculated focal length compounded should be 0 when an error is detected.'
 );
@@ -384,40 +65,41 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test0MultiplierExpectError0FocalLength" Id="{a3aaec53-b687-4c96-8412-c65676eda2d0}">
+    <Method Name="Test0SourceDistanceExpectError0FocalLength" Id="{531f2114-ea90-42eb-b369-ba8078180eb6}">
       <Declaration><![CDATA[
-METHOD Test0MultiplierExpectError0FocalLength
+METHOD Test0SourceDistanceExpectError0FocalLength
 VAR
+    fbCalcImageDistanceMock : FB_CalcImageDistanceMock;
     // Subject under test
-    fbLensCompounder : FB_LensCompounder();
+    fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistanceMock);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('Test0MultiplierExpectError0FocalLength');
+TEST('Test0SourceDistanceExpectError0FocalLength');
 
 // Test fixture
-fbLensCompounder.Reset();
+fbLensSetCompounder.Reset();
 
 // Here the test starts
-fbLensCompounder.Compound(
+fbLensSetCompounder.Compound(
     fFocalLength := 1.0,
-    nMultiplier := 0
+    fSourceDistance := 0.0
 );
 
 AssertTrue(
-    Condition := fbLensCompounder.GetError(),
+    Condition := fbLensSetCompounder.GetError(),
     Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertTrue(
-    Condition := fbLensCompounder.GetErrorMsg() <> '',
+    Condition := fbLensSetCompounder.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to not be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0,
-    Actual := fbLensCompounder.FocalLengthCompounded,
+    Actual := fbLensSetCompounder.FocalLengthCompounded,
     Delta := 0,
     Message := 'Calculated focal length compounded should be 0 when an error is detected.'
 );
@@ -426,42 +108,184 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestNegMultiplierExpectError0FocalLength" Id="{9cc33780-87fb-4ac3-9e5f-da2d7fa30e11}">
+    <Method Name="TestActualImageDistanceExpectNoErrorAccurateFocalLength" Id="{fabfe1ef-8f25-4c28-be2e-09d8e40cbc5a}">
       <Declaration><![CDATA[
-METHOD TestNegMultiplierExpectError0FocalLength
+METHOD TestActualImageDistanceExpectNoErrorAccurateFocalLength
 VAR
+    fbCalcImageDistance : FB_CalcImageDistance;
     // Subject under test
-    fbLensCompounder : FB_LensCompounder();
+    fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistance);
+    d12 : LREAL;
+    d23 : LREAL;
+    f1 : LREAL;
+    f2 : LREAL;
+    f3 : LREAL;
+    o1 : LREAL;
+    o2 : LREAL;
+    o3 : LREAL;
+    i1 : LREAL;
+    i2 : LREAL;
+    i3 : LREAL;
+    fExpected : LREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestNegMultiplierExpectError0FocalLength');
+TEST('TestActualImageDistanceExpectNoErrorAccurateFocalLength');
 
 // Test fixture
-fbLensCompounder.Reset();
+d12 := 8.0;
+d23 := 2.0;
+f1 := 3.0;
+f2 := 4.0;
+f3 := 5.0;
+o1 := 10.0;
+
+i1 := 1.0 / ((1.0)/(f1) - (1.0)/(o1));
+o2 := d12 - i1;
+i2 := 1.0 / ((1.0)/(f2) - (1.0)/(o2));
+o3 := d23 - i2;
+i3 := 1.0 / ((1.0)/(f3) - (1.0)/(o3));
+
+fExpected := i3;
+
+fbLensSetCompounder.Reset();
 
 // Here the test starts
-fbLensCompounder.Compound(
+fbLensSetCompounder.Compound(
+    fFocalLength := f1,
+    fSourceDistance := o1
+);
+
+fbLensSetCompounder.Compound(
+    fFocalLength := f2,
+    fSourceDistance := o1 + d12
+);
+
+fbLensSetCompounder.Compound(
+    fFocalLength := f3,
+    fSourceDistance := o1 + d12 + d23
+);
+
+AssertFalse(
+    Condition := fbLensSetCompounder.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbLensSetCompounder.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbLensSetCompounder.FocalLengthCompounded,
+    Delta := ABS(0.001 * fExpected),
+    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidImageDistanceExpectError0FocalLength" Id="{a2f781f2-7cbf-4544-9234-9793a416eb8b}">
+      <Declaration><![CDATA[
+METHOD TestInvalidImageDistanceExpectError0FocalLength
+VAR
+    fbCalcImageDistanceMock : FB_CalcImageDistanceMock;
+    // Subject under test
+    fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistanceMock);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidImageDistanceExpectError0FocalLength');
+
+// Test fixture
+fbLensSetCompounder.Reset();
+
+fbCalcImageDistanceMock.SetError(sMsg := 'Error');
+
+// Here the test starts
+fbLensSetCompounder.Compound(
     fFocalLength := 1.0,
-    nMultiplier := -1
+    fSourceDistance := 1.0
 );
 
 AssertTrue(
-    Condition := fbLensCompounder.GetError(),
+    Condition := fbLensSetCompounder.GetError(),
     Message := 'Expected bError bit to be true but it was false.'
 );
 
 AssertTrue(
-    Condition := fbLensCompounder.GetErrorMsg() <> '',
+    Condition := fbLensSetCompounder.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to not be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0,
-    Actual := fbLensCompounder.FocalLengthCompounded,
+    Actual := fbLensSetCompounder.FocalLengthCompounded,
     Delta := 0,
     Message := 'Calculated focal length compounded should be 0 when an error is detected.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMockedImageDistanceExpectNoErrorAccurateFocalLength" Id="{c49174e3-2525-4e95-9784-be09b6e3c532}">
+      <Declaration><![CDATA[
+METHOD TestMockedImageDistanceExpectNoErrorAccurateFocalLength
+VAR
+    fbCalcImageDistanceMock : FB_CalcImageDistanceMock;
+    // Subject under test
+    fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistanceMock);
+    fExpected : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestMockedImageDistanceExpectNoErrorAccurateFocalLength');
+
+// Test fixture
+fExpected := 4.0;
+
+fbLensSetCompounder.Reset();
+
+// Here the test starts
+fbCalcImageDistanceMock.SetResult(2.0);
+fbLensSetCompounder.Compound(
+    fFocalLength := 1.0,
+    fSourceDistance := 2.0
+);
+
+fbCalcImageDistanceMock.SetResult(3.0);
+fbLensSetCompounder.Compound(
+    fFocalLength := 3.0,
+    fSourceDistance := 16.0
+);
+
+fbCalcImageDistanceMock.SetResult(fExpected);
+fbLensSetCompounder.Compound(
+    fFocalLength := 5.0,
+    fSourceDistance := 123.0
+);
+
+AssertFalse(
+    Condition := fbLensSetCompounder.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbLensSetCompounder.GetErrorMsg() <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fbLensSetCompounder.FocalLengthCompounded,
+    Delta := 0.0,
+    Message := 'Calculated focal length did not calculate close enough to the expected value.'
 );
 
 TEST_FINISHED();
@@ -472,8 +296,9 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestResetExpectNoErrorAccurateFocalLength
 VAR
+    fbCalcImageDistanceMock : FB_CalcImageDistanceMock;
     // Subject under test
-    fbLensCompounder : FB_LensCompounder();
+    fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistanceMock);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -481,36 +306,35 @@ END_VAR
 TEST('TestResetExpectNoErrorAccurateFocalLength');
 
 // Test fixture
-fbLensCompounder.Reset();
+fbLensSetCompounder.Reset();
 
 // Here the test starts
-fbLensCompounder.Compound(
+fbCalcImageDistanceMock.SetResult(2.0);
+fbLensSetCompounder.Compound(
     fFocalLength := 1.0,
-    nMultiplier := 1
+    fSourceDistance := 1.0
 );
 
-fbLensCompounder.Reset();
+fbLensSetCompounder.Reset();
 
 AssertFalse(
-    Condition := fbLensCompounder.GetError(),
+    Condition := fbLensSetCompounder.GetError(),
     Message := 'Expected bError bit to be false but it was true.'
 );
 
 AssertFalse(
-    Condition := fbLensCompounder.GetErrorMsg() <> '',
+    Condition := fbLensSetCompounder.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to be empty.'
 );
 
 AssertEquals_LREAL(
     Expected := 0.0,
-    Actual := fbLensCompounder.FocalLengthCompounded,
+    Actual := fbLensSetCompounder.FocalLengthCompounded,
     Delta := 0.0,
     Message := 'Calculated focal length did not calculate close enough to the expected value.'
 );
 
 TEST_FINISHED();
-
-nTestID := nTestID + 1;
 ]]></ST>
       </Implementation>
     </Method>
@@ -518,8 +342,9 @@ nTestID := nTestID + 1;
       <Declaration><![CDATA[
 METHOD TestResetExpectNoErrorAccurateFocalLength_1
 VAR
+    fbCalcImageDistanceMock : FB_CalcImageDistanceMock;
     // Subject under test
-    fbLensCompounder : FB_LensCompounder();
+    fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistanceMock);
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -527,99 +352,41 @@ END_VAR
 TEST('TestResetExpectNoErrorAccurateFocalLength_1');
 
 // Test fixture
-fbLensCompounder.Reset();
+fbLensSetCompounder.Reset();
 
 // Here the test starts
-fbLensCompounder.Compound(
+fbCalcImageDistanceMock.SetResult(2.0);
+fbLensSetCompounder.Compound(
     fFocalLength := 1.0,
-    nMultiplier := 1
+    fSourceDistance := 1.0
 );
 
-fbLensCompounder.Reset();
+fbLensSetCompounder.Reset();
 
-fbLensCompounder.Compound(
+fbCalcImageDistanceMock.SetResult(2.0);
+fbLensSetCompounder.Compound(
     fFocalLength := 1.0,
-    nMultiplier := 1
+    fSourceDistance := 1.0
 );
 
 AssertFalse(
-    Condition := fbLensCompounder.GetError(),
+    Condition := fbLensSetCompounder.GetError(),
     Message := 'Expected bError bit to be false but it was true.'
 );
 
 AssertFalse(
-    Condition := fbLensCompounder.GetErrorMsg() <> '',
+    Condition := fbLensSetCompounder.GetErrorMsg() <> '',
     Message := 'Expected sErrorMsg to be empty.'
 );
 
 AssertEquals_LREAL(
-    Expected := 1.0,
-    Actual := fbLensCompounder.FocalLengthCompounded,
-    Delta := 1.0,
+    Expected := 2.0,
+    Actual := fbLensSetCompounder.FocalLengthCompounded,
+    Delta := 0.0,
     Message := 'Calculated focal length did not calculate close enough to the expected value.'
 );
 
 TEST_FINISHED();
-
-nTestID := nTestID + 1;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength" Id="{c49174e3-2525-4e95-9784-be09b6e3c532}">
-      <Declaration><![CDATA[
-METHOD TestValidInputsExpectNoErrorAccurateFocalLength
-VAR_INPUT
-    fFocalLength1 : LREAL;
-    nMultiplier1 : INT;
-    fFocalLength2 : LREAL;
-    nMultiplier2 : INT;
-
-    fExpected : LREAL;
-END_VAR
-VAR
-    // Subject under test
-    fbLensCompounder : FB_LensCompounder();
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccurateFocalLength ID: ',
-            STR2 := INT_TO_STRING(nTestID)));
-
-// Test fixture
-fbLensCompounder.Reset();
-
-// Here the test starts
-fbLensCompounder.Compound(
-    fFocalLength := fFocalLength1,
-    nMultiplier := nMultiplier1
-);
-
-fbLensCompounder.Compound(
-    fFocalLength := fFocalLength2,
-    nMultiplier := nMultiplier2
-);
-
-AssertFalse(
-    Condition := fbLensCompounder.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
-
-AssertFalse(
-    Condition := fbLensCompounder.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := fExpected,
-    Actual := fbLensCompounder.FocalLengthCompounded,
-    Delta := ABS(0.001 * fExpected),
-    Message := 'Calculated focal length did not calculate close enough to the expected value.'
-);
-
-TEST_FINISHED();
-
-nTestID := nTestID + 1;
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_QuantityLREALPublic" Id="{61a079b2-6c1c-4fd2-8539-4d329186c818}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_QuantityLREALPublic EXTENDS FB_FalliblePublic IMPLEMENTS I_QuantityLREALPublic
+VAR
+    fValue : LREAL;
+    sUnits : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Units" Id="{1cb8fb78-a36e-4512-8f0d-9859fb13e09b}">
+      <Declaration><![CDATA[
+PROPERTY Units : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{b7745cbb-f60c-4e2f-a574-b085908c7700}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Units := sUnits;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{cce0cfd5-9583-48ea-b1b0-530adb61858b}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+sUnits := Units;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Val" Id="{c3a58fd7-0f36-4895-8dca-e917000fa2c5}">
+      <Declaration><![CDATA[
+PROPERTY Val : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{434e5f80-9d1b-414e-a8ec-5f5fbb7c883b}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Val := fValue;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d5064fb1-a3bf-467a-a596-8b3f646c000d}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+fValue := Val;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>
