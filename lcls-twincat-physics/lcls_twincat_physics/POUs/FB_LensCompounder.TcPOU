@@ -27,7 +27,7 @@ END_VAR
 // Check for an invalid focal length input.
 IF fFocalLength = 0.0 THEN
     SetError(
-        sMsg := CONCAT('The focal length specified: [',
+        Msg := CONCAT('The focal length specified: [',
         CONCAT(LREAL_TO_STRING(fFocalLength),
         '] must not be 0.'))
     );
@@ -41,7 +41,7 @@ IF NOT bFirstCompound THEN
     // Check for an invalid compounded focal length.
     IF fFocalLengthCompounded = 0.0 THEN
         SetError(
-            sMsg := CONCAT('The current compounded focal length must not be 0: [',
+            Msg := CONCAT('The current compounded focal length must not be 0: [',
             CONCAT(LREAL_TO_STRING(fFocalLengthCompounded),
             '] must not be 0.'))
         );
@@ -57,7 +57,7 @@ END_IF
 // Check for an invalid multiplier input.
 IF nMultiplier <= 0 THEN
     SetError(
-        sMsg := CONCAT('The multiplier specified: [',
+        Msg := CONCAT('The multiplier specified: [',
         CONCAT(LREAL_TO_STRING(nMultiplier),
         '] must be greater than 0.'))
     );
@@ -70,7 +70,7 @@ fFocalLengthCompoundedInverse := INT_TO_LREAL(nMultiplier) * fFocalLength1Invers
 // Check if the resultant inverse compounded focal length is 0. Prevent a divide by 0.
 IF fFocalLengthCompoundedInverse = 0.0 THEN
     SetError(
-        sMsg := 'The calculated inverse compound focal length was 0 and it must not be 0.'
+        Msg := 'The calculated inverse compound focal length was 0 and it must not be 0.'
     );
     RETURN;
 END_IF

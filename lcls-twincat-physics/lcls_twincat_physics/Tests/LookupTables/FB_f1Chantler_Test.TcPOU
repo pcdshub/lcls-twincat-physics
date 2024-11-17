@@ -563,7 +563,7 @@ SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREAL
 fbQuantityLREALPublicEnergyMock.Val := 0.0;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := 'Be');
+fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
 
 AssertTrue(
     Condition := fbf1Chantler.GetError(),
@@ -604,7 +604,7 @@ TEST('TestBadNameExpectError0f1');
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := 'Invalid');
+fResult := fbf1Chantler.Lookup(StringToLookup := 'Invalid');
 
 AssertTrue(
     Condition := fbf1Chantler.GetError(),
@@ -647,7 +647,7 @@ SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREAL
 fbQuantityLREALPublicEnergyMock.SetError('Error');
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := 'Be');
+fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
 
 AssertTrue(
     Condition := fbf1Chantler.GetError(),
@@ -696,7 +696,7 @@ SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREAL
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMaxeV;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := sName);
+fResult := fbf1Chantler.Lookup(StringToLookup := sName);
 
 AssertFalse(
     Condition := fbf1Chantler.GetError(),
@@ -749,7 +749,7 @@ SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREAL
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMideV;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := sName);
+fResult := fbf1Chantler.Lookup(StringToLookup := sName);
 
 AssertFalse(
     Condition := fbf1Chantler.GetError(),
@@ -802,7 +802,7 @@ SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREAL
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMineV;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := sName);
+fResult := fbf1Chantler.Lookup(StringToLookup := sName);
 
 AssertFalse(
     Condition := fbf1Chantler.GetError(),
@@ -849,7 +849,7 @@ SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREAL
 fbQuantityLREALPublicEnergyMock.Val := -10.0;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := 'Be');
+fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
 
 AssertTrue(
     Condition := fbf1Chantler.GetError(),
@@ -892,7 +892,7 @@ SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREAL
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMaxeV + 1.0;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := 'Be');
+fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
 
 AssertTrue(
     Condition := fbf1Chantler.GetError(),
@@ -935,7 +935,7 @@ SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREAL
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMineV - 1.0;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := 'Be');
+fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
 
 AssertTrue(
     Condition := fbf1Chantler.GetError(),
@@ -985,7 +985,7 @@ SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREAL
 fbQuantityLREALPublicEnergyMock.Val := fEnergy;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(sLookup := sName);
+fResult := fbf1Chantler.Lookup(StringToLookup := sName);
 
 AssertFalse(
     Condition := fbf1Chantler.GetError(),

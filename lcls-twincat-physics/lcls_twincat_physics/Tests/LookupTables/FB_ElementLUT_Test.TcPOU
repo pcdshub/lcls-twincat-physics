@@ -48,7 +48,7 @@ fExpectedMass := 123.4;
 
 fbAtomicMassLUTMock.Value := fExpectedMass;
 
-fValue := fbElementLUT.LookupAtomicMass(sLookup := 'Be');
+fValue := fbElementLUT.LookupAtomicMass(ElementName := 'Be');
 
 AssertFalse(
     Condition := fbElementLUT.GetError(),
@@ -96,9 +96,9 @@ END_VAR
         <ST><![CDATA[
 TEST('TestLookupAtomicMassInvalidExpectErrorAnd0AtomicMass');
 
-fbAtomicMassLUTMock.SetError(sMsg := 'Error');
+fbAtomicMassLUTMock.SetError(Msg := 'Error');
 
-fValue := fbElementLUT.LookupAtomicMass(sLookup := 'Be');
+fValue := fbElementLUT.LookupAtomicMass(ElementName := 'Be');
 
 AssertTrue(
     Condition := fbElementLUT.GetError(),
@@ -142,9 +142,9 @@ END_VAR
         <ST><![CDATA[
 TEST('TestLookupAtomicNumberExpectErrorAndNegAtomicNumber');
 
-fbAtomicNumberLUTMock.SetError(sMsg := 'Error');
+fbAtomicNumberLUTMock.SetError(Msg := 'Error');
 
-nValue := fbElementLUT.LookupAtomicNumber(sLookup := 'Be');
+nValue := fbElementLUT.LookupAtomicNumber(ElementName := 'Be');
 
 AssertTrue(
     Condition := fbElementLUT.GetError(),
@@ -193,7 +193,7 @@ nExpectedNumber := 152;
 
 fbAtomicNumberLUTMock.Value := nExpectedNumber;
 
-nValue := fbElementLUT.LookupAtomicNumber(sLookup := 'Be');
+nValue := fbElementLUT.LookupAtomicNumber(ElementName := 'Be');
 
 
 AssertFalse(
@@ -246,7 +246,7 @@ fExpectedDensity := 65.3;
 
 fbDensityLUTMock.Value := fExpectedDensity;
 
-fValue := fbElementLUT.LookupDensity(sLookup := 'Be');
+fValue := fbElementLUT.LookupDensity(ElementName := 'Be');
 
 AssertFalse(
     Condition := fbElementLUT.GetError(),
@@ -294,9 +294,9 @@ END_VAR
         <ST><![CDATA[
 TEST('TestLookupDensityInvalidExpectErrorAnd0Density');
 
-fbDensityLUTMock.SetError(sMsg := 'Error');
+fbDensityLUTMock.SetError(Msg := 'Error');
 
-fValue := fbElementLUT.LookupDensity(sLookup := 'Be');
+fValue := fbElementLUT.LookupDensity(ElementName := 'Be');
 
 AssertTrue(
     Condition := fbElementLUT.GetError(),

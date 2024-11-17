@@ -30,9 +30,12 @@ END_VAR
     </Method>
     <Method Name="GetRadiusOf" Id="{a35571df-aa7c-4522-8822-87a13dc5d394}">
       <Declaration><![CDATA[
-METHOD GetRadiusOf : LREAL
+METHOD GetRadiusOf
 VAR_INPUT
-    nLensNum : INT;
+    LensNum : INT;
+END_VAR
+VAR_OUTPUT
+    Radius : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     </Method>

@@ -4,12 +4,12 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_CalcFocalLengthLensSet EXTENDS FB_Fallible IMPLEMENTS I_CalcFocalLengthLensSet
 VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
     iLensCompounder : I_LensCompounder;
 
-    //{attribute 'pytmc' := 'pv: FocalLength'}
-    //fbFocalLength : FB_QuantityLREALPublic;
+    {attribute 'pytmc' := 'pv: FocalLength'}
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
 
-    fFocalLength : LREAL;
     nIndex : INT;
 END_VAR
 ]]></Declaration>
@@ -26,13 +26,13 @@ END_VAR
       <Implementation>
         <ST><![CDATA[
 // Initialize focal length and error values.
-fFocalLength := 0.0;
+fbFocalLength.Val := 0.0;
 ClearError();
 
 // Check for an invalid lens set input.
 IF iLensSet.GetError() THEN
     SetError(
-        sMsg := CONCAT('The input lens set has the following error message: [',
+        Msg := CONCAT('The input lens set has the following error message: [',
         CONCAT(iLensSet.GetErrorMsg(),
         ']'))
     );
@@ -42,7 +42,7 @@ END_IF
 // Check for an invalid number of lenses
 IF iLensSet.NumLenses < 1.0 THEN
     SetError(
-        sMsg := CONCAT('The input lens set has 0 or negative lenses: [',
+        Msg := CONCAT('The input lens set has 0 or negative lenses: [',
         CONCAT(INT_TO_STRING(iLensSet.NumLenses),
         ']'))
     );
@@ -52,7 +52,7 @@ END_IF
 // Check for a number of lenses greater than the max.
 IF iLensSet.NumLenses > GVL_Physics.nMaxNumLensesInSet THEN
     SetError(
-        sMsg := CONCAT('The input lens set number of lenses is greater than the global max number: [',
+        Msg := CONCAT('The input lens set number of lenses is greater than the global max number: [',
         CONCAT(INT_TO_STRING(iLensSet.NumLenses),
         CONCAT('] = (setting) > (max) = [',
         CONCAT(INT_TO_STRING(GVL_Physics.nMaxNumLensesInSet),
@@ -73,16 +73,28 @@ END_FOR
 // Check for an error while compounding lenses.
 IF iLensCompounder.GetError() THEN
     SetError(
-        sMsg := CONCAT('Error detected while compounding lenses: [',
+        Msg := CONCAT('Error detected while compounding lenses: [',
         CONCAT(iLensCompounder.GetErrorMsg(),
         ']'))
     );
     RETURN;
 END_IF
 
-fFocalLength := iLensCompounder.FocalLengthCompounded;
+fbFocalLength.Val := iLensCompounder.FocalLengthCompounded;
 
-Calculate := fFocalLength;
+Calculate := fbFocalLength.Val;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearError" Id="{85feb07e-790f-4b47-bebd-7692a9984a0d}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbFocalLength.ClearError();
 ]]></ST>
       </Implementation>
     </Method>
@@ -99,6 +111,21 @@ END_VAR
       <Implementation>
         <ST><![CDATA[
 THIS^.iLensCompounder := iLensCompounder;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{5f27a043-9969-438c-a750-7a002bbe0e22}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbFocalLength.SetError(Msg := Msg);
 ]]></ST>
       </Implementation>
     </Method>

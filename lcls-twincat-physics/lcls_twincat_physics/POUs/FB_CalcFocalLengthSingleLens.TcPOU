@@ -4,14 +4,11 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_CalcFocalLengthSingleLens EXTENDS FB_Fallible IMPLEMENTS I_CalcFocalLengthSingleLens
 VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
     iCalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
 
-    {attribute 'pytmc' := '
-        pv: FocalLength
-        io: i
-        field: DESC Calculated focal length of lens.
-    '}
-    fFocalLength : LREAL; // The focal length of the lens.
+    {attribute 'pytmc' := 'pv: FocalLength'}
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -25,18 +22,19 @@ VAR_INPUT
 END_VAR
 VAR
     fDelta : LREAL;
+    fbRadius : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 // Initialize focal length and error values.
-fFocalLength := 0.0;
+fbFocalLength.Val := 0.0;
 ClearError();
 
 // Check for an invalid lens input.
 IF iLens.GetError() THEN
     SetError(
-        sMsg := CONCAT('The input lens has the following error message: [',
+        Msg := CONCAT('The input lens has the following error message: [',
         CONCAT(iLens.GetErrorMsg(),
         ']'))
     );
@@ -48,7 +46,7 @@ fDelta := iCalcXRayDelta.Calculate(sChemicalFormula := iLens.MaterialName);
 // Check for an invalid delta input.
 IF iCalcXRayDelta.GetError() THEN
     SetError(
-        sMsg := CONCAT('The input delta has the following error message: [',
+        Msg := CONCAT('The input delta has the following error message: [',
         CONCAT(iCalcXRayDelta.GetErrorMsg(),
         ']'))
     );
@@ -57,25 +55,53 @@ END_IF
 
 IF fDelta = 0.0 THEN
     SetError(
-        sMsg := CONCAT('The delta calculated: [',
+        Msg := CONCAT('The delta calculated: [',
         CONCAT(LREAL_TO_STRING(fDelta),
         '] must not be 0.'))
     );
     RETURN;
 END_IF
 
-IF iLens.Radius <= 0.0 THEN
+fbRadius := iLens.GetRadius();
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbRadius,
+    DesiredUnits := fbFocalLength.Units,
+    ConvertedQuantity => fbRadius
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of lens radius input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+IF fbRadius.Val <= 0.0 THEN
     SetError(
-        sMsg := CONCAT('The radius specified: [',
-        CONCAT(LREAL_TO_STRING(iLens.Radius),
+        Msg := CONCAT('The radius specified: [',
+        CONCAT(LREAL_TO_STRING(fbRadius.Val),
         '] must be greater than 0.'))
     );
     RETURN;
 END_IF
 
-fFocalLength := iLens.Radius / 2.0 / fDelta;
+fbFocalLength.Val := fbRadius.Val / 2.0 / fDelta;
 
-Calculate := fFocalLength;
+Calculate := fbFocalLength.Val;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearError" Id="{823614fd-b6c8-45ac-8eda-92208d6946c9}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbFocalLength.ClearError();
 ]]></ST>
       </Implementation>
     </Method>
@@ -86,12 +112,29 @@ VAR_INPUT
     bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
     bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 
+    iConvertUnits : I_ConvertUnitsLREAL;
     iCalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+THIS^.iConvertUnits := iConvertUnits;
 THIS^.iCalcXRayDelta := iCalcXRayDelta;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{39bdceda-5710-4f76-ad8a-31260711b475}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbFocalLength.SetError(Msg := Msg);
 ]]></ST>
       </Implementation>
     </Method>

@@ -4,13 +4,70 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_QuantityLREALPublic EXTENDS FB_FalliblePublic IMPLEMENTS I_QuantityLREALPublic
 VAR
+    {attribute 'pytmc' := '
+        pv: Value
+        io: io
+        field: DESC Name of lens material.
+    '}
     fValue : LREAL;
+
+    {attribute 'pytmc' := '
+        pv: Units
+        io: io
+        field: DESC Units of the value.
+    '}
     sUnits : T_MaxString;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Copy" Id="{e9a16c39-fdfb-48f8-b851-f88bccf51c70}">
+      <Declaration><![CDATA[
+METHOD Copy
+VAR_INPUT
+    QuantityToCopy : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_Init" Id="{7bc0b41b-56c9-4e5b-8420-077118483cd8}">
+      <Declaration><![CDATA[
+METHOD FB_Init: BOOL
+VAR_INPUT
+    bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
+    bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
+
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.Units := Units;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetUnits" Id="{9bef751b-784e-48ad-8dd3-68f2defc9991}">
+      <Declaration><![CDATA[
+METHOD GetUnits : T_MaxString
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetUnits" Id="{aad39d83-cd24-4410-9325-f4af58aa8f8c}">
+      <Declaration><![CDATA[
+METHOD SetUnits
+VAR_INPUT
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Units" Id="{1cb8fb78-a36e-4512-8f0d-9859fb13e09b}">
       <Declaration><![CDATA[
 PROPERTY Units : T_MaxString

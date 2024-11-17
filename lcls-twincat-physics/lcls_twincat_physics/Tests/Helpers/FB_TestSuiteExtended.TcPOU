@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_TestSuiteExtended" Id="{f786efa5-60dc-40e1-85dc-067c9aba9449}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_TestSuiteExtended EXTENDS FB_TestSuite
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AssertError" Id="{054e755b-b83f-4da1-9095-4810dbd04a79}">
+      <Declaration><![CDATA[
+METHOD AssertError : REFERENCE TO FB_Test
+VAR_INPUT
+    iFallible : I_Fallible;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertTrue(
+    Condition := iFallible.GetError(),
+    Message := 'Expected error bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := iFallible.GetErrorMsg() = '',
+    Message := 'Expected error message to not be empty but it was empty.'
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertExactExpectedQuantityLREAL" Id="{c13371ab-2fb4-4055-821a-8f6b384ac99d}">
+      <Declaration><![CDATA[
+METHOD AssertExactExpectedQuantityLREAL
+VAR_INPUT
+    iExpected : I_QuantityLREAL;
+    iActual : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertExpectedQuantityLREAL(
+    iExpected := iExpected,
+    iActual := iActual,
+    fDelta := 0.0
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertExpectedQuantity" Id="{ef461b5c-d0b7-4aae-ab29-3f3b2f99ed52}">
+      <Declaration><![CDATA[
+METHOD AssertExpectedQuantity : REFERENCE TO FB_Test
+VAR_INPUT
+    iExpected : I_Quantity;
+    iActual : I_Quantity;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertEquals_STRING(
+    Expected := iExpected.Units,
+    Actual := iActual.Units,
+    Message := 'The quantity units were not the expected string.'
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertExpectedQuantityLREAL" Id="{15e09745-372e-4ddc-b70f-10f349d57f76}">
+      <Declaration><![CDATA[
+METHOD AssertExpectedQuantityLREAL
+VAR_INPUT
+    iExpected : I_QuantityLREAL;
+    iActual : I_QuantityLREAL;
+    fDelta : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertExpectedQuantity(
+    iExpected := iExpected,
+    iActual := iActual,
+);
+
+AssertEquals_LREAL(
+    Expected := iExpected.Val,
+    Actual := iActual.Val,
+    Delta := fDelta,
+    Message := 'Expected quantity value did not match actual quantity value.'
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertNoError" Id="{f27b6c34-ae06-4508-9a92-668231691d9d}">
+      <Declaration><![CDATA[
+METHOD PUBLIC AssertNoError
+VAR_INPUT
+    iFallible : I_Fallible;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertFalse(
+    Condition := iFallible.GetError(),
+    Message := 'Expected error bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := iFallible.GetErrorMsg() = '',
+    Message := 'Expected error message to be empty but it was not empty.'
+);
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertNoErrorExactExpectedQuantityLREAL" Id="{a0ffad1c-0fb1-4493-9eb6-04168e955a10}">
+      <Declaration><![CDATA[
+METHOD AssertNoErrorExactExpectedQuantityLREAL
+VAR_INPUT
+    iExpected : I_QuantityLREAL;
+    iActual : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := iExpected,
+    iActual := iActual,
+    fDelta := 0.0
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertNoErrorExpectedQuantityLREAL" Id="{90024d62-d387-4b21-a5d9-2ad040453433}">
+      <Declaration><![CDATA[
+METHOD AssertNoErrorExpectedQuantityLREAL
+VAR_INPUT
+    iExpected : I_QuantityLREAL;
+    iActual : I_QuantityLREAL;
+    fDelta : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertNoError(iFallible := iActual);
+
+AssertExpectedQuantityLREAL(
+    iExpected := iExpected,
+    iActual := iActual,
+    fDelta := fDelta
+);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

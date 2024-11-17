@@ -137,7 +137,7 @@ TEST(CONCAT('TestLookupInvalidElementExpectNotFoundAndNegAtomicNumber ID: ',
     INT_TO_STRING(nTestID))
 );
 
-nValue := fbAtomicNumber.Lookup(sLookup := sName);
+nValue := fbAtomicNumber.Lookup(StringToLookup := sName);
 
 AssertTrue(
     Condition := fbAtomicNumber.GetError(),
@@ -180,7 +180,7 @@ TEST(CONCAT('TestLookupValidElementExpectFoundAndCorrectAtomicNumber ID: ',
     INT_TO_STRING(nTestID))
 );
 
-nValue := fbAtomicNumber.Lookup(sLookup := sName);
+nValue := fbAtomicNumber.Lookup(StringToLookup := sName);
 
 AssertTrue(
     Condition := fbAtomicNumber.bFound,

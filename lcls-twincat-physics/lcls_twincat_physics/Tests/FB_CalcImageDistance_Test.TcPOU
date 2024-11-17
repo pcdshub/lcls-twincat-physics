@@ -550,8 +550,9 @@ METHOD PRIVATE Test0FocalLengthExpectError0ImageDistance
 VAR
     fFocalLength : LREAL;
     fSourceDistance: LREAL;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbCalcImageDistance : FB_CalcImageDistance;
+    fbCalcImageDistance : FB_CalcImageDistance(iConvertUnits := fbConvertUnitsLREALMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -597,8 +598,9 @@ METHOD PRIVATE Test0SourceDistanceExpectError0ImageDistance
 VAR
     fFocalLength : LREAL;
     fSourceDistance: LREAL;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbCalcImageDistance : FB_CalcImageDistance;
+    fbCalcImageDistance : FB_CalcImageDistance(iConvertUnits := fbConvertUnitsLREALMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -648,8 +650,9 @@ VAR_INPUT
     fExpected : LREAL;
 END_VAR
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbCalcImageDistance : FB_CalcImageDistance;
+    fbCalcImageDistance : FB_CalcImageDistance(iConvertUnits := fbConvertUnitsLREALMock);
     fResult : LREAL;
 END_VAR
 ]]></Declaration>

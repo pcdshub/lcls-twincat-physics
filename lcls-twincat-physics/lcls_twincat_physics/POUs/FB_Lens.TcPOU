@@ -4,6 +4,8 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_Lens EXTENDS FB_Fallible IMPLEMENTS I_Lens
 VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
+
     {attribute 'pytmc' := '
         pv: MaterialName
         io: io
@@ -18,17 +20,42 @@ VAR
     '}
     nMultiplier : INT;
 
-    {attribute 'pytmc' := '
-        pv: Radius
-        io: io
-        field: DESC Lens radius of curvature.
-    '}
-    fRadius : LREAL;
+    {attribute 'pytmc' := 'pv: Radius'}
+    fbRadius : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="FB_Init" Id="{4497aa12-2471-47f4-b812-c441978fbf9f}">
+      <Declaration><![CDATA[
+METHOD FB_Init: BOOL
+VAR_INPUT
+    bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
+    bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
+
+    iConvertUnits : I_ConvertUnitsLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iConvertUnits := iConvertUnits;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetRadius" Id="{be4de050-0497-4c6f-93c9-3795433ab058}">
+      <Declaration><![CDATA[
+METHOD GetRadius
+VAR_OUTPUT
+    Radius : FB_QuantityLREALPublic(Units := '');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Radius := fbRadius;
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="MaterialName" Id="{b2fab391-7651-45c1-ab26-07c187736073}">
       <Declaration><![CDATA[
 PROPERTY MaterialName : T_MaxString
@@ -69,7 +96,7 @@ Multiplier := nMultiplier;
 ClearError();
 
 IF Multiplier <= 0 THEN
-    SetError(sMsg := NonPositiveMultiplierErrorMsg(
+    SetError(Msg := NonPositiveMultiplierErrorMsg(
         nMultiplier := Multiplier
     ));
     RETURN;
@@ -110,35 +137,60 @@ NonPositiveRadiusErrorMsg :=
         ']'));]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Radius" Id="{0617bfac-f0fd-416a-befd-52b48fa64543}">
+    <Method Name="SetRadius" Id="{0207b0c5-3489-47ba-9113-36b433558829}">
       <Declaration><![CDATA[
-PROPERTY Radius : LREAL
+METHOD SetRadius
+VAR_INPUT
+    Radius : I_QuantityLREAL;
+END_VAR
+VAR
+    fbRadiusTemp : FB_QuantityLREALPublic(Units := 'm');
+    sUnits : T_MaxString;
+END_VAR
 ]]></Declaration>
-      <Get Name="Get" Id="{9baf7bf1-32bb-420a-a131-378ccfcb36a6}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-Radius := fRadius;
-]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{1953f21a-7c83-4957-b12a-8eaedb0f3929}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
+      <Implementation>
+        <ST><![CDATA[
 ClearError();
 
-IF Radius <= 0 THEN
-    SetError(sMsg := NonPositiveRadiusErrorMsg(
-        fRadius := Radius
-    ));
+fbRadius.ClearError();
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := Radius,
+    DesiredUnits := fbRadius.Units,
+    ConvertedQuantity => fbRadiusTemp
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of radius input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    fbRadius.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
-fRadius := Radius;
+IF Radius.Val <= 0 THEN
+    SetError(Msg := NonPositiveRadiusErrorMsg(fRadius := Radius.Val));
+    fbRadius.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbRadius := fbRadiusTemp;
 ]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
+      </Implementation>
+    </Method>
+    <Method Name="SetRadiusUnits" Id="{3f703e38-66c1-490d-ab71-6b1976f1420b}">
+      <Declaration><![CDATA[
+METHOD SetRadiusUnits
+VAR_INPUT
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbRadius.Units := Units;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

@@ -14,7 +14,7 @@ END_VAR
       <Declaration><![CDATA[
 METHOD Lookup : LREAL
 VAR_INPUT
-    sLookup	: STRING;
+    StringToLookup	: T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>

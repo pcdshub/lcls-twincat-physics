@@ -3,38 +3,13 @@
   <POU Name="FB_ConvertUnits" Id="{c9bcf53c-ddd1-4fb3-8bb4-b36b335a5c1a}" SpecialFunc="None">
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_ConvertUnits EXTENDS FB_Fallible IMPLEMENTS I_ConvertUnitsLREAL
-VAR
-    fbQuantityLREALPublic : FB_QuantityLREALPublic;
-END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="ConvertCopyLREAL" Id="{d4c79c68-3cbe-4d3a-b054-de3845480e92}">
+    <Method Name="ConvertQuantityLREAL" Id="{d4c79c68-3cbe-4d3a-b054-de3845480e92}">
       <Declaration><![CDATA[
-METHOD ConvertCopyLREAL : FB_QuantityLREALPublic
-VAR_INPUT
-    iQuantity	: I_QuantityLREAL;
-    sDesiredUnits	: T_MaxString;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-fbQuantityLREALPublic.Val := iQuantity.Val;
-fbQuantityLREALPublic.Units := iQuantity.Units;
-
-ConvertLREAL(
-    iQuantity := fbQuantityLREALPublic,
-    sDesiredUnits := sDesiredUnits
-);
-
-ConvertCopyLREAL := fbQuantityLREALPublic;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="ConvertLREAL" Id="{591797cd-650b-42ce-88a3-a072a905d3c4}">
-      <Declaration><![CDATA[
-METHOD ConvertLREAL
+METHOD ConvertQuantityLREAL
 (*
 SI Base Units:
 
@@ -160,8 +135,11 @@ standard_atmosphere, or STANDARD_ATMOSPHERE, or atm
 *)
 
 VAR_INPUT
-    iQuantity	: I_QuantityLREALPublic;
-    sDesiredUnits	: T_MaxString;
+    QuantityToConvert	: I_QuantityLREAL;
+    DesiredUnits	: T_MaxString;
+END_VAR
+VAR_OUTPUT
+    ConvertedQuantity : FB_QuantityLREALPublic(Units := '');
 END_VAR
 VAR
     fConversionInputToBaseUnits : LREAL;
@@ -175,12 +153,8 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-IF iQuantity.Units = sDesiredUnits THEN
-    RETURN;
-END_IF
-
 GetConversionToBase(
-    sUnit := iQuantity.Units,
+    sUnit := QuantityToConvert.Units,
     fConversionFactorToBase => fConversionInputToBaseUnits,
     fOffsetFactorToBase => fOffsetInputToBaseUnits,
     sBaseUnitLong => sBaseUnitLong,
@@ -194,7 +168,7 @@ IF GetError() THEN
 END_IF
 
 GetConversionToBase(
-    sUnit := sDesiredUnits,
+    sUnit := DesiredUnits,
     fConversionFactorToBase => fConversionDesiredToBaseUnits,
     fOffsetFactorToBase => fOffsetDesiredToBaseUnits,
     bError => bError,
@@ -205,10 +179,10 @@ IF GetError() THEN
     RETURN;
 END_IF
 
-iQuantity.Val := (iQuantity.Val * fConversionInputToBaseUnits) + fOffsetInputToBaseUnits;
-iQuantity.Val := (iQuantity.Val - fOffsetDesiredToBaseUnits) / fConversionDesiredToBaseUnits;
+ConvertedQuantity.Val := (QuantityToConvert.Val * fConversionInputToBaseUnits) + fOffsetInputToBaseUnits;
+ConvertedQuantity.Val := (ConvertedQuantity.Val - fOffsetDesiredToBaseUnits) / fConversionDesiredToBaseUnits;
 
-iQuantity.Units := sDesiredUnits;
+ConvertedQuantity.Units := DesiredUnits;
 ]]></ST>
       </Implementation>
     </Method>

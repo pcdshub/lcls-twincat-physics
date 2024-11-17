@@ -7,21 +7,6 @@ FUNCTION_BLOCK FB_ConvertUnitsLREALMock EXTENDS FB_FalliblePublicMock IMPLEMENTS
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="ConvertCopyLREAL" Id="{7ff13a66-4da9-43c9-a2da-d725026499fd}">
-      <Declaration><![CDATA[
-METHOD ConvertCopyLREAL : FB_QuantityLREALPublic
-VAR_INPUT
-    iQuantity	: I_QuantityLREAL;
-    sDesiredUnits	: T_MaxString;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-ConvertCopyLREAL.Val := iQuantity.Val;
-ConvertCopyLREAL.Units := sDesiredUnits;
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="ConvertLREAL" Id="{d8395b23-62dd-408a-b46e-942e4ee8a04c}">
       <Declaration><![CDATA[
 METHOD ConvertLREAL
@@ -34,6 +19,24 @@ END_VAR
         <ST><![CDATA[
 iQuantity.Val := iQuantity.Val;
 iQuantity.Units := sDesiredUnits;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ConvertQuantityLREAL" Id="{7ff13a66-4da9-43c9-a2da-d725026499fd}">
+      <Declaration><![CDATA[
+METHOD ConvertQuantityLREAL
+VAR_INPUT
+    QuantityToConvert	: I_QuantityLREAL;
+    DesiredUnits	: T_MaxString;
+END_VAR
+VAR_OUTPUT
+    ConvertedQuantity : FB_QuantityLREALPublic(Units := '');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ConvertedQuantity.Val := QuantityToConvert.Val;
+ConvertedQuantity.Units := DesiredUnits;
 ]]></ST>
       </Implementation>
     </Method>

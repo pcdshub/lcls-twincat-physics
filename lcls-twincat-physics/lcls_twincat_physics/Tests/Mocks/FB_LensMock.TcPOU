@@ -6,12 +6,25 @@ FUNCTION_BLOCK FB_LensMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_Lens
 VAR
     sMaterialName : T_MaxString;
     nMultiplier : INT;
-    fRadius : LREAL;
+    fbRadius : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="GetRadius" Id="{1e936b74-6ae1-48de-8fb7-a0e4f6da68ed}">
+      <Declaration><![CDATA[
+METHOD GetRadius
+VAR_OUTPUT
+    Radius : FB_QuantityLREALPublic(Units := '');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Radius := fbRadius;
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="MaterialName" Id="{d5018cf9-ae4a-4b2b-bb13-fbe3f764b9b8}">
       <Declaration><![CDATA[
 PROPERTY MaterialName : T_MaxString
@@ -54,27 +67,19 @@ nMultiplier := Multiplier;
         </Implementation>
       </Set>
     </Property>
-    <Property Name="Radius" Id="{e3270e6b-36b6-452e-8751-1dbacd5beb57}">
+    <Method Name="SetRadius" Id="{fc452968-65ff-4321-92f9-1af7b8d51ad8}">
       <Declaration><![CDATA[
-PROPERTY Radius : LREAL
+METHOD SetRadius
+VAR_INPUT
+    Radius : I_QuantityLREAL;
+END_VAR
 ]]></Declaration>
-      <Get Name="Get" Id="{2bb7e997-5b11-4b38-92a7-99973d745de3}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-Radius := fRadius;
+      <Implementation>
+        <ST><![CDATA[
+fbRadius.Copy(QuantityToCopy := Radius);
 ]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{16992e38-e24f-4b51-9d28-63f5e9e72920}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-fRadius := Radius;
-]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
+      </Implementation>
+    </Method>
     <Method Name="SetValid" Id="{a370019b-6194-4481-bd92-0da263acb531}">
       <Declaration><![CDATA[
 METHOD SetValid
@@ -87,7 +92,9 @@ END_VAR
 ClearError();
 sMaterialName := 'Be';
 nMultiplier := 1;
-fRadius := 1.0;
+fbRadius.Val := 1.0;
+fbRadius.Units := 'm';
+fbRadius.ClearError();
 ]]></ST>
       </Implementation>
     </Method>

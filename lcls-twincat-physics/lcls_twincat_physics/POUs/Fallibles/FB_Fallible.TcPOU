@@ -56,13 +56,13 @@ GetErrorMsg := sErrorMsg;
       <Declaration><![CDATA[
 METHOD PROTECTED SetError
 VAR_INPUT
-    sMsg : T_MaxString;
+    Msg : T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 bError := TRUE;
-sErrorMsg := sMsg;
+sErrorMsg := Msg;
 ]]></ST>
       </Implementation>
     </Method>

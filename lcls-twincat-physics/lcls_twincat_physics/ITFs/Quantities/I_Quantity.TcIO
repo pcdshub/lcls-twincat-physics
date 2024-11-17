@@ -4,11 +4,11 @@
     <Declaration><![CDATA[
 INTERFACE I_Quantity EXTENDS I_Fallible
 ]]></Declaration>
-    <Property Name="Units" Id="{68f968ed-7630-4d1a-a3e0-ed26644f9ec7}">
+    <Property Name="Units" Id="{94b26fd8-b17e-4877-ba35-829f1272b4cd}">
       <Declaration><![CDATA[
 PROPERTY Units : T_MaxString
 ]]></Declaration>
-      <Get Name="Get" Id="{0e0a0f8f-9c5c-47f0-86a0-0f895a7ef1ea}">
+      <Get Name="Get" Id="{6b6b0a9a-c3fb-40da-9953-865c6aee1840}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>

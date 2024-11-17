@@ -79,7 +79,7 @@ ELSIF sName = 'Si' THEN
     GetEnergyAtIndex := aff1Si[nIndex, 0];
 ELSE
     SetError(
-        sMsg := CONCAT('Requested element [',
+        Msg := CONCAT('Requested element [',
         CONCAT(sName,
         '] does not have an f1 lookup table defined.'))
     );
@@ -122,7 +122,7 @@ ELSIF sName = 'Si' THEN
     Getf1AtIndex := aff1Si[nIndex, 1];
 ELSE
     SetError(
-        sMsg := CONCAT('Requested element [',
+        Msg := CONCAT('Requested element [',
         CONCAT(sName,
         '] does not have an f1 lookup table defined.'))
     );
@@ -136,7 +136,7 @@ END_IF
       <Declaration><![CDATA[
 METHOD Lookup : LREAL
 VAR_INPUT
-    sLookup	: STRING; // The shortname of the element. E.g. 'Be' for Beryllium.
+    StringToLookup	: T_MaxString; // The shortname of the element. E.g. 'Be' for Beryllium.
 END_VAR
 VAR
     bInterpError : BOOL;
@@ -152,7 +152,7 @@ ClearError();
 // Check to see if there is an error reported for the photon energy input.
 IF iEnergy.GetError() THEN
     SetError(
-        sMsg := CONCAT('The input photon energy has an error: [',
+        Msg := CONCAT('The input photon energy has an error: [',
         CONCAT(iEnergy.GetErrorMsg(),
         ']'))
     );
@@ -162,7 +162,7 @@ END_IF
 // Check for energy outside of the bounds.
 IF iEnergy.Val < fMineV OR iEnergy.Val > fMaxeV THEN
     SetError(
-        sMsg := CONCAT('Requested f1 data at photon energy of [',
+        Msg := CONCAT('Requested f1 data at photon energy of [',
         CONCAT(LREAL_TO_STRING(iEnergy.Val),
         CONCAT(' eV] is beyond the bounds of the lookup table. Bounds are [',
         CONCAT(LREAL_TO_STRING(fMineV),
@@ -188,17 +188,17 @@ ELSIF nIndexBelow <= 1 THEN
     nIndexBelow := 2;
 END_IF
 
-afX[1] := GetEnergyAtIndex(sLookup, nIndexBelow - 2);
-afX[2] := GetEnergyAtIndex(sLookup, nIndexBelow - 1);
-afX[3] := GetEnergyAtIndex(sLookup, nIndexBelow + 0);
-afX[4] := GetEnergyAtIndex(sLookup, nIndexBelow + 1);
-afX[5] := GetEnergyAtIndex(sLookup, nIndexBelow + 2);
+afX[1] := GetEnergyAtIndex(StringToLookup, nIndexBelow - 2);
+afX[2] := GetEnergyAtIndex(StringToLookup, nIndexBelow - 1);
+afX[3] := GetEnergyAtIndex(StringToLookup, nIndexBelow + 0);
+afX[4] := GetEnergyAtIndex(StringToLookup, nIndexBelow + 1);
+afX[5] := GetEnergyAtIndex(StringToLookup, nIndexBelow + 2);
 
-afY[1] := Getf1AtIndex(sLookup, nIndexBelow - 2);
-afY[2] := Getf1AtIndex(sLookup, nIndexBelow - 1);
-afY[3] := Getf1AtIndex(sLookup, nIndexBelow + 0);
-afY[4] := Getf1AtIndex(sLookup, nIndexBelow + 1);
-afY[5] := Getf1AtIndex(sLookup, nIndexBelow + 2);
+afY[1] := Getf1AtIndex(StringToLookup, nIndexBelow - 2);
+afY[2] := Getf1AtIndex(StringToLookup, nIndexBelow - 1);
+afY[3] := Getf1AtIndex(StringToLookup, nIndexBelow + 0);
+afY[4] := Getf1AtIndex(StringToLookup, nIndexBelow + 1);
+afY[5] := Getf1AtIndex(StringToLookup, nIndexBelow + 2);
 
 ff1 := F_LagrangePolyInterp(
     fX := iEnergy.Val,
@@ -210,7 +210,7 @@ ff1 := F_LagrangePolyInterp(
 );
 
 IF bInterpError THEN
-    SetError(sMsg := sInterpErrorMsg);
+    SetError(Msg := sInterpErrorMsg);
     RETURN;
 END_IF
 

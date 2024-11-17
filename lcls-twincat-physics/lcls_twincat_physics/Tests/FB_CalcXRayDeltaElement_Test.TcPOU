@@ -470,7 +470,7 @@ SetInitialValues(
     fbStringLookupElementMock := fbStringLookupElementMock
 );
 
-fbStringLookupElementMock.SetError(sMsg := 'Error');
+fbStringLookupElementMock.SetError(Msg := 'Error');
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
@@ -525,7 +525,7 @@ SetInitialValues(
     fbStringLookupElementMock := fbStringLookupElementMock
 );
 
-fbQuantityLREALPublicEnergyMock.SetError(sMsg := 'Error');
+fbQuantityLREALPublicEnergyMock.SetError(Msg := 'Error');
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(
@@ -580,7 +580,7 @@ SetInitialValues(
     fbStringLookupElementMock := fbStringLookupElementMock
 );
 
-fbStringLookupLREALMock.SetError(sMsg := 'Error');
+fbStringLookupLREALMock.SetError(Msg := 'Error');
 
 // Here the test starts
 fResult := fbCalcXRayDeltaElement.Calculate(

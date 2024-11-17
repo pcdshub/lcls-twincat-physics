@@ -4,6 +4,14 @@
     <Declaration><![CDATA[
 INTERFACE I_Lens EXTENDS I_Fallible
 ]]></Declaration>
+    <Method Name="GetRadius" Id="{ca07dbcf-ae63-43be-a79b-e5de1cdda4ba}">
+      <Declaration><![CDATA[
+METHOD GetRadius
+VAR_OUTPUT
+    Radius : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    </Method>
     <Property Name="MaterialName" Id="{67848c91-aa02-4771-a617-055db8820c0f}">
       <Declaration><![CDATA[
 PROPERTY MaterialName : T_MaxString
@@ -13,16 +21,10 @@ PROPERTY MaterialName : T_MaxString
       </Get>
     </Property>
     <Property Name="Multiplier" Id="{8a4f5b17-bad2-4b3c-a570-8d2ac341b320}">
-      <Declaration><![CDATA[PROPERTY Multiplier : INT]]></Declaration>
-      <Get Name="Get" Id="{8e761575-c478-43a9-95bf-592fe5f844ba}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-    </Property>
-    <Property Name="Radius" Id="{6f1483cd-d956-49ff-b8f8-342990ea249d}">
       <Declaration><![CDATA[
-PROPERTY Radius : LREAL
+PROPERTY Multiplier : INT
 ]]></Declaration>
-      <Get Name="Get" Id="{2ce07d66-6d71-4ae7-ab10-c78370bf3c88}">
+      <Get Name="Get" Id="{8e761575-c478-43a9-95bf-592fe5f844ba}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>

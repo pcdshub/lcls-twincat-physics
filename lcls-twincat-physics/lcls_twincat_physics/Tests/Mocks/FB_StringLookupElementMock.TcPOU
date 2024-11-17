@@ -73,7 +73,7 @@ fDensity := Density;
       <Declaration><![CDATA[
 METHOD LookupAtomicMass : LREAL
 VAR_INPUT
-    sLookup	: STRING;
+    ElementName	: T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -86,7 +86,7 @@ LookupAtomicMass := fAtomicMass;
       <Declaration><![CDATA[
 METHOD LookupAtomicNumber : INT
 VAR_INPUT
-    sLookup	: STRING;
+    ElementName	: T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -99,7 +99,7 @@ LookupAtomicNumber := nAtomicNumber;
       <Declaration><![CDATA[
 METHOD LookupDensity : LREAL
 VAR_INPUT
-    sLookup	: STRING;
+    ElementName	: T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>

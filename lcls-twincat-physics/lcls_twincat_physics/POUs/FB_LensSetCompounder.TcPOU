@@ -32,7 +32,7 @@ END_VAR
 // Check for an invalid focal length input.
 IF fFocalLength = 0.0 THEN
     SetError(
-        sMsg := CONCAT('The focal length specified: [',
+        Msg := CONCAT('The focal length specified: [',
         CONCAT(LREAL_TO_STRING(fFocalLength),
         '] must not be 0.'))
     );
@@ -45,7 +45,7 @@ fFocalLengthInverse := 1.0 / fFocalLength;
 // Check for an invalid source distance input.
 IF fSourceDistance = 0.0 THEN
     SetError(
-        sMsg := CONCAT('The source distance specified: [',
+        Msg := CONCAT('The source distance specified: [',
         CONCAT(LREAL_TO_STRING(fSourceDistance),
         '] must not be 0.'))
     );
@@ -58,7 +58,7 @@ IF NOT bFirstCompound THEN
     // Check for an invalid virtual source distance.
     IF fVirtualSourceDistance = 0.0 THEN
         SetError(
-            sMsg := 'The virtual source is exactly on the lens set: fSourceDistance - fPrevSourceDistance - fFocalLengthCompounded = 0.0'
+            Msg := 'The virtual source is exactly on the lens set: fSourceDistance - fPrevSourceDistance - fFocalLengthCompounded = 0.0'
         );
         RETURN;
     END_IF
@@ -79,7 +79,7 @@ END_IF
 fPrevSourceDistance := fSourceDistance;
 
 IF iCalcImageDistance.GetError() THEN
-    SetError(sMsg :=
+    SetError(Msg :=
         CONCAT('Error returned when attempting to calculate the image distance: ',
         iCalcImageDistance.GetErrorMsg())
     );

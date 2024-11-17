@@ -53,14 +53,17 @@ GetMultiplierOf := afbLensMock[nLensNum].Multiplier;
     </Method>
     <Method Name="GetRadiusOf" Id="{6323a8a8-1b92-4816-9017-2664cdfa46e3}">
       <Declaration><![CDATA[
-METHOD GetRadiusOf : LREAL
+METHOD GetRadiusOf
 VAR_INPUT
-    nLensNum	: INT;
+    LensNum	: INT;
+END_VAR
+VAR_OUTPUT
+    Radius : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-GetRadiusOf := afbLensMock[nLensNum].Radius;
+Radius := afbLensMock[LensNum].GetRadius();
 ]]></ST>
       </Implementation>
     </Method>
@@ -131,13 +134,13 @@ afbLensMock[nLensNum].Multiplier := nMultiplier;
       <Declaration><![CDATA[
 METHOD SetRadiusOf
 VAR_INPUT
-    nLensNum : INT;
-    fRadius : LREAL;
+    LensNum : INT;
+    Radius : I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-afbLensMock[nLensNum].Radius := fRadius;
+afbLensMock[LensNum].SetRadius(Radius);
 ]]></ST>
       </Implementation>
     </Method>
@@ -147,15 +150,21 @@ METHOD SetValid
 VAR
     nIndex : INT;
 END_VAR
+VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 ClearError();
 
+fbRadius.Val := 1.0;
+fbRadius.Units := 'm';
+
 FOR nIndex := 1 TO GVL_Physics.nMaxNumLensesInSet BY 1 DO
     afFocalLength[nIndex] := 1.0;
     afbLensMock[nIndex].Multiplier := 1;
-    afbLensMock[nIndex].Radius := 1.0;
+    afbLensMock[nIndex].SetRadius(fbRadius);
     afbLensMock[nIndex].MaterialName := 'Be';
 END_FOR
 ]]></ST>

@@ -859,7 +859,7 @@ ELSE
     sDescription := '';
     sUnits := '';
     sCaveat := '';
-    SetError(sMsg := 'Supplied string not found in lookup table.');
+    SetError(Msg := 'Supplied string not found in lookup table.');
 END_IF
 ]]></ST>
     </Implementation>
@@ -867,13 +867,13 @@ END_IF
       <Declaration><![CDATA[
 METHOD Lookup : INT
 VAR_INPUT
-    sLookup	: STRING;
+    StringToLookup	: T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 THIS^(
-    sName := sLookup,
+    sName := StringToLookup,
     nValue => Lookup
 );]]></ST>
       </Implementation>

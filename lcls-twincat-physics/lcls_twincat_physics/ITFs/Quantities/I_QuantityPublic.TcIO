@@ -4,14 +4,12 @@
     <Declaration><![CDATA[
 INTERFACE I_QuantityPublic EXTENDS I_Quantity, I_FalliblePublic
 ]]></Declaration>
-    <Property Name="Units" Id="{a1a9b3ed-6f5a-4b40-8b7e-6db496e34a2d}">
+    <Property Name="Units" Id="{a6b68181-a638-46b2-8ae5-b31f49b43321}">
       <Declaration><![CDATA[
 PROPERTY Units : T_MaxString
 ]]></Declaration>
-      <Set Name="Set" Id="{338ed4f4-f142-4b19-868d-98c9578a3659}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
+      <Set Name="Set" Id="{01d71d8e-f75c-4d0d-acf9-8caaede3e6d1}">
+        <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
   </Itf>

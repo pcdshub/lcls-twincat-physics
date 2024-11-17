@@ -35,7 +35,7 @@ THIS^.iDensityLUT := iDensityLUT;
       <Declaration><![CDATA[
 METHOD LookupAtomicMass : LREAL
 VAR_INPUT
-    sLookup	: STRING;
+    ElementName	: T_MaxString;
 END_VAR
 VAR
     fAtomicMass : LREAL;
@@ -43,11 +43,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fAtomicMass := iAtomicMassLUT.Lookup(sLookup := sLookup);
+fAtomicMass := iAtomicMassLUT.Lookup(StringToLookup := ElementName);
 
 IF iAtomicMassLUT.GetError() THEN
     SetError(
-        sMsg := CONCAT('The atomic mass lookup table has an error: ',
+        Msg := CONCAT('The atomic mass lookup table has an error: ',
         iAtomicMassLUT.GetErrorMsg())
     );
     RETURN;
@@ -61,7 +61,7 @@ LookupAtomicMass := fAtomicMass;
       <Declaration><![CDATA[
 METHOD LookupAtomicNumber : INT
 VAR_INPUT
-    sLookup	: STRING;
+    ElementName	: T_MaxString;
 END_VAR
 VAR
     nAtomicNumber : INT;
@@ -71,11 +71,11 @@ END_VAR
         <ST><![CDATA[
 LookupAtomicNumber := -1;
 
-nAtomicNumber := iAtomicNumberLUT.Lookup(sLookup := sLookup);
+nAtomicNumber := iAtomicNumberLUT.Lookup(StringToLookup := ElementName);
 
 IF iAtomicNumberLUT.GetError() THEN
     SetError(
-        sMsg := CONCAT('The atomic number lookup table has an error: ',
+        Msg := CONCAT('The atomic number lookup table has an error: ',
         iAtomicNumberLUT.GetErrorMsg())
     );
     RETURN;
@@ -89,7 +89,7 @@ LookupAtomicNumber := nAtomicNumber;
       <Declaration><![CDATA[
 METHOD LookupDensity : LREAL
 VAR_INPUT
-    sLookup	: STRING;
+    ElementName	: T_MaxString;
 END_VAR
 VAR
     fDensity : LREAL;
@@ -97,11 +97,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fDensity := iDensityLUT.Lookup(sLookup := sLookup);
+fDensity := iDensityLUT.Lookup(StringToLookup := ElementName);
 
 IF iDensityLUT.GetError() THEN
     SetError(
-        sMsg := CONCAT('The density lookup table has an error: ',
+        Msg := CONCAT('The density lookup table has an error: ',
         iDensityLUT.GetErrorMsg())
     );
     RETURN;

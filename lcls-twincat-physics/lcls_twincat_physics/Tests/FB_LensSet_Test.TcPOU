@@ -29,9 +29,13 @@ TestTooLowIndexIndexInRangeExpectFalse();
       <Declaration><![CDATA[
 METHOD TestGetFocalLengthOfExpectNoErrorCorrectValue
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensSet : FB_LensSet(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
+    );
     fExpected : LREAL;
     fResult : LREAL;
 END_VAR
@@ -74,9 +78,13 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestIndexIndexInRangeExpectTrue
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensSet : FB_LensSet(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
+    );
     bResult : BOOL;
 END_VAR
 ]]></Declaration>
@@ -113,9 +121,13 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetInvalidNumLensesExpectErrorNoChangeToValue
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensSet : FB_LensSet(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
+    );
     nNumLenses : INT;
 END_VAR
 ]]></Declaration>
@@ -154,9 +166,13 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetMaterialNameOfGetMaterialNameOfExpectNoErrorCorrectValue
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensSet : FB_LensSet(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
+    );
     sExpected : T_MaxString;
     sResult : T_MaxString;
 END_VAR
@@ -198,9 +214,13 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetMultiplierOfGetMultiplierOfExpectNoErrorCorrectValue
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensSet : FB_LensSet(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
+    );
     nExpected : INT;
     nResult : INT;
 END_VAR
@@ -242,9 +262,13 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetNumLensesGetNumLensesExpectNoErrorValueSet
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensSet : FB_LensSet(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
+    );
     nNumLenses : INT;
 END_VAR
 ]]></Declaration>
@@ -282,11 +306,15 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetRadiusOfGetRadiusOfExpectNoErrorCorrectValue
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
-    fExpected : LREAL;
-    fResult : LREAL;
+    fbLensSet : FB_LensSet(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
+    );
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -294,13 +322,14 @@ END_VAR
 TEST('TestSetRadiusOfGetRadiusOfExpectNoErrorCorrectValue');
 
 // Test Fixture
-fExpected := 76.32;
+fbExpected.Val := 76.32;
+fbExpected.Units := 'm';
 
-fbLensSet.NumLenses:= 5;
+fbLensSet.NumLenses := 5;
 
 // Here the test starts
-fbLensSet.SetRadiusOf(nLensNum := 1, fRadius := fExpected);
-fResult := fbLensSet.GetRadiusOf(nLensNum := 1);
+fbLensSet.SetRadiusOf(LensNum := 1, Radius := fbExpected);
+fbResult := fbLensSet.GetRadiusOf(LensNum := 1);
 
 AssertFalse(
     Condition := fbLensSet.GetError(),
@@ -313,10 +342,16 @@ AssertTrue(
 );
 
 AssertEquals_LREAL(
-    Expected := fExpected,
-    Actual := fResult,
+    Expected := fbExpected.Val,
+    Actual := fbResult.Val,
     Delta := 0.0,
     Message := 'Radius did not have the correct value.'
+);
+
+AssertEquals_STRING(
+    Expected := fbExpected.Units,
+    Actual := fbResult.Units,
+    Message := 'Radius did not have the correct units.'
 );
 
 TEST_FINISHED();
@@ -327,9 +362,13 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestTooHighIndexIndexInRangeExpectFalse
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensSet : FB_LensSet(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
+    );
     bResult : BOOL;
 END_VAR
 ]]></Declaration>
@@ -366,9 +405,13 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestTooLowIndexIndexInRangeExpectFalse
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens);
+    fbLensSet : FB_LensSet(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
+    );
     bResult : BOOL;
 END_VAR
 ]]></Declaration>

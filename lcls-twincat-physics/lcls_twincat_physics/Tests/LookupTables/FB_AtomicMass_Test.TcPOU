@@ -136,7 +136,7 @@ TEST(CONCAT('TestLookupInvalidElementExpectNotFoundAnd0AtomicMass ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fValue := fbAtomicMass.Lookup(sLookup := sName);
+fValue := fbAtomicMass.Lookup(StringToLookup := sName);
 
 AssertTrue(
     Condition := fbAtomicMass.GetError(),
@@ -179,7 +179,7 @@ TEST(CONCAT('TestLookupValidElementExpectFoundAndCorrectAtomicMass ID: ',
     INT_TO_STRING(nTestID))
 );
 
-fValue := fbAtomicMass.Lookup(sLookup := sName);
+fValue := fbAtomicMass.Lookup(StringToLookup := sName);
 
 AssertFalse(
     Condition := fbAtomicMass.GetError(),

@@ -112,7 +112,8 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestActualImageDistanceExpectNoErrorAccurateFocalLength
 VAR
-    fbCalcImageDistance : FB_CalcImageDistance;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcImageDistance : FB_CalcImageDistance(iConvertUnits := fbConvertUnitsLREALMock);
     // Subject under test
     fbLensSetCompounder : FB_LensSetCompounder(iCalcImageDistance := fbCalcImageDistance);
     d12 : LREAL;
@@ -204,7 +205,7 @@ TEST('TestInvalidImageDistanceExpectError0FocalLength');
 // Test fixture
 fbLensSetCompounder.Reset();
 
-fbCalcImageDistanceMock.SetError(sMsg := 'Error');
+fbCalcImageDistanceMock.SetError(Msg := 'Error');
 
 // Here the test starts
 fbLensSetCompounder.Compound(

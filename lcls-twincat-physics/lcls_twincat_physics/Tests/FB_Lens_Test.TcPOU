@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_Lens_Test" Id="{92b12951-f187-4f4b-affe-53258e124d48}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_Lens_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_Lens_Test EXTENDS FB_TestSuiteExtended
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
@@ -25,8 +25,9 @@ TestSetRadiusGetRadiusExpectNoErrorValueSet();
       <Declaration><![CDATA[
 METHOD Test0MultiplierExpectErrorValueUnchanged
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbLens : FB_Lens();
+    fbLens : FB_Lens(iConvertUnits := fbConvertUnitsLREALMock);
     nMultiplier : INT;
 END_VAR
 ]]></Declaration>
@@ -66,8 +67,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD Test0RadiusExpectErrorValueUnchanged
 VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    fbRadiusExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbLens : FB_Lens();
+    fbLens : FB_Lens(iConvertUnits := fbConvertUnitsLREALMock);
+    fbRadiusActual : FB_QuantityLREALPublic(Units := '1');
     fRadius : LREAL;
 END_VAR
 ]]></Declaration>
@@ -76,28 +81,27 @@ END_VAR
 TEST('Test0RadiusExpectErrorValueUnchanged');
 
 // Test Fixture
-fRadius := 34;
+fRadius := 34.0;
 
-fbLens.Radius := fRadius;
+fbRadius.Val := fRadius;
+fbRadius.Units := 'm';
+
+fbRadiusExpected := fbRadius;
+
+fbLens.SetRadius(fbRadius);
 
 // Here the test starts
-fbLens.Radius := 0.0;
+fbRadius.Val := 0.0;
 
-AssertTrue(
-    Condition := fbLens.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+fbLens.SetRadius(fbRadius);
 
-AssertFalse(
-    Condition := fbLens.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(fbLens);
 
-AssertEquals_LREAL(
-    Expected := fRadius,
-    Actual := fbLens.Radius,
-    Delta := 0.0,
-    Message := 'Radius value should not have changed.'
+fbRadiusActual := fbLens.GetRadius();
+
+AssertExactExpectedQuantityLREAL(
+    iExpected := fbRadiusExpected,
+    iActual := fbRadiusActual
 );
 
 TEST_FINISHED();
@@ -108,8 +112,9 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestNegMultiplierExpectErrorValueUnchanged
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbLens : FB_Lens();
+    fbLens : FB_Lens(iConvertUnits := fbConvertUnitsLREALMock);
     nMultiplier : INT;
 END_VAR
 ]]></Declaration>
@@ -149,8 +154,12 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestNegRadiusExpectErrorValueUnchanged
 VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    fbRadiusExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbLens : FB_Lens();
+    fbLens : FB_Lens(iConvertUnits := fbConvertUnitsLREALMock);
+    fbRadiusActual : FB_QuantityLREALPublic(Units := '1');
     fRadius : LREAL;
 END_VAR
 ]]></Declaration>
@@ -159,28 +168,27 @@ END_VAR
 TEST('TestNegRadiusExpectErrorValueUnchanged');
 
 // Test Fixture
-fRadius := 34;
+fRadius := 34.0;
 
-fbLens.Radius := fRadius;
+fbRadius.Val := fRadius;
+fbRadius.Units := 'm';
+
+fbRadiusExpected := fbRadius;
+
+fbLens.SetRadius(fbRadius);
 
 // Here the test starts
-fbLens.Radius := -1.0;
+fbRadius.Val := -1.0;
 
-AssertTrue(
-    Condition := fbLens.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+fbLens.SetRadius(fbRadius);
 
-AssertFalse(
-    Condition := fbLens.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+fbRadiusActual := fbLens.GetRadius();
 
-AssertEquals_LREAL(
-    Expected := fRadius,
-    Actual := fbLens.Radius,
-    Delta := 0.0,
-    Message := 'Radius value should not have changed.'
+AssertError(fbLens);
+
+AssertExactExpectedQuantityLREAL(
+    iExpected := fbRadiusExpected,
+    iActual := fbRadiusActual
 );
 
 TEST_FINISHED();
@@ -191,8 +199,9 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetMaterialGetMaterialNameExpectNoErrorValueSet
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbLens : FB_Lens();
+    fbLens : FB_Lens(iConvertUnits := fbConvertUnitsLREALMock);
     sMaterialName : T_MaxString;
 END_VAR
 ]]></Declaration>
@@ -229,8 +238,9 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetMultiplierGetMultiplierExpectNoErrorValueSet
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbLens : FB_Lens();
+    fbLens : FB_Lens(iConvertUnits := fbConvertUnitsLREALMock);
     nMultiplier : INT;
 END_VAR
 ]]></Declaration>
@@ -267,8 +277,11 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetRadiusGetRadiusExpectNoErrorValueSet
 VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
-    fbLens : FB_Lens();
+    fbLens : FB_Lens(iConvertUnits := fbConvertUnitsLREALMock);
+    fbRadiusActual : FB_QuantityLREALPublic(Units := '1');
     fRadius : LREAL;
 END_VAR
 ]]></Declaration>
@@ -276,26 +289,22 @@ END_VAR
         <ST><![CDATA[
 TEST('TestSetRadiusGetRadiusExpectNoErrorValueSet');
 
+// Test Fixture
 fRadius := 27.34;
 
+fbRadius.Val := fRadius;
+fbRadius.Units := 'm';
+
 // Here the test starts
-fbLens.Radius := fRadius;
+fbLens.SetRadius(fbRadius);
 
-AssertFalse(
-    Condition := fbLens.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
+fbRadiusActual := fbLens.GetRadius();
 
-AssertTrue(
-    Condition := fbLens.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
+AssertNoError(fbLens);
 
-AssertEquals_LREAL(
-    Expected := fRadius,
-    Actual := fbLens.Radius,
-    Delta := 0.0,
-    Message := 'Radius did not set properly.'
+AssertExactExpectedQuantityLREAL(
+    iExpected := fbRadius,
+    iActual := fbRadiusActual
 );
 
 TEST_FINISHED();

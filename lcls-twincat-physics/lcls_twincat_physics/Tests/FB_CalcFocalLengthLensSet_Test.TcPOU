@@ -109,7 +109,7 @@ SetInitialLensSetValues(
     fbLensSetMock := fbLensSetMock,
     fbLensCompounderMock := fbLensCompounderMock);
 
-fbLensCompounderMock.SetError(sMsg := 'Error');
+fbLensCompounderMock.SetError(Msg := 'Error');
 
 // Subject Under Test
 fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
@@ -156,7 +156,7 @@ SetInitialLensSetValues(
     fbLensSetMock := fbLensSetMock,
     fbLensCompounderMock := fbLensCompounderMock);
 
-fbLensSetMock.SetError(sMsg := 'Error');
+fbLensSetMock.SetError(Msg := 'Error');
 
 // Subject Under Test
 fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);

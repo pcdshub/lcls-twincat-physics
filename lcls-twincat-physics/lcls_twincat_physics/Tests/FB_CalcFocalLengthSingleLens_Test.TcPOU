@@ -88,10 +88,14 @@ fbLensMock.SetValid();
       <Declaration><![CDATA[
 METHOD PRIVATE Test0DeltaExpectError0FocalLength
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
     // Subject under test
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcXRayDelta := fbCalcXRayDeltaMock
+    );
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -134,10 +138,15 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD PRIVATE Test0RadiusExpectError0FocalLength
 VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
     // Subject under test
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcXRayDelta := fbCalcXRayDeltaMock
+    );
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -151,7 +160,10 @@ SetInitialDeltaAndLensValues(
     fbLensMock := fbLensMock
 );
 
-fbLensMock.Radius := 0.0;
+fbRadius.Val := 0.0;
+fbRadius.Units := 'm';
+
+fbLensMock.SetRadius(fbRadius);
 
 fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
 
@@ -180,10 +192,14 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD PRIVATE TestInvalidDeltaExpectError0FocalLength
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
     // Subject under test
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcXRayDelta := fbCalcXRayDeltaMock
+    );
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -197,7 +213,7 @@ SetInitialDeltaAndLensValues(
     fbLensMock := fbLensMock
 );
 
-fbCalcXRayDeltaMock.SetError(sMsg := 'Error');
+fbCalcXRayDeltaMock.SetError(Msg := 'Error');
 
 fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
 
@@ -226,10 +242,14 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD PRIVATE TestInvalidLensExpectError0FocalLength
 VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
     // Subject under test
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcXRayDelta := fbCalcXRayDeltaMock
+    );
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -243,7 +263,7 @@ SetInitialDeltaAndLensValues(
     fbLensMock := fbLensMock
 );
 
-fbLensMock.SetError(sMsg := 'Error');
+fbLensMock.SetError(Msg := 'Error');
 
 fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
 
@@ -278,10 +298,15 @@ VAR_INPUT
     fExpected : LREAL;
 END_VAR
 VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
     // Subject under test
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(iCalcXRayDelta := fbCalcXRayDeltaMock);
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        iConvertUnits := fbConvertUnitsLREALMock,
+        iCalcXRayDelta := fbCalcXRayDeltaMock
+    );
     fResult : LREAL;
 END_VAR
 ]]></Declaration>
@@ -297,7 +322,11 @@ SetInitialDeltaAndLensValues(
 );
 
 fbCalcXRayDeltaMock.SetResult(fDelta);
-fbLensMock.Radius := fRadius;
+
+fbRadius.Val := fRadius;
+fbRadius.Units := 'm';
+
+fbLensMock.SetRadius(fbRadius);
 
 // Here the test starts
 fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
