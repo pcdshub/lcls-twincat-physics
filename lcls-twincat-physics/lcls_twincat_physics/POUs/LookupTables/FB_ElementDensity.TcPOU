@@ -3,11 +3,9 @@
   <POU Name="FB_ElementDensity" Id="{5ccc25f0-cc4b-5d9a-89ae-439e58997089}" SpecialFunc="None">
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_ElementDensity EXTENDS FB_Fallible IMPLEMENTS I_StringLookupLREAL
-
 VAR_INPUT
     sName : STRING;
 END_VAR
-
 VAR_OUTPUT
     bFound : BOOL;
     fValue : LREAL;
@@ -15,6 +13,10 @@ VAR_OUTPUT
     sDescription : STRING;
     sUnits : STRING;
     sCaveat : STRING;
+END_VAR
+VAR
+    fbDensity : FB_QuantityLREALPublic(Units := 'g/cm**3');
+    fDensity : LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -676,19 +678,60 @@ ELSE
 END_IF
 ]]></ST>
     </Implementation>
+    <Method Name="ClearError" Id="{2b8b9efd-a115-43c3-83ce-6fade1a98509}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbDensity.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Lookup" Id="{a7f75b82-0308-46ac-8f73-cfa1c8cd7c63}">
       <Declaration><![CDATA[
-METHOD Lookup : LREAL
+METHOD Lookup
 VAR_INPUT
-    StringToLookup	: T_MaxString;
+    StringToLookup : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Result : FB_QuantityLREALPublic(Units := 'g/cm**3');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+ClearError();
+
 THIS^(
     sName := StringToLookup,
-    fValue => Lookup
+    fValue => fDensity
 );
+
+fbDensity.Val := fDensity;
+
+IF GetError() THEN
+    Result.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+Result := fbDensity;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{df1d667a-7881-44de-b65f-25cd48aac606}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbDensity.SetError(Msg := Msg);
 ]]></ST>
       </Implementation>
     </Method>

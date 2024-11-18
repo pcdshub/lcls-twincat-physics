@@ -25,15 +25,15 @@ Radius := fbRadius;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="MaterialName" Id="{d5018cf9-ae4a-4b2b-bb13-fbe3f764b9b8}">
+    <Property Name="MaterialFormula" Id="{d5018cf9-ae4a-4b2b-bb13-fbe3f764b9b8}">
       <Declaration><![CDATA[
-PROPERTY MaterialName : T_MaxString
+PROPERTY MaterialFormula : T_MaxString
 ]]></Declaration>
       <Get Name="Get" Id="{8f4c5ef5-2e6e-4653-bf7c-5b3586634ae6}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-MaterialName := sMaterialName;
+MaterialFormula := sMaterialName;
 ]]></ST>
         </Implementation>
       </Get>
@@ -41,7 +41,7 @@ MaterialName := sMaterialName;
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-sMaterialName := MaterialName;
+sMaterialName := MaterialFormula;
 ]]></ST>
         </Implementation>
       </Set>

@@ -212,7 +212,7 @@ TEST('TestSetMaterialGetMaterialNameExpectNoErrorValueSet');
 sMaterialName := 'Material1';
 
 // Here the test starts
-fbLens.MaterialName:= sMaterialName;
+fbLens.MaterialFormula:= sMaterialName;
 
 AssertFalse(
     Condition := fbLens.GetError(),
@@ -226,7 +226,7 @@ AssertTrue(
 
 AssertEquals_STRING(
     Expected := sMaterialName,
-    Actual := fbLens.MaterialName,
+    Actual := fbLens.MaterialFormula,
     Message := 'Material name did not set properly.'
 );
 

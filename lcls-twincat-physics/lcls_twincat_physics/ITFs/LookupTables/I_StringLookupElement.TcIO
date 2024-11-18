@@ -6,25 +6,34 @@ INTERFACE I_StringLookupElement EXTENDS I_Fallible
 ]]></Declaration>
     <Method Name="LookupAtomicMass" Id="{913d3b19-2087-41aa-8e5c-39fc748f1444}">
       <Declaration><![CDATA[
-METHOD LookupAtomicMass : LREAL
+METHOD LookupAtomicMass
 VAR_INPUT
     ElementName : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    AtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
 END_VAR
 ]]></Declaration>
     </Method>
     <Method Name="LookupAtomicNumber" Id="{5f83cf7a-fc59-42db-9ede-3a362b64e71d}">
       <Declaration><![CDATA[
-METHOD LookupAtomicNumber : INT
+METHOD LookupAtomicNumber
 VAR_INPUT
     ElementName : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    AtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
 END_VAR
 ]]></Declaration>
     </Method>
     <Method Name="LookupDensity" Id="{3579ce78-6b57-4a66-ad8f-4e83b829e31d}">
       <Declaration><![CDATA[
-METHOD LookupDensity : LREAL
+METHOD LookupDensity
 VAR_INPUT
     ElementName : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Density : FB_QuantityLREALPublic(Units := 'g/cm**3');
 END_VAR
 ]]></Declaration>
     </Method>

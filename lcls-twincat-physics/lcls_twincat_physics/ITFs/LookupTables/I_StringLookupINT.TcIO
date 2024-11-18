@@ -6,9 +6,12 @@ INTERFACE I_StringLookupINT EXTENDS I_Fallible
 ]]></Declaration>
     <Method Name="Lookup" Id="{6524db21-4a66-485c-ae51-00a36a3176da}">
       <Declaration><![CDATA[
-METHOD Lookup : INT
+METHOD Lookup
 VAR_INPUT
     StringToLookup : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Result : FB_QuantityINTPublic(Units := '1');
 END_VAR
 ]]></Declaration>
     </Method>

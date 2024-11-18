@@ -65,7 +65,7 @@ SetInitialLensSetValues(
 fbLensSetMock.NumLenses := 0;
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthLensSet.GetError(),
@@ -112,7 +112,7 @@ SetInitialLensSetValues(
 fbLensCompounderMock.SetError(Msg := 'Error');
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthLensSet.GetError(),
@@ -159,7 +159,7 @@ SetInitialLensSetValues(
 fbLensSetMock.SetError(Msg := 'Error');
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthLensSet.GetError(),
@@ -206,7 +206,7 @@ SetInitialLensSetValues(
 fbLensSetMock.NumLenses := -1;
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthLensSet.GetError(),
@@ -253,7 +253,7 @@ SetInitialLensSetValues(
 fbLensSetMock.NumLenses := GVL_Physics.nMaxNumLensesInSet + 1;
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthLensSet.GetError(),
@@ -307,7 +307,7 @@ fbLensSetMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 3);
 fExpected := 1.8108532187350777;
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertFalse(
     Condition := fbCalcFocalLengthLensSet.GetError(),
@@ -388,7 +388,7 @@ fbLensSetMock.SetMultiplierOf(nLensNum := 10, nMultiplier := 1);
 fExpected := 1.7700360383677682;
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertFalse(
     Condition := fbCalcFocalLengthLensSet.GetError(),
@@ -444,7 +444,7 @@ fbLensSetMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 4);
 fExpected := 1.2323037049718681;
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertFalse(
     Condition := fbCalcFocalLengthLensSet.GetError(),
@@ -510,7 +510,7 @@ fbLensSetMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 1);
 fExpected := 2.4170860090881234;
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertFalse(
     Condition := fbCalcFocalLengthLensSet.GetError(),
@@ -564,7 +564,7 @@ fExpected := 770.6879219348848;
 fbLensCompounderMock.FocalLengthCompounded := fExpected;
 
 // Subject Under Test
-fResult := fbCalcFocalLengthLensSet.Calculate(iLensSet := fbLensSetMock);
+fResult := fbCalcFocalLengthLensSet.Calculate(LensSet := fbLensSetMock);
 
 AssertFalse(
     Condition := fbCalcFocalLengthLensSet.GetError(),

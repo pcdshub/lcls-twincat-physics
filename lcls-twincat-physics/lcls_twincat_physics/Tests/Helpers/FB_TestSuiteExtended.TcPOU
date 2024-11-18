@@ -28,6 +28,24 @@ AssertFalse(
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AssertErrorExactExpectedQuantityLREAL" Id="{bc265262-5fcc-48c0-94c5-02a714be7437}">
+      <Declaration><![CDATA[
+METHOD AssertErrorExactExpectedQuantityLREAL
+VAR_INPUT
+    iExpected : I_QuantityLREAL;
+    iActual : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := iExpected,
+    iActual := iActual,
+    fDelta := 0.0
+);
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AssertExactExpectedQuantityLREAL" Id="{c13371ab-2fb4-4055-821a-8f6b384ac99d}">
       <Declaration><![CDATA[
 METHOD AssertExactExpectedQuantityLREAL

@@ -6,9 +6,12 @@ INTERFACE I_StringLookupLREAL EXTENDS I_Fallible
 ]]></Declaration>
     <Method Name="Lookup" Id="{cec974d9-256d-43bf-826a-e26013831226}">
       <Declaration><![CDATA[
-METHOD Lookup : LREAL
+METHOD Lookup
 VAR_INPUT
     StringToLookup : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Result : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
     </Method>

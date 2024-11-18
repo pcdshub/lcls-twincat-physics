@@ -7,14 +7,14 @@ VAR
     {attribute 'pytmc' := '
         pv: Value
         io: io
-        field: DESC Name of lens material.
+        field: DESC Value of quantity.
     '}
     fValue : LREAL;
 
     {attribute 'pytmc' := '
         pv: Units
         io: io
-        field: DESC Units of the value.
+        field: DESC Units of quantity.
     '}
     sUnits : T_MaxString;
 END_VAR
@@ -56,25 +56,6 @@ END_VAR
         <ST><![CDATA[
 THIS^.Units := Units;
 ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetUnits" Id="{9bef751b-784e-48ad-8dd3-68f2defc9991}">
-      <Declaration><![CDATA[
-METHOD GetUnits : T_MaxString
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="SetUnits" Id="{aad39d83-cd24-4410-9325-f4af58aa8f8c}">
-      <Declaration><![CDATA[
-METHOD SetUnits
-VAR_INPUT
-    Units : T_MaxString;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
     <Property Name="Units" Id="{1cb8fb78-a36e-4512-8f0d-9859fb13e09b}">

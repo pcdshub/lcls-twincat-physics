@@ -14,6 +14,10 @@ VAR_OUTPUT
     sUnits : STRING;
     sCaveat : STRING;
 END_VAR
+VAR
+    fbAtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
+    nAtomicNumber : INT;
+END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
@@ -863,19 +867,61 @@ ELSE
 END_IF
 ]]></ST>
     </Implementation>
+    <Method Name="ClearError" Id="{e504d54a-ef3b-4f59-9146-8a52e8d02342}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbAtomicNumber.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Lookup" Id="{4003e56f-8d5c-43c3-b299-821c6f299fe3}">
       <Declaration><![CDATA[
-METHOD Lookup : INT
+METHOD Lookup
 VAR_INPUT
-    StringToLookup	: T_MaxString;
+    StringToLookup : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Result : FB_QuantityINTPublic(Units := 'Protons');
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+
+THIS^(
+    sName := StringToLookup,
+    nValue => nAtomicNumber
+);
+
+fbAtomicNumber.Val := nAtomicNumber;
+
+IF GetError() THEN
+    Result.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+Result := fbAtomicNumber;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{1ad3a2e8-9293-49dd-8e1f-6b32f9393ba8}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^(
-    sName := StringToLookup,
-    nValue => Lookup
-);]]></ST>
+SUPER^.SetError(Msg := Msg);
+
+fbAtomicNumber.SetError(Msg := Msg);
+]]></ST>
       </Implementation>
     </Method>
   </POU>

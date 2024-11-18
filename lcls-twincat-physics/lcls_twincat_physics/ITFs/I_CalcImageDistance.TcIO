@@ -8,8 +8,11 @@ INTERFACE I_CalcImageDistance EXTENDS I_Fallible
       <Declaration><![CDATA[
 METHOD Calculate : LREAL
 VAR_INPUT
-    fFocalLength : LREAL;
-    fSourceDistance : LREAL;
+    FocalLength : I_QuantityLREAL;
+    SourceDistance : I_QuantityLREAL;
+END_VAR
+VAR_IN_OUT
+    ImageDistance : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     </Method>

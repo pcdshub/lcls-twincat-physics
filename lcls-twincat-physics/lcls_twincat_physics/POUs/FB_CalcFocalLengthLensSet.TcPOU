@@ -6,6 +6,10 @@ FUNCTION_BLOCK FB_CalcFocalLengthLensSet EXTENDS FB_Fallible IMPLEMENTS I_CalcFo
 VAR
     iConvertUnits : I_ConvertUnitsLREAL;
     iLensCompounder : I_LensCompounder;
+    iCalcFocalLengthSingleLens : I_CalcFocalLengthSingleLens;
+
+    fbLens : FB_Lens;
+    fbFocalLengthLens : FB_QuantityLREALPublic(Units := 'm');
 
     {attribute 'pytmc' := 'pv: FocalLength'}
     fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
@@ -18,71 +22,107 @@ END_VAR
     </Implementation>
     <Method Name="Calculate" Id="{f5016e8c-13ab-47cb-a173-def6706fd2c4}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
-    iLensSet : I_LensSet;
+    LensSet : I_LensSet;
+END_VAR
+VAR_IN_OUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-// Initialize focal length and error values.
-fbFocalLength.Val := 0.0;
 ClearError();
 
+SetUnits(Units := FocalLength.Units);
+
 // Check for an invalid lens set input.
-IF iLensSet.GetError() THEN
+IF LensSet.GetError() THEN
     SetError(
         Msg := CONCAT('The input lens set has the following error message: [',
-        CONCAT(iLensSet.GetErrorMsg(),
+        CONCAT(LensSet.GetErrorMsg(),
         ']'))
     );
+    FocalLength.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
 // Check for an invalid number of lenses
-IF iLensSet.NumLenses < 1.0 THEN
+IF LensSet.NumLenses < 1.0 THEN
     SetError(
         Msg := CONCAT('The input lens set has 0 or negative lenses: [',
-        CONCAT(INT_TO_STRING(iLensSet.NumLenses),
+        CONCAT(INT_TO_STRING(LensSet.NumLenses),
         ']'))
     );
+    FocalLength.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
 // Check for a number of lenses greater than the max.
-IF iLensSet.NumLenses > GVL_Physics.nMaxNumLensesInSet THEN
+IF LensSet.NumLenses > GVL_Physics.nMaxNumLensesInSet THEN
     SetError(
         Msg := CONCAT('The input lens set number of lenses is greater than the global max number: [',
-        CONCAT(INT_TO_STRING(iLensSet.NumLenses),
+        CONCAT(INT_TO_STRING(LensSet.NumLenses),
         CONCAT('] = (setting) > (max) = [',
         CONCAT(INT_TO_STRING(GVL_Physics.nMaxNumLensesInSet),
         ']'))))
     );
+    FocalLength.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
 iLensCompounder.Reset();
 
-FOR nIndex := 1 TO iLensSet.NumLenses BY 1 DO
-    iLensCompounder.Compound(
-        fFocalLength := iLensSet.GetFocalLengthOf(nLensNum := nIndex),
-        nMultiplier := iLensSet.GetMultiplierOf(nLensNum := nIndex)
+FOR nIndex := 1 TO LensSet.NumLenses BY 1 DO
+    LensSet.GetLens(
+        LensNum := nIndex,
+        Lens := fbLens
     );
+
+    IF LensSet.GetError() THEN
+        SetError(
+            Msg := CONCAT('The lens set returned the following error message when attempting to get a lens: [',
+            CONCAT(LensSet.GetErrorMsg(),
+            ']'))
+        );
+        FocalLength.SetError(Msg := GetErrorMsg());
+        RETURN;
+    END_IF
+
+    iCalcFocalLengthSingleLens.Calculate(
+        Lens := fbLens,
+        FocalLength := fbFocalLengthLens
+    );
+
+    IF iCalcFocalLengthSingleLens.GetError() THEN
+        SetError(Msg :=
+            CONCAT('Error returned when attempting the calculate focal length for lens number: [',
+            CONCAT(INT_TO_STRING(nIndex),
+            CONCAT(']. Error message is: ',
+            iCalcFocalLengthSingleLens.GetErrorMsg())))
+        );
+        RETURN;
+    END_IF
+
+    iLensCompounder.Compound(
+        FocalLength := fbFocalLengthLens,
+        Multiplier := fbLens.Multiplier,
+        FocalLengthCompounded := fbFocalLength
+    );
+
+    // Check for an error while compounding lenses.
+    IF iLensCompounder.GetError() THEN
+        SetError(
+            Msg := CONCAT('Error detected while compounding lenses: [',
+            CONCAT(iLensCompounder.GetErrorMsg(),
+            ']'))
+        );
+        FocalLength.SetError(Msg := GetErrorMsg());
+        RETURN;
+    END_IF
 END_FOR
 
-// Check for an error while compounding lenses.
-IF iLensCompounder.GetError() THEN
-    SetError(
-        Msg := CONCAT('Error detected while compounding lenses: [',
-        CONCAT(iLensCompounder.GetErrorMsg(),
-        ']'))
-    );
-    RETURN;
-END_IF
-
-fbFocalLength.Val := iLensCompounder.FocalLengthCompounded;
-
-Calculate := fbFocalLength.Val;
+FocalLength := fbFocalLength;
 ]]></ST>
       </Implementation>
     </Method>
@@ -126,6 +166,20 @@ END_VAR
 SUPER^.SetError(Msg := Msg);
 
 fbFocalLength.SetError(Msg := Msg);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetUnits" Id="{7e175d42-711c-49a0-a07a-db592521747b}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetUnits
+VAR_INPUT
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbFocalLengthLens.Units := Units;
+fbFocalLength.Units := Units;
 ]]></ST>
       </Implementation>
     </Method>

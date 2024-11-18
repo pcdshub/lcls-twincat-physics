@@ -4,32 +4,58 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_QuantityINTPublic EXTENDS FB_FalliblePublic IMPLEMENTS I_QuantityINTPublic
 VAR
+    {attribute 'pytmc' := '
+        pv: Value
+        io: io
+        field: DESC Value of quantity.
+    '}
     nValue : INT;
+
+    {attribute 'pytmc' := '
+        pv: Units
+        io: io
+        field: DESC Units of quantity.
+    '}
     sUnits : T_MaxString;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="GetUnits" Id="{466f8883-e746-4222-a19c-c3c87fe3700b}">
+    <Method Name="Copy" Id="{6f88bde4-c6bd-4a44-8b41-302e399f8a90}">
       <Declaration><![CDATA[
-METHOD GetUnits : T_MaxString
+METHOD Copy
+VAR_INPUT
+    QuantityToCopy : I_QuantityINT;
+END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-GetUnits := sUnits;
+Val := QuantityToCopy.Val;
+Units := QuantityToCopy.Units;
+
+IF QuantityToCopy.GetError() THEN
+    SetError(Msg := QuantityToCopy.GetErrorMsg());
+ELSE
+    ClearError();
+END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetUnits" Id="{1a67ab34-25c9-444b-8c60-8689c81d0d0c}">
+    <Method Name="FB_Init" Id="{5707d2e2-0fa5-4325-b044-341311ed4385}">
       <Declaration><![CDATA[
-METHOD SetUnits
+METHOD FB_Init: BOOL
 VAR_INPUT
+    bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
+    bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
+
     Units : T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[
+THIS^.Units := Units;
+]]></ST>
       </Implementation>
     </Method>
     <Property Name="Units" Id="{2a0cdbe1-dec3-4f78-bd70-dbba6b5e1c62}">

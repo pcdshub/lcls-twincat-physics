@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CalcFocalLength2LensSet_Test" Id="{13bd12fa-fde2-47a3-9090-578faeebf965}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcFocalLength2LensSet_Test EXTENDS FB_TestSuite
+FUNCTION_BLOCK FB_CalcFocalLength2LensSet_Test EXTENDS FB_TestSuiteExtended
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
@@ -94,8 +94,8 @@ VAR
     fbSourceDistanceMock : FB_QuantityLREALPublicMock;
     fbDistanceBetweenMock : FB_QuantityLREALPublicMock;
     fbRadius : FB_QuantityLREALPublicMock;
-    fExpected : LREAL;
-    fResult : LREAL;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -107,54 +107,70 @@ TEST('TestValidInputsExpectNoErrorCorrectFocalLength_0');
 fbLensSetDownstreamMock.SetValid();
 fbLensSetUpstreamMock.SetValid();
 
-fbLensSetDownstreamMock.NumLenses := 2;
+fbLensSetDownstreamMock.NumLenses := 1;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 294.8788533133466);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
-fbRadius.Val := 0.01260806640541975;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 1763.0711121620657);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
+fbRadius.Val := 0.01879599978995187;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 898.7859710928801);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 4);
-fbRadius.Val := 0.03842918229120029;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
+fbLensSetUpstreamMock.NumLenses := 5;
 
-fbLensSetUpstreamMock.NumLenses := 2;
-
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 844.4854851595325);
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 2727.3729824167594);
 fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 3);
-fbRadius.Val := 0.036107469069646535;
+fbRadius.Val := 0.029076366603137633;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 303.49303768736706);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 2);
-fbRadius.Val := 0.0129763810790419;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 3153.688834157871);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 3);
+fbRadius.Val := 0.03362129539500732;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-// prefocal_length := 111.7002055620594;
-// virt_source := -80.34697415674285;
-fExpected := 42.23166742792212;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 3157.216561436586);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 3);
+fbRadius.Val := 0.03365890429276098;
+fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
+fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbSourceDistanceMock.Val := 871.7875834913665;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 773.8704118085352);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 3);
+fbRadius.Val := 0.00825018798020333;
+fbLensSetUpstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
+fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
+
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 5, fFocalLength := 3997.6824970452326);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 3);
+fbRadius.Val := 0.04261906332445731;
+fbLensSetUpstreamMock.SetRadiusOf(LensNum := 5, Radius := fbRadius);
+fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 5, sMaterialName := 'Be');
+
+// prefocal_length := 157.24932907108365;
+// virt_source := -136.98355718946308;
+fbExpected.Val := 127.10779137969136;
+fbExpected.Units := 'm';
+
+fbSourceDistanceMock.Val := 808.1910967552894;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 31.353231405316546;
+fbDistanceBetweenMock.Val := 20.265771881620566;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -166,84 +182,82 @@ TEST('TestValidInputsExpectNoErrorCorrectFocalLength_1');
 fbLensSetDownstreamMock.SetValid();
 fbLensSetUpstreamMock.SetValid();
 
-fbLensSetDownstreamMock.NumLenses := 5;
+fbLensSetDownstreamMock.NumLenses := 3;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 39.77067918895516);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
-fbRadius.Val := 0.027959644891493367;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 3645.6121687257237);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
+fbRadius.Val := 0.01470882838411291;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 15.375879463355037);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 2);
-fbRadius.Val := 0.010809574753483278;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 5892.323640630946);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
+fbRadius.Val := 0.023773559337219915;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 69.48841288240531);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 2);
-fbRadius.Val := 0.04885185236678299;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 8094.912256523827);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 1);
+fbRadius.Val := 0.03266026929224327;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 25.623876813862974);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 4);
-fbRadius.Val := 0.01801413782890443;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
+fbLensSetUpstreamMock.NumLenses := 5;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 5, fFocalLength := 35.90377154757544);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 1);
-fbRadius.Val := 0.02524112545239853;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 5, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 5, sMaterialName := 'Be');
-
-fbLensSetUpstreamMock.NumLenses := 4;
-
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 28.280669336840244);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
-fbRadius.Val := 0.019881920250720567;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 10185.857456460802);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
+fbRadius.Val := 0.041096535324679676;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 67.04489966892501);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 4);
-fbRadius.Val := 0.047134009897661804;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 3320.3465606634422);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 3);
+fbRadius.Val := 0.013396490212410319;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 45.72177633468684);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 4);
-fbRadius.Val := 0.032143394485481855;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 4367.397437747617);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 1);
+fbRadius.Val := 0.017620991050043087;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 36.095436375832506);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 4);
-fbRadius.Val := 0.025375869958792197;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 10991.70439620265);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 1);
+fbRadius.Val := 0.044347858776529046;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
 
-// prefocal_length := 3.0708511389316127;
-// virt_source := 8.82614518186298;
-fExpected := 3.0294847903512454;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 5, fFocalLength := 6869.295674402025);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 4);
+fbRadius.Val := 0.027715315430775926;
+fbLensSetUpstreamMock.SetRadiusOf(LensNum := 5, Radius := fbRadius);
+fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 5, sMaterialName := 'Be');
 
-fbSourceDistanceMock.Val := 340.67389634552256;
+// prefocal_length := -1247.075375758519;
+// virt_source := 1345.9722561351628;
+fbExpected.Val := 10111.83055012737;
+fbExpected.Units := 'm';
+
+fbSourceDistanceMock.Val := 468.4706173301987;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 11.896996320794592;
+fbDistanceBetweenMock.Val := 98.89688037664394;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -255,84 +269,64 @@ TEST('TestValidInputsExpectNoErrorCorrectFocalLength_2');
 fbLensSetDownstreamMock.SetValid();
 fbLensSetUpstreamMock.SetValid();
 
-fbLensSetDownstreamMock.NumLenses := 5;
+fbLensSetDownstreamMock.NumLenses := 2;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 173.93567430004757);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
-fbRadius.Val := 0.029977893234352983;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 292.37978912538404);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 3);
+fbRadius.Val := 0.0011796548678768542;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 240.49650997213863);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 2);
-fbRadius.Val := 0.04144968378794107;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 10858.825257045806);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
+fbRadius.Val := 0.04381173579821185;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 60.054734389048036);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 4);
-fbRadius.Val := 0.010350461013688762;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
+fbLensSetUpstreamMock.NumLenses := 3;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 160.88851660729637);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 2);
-fbRadius.Val := 0.027729209622442807;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
-
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 5, fFocalLength := 120.2798175477963);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 3);
-fbRadius.Val := 0.020730281715959104;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 5, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 5, sMaterialName := 'Be');
-
-fbLensSetUpstreamMock.NumLenses := 4;
-
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 192.92928141676467);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
-fbRadius.Val := 0.03325145013158828;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 293.0144150330736);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
+fbRadius.Val := 0.0011822153716090932;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 88.9976588110834);
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 8152.929134832257);
 fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 4);
-fbRadius.Val := 0.015338787311357797;
+fbRadius.Val := 0.03289434803318596;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 156.8253543277428);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 3);
-fbRadius.Val := 0.027028921740152558;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 5422.371710426192);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 4);
+fbRadius.Val := 0.021877460144479815;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 178.13827065501195);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 4);
-fbRadius.Val := 0.030702212643486233;
-fbLensSetUpstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
-fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
+// prefocal_length := 301.46890705329395;
+// virt_source := -246.34755570376404;
+fbExpected.Val := 69.38650823131799;
+fbExpected.Units := 'm';
 
-// prefocal_length := 10.68144632584506;
-// virt_source := 51.158937352411925;
-fExpected := 9.59265552000663;
-
-fbSourceDistanceMock.Val := 367.1613163292123;
+fbSourceDistanceMock.Val := 810.3995144906395;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 61.840383678256984;
+fbDistanceBetweenMock.Val := 55.1213513495299;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -344,48 +338,82 @@ TEST('TestValidInputsExpectNoErrorCorrectFocalLength_3');
 fbLensSetDownstreamMock.SetValid();
 fbLensSetUpstreamMock.SetValid();
 
-fbLensSetDownstreamMock.NumLenses := 1;
+fbLensSetDownstreamMock.NumLenses := 4;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 1565.4289308524849);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
-fbRadius.Val := 0.029691294033221096;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 3967.6080062672886);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
+fbRadius.Val := 0.03341393110456406;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.NumLenses := 2;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 4846.826028155504);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 3);
+fbRadius.Val := 0.04081842528918558;
+fbLensSetDownstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
+fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 336.02263516374);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
-fbRadius.Val := 0.00637329914238345;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 1174.3464759230071);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 3);
+fbRadius.Val := 0.009889972037911922;
+fbLensSetDownstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
+fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
+
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 3177.8615830268363);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 4);
+fbRadius.Val := 0.026762938230633804;
+fbLensSetDownstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
+fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
+
+fbLensSetUpstreamMock.NumLenses := 4;
+
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 4209.5044285279755);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
+fbRadius.Val := 0.03545110573852275;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 942.1077591276065);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 3);
-fbRadius.Val := 0.017868839610626006;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 2045.266721844404);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
+fbRadius.Val := 0.017224584995850157;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-// prefocal_length := 128.1400816111451;
-// virt_source := -36.84457162920006;
-fExpected := 35.1881656875163;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 5056.051301792182);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 3);
+fbRadius.Val := 0.04258045391388499;
+fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
+fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbSourceDistanceMock.Val := 841.8379740703136;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 2098.6548322146955);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 1);
+fbRadius.Val := 0.017674202659414173;
+fbLensSetUpstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
+fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
+
+// prefocal_length := -387.46113486812544;
+// virt_source := 464.1360931838732;
+fbExpected.Val := 304.330087176297;
+fbExpected.Units := 'm';
+
+fbSourceDistanceMock.Val := 305.12944081493083;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 91.29550998194503;
+fbDistanceBetweenMock.Val := 76.67495831574776;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -399,64 +427,74 @@ fbLensSetUpstreamMock.SetValid();
 
 fbLensSetDownstreamMock.NumLenses := 3;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 1193.4375736241898);
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 2411.750206839775);
 fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
-fbRadius.Val := 0.02263578065436232;
+fbRadius.Val := 0.025711530333899443;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 2573.104992098942);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
-fbRadius.Val := 0.04880375939976672;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 2129.4481324773546);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 2);
+fbRadius.Val := 0.02270192414512124;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 1229.6911949516673);
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 2328.8533274786187);
 fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 1);
-fbRadius.Val := 0.023323398539395915;
+fbRadius.Val := 0.02482777146773028;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.NumLenses := 3;
+fbLensSetUpstreamMock.NumLenses := 4;
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 1428.2361033595823);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
-fbRadius.Val := 0.02708917489509933;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 1535.545431346025);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
+fbRadius.Val := 0.01637036158436493;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 2348.3534196194773);
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 2159.81749473819);
 fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 3);
-fbRadius.Val := 0.04454092453617277;
+fbRadius.Val := 0.02302569017063091;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 338.10081207694697);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 3);
-fbRadius.Val := 0.006412715663036021;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 2818.5886962449945);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 1);
+fbRadius.Val := 0.030048812085415044;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-// prefocal_length := -74.27262670275185;
-// virt_source := 172.30671698299778;
-fExpected := -799.9398895541981;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 4519.340022697273);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 3);
+fbRadius.Val := 0.04818042422189639;
+fbLensSetUpstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
+fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
 
-fbSourceDistanceMock.Val := 135.89115062982026;
+// prefocal_length := -2504.6684713849395;
+// virt_source := 2591.813148732694;
+fbExpected.Val := 378.5982036768693;
+fbExpected.Units := 'm';
+
+fbSourceDistanceMock.Val := 330.49330809689445;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 98.03409028024595;
+fbDistanceBetweenMock.Val := 87.14467734775464;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -470,58 +508,62 @@ fbLensSetUpstreamMock.SetValid();
 
 fbLensSetDownstreamMock.NumLenses := 1;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 1674.544576377048);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
-fbRadius.Val := 0.045767696272015504;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 6066.985223624949);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 3);
+fbRadius.Val := 0.028730048635205712;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
 fbLensSetUpstreamMock.NumLenses := 4;
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 334.40299301414996);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
-fbRadius.Val := 0.009139711676017173;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 1196.2306517961624);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
+fbRadius.Val := 0.005664718725735294;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 1446.2896434796744);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
-fbRadius.Val := 0.03952916276934925;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 4800.096470010678);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 2);
+fbRadius.Val := 0.022730730330456996;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 205.9080013144129);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 3);
-fbRadius.Val := 0.005627759927732065;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 8813.19087836996);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 1);
+fbRadius.Val := 0.04173463313886801;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 904.3481237670537);
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 2001.9481012931249);
 fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 4);
-fbRadius.Val := 0.02471712657675949;
+fbRadius.Val := 0.009480172473692637;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
 
-// prefocal_length := 33.1835367636387;
-// virt_source := -10.67183544148342;
-fExpected := 10.5375246201494;
+// prefocal_length := 455.21819007229647;
+// virt_source := -401.75118425789276;
+fbExpected.Val := 335.16755615572936;
+fbExpected.Units := 'm';
 
-fbSourceDistanceMock.Val := 684.630341670427;
+fbSourceDistanceMock.Val := 910.0796578665625;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 22.51170132215528;
+fbDistanceBetweenMock.Val := 53.46700581440372;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -533,78 +575,46 @@ TEST('TestValidInputsExpectNoErrorCorrectFocalLength_6');
 fbLensSetDownstreamMock.SetValid();
 fbLensSetUpstreamMock.SetValid();
 
-fbLensSetDownstreamMock.NumLenses := 5;
+fbLensSetDownstreamMock.NumLenses := 1;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 413.7316447779624);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
-fbRadius.Val := 0.031521873923095876;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 110.48959575641041);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
+fbRadius.Val := 0.01904293250031449;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 299.90180155354506);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
-fbRadius.Val := 0.02284927173736871;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
+fbLensSetUpstreamMock.NumLenses := 1;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 404.4078641440424);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 3);
-fbRadius.Val := 0.03081150274086069;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
-
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 110.88477424068594);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 1);
-fbRadius.Val := 0.00844821980073986;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
-
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 5, fFocalLength := 176.8485180580609);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 3);
-fbRadius.Val := 0.013473943219171119;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 5, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 5, sMaterialName := 'Be');
-
-fbLensSetUpstreamMock.NumLenses := 3;
-
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 318.2252697453834);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
-fbRadius.Val := 0.02424532171678704;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 73.72179425125307);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
+fbRadius.Val := 0.012705985048797996;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 157.27718238975507);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 4);
-fbRadius.Val := 0.011982819242483256;
-fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
-fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
+// prefocal_length := 19.53187289982785;
+// virt_source := 14.851904590921752;
+fbExpected.Val := -17.15830771807545;
+fbExpected.Units := 'm';
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 248.28793501127632);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 4);
-fbRadius.Val := 0.018916853672750915;
-fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
-fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
-
-// prefocal_length := 23.01315353359593;
-// virt_source := -3.68767234766743;
-fExpected := 3.1488467229026513;
-
-fbSourceDistanceMock.Val := 830.9142494836603;
+fbSourceDistanceMock.Val := 361.21619504147765;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 19.3254811859285;
+fbDistanceBetweenMock.Val := 34.3837774907496;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -618,70 +628,68 @@ fbLensSetUpstreamMock.SetValid();
 
 fbLensSetDownstreamMock.NumLenses := 2;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 8695.32128967628);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
-fbRadius.Val := 0.030248121499015204;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 24.168904137135915);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 3);
+fbRadius.Val := 0.01699126066920504;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 7031.723736048428);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
-fbRadius.Val := 0.02446102068339104;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 55.356958282226785);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 3);
+fbRadius.Val := 0.03891713512084318;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.NumLenses := 5;
+fbLensSetUpstreamMock.NumLenses := 4;
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 7003.538902940032);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
-fbRadius.Val := 0.02436297505311578;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 56.23644231405934);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 3);
+fbRadius.Val := 0.03953543135614122;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 6544.922858185232);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 3);
-fbRadius.Val := 0.022767602854550654;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 27.358615678492583);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
+fbRadius.Val := 0.01923369665021785;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 2593.7954093380417);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 2);
-fbRadius.Val := 0.009022948787228294;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 9.345143616820591);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 1);
+fbRadius.Val := 0.00656983743588851;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 13110.962417704997);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 3);
-fbRadius.Val := 0.04560866366727748;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 29.129798958046756);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 2);
+fbRadius.Val := 0.020478876680933497;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 5, fFocalLength := 7690.023051500042);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 4);
-fbRadius.Val := 0.026751024354691875;
-fbLensSetUpstreamMock.SetRadiusOf(LensNum := 5, Radius := fbRadius);
-fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 5, sMaterialName := 'Be');
+// prefocal_length := 3.786562514686858;
+// virt_source := 78.73433670561356;
+fbExpected.Val := 6.037946234954404;
+fbExpected.Units := 'm';
 
-// prefocal_length := -22.637138680886594;
-// virt_source := 38.61849260752291;
-fExpected := -39.18171523165312;
-
-fbSourceDistanceMock.Val := 37.58130959237622;
+fbSourceDistanceMock.Val := 762.0332930928363;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 15.981353926636318;
+fbDistanceBetweenMock.Val := 82.52089922030042;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -693,72 +701,76 @@ TEST('TestValidInputsExpectNoErrorCorrectFocalLength_8');
 fbLensSetDownstreamMock.SetValid();
 fbLensSetUpstreamMock.SetValid();
 
-fbLensSetDownstreamMock.NumLenses := 4;
+fbLensSetDownstreamMock.NumLenses := 2;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 4317.38082077638);
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 589.1932497205354);
 fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 3);
-fbRadius.Val := 0.02044484309515068;
+fbRadius.Val := 0.044890149372057736;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 1327.9497749304135);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 2);
-fbRadius.Val := 0.006288471161969613;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 630.8692661568949);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 4);
+fbRadius.Val := 0.0480654108061422;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 4225.956442881297);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 1);
-fbRadius.Val := 0.020011905363055832;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
+fbLensSetUpstreamMock.NumLenses := 5;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 2012.9332264423153);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 2);
-fbRadius.Val := 0.009532192244331125;
-fbLensSetDownstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
-fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
-
-fbLensSetUpstreamMock.NumLenses := 3;
-
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 957.2318125959108);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
-fbRadius.Val := 0.004532946021354399;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 497.42316566284893);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
+fbRadius.Val := 0.037898262103848494;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 8860.96988093695);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 4);
-fbRadius.Val := 0.04196088934634086;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 272.96225028015516);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 3);
+fbRadius.Val := 0.020796769470493994;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 3833.0407360502245);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 2);
-fbRadius.Val := 0.018151263388383573;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 357.080781378991);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 3);
+fbRadius.Val := 0.02720569120843972;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-// prefocal_length := 8794.654958536441;
-// virt_source := -8756.61411125205;
-fExpected := 282.0592856766455;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 62.34926763537191);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 2);
+fbRadius.Val := 0.004750339449268642;
+fbLensSetUpstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
+fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
 
-fbSourceDistanceMock.Val := 563.2039281344236;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 5, fFocalLength := 0.20739867778567325);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 5, nMultiplier := 2);
+fbRadius.Val := 1.580153477620817e-05;
+fbLensSetUpstreamMock.SetRadiusOf(LensNum := 5, Radius := fbRadius);
+fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 5, sMaterialName := 'Be');
+
+// prefocal_length := 0.10307575278719248;
+// virt_source := 28.55300491659036;
+fbExpected.Val := -42.39009308680975;
+fbExpected.Units := 'm';
+
+fbSourceDistanceMock.Val := 882.5315129577161;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 38.04084728439015;
+fbDistanceBetweenMock.Val := 28.656080669377552;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -770,66 +782,76 @@ TEST('TestValidInputsExpectNoErrorCorrectFocalLength_9');
 fbLensSetDownstreamMock.SetValid();
 fbLensSetUpstreamMock.SetValid();
 
-fbLensSetDownstreamMock.NumLenses := 2;
+fbLensSetDownstreamMock.NumLenses := 4;
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 7318.412763719617);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 1);
-fbRadius.Val := 0.03465615077080212;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 5473.1653385990085);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 4);
+fbRadius.Val := 0.025918030219384665;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 10264.421758809956);
-fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
-fbRadius.Val := 0.04860689872698854;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 3029.405149752612);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 4);
+fbRadius.Val := 0.01434566824874066;
 fbLensSetDownstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.NumLenses := 4;
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 2563.674922880484);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 1);
+fbRadius.Val := 0.012140215033391147;
+fbLensSetDownstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
+fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 1121.6429111188233);
+fbLensSetDownstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 4486.289276016676);
+fbLensSetDownstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 4);
+fbRadius.Val := 0.02124470463347362;
+fbLensSetDownstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
+fbLensSetDownstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
+
+fbLensSetUpstreamMock.NumLenses := 3;
+
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 1, fFocalLength := 3778.282805649313);
 fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 1, nMultiplier := 2);
-fbRadius.Val := 0.005311510445466943;
+fbRadius.Val := 0.01789195865207808;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 1, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 1, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 268.3168235592855);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 1);
-fbRadius.Val := 0.0012706072466575576;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 2, fFocalLength := 1635.9544035646195);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 2, nMultiplier := 2);
+fbRadius.Val := 0.007747018963614342;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 2, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 2, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 9042.540679314516);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 3);
-fbRadius.Val := 0.04282071307688289;
+fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 3, fFocalLength := 9805.349954382178);
+fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 3, nMultiplier := 4);
+fbRadius.Val := 0.04643297629564605;
 fbLensSetUpstreamMock.SetRadiusOf(LensNum := 3, Radius := fbRadius);
 fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 3, sMaterialName := 'Be');
 
-fbLensSetUpstreamMock.SetFocalLengthOf(nLensNum := 4, fFocalLength := 3027.2320142226354);
-fbLensSetUpstreamMock.SetMultiplierOf(nLensNum := 4, nMultiplier := 1);
-fbRadius.Val := 0.014335377422709966;
-fbLensSetUpstreamMock.SetRadiusOf(LensNum := 4, Radius := fbRadius);
-fbLensSetUpstreamMock.SetMaterialNameOf(nLensNum := 4, sMaterialName := 'Be');
+// prefocal_length := 1819.0798139418682;
+// virt_source := -1815.0216207473782;
+fbExpected.Val := 257.4759507755246;
+fbExpected.Units := 'm';
 
-// prefocal_length := -397.40309235594776;
-// virt_source := 412.9372215196365;
-fExpected := -457.11985705209236;
-
-fbSourceDistanceMock.Val := 130.629155628171;
+fbSourceDistanceMock.Val := 625.1449448317863;
 fbSourceDistanceMock.Units := 'm';
-fbDistanceBetweenMock.Val := 15.53412916368875;
+fbDistanceBetweenMock.Val := 4.058193194490166;
 fbDistanceBetweenMock.Units := 'm';
 
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertNoErrorCorrectResult(
-    iFallible := fbCalcFocalLength2LensSets,
-    fExpected := fExpected,
-    fResult := fResult
+AssertNoError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
@@ -853,7 +875,8 @@ VAR
     );
     fbSourceDistanceMock : FB_QuantityLREALPublicMock;
     fbDistanceBetweenMock : FB_QuantityLREALPublicMock;
-    fResult : LREAL;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -861,6 +884,9 @@ END_VAR
 TEST('TestInvalidCalcFocalLengthExpectError0FocalLength');
 
 // Test fixture
+fbExpected.Val := 0.0;
+fbExpected.Units := 'm';
+
 fbLensSetUpstreamMock.SetValid();
 fbLensSetDownstreamMock.SetValid();
 fbCalcFocalLengthLensSetMock.SetError(Msg := 'Error');
@@ -872,16 +898,19 @@ fbDistanceBetweenMock.Val := 40.0;
 fbDistanceBetweenMock.Units := 'm';
 
 // Subject Under Test
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertError0Result(
-    iFallible := fbCalcFocalLength2LensSets,
-    fResult := fResult
+AssertError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -905,7 +934,8 @@ VAR
     );
     fbSourceDistanceMock : FB_QuantityLREALPublicMock;
     fbDistanceBetweenMock : FB_QuantityLREALPublicMock;
-    fResult : LREAL;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -913,6 +943,9 @@ END_VAR
 TEST('TestInvalidLensSetCompounderExpectError0FocalLength');
 
 // Test fixture
+fbExpected.Val := 0.0;
+fbExpected.Units := 'm';
+
 fbLensSetUpstreamMock.SetValid();
 fbLensSetDownstreamMock.SetValid();
 fbCalcFocalLengthLensSetMock.SetValid();
@@ -924,16 +957,19 @@ fbDistanceBetweenMock.Val := 40.0;
 fbDistanceBetweenMock.Units := 'm';
 
 // Subject Under Test
-fResult := fbCalcFocalLength2LensSets.Calculate(
-    iSourceDistance := fbSourceDistanceMock,
-    iDistanceBetween := fbDistanceBetweenMock,
-    iLensSetUpstream := fbLensSetUpstreamMock,
-    iLensSetDownstream := fbLensSetDownstreamMock
+fbCalcFocalLength2LensSets.Calculate(
+    SourceDistance := fbSourceDistanceMock,
+    DistanceBetween := fbDistanceBetweenMock,
+    LensSetUpstream := fbLensSetUpstreamMock,
+    LensSetDownstream := fbLensSetDownstreamMock,
+    FocalLength => fbResult
 );
 
-AssertError0Result(
-    iFallible := fbCalcFocalLength2LensSets,
-    fResult := fResult
+AssertError(iFallible := fbCalcFocalLength2LensSets);
+
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();

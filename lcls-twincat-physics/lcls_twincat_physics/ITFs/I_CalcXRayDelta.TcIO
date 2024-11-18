@@ -6,9 +6,12 @@ INTERFACE I_CalcXRayDelta EXTENDS I_Fallible
 ]]></Declaration>
     <Method Name="Calculate" Id="{d40de753-cc51-40d1-ae5d-ee3d341a0999}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
-    sChemicalFormula : T_MaxString;
+    MaterialFormula : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Delta : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
     </Method>

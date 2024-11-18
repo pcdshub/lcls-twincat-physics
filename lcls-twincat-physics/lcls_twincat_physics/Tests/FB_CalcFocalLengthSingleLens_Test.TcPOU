@@ -111,7 +111,7 @@ SetInitialDeltaAndLensValues(
 
 fbCalcXRayDeltaMock.SetResult(0.0);
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
+fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthSingleLens.GetError(),
@@ -165,7 +165,7 @@ fbRadius.Units := 'm';
 
 fbLensMock.SetRadius(fbRadius);
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
+fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthSingleLens.GetError(),
@@ -215,7 +215,7 @@ SetInitialDeltaAndLensValues(
 
 fbCalcXRayDeltaMock.SetError(Msg := 'Error');
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
+fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthSingleLens.GetError(),
@@ -265,7 +265,7 @@ SetInitialDeltaAndLensValues(
 
 fbLensMock.SetError(Msg := 'Error');
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
+fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
 
 AssertTrue(
     Condition := fbCalcFocalLengthSingleLens.GetError(),
@@ -329,7 +329,7 @@ fbRadius.Units := 'm';
 fbLensMock.SetRadius(fbRadius);
 
 // Here the test starts
-fResult := fbCalcFocalLengthSingleLens.Calculate(iLens := fbLensMock);
+fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
 
 AssertFalse(
     Condition := fbCalcFocalLengthSingleLens.GetError(),

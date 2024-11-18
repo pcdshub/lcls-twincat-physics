@@ -78,9 +78,9 @@ GetFocalLengthOf := fFocalLength;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetMaterialNameOf" Id="{51876747-123d-4353-83f5-0881279e54a8}">
+    <Method Name="GetMaterialFormulaOf" Id="{51876747-123d-4353-83f5-0881279e54a8}">
       <Declaration><![CDATA[
-METHOD GetMaterialNameOf : T_MaxString
+METHOD GetMaterialFormulaOf : T_MaxString
 VAR_INPUT
     nLensNum	: INT;
 END_VAR
@@ -94,7 +94,7 @@ IF NOT IndexInRange(nLensNum) THEN
     RETURN;
 END_IF
 
-GetMaterialNameOf := afbLens[nLensNum].MaterialName;]]></ST>
+GetMaterialFormulaOf := afbLens[nLensNum].MaterialFormula;]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetMultiplierOf" Id="{cf92e14b-e5e6-4f30-bfb0-2bd8a1aa55dd}">
@@ -216,7 +216,7 @@ IF NOT IndexInRange(nLensNum) THEN
     RETURN;
 END_IF
 
-afbLens[nLensNum].MaterialName := sMaterialName;
+afbLens[nLensNum].MaterialFormula := sMaterialName;
 ]]></ST>
       </Implementation>
     </Method>

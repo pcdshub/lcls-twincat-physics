@@ -11,8 +11,8 @@ VAR_INPUT
 	QuantityToConvert : I_QuantityLREAL;
 	DesiredUnits : T_MaxString;
 END_VAR
-VAR_OUTPUT
-    ConvertedQuantity : FB_QuantityLREALPublic(Units := '');
+VAR_IN_OUT
+    ConvertedQuantity : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
     </Method>

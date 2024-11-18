@@ -6,9 +6,11 @@ FUNCTION_BLOCK FB_CalcImageDistance EXTENDS FB_Fallible IMPLEMENTS I_CalcImageDi
 VAR
     iConvertUnits : I_ConvertUnitsLREAL;
 
-    fFocalLengthInverse : LREAL;
-    fSourceDistanceInverse : LREAL;
-    fImageDistanceInverse : LREAL;
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
+    fbSourceDistance : FB_QuantityLREALPublic(Units := 'm');
+    fbFocalLengthInverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbSourceDistanceInverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbImageDistanceInverse : FB_QuantityLREALPublic(Units := '1/m');
 
     {attribute 'pytmc' := 'pv: ImageDistance'}
     fbImageDistance : FB_QuantityLREALPublic(Units := 'm');
@@ -19,57 +21,76 @@ END_VAR
     </Implementation>
     <Method Name="Calculate" Id="{24dc5037-bbac-4834-9c1a-8a671b6b88cd}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
-    fFocalLength : LREAL; // The focal length, in meters.
-    fSourceDistance : LREAL; // The distance, in meters, from the source to the lens.
+    FocalLength : I_QuantityLREAL; // The focal length, in meters.
+    SourceDistance : I_QuantityLREAL; // The distance, in meters, from the source to the lens.
+END_VAR
+VAR_OUTPUT
+    ImageDistance : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-// Initialize image distance and error values.
-fbImageDistance.Val := 0.0;
 ClearError();
 
+ImageDistance := fbImageDistance;
+
 // Check for an invalid focal length input.
-IF fFocalLength = 0.0 THEN
+IF FocalLength.Val = 0.0 THEN
     SetError(
         Msg := CONCAT('The focal length specified: [',
-        CONCAT(LREAL_TO_STRING(fFocalLength),
+        CONCAT(LREAL_TO_STRING(FocalLength),
         '] must not be 0.'))
     );
     RETURN;
 END_IF
 
-fFocalLengthInverse := 1.0 / fFocalLength;
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := FocalLength,
+    DesiredUnits := fbImageDistance.Units,
+    ConvertedQuantity => fbFocalLength
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of focal length input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
+// left off here making this like the other calc functions with enforcing right units and checking for errors on inputs.
+
+fbFocalLengthInverse.Val := 1.0 / FocalLength.Val;
 
 // Check for an invalid source distance input.
-IF fSourceDistance = 0.0 THEN
+IF SourceDistance = 0.0 THEN
     SetError(
         Msg := CONCAT('The source distance specified: [',
-        CONCAT(LREAL_TO_STRING(fSourceDistance),
+        CONCAT(LREAL_TO_STRING(SourceDistance),
         '] must not be 0.'))
     );
     RETURN;
 END_IF
 
-fSourceDistanceInverse := 1.0 / fSourceDistance;
+fbSourceDistanceInverse := 1.0 / SourceDistance;
 
-fImageDistanceInverse := fFocalLengthInverse - fSourceDistanceInverse;
+fbImageDistanceInverse := fbFocalLengthInverse - fbSourceDistanceInverse;
 
 // Check for an invalid inverted image distance.
-IF fImageDistanceInverse = 0.0 THEN
+IF fbImageDistanceInverse = 0.0 THEN
     SetError(
         Msg := CONCAT('The calculated inverse image distance: [',
-        CONCAT(LREAL_TO_STRING(fImageDistanceInverse),
+        CONCAT(LREAL_TO_STRING(fbImageDistanceInverse),
         '] must not be 0.'))
     );
     RETURN;
 END_IF
 
-fbImageDistance.Val := 1.0 / fImageDistanceInverse;
+fbImageDistance.Val := 1.0 / fbImageDistanceInverse;
 
-Calculate := fbImageDistance.Val;
+ImageDistance := fbImageDistance;
 ]]></ST>
       </Implementation>
     </Method>

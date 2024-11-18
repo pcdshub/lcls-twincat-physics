@@ -3,6 +3,15 @@
   <POU Name="FB_ConvertUnits" Id="{c9bcf53c-ddd1-4fb3-8bb4-b36b335a5c1a}" SpecialFunc="None">
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_ConvertUnits EXTENDS FB_Fallible IMPLEMENTS I_ConvertUnitsLREAL
+VAR
+    fConversionInputToBaseUnits : LREAL;
+    fOffsetInputToBaseUnits : LREAL;
+    fConversionDesiredToBaseUnits : LREAL;
+    fOffsetDesiredToBaseUnits : LREAL;
+    fAffineOffset : LREAL;
+    sBaseUnitLong : T_MaxString;
+    sBaseUnitShort : T_MaxString;
+END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
@@ -138,17 +147,8 @@ VAR_INPUT
     QuantityToConvert	: I_QuantityLREAL;
     DesiredUnits	: T_MaxString;
 END_VAR
-VAR_OUTPUT
+VAR_IN_OUT
     ConvertedQuantity : FB_QuantityLREALPublic(Units := '');
-END_VAR
-VAR
-    fConversionInputToBaseUnits : LREAL;
-    fOffsetInputToBaseUnits : LREAL;
-    fConversionDesiredToBaseUnits : LREAL;
-    fOffsetDesiredToBaseUnits : LREAL;
-    fAffineOffset : LREAL;
-    sBaseUnitLong : T_MaxString;
-    sBaseUnitShort : T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>

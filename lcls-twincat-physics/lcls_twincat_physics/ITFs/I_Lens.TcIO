@@ -7,14 +7,14 @@ INTERFACE I_Lens EXTENDS I_Fallible
     <Method Name="GetRadius" Id="{ca07dbcf-ae63-43be-a79b-e5de1cdda4ba}">
       <Declaration><![CDATA[
 METHOD GetRadius
-VAR_OUTPUT
+VAR_IN_OUT
     Radius : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     </Method>
-    <Property Name="MaterialName" Id="{67848c91-aa02-4771-a617-055db8820c0f}">
+    <Property Name="MaterialFormula" Id="{67848c91-aa02-4771-a617-055db8820c0f}">
       <Declaration><![CDATA[
-PROPERTY MaterialName : T_MaxString
+PROPERTY MaterialFormula : T_MaxString
 ]]></Declaration>
       <Get Name="Get" Id="{841b14e8-08c9-44a7-8afd-e2f22d6336df}">
         <Declaration><![CDATA[]]></Declaration>

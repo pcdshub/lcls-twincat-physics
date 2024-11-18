@@ -6,12 +6,15 @@ INTERFACE I_CalcFocalLength2LensSets EXTENDS I_Fallible
 ]]></Declaration>
     <Method Name="Calculate" Id="{6b83f25a-840f-4753-b9a5-90d617f728a3}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
-    iSourceDistance : I_QuantityLREAL; // Distance from source to downstream lens.
-    iDistanceBetween : I_QuantityLREAL; // Distance between the two lens sets.
-    iLensSetUpstream : I_LensSet;
-    iLensSetDownstream : I_LensSet;
+    SourceDistance : I_QuantityLREAL; // Distance from source to downstream lens.
+    DistanceBetween : I_QuantityLREAL; // Distance between the two lens sets.
+    LensSetUpstream : I_LensSet;
+    LensSetDownstream : I_LensSet;
+END_VAR
+VAR_IN_OUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     </Method>

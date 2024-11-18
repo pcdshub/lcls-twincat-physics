@@ -7,6 +7,10 @@ VAR
     iConvertUnits : I_ConvertUnitsLREAL;
     iCalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
 
+    fbDelta : FB_QuantityLREALPublic(Units := '1');
+    fbRadiusLens : FB_QuantityLREALPublic(Units := 'm');
+    fbRadius : FB_QuantityLREALPublic(Units := 'm');
+
     {attribute 'pytmc' := 'pv: FocalLength'}
     fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
@@ -18,30 +22,33 @@ END_VAR
       <Declaration><![CDATA[
 METHOD Calculate : LREAL
 VAR_INPUT
-    iLens : I_Lens;
+    Lens : I_Lens;
 END_VAR
-VAR
-    fDelta : LREAL;
-    fbRadius : FB_QuantityLREALPublic(Units := 'm');
+VAR_OUTPUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-// Initialize focal length and error values.
-fbFocalLength.Val := 0.0;
 ClearError();
 
+SetUnits(Units := FocalLength.Units);
+
 // Check for an invalid lens input.
-IF iLens.GetError() THEN
+IF Lens.GetError() THEN
     SetError(
         Msg := CONCAT('The input lens has the following error message: [',
-        CONCAT(iLens.GetErrorMsg(),
+        CONCAT(Lens.GetErrorMsg(),
         ']'))
     );
+    FocalLength.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
-fDelta := iCalcXRayDelta.Calculate(sChemicalFormula := iLens.MaterialName);
+iCalcXRayDelta.Calculate(
+    MaterialFormula := Lens.MaterialFormula,
+    Delta := fbDelta
+);
 
 // Check for an invalid delta input.
 IF iCalcXRayDelta.GetError() THEN
@@ -50,24 +57,36 @@ IF iCalcXRayDelta.GetError() THEN
         CONCAT(iCalcXRayDelta.GetErrorMsg(),
         ']'))
     );
+    FocalLength.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
-IF fDelta = 0.0 THEN
+IF fbDelta.Val = 0.0 THEN
     SetError(
         Msg := CONCAT('The delta calculated: [',
-        CONCAT(LREAL_TO_STRING(fDelta),
+        CONCAT(LREAL_TO_STRING(fbDelta.Val),
         '] must not be 0.'))
     );
+    FocalLength.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
-fbRadius := iLens.GetRadius();
+Lens.GetRadius(Radius := fbRadiusLens);
+
+IF Lens.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens has the following error message after attempting to get the radius: [',
+        CONCAT(Lens.GetErrorMsg(),
+        ']'))
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
 
 iConvertUnits.ConvertQuantityLREAL(
-    QuantityToConvert := fbRadius,
+    QuantityToConvert := fbRadiusLens,
     DesiredUnits := fbFocalLength.Units,
-    ConvertedQuantity => fbRadius
+    ConvertedQuantity := fbRadius
 );
 
 IF iConvertUnits.GetError() THEN
@@ -75,6 +94,7 @@ IF iConvertUnits.GetError() THEN
         CONCAT('Error returned when attempting to convert units of lens radius input: ',
         iConvertUnits.GetErrorMsg())
     );
+    FocalLength.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
@@ -84,12 +104,13 @@ IF fbRadius.Val <= 0.0 THEN
         CONCAT(LREAL_TO_STRING(fbRadius.Val),
         '] must be greater than 0.'))
     );
+    FocalLength.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
-fbFocalLength.Val := fbRadius.Val / 2.0 / fDelta;
+fbFocalLength.Val := fbRadius.Val / 2.0 / fbDelta;
 
-Calculate := fbFocalLength.Val;
+FocalLength := fbFocalLength;
 ]]></ST>
       </Implementation>
     </Method>
@@ -135,6 +156,22 @@ END_VAR
 SUPER^.SetError(Msg := Msg);
 
 fbFocalLength.SetError(Msg := Msg);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetUnits" Id="{bac298fe-f860-43bf-bf5f-6044e0ceda58}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetUnits
+VAR_INPUT
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbDelta.Units := '1';
+fbRadius.Units := Units;
+fbRadiusLens.Units := Units;
+fbFocalLength.Units := Units;
 ]]></ST>
       </Implementation>
     </Method>

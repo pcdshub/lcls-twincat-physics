@@ -4,6 +4,10 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_ElementLUT EXTENDS FB_Fallible IMPLEMENTS I_StringLookupElement
 VAR
+    fbAtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
+    fbAtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
+    fbDensity : FB_QuantityLREALPublic(Units := 'g/cm**3');
+
     iAtomicMassLUT : I_StringLookupLREAL;
     iAtomicNumberLUT : I_StringLookupINT;
     iDensityLUT : I_StringLookupLREAL;
@@ -19,95 +23,116 @@ VAR_INPUT
     bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
     bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
 
-    iAtomicMassLUT : I_StringLookupLREAL;
-    iAtomicNumberLUT : I_StringLookupINT;
-    iDensityLUT : I_StringLookupLREAL;
+    AtomicMassLUT : I_StringLookupLREAL;
+    AtomicNumberLUT : I_StringLookupINT;
+    DensityLUT : I_StringLookupLREAL;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.iAtomicMassLUT := iAtomicMassLUT;
-THIS^.iAtomicNumberLUT := iAtomicNumberLUT;
-THIS^.iDensityLUT := iDensityLUT;
+THIS^.iAtomicMassLUT := AtomicMassLUT;
+THIS^.iAtomicNumberLUT := AtomicNumberLUT;
+THIS^.iDensityLUT := DensityLUT;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="LookupAtomicMass" Id="{b49da3c3-29e7-4735-b051-4bef81174655}">
       <Declaration><![CDATA[
-METHOD LookupAtomicMass : LREAL
+METHOD LookupAtomicMass
 VAR_INPUT
-    ElementName	: T_MaxString;
+    ElementName : T_MaxString;
 END_VAR
-VAR
-    fAtomicMass : LREAL;
+VAR_IN_OUT
+    AtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fAtomicMass := iAtomicMassLUT.Lookup(StringToLookup := ElementName);
+ClearError();
+fbAtomicMass.ClearError();
+
+iAtomicMassLUT.Lookup(
+    StringToLookup := ElementName,
+    Result := fbAtomicMass
+);
 
 IF iAtomicMassLUT.GetError() THEN
     SetError(
         Msg := CONCAT('The atomic mass lookup table has an error: ',
         iAtomicMassLUT.GetErrorMsg())
     );
+    fbAtomicMass.SetError(Msg := GetErrorMsg());
+    AtomicMass.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
-LookupAtomicMass := fAtomicMass;
+AtomicMass := fbAtomicMass;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="LookupAtomicNumber" Id="{9aa2ed00-c722-4992-b0e5-7489d0c70f8e}">
       <Declaration><![CDATA[
-METHOD LookupAtomicNumber : INT
+METHOD LookupAtomicNumber
 VAR_INPUT
-    ElementName	: T_MaxString;
+    ElementName : T_MaxString;
 END_VAR
-VAR
-    nAtomicNumber : INT;
+VAR_IN_OUT
+    AtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-LookupAtomicNumber := -1;
+ClearError();
+fbAtomicNumber.ClearError();
 
-nAtomicNumber := iAtomicNumberLUT.Lookup(StringToLookup := ElementName);
+iAtomicNumberLUT.Lookup(
+    StringToLookup := ElementName,
+    Result := fbAtomicNumber
+);
 
 IF iAtomicNumberLUT.GetError() THEN
     SetError(
         Msg := CONCAT('The atomic number lookup table has an error: ',
         iAtomicNumberLUT.GetErrorMsg())
     );
+    fbAtomicNumber.SetError(Msg := GetErrorMsg());
+    AtomicNumber.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
-LookupAtomicNumber := nAtomicNumber;
+AtomicNumber := fbAtomicMass;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="LookupDensity" Id="{b0ef6550-2f85-4569-94b6-5ef5f47fa201}">
       <Declaration><![CDATA[
-METHOD LookupDensity : LREAL
+METHOD LookupDensity
 VAR_INPUT
-    ElementName	: T_MaxString;
+    ElementName : T_MaxString;
 END_VAR
-VAR
-    fDensity : LREAL;
-END_VAR
-]]></Declaration>
+VAR_IN_OUT
+    Density : FB_QuantityLREALPublic(Units := 'g/cm**3');
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fDensity := iDensityLUT.Lookup(StringToLookup := ElementName);
+ClearError();
+fbDensity.ClearError();
+
+iDensityLUT.Lookup(
+    StringToLookup := ElementName,
+    Result := fbDensity
+);
 
 IF iDensityLUT.GetError() THEN
     SetError(
         Msg := CONCAT('The density lookup table has an error: ',
         iDensityLUT.GetErrorMsg())
     );
+    fbDensity.SetError(Msg := GetErrorMsg());
+    Density.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
-LookupDensity := fDensity;
+Density := fbDensity;
 ]]></ST>
       </Implementation>
     </Method>

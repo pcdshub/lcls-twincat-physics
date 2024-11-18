@@ -6,9 +6,12 @@ INTERFACE I_CalcFocalLengthSingleLens EXTENDS I_Fallible
 ]]></Declaration>
     <Method Name="Calculate" Id="{dd290774-7390-4466-a975-f33897623e2d}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
-    iLens : I_Lens;
+    Lens : I_Lens;
+END_VAR
+VAR_IN_OUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     </Method>

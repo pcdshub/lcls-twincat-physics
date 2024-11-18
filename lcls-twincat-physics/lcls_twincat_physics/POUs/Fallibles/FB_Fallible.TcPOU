@@ -10,6 +10,7 @@ VAR
         field: DESC TRUE if in error state. FALSE if not.
     '}
     bError : BOOL;
+
     {attribute 'pytmc' := '
         pv: ErrorMsg
         io: i

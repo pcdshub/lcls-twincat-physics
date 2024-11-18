@@ -25,16 +25,16 @@ GetFocalLengthOf := afFocalLength[nLensNum];
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GetMaterialNameOf" Id="{6affd749-035c-48ba-9fa7-a9449e8df733}">
+    <Method Name="GetMaterialFormulaOf" Id="{6affd749-035c-48ba-9fa7-a9449e8df733}">
       <Declaration><![CDATA[
-METHOD GetMaterialNameOf : T_MaxString
+METHOD GetMaterialFormulaOf : T_MaxString
 VAR_INPUT
     nLensNum	: INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-GetMaterialNameOf := afbLensMock[nLensNum].MaterialName;
+GetMaterialFormulaOf := afbLensMock[nLensNum].MaterialFormula;
 ]]></ST>
       </Implementation>
     </Method>
@@ -112,7 +112,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-afbLensMock[nLensNum].MaterialName := sMaterialName;
+afbLensMock[nLensNum].MaterialFormula := sMaterialName;
 ]]></ST>
       </Implementation>
     </Method>
@@ -165,7 +165,7 @@ FOR nIndex := 1 TO GVL_Physics.nMaxNumLensesInSet BY 1 DO
     afFocalLength[nIndex] := 1.0;
     afbLensMock[nIndex].Multiplier := 1;
     afbLensMock[nIndex].SetRadius(fbRadius);
-    afbLensMock[nIndex].MaterialName := 'Be';
+    afbLensMock[nIndex].MaterialFormula := 'Be';
 END_FOR
 ]]></ST>
       </Implementation>

@@ -567,8 +567,8 @@ fFocalLength := 0.0;
 
 // Here the test starts
 fResult := fbCalcImageDistance.Calculate(
-    fFocalLength := fFocalLength,
-    fSourceDistance := fSourceDistance
+    FocalLength := fFocalLength,
+    SourceDistance := fSourceDistance
 );
 
 AssertTrue(
@@ -615,8 +615,8 @@ fSourceDistance := 0.0;
 
 // Here the test starts
 fResult := fbCalcImageDistance.Calculate(
-    fFocalLength := fFocalLength,
-    fSourceDistance := fSourceDistance
+    FocalLength := fFocalLength,
+    SourceDistance := fSourceDistance
 );
 
 AssertTrue(
@@ -663,8 +663,8 @@ TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccurateImageDistance ID: ',
 
 // Here the test starts
 fResult := fbCalcImageDistance.Calculate(
-    fFocalLength := fFocalLength,
-    fSourceDistance := fSourceDistance
+    FocalLength := fFocalLength,
+    SourceDistance := fSourceDistance
 );
 
 AssertFalse(

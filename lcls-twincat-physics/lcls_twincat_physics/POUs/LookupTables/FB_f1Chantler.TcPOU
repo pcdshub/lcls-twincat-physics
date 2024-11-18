@@ -4,9 +4,14 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_f1Chantler EXTENDS FB_Fallible IMPLEMENTS I_StringLookupLREAL
 VAR
-    iEnergy : I_QuantityLREAL; // The photon energy of the x-rays in eV.
+    iConvertUnits : I_ConvertUnitsLREAL;
+    iEnergy : I_QuantityLREAL; // The photon energy of the x-rays.
 
-    ff1 : LREAL;
+    fbf1 : FB_QuantityLREALPublic(Units := '1');
+    fbEnergy : FB_QuantityLREALPublic(Units := 'eV');
+
+    bInterpError : BOOL;
+    sInterpErrorMsg : T_MaxString;
     afX : ARRAY[1..5] OF LREAL;
     afY : ARRAY[1..5] OF LREAL;
 
@@ -33,6 +38,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="ClearError" Id="{c5c991c8-42db-4a20-98e5-f35e2ee358da}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbf1.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_init" Id="{30272d3e-4464-4bba-a035-9f10c800cbcf}">
       <Declaration><![CDATA[
 METHOD FB_init : BOOL
@@ -40,12 +57,12 @@ VAR_INPUT
     bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
     bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 
-    iEnergy : I_QuantityLREAL; // The photon energy of the x-rays in eV.
+    Energy : I_QuantityLREAL; // The photon energy of the x-rays.
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.iEnergy := iEnergy;
+THIS^.iEnergy := Energy;
 
 MakeTables();
 
@@ -93,7 +110,7 @@ END_IF
       <Declaration><![CDATA[
 METHOD Getf1 : LREAL
 VAR_INPUT
-    iEnergy	: I_QuantityLREAL;
+    Energy	: I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -134,19 +151,16 @@ END_IF
     </Method>
     <Method Name="Lookup" Id="{f36000c4-bc62-4ce0-8d5c-4b2ca17656e6}">
       <Declaration><![CDATA[
-METHOD Lookup : LREAL
+METHOD Lookup
 VAR_INPUT
-    StringToLookup	: T_MaxString; // The shortname of the element. E.g. 'Be' for Beryllium.
+    StringToLookup : T_MaxString;
 END_VAR
-VAR
-    bInterpError : BOOL;
-    sInterpErrorMsg : T_MaxString;
+VAR_IN_OUT
+    Result : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-// Initialize delta and error values.
-ff1 := 0.0;
 ClearError();
 
 // Check to see if there is an error reported for the photon energy input.
@@ -159,11 +173,25 @@ IF iEnergy.GetError() THEN
     RETURN;
 END_IF
 
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := iEnergy,
+    DesiredUnits := fbEnergy.Units,
+    ConvertedQuantity := fbEnergy
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of photon energy input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    RETURN;
+END_IF
+
 // Check for energy outside of the bounds.
-IF iEnergy.Val < fMineV OR iEnergy.Val > fMaxeV THEN
+IF fbEnergy.Val < fMineV OR fbEnergy.Val > fMaxeV THEN
     SetError(
         Msg := CONCAT('Requested f1 data at photon energy of [',
-        CONCAT(LREAL_TO_STRING(iEnergy.Val),
+        CONCAT(LREAL_TO_STRING(fbEnergy.Val),
         CONCAT(' eV] is beyond the bounds of the lookup table. Bounds are [',
         CONCAT(LREAL_TO_STRING(fMineV),
         CONCAT(' eV to ',
@@ -174,12 +202,12 @@ IF iEnergy.Val < fMineV OR iEnergy.Val > fMaxeV THEN
 END_IF
 
 // Figure out which step size is being used.
-IF iEnergy.Val < fMideV THEN
+IF fbEnergy.Val < fMideV THEN
     feVPerStep := feVPerStepLow;
-    nIndexBelow := LREAL_TO_INT(FLOOR((iEnergy.Val - fMineV) / feVPerStep));
+    nIndexBelow := LREAL_TO_INT(FLOOR((fbEnergy.Val - fMineV) / feVPerStep));
 ELSE
     feVPerStep := feVPerStepHigh;
-    nIndexBelow := LREAL_TO_INT(FLOOR((iEnergy.Val - fMideV) / feVPerStep)) + nMidNumPoints;
+    nIndexBelow := LREAL_TO_INT(FLOOR((fbEnergy.Val - fMideV) / feVPerStep)) + nMidNumPoints;
 END_IF
 
 IF nIndexBelow >= nNumPoints THEN
@@ -200,8 +228,8 @@ afY[3] := Getf1AtIndex(StringToLookup, nIndexBelow + 0);
 afY[4] := Getf1AtIndex(StringToLookup, nIndexBelow + 1);
 afY[5] := Getf1AtIndex(StringToLookup, nIndexBelow + 2);
 
-ff1 := F_LagrangePolyInterp(
-    fX := iEnergy.Val,
+fbf1.Val := F_LagrangePolyInterp(
+    fX := fbEnergy.Val,
     afX := afX,
     afY := afY,
     nPoints := 5,
@@ -214,7 +242,7 @@ IF bInterpError THEN
     RETURN;
 END_IF
 
-Lookup := ff1;
+Result := fbf1;
 ]]></ST>
       </Implementation>
     </Method>
@@ -5238,6 +5266,21 @@ aff1Si[996, 0] := 2.98000E+04; aff1Si[996, 1] := 2.25230E-02;
 aff1Si[997, 0] := 2.98500E+04; aff1Si[997, 1] := 2.24091E-02;
 aff1Si[998, 0] := 2.99000E+04; aff1Si[998, 1] := 2.22956E-02;
 aff1Si[999, 0] := 2.99500E+04; aff1Si[999, 1] := 2.21826E-02;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{d814ac19-c3f9-415d-8ee3-630e32015b32}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbf1.SetError(Msg := Msg);
+]]></ST>
       </Implementation>
     </Method>
   </POU>

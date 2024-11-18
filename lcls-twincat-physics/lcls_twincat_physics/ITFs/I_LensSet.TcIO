@@ -4,38 +4,14 @@
     <Declaration><![CDATA[
 INTERFACE I_LensSet EXTENDS I_Fallible
 ]]></Declaration>
-    <Method Name="GetFocalLengthOf" Id="{a44f57d4-6faf-454a-afd0-8c63627056bd}">
+    <Method Name="GetLens" Id="{6c86fb6b-f724-48fc-b94b-df9e82d596e4}">
       <Declaration><![CDATA[
-METHOD GetFocalLengthOf : LREAL
-VAR_INPUT
-    nLensNum : INT;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetMaterialNameOf" Id="{b686529c-6229-4641-a6d0-a2d756db8e15}">
-      <Declaration><![CDATA[
-METHOD GetMaterialNameOf : T_MaxString;
-VAR_INPUT
-    nLensNum : INT;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetMultiplierOf" Id="{31d62eab-b19c-48ea-b5d4-36044a92d787}">
-      <Declaration><![CDATA[
-METHOD GetMultiplierOf : INT
-VAR_INPUT
-    nLensNum : INT;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetRadiusOf" Id="{a35571df-aa7c-4522-8822-87a13dc5d394}">
-      <Declaration><![CDATA[
-METHOD GetRadiusOf
+METHOD GetLens
 VAR_INPUT
     LensNum : INT;
 END_VAR
-VAR_OUTPUT
-    Radius : FB_QuantityLREALPublic(Units := 'm');
+VAR_IN_OUT
+    Lens : FB_Lens;
 END_VAR
 ]]></Declaration>
     </Method>

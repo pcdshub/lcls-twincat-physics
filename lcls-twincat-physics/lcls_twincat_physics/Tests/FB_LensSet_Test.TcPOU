@@ -188,7 +188,7 @@ fbLensSet.NumLenses:= 5;
 
 // Here the test starts
 fbLensSet.SetMaterialNameOf(nLensNum := 1, sMaterialName := sExpected);
-sResult := fbLensSet.GetMaterialNameOf(nLensNum := 1);
+sResult := fbLensSet.GetMaterialFormulaOf(nLensNum := 1);
 
 AssertFalse(
     Condition := fbLensSet.GetError(),

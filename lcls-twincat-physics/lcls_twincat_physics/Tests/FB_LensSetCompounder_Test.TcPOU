@@ -40,8 +40,8 @@ fbLensSetCompounder.Reset();
 
 // Here the test starts
 fbLensSetCompounder.Compound(
-    fFocalLength := 0.0,
-    fSourceDistance := 1.0
+    FocalLength := 0.0,
+    SourceDistance := 1.0
 );
 
 AssertTrue(
@@ -83,8 +83,8 @@ fbLensSetCompounder.Reset();
 
 // Here the test starts
 fbLensSetCompounder.Compound(
-    fFocalLength := 1.0,
-    fSourceDistance := 0.0
+    FocalLength := 1.0,
+    SourceDistance := 0.0
 );
 
 AssertTrue(
@@ -154,18 +154,18 @@ fbLensSetCompounder.Reset();
 
 // Here the test starts
 fbLensSetCompounder.Compound(
-    fFocalLength := f1,
-    fSourceDistance := o1
+    FocalLength := f1,
+    SourceDistance := o1
 );
 
 fbLensSetCompounder.Compound(
-    fFocalLength := f2,
-    fSourceDistance := o1 + d12
+    FocalLength := f2,
+    SourceDistance := o1 + d12
 );
 
 fbLensSetCompounder.Compound(
-    fFocalLength := f3,
-    fSourceDistance := o1 + d12 + d23
+    FocalLength := f3,
+    SourceDistance := o1 + d12 + d23
 );
 
 AssertFalse(
@@ -209,8 +209,8 @@ fbCalcImageDistanceMock.SetError(Msg := 'Error');
 
 // Here the test starts
 fbLensSetCompounder.Compound(
-    fFocalLength := 1.0,
-    fSourceDistance := 1.0
+    FocalLength := 1.0,
+    SourceDistance := 1.0
 );
 
 AssertTrue(
@@ -256,20 +256,20 @@ fbLensSetCompounder.Reset();
 // Here the test starts
 fbCalcImageDistanceMock.SetResult(2.0);
 fbLensSetCompounder.Compound(
-    fFocalLength := 1.0,
-    fSourceDistance := 2.0
+    FocalLength := 1.0,
+    SourceDistance := 2.0
 );
 
 fbCalcImageDistanceMock.SetResult(3.0);
 fbLensSetCompounder.Compound(
-    fFocalLength := 3.0,
-    fSourceDistance := 16.0
+    FocalLength := 3.0,
+    SourceDistance := 16.0
 );
 
 fbCalcImageDistanceMock.SetResult(fExpected);
 fbLensSetCompounder.Compound(
-    fFocalLength := 5.0,
-    fSourceDistance := 123.0
+    FocalLength := 5.0,
+    SourceDistance := 123.0
 );
 
 AssertFalse(
@@ -312,8 +312,8 @@ fbLensSetCompounder.Reset();
 // Here the test starts
 fbCalcImageDistanceMock.SetResult(2.0);
 fbLensSetCompounder.Compound(
-    fFocalLength := 1.0,
-    fSourceDistance := 1.0
+    FocalLength := 1.0,
+    SourceDistance := 1.0
 );
 
 fbLensSetCompounder.Reset();
@@ -358,16 +358,16 @@ fbLensSetCompounder.Reset();
 // Here the test starts
 fbCalcImageDistanceMock.SetResult(2.0);
 fbLensSetCompounder.Compound(
-    fFocalLength := 1.0,
-    fSourceDistance := 1.0
+    FocalLength := 1.0,
+    SourceDistance := 1.0
 );
 
 fbLensSetCompounder.Reset();
 
 fbCalcImageDistanceMock.SetResult(2.0);
 fbLensSetCompounder.Compound(
-    fFocalLength := 1.0,
-    fSourceDistance := 1.0
+    FocalLength := 1.0,
+    SourceDistance := 1.0
 );
 
 AssertFalse(

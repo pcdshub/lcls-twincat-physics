@@ -14,6 +14,10 @@ VAR_OUTPUT
     sUnits : STRING;
     sCaveat : STRING;
 END_VAR
+VAR
+    fbAtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
+    fAtomicMass : LREAL;
+END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
@@ -863,19 +867,60 @@ ELSE
 END_IF
 ]]></ST>
     </Implementation>
+    <Method Name="ClearError" Id="{4bbf829a-3684-499c-b3db-0b14fc8754e1}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbAtomicMass.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Lookup" Id="{a8a44d6d-b9de-45d3-a7a7-7313bdf131f3}">
       <Declaration><![CDATA[
-METHOD Lookup : LREAL
+METHOD Lookup
 VAR_INPUT
-    StringToLookup	: T_MaxString;
+    StringToLookup : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Result : FB_QuantityLREALPublic(Units := 'AMU');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+ClearError();
+
 THIS^(
     sName := StringToLookup,
-    fValue => Lookup
+    fValue => fAtomicMass
 );
+
+fbAtomicMass.Val := fAtomicMass;
+
+IF GetError() THEN
+    Result.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+Result := fbAtomicMass;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{25da2c69-2262-4721-94c5-0bde7a303ce3}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbAtomicMass.SetError(Msg := Msg);
 ]]></ST>
       </Implementation>
     </Method>
