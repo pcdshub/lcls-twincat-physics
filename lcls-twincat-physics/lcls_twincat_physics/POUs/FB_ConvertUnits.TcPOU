@@ -638,12 +638,12 @@ ELSIF sUnit = 'picoampere' OR sUnit = 'PICOAMPERE' OR sUnit = 'pA' THEN
     sBaseUnitShort := 'A';
     fConversionFactorToBase := 1e-12;
     fOffsetFactorToBase := 0.0;
-ELSIF sUnit = 'degree_fahrenheit' OR sUnit = 'degree_F'  OR sUnit = 'degF' OR sUnit = 'DEGREE_FAHRENHEIT' OR sUnit = '°F' THEN
+ELSIF sUnit = 'degree_fahrenheit' OR sUnit = 'degree_Fahrenheit' OR sUnit = 'degree_F'  OR sUnit = 'degF' OR sUnit = 'DEGREE_FAHRENHEIT' OR sUnit = '°F' THEN
     sBaseUnitLong := 'kelvin';
     sBaseUnitShort := 'K';
     fConversionFactorToBase := 0.5555555555555429;
     fOffsetFactorToBase := 255.37222222222223;
-ELSIF sUnit = 'degree_celsius' OR sUnit = 'degree_C'  OR sUnit = 'degC' OR sUnit = 'DEGREE_CELSIUS' OR sUnit = '°C' THEN
+ELSIF sUnit = 'degree_celsius' OR sUnit = 'degree_Celsius' OR sUnit = 'degree_C'  OR sUnit = 'degC' OR sUnit = 'DEGREE_CELSIUS' OR sUnit = '°C' THEN
     sBaseUnitLong := 'kelvin';
     sBaseUnitShort := 'K';
     fConversionFactorToBase := 1.0;

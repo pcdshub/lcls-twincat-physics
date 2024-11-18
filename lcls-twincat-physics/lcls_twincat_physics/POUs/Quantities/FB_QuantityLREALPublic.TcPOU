@@ -30,7 +30,16 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[
+Val := QuantityToCopy.Val;
+Units := QuantityToCopy.Units;
+
+IF QuantityToCopy.GetError() THEN
+    SetError(Msg := QuantityToCopy.GetErrorMsg());
+ELSE
+    ClearError();
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_Init" Id="{7bc0b41b-56c9-4e5b-8420-077118483cd8}">
