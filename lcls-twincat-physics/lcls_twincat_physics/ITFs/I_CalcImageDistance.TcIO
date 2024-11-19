@@ -6,7 +6,7 @@ INTERFACE I_CalcImageDistance EXTENDS I_Fallible
 ]]></Declaration>
     <Method Name="Calculate" Id="{73a9a5ee-8e75-47d0-bbff-d8be94099a30}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
     FocalLength : I_QuantityLREAL;
     SourceDistance : I_QuantityLREAL;

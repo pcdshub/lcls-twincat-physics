@@ -4,7 +4,7 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_StringLookupLREALMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_StringLookupLREAL
 VAR
-    fValue : LREAL;
+    fbValue : FB_QuantityLREALPublic(Units := '');
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -12,14 +12,30 @@ END_VAR
     </Implementation>
     <Method Name="Lookup" Id="{630af135-431d-4e29-ba31-858823424239}">
       <Declaration><![CDATA[
-METHOD Lookup : LREAL
+METHOD Lookup
 VAR_INPUT
-    StringToLookup	: T_MaxString;
+    StringToLookup : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Result : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-Lookup := fValue;
+Result := fbValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{f191b27d-26c4-439f-bb30-68eb93c40b83}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : FB_QuantityLREALPublic(Units := '');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbValue.Copy(QuantityToCopy := Result);
 ]]></ST>
       </Implementation>
     </Method>
@@ -29,25 +45,27 @@ METHOD SetValid
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+fbValue.ClearError();
+
 ClearError();
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{1a2296e6-151f-4fc5-818d-1a3ab6f535e7}">
+    <Property Name="Value" Id="{ef73bd49-8fb0-4be1-8d86-b76d703be7f0}">
       <Declaration><![CDATA[PROPERTY Value : LREAL]]></Declaration>
-      <Get Name="Get" Id="{0676378a-fc9d-475f-9e99-03547d0a3663}">
+      <Get Name="Get" Id="{f7f5b9d6-d215-4861-8597-f4ea07c65436}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-Value := fValue;
+Value := fbValue.Val;
 ]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{6b9486c5-a536-4abc-befd-6b1a14c80d31}">
+      <Set Name="Set" Id="{c0e07afa-1415-49db-b4d8-936c2ba30d95}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-fValue := Value;
+fbValue.Val := Value;
 ]]></ST>
         </Implementation>
       </Set>

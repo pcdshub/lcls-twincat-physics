@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_ConvertUnits_Test" Id="{f018bc01-d3ce-4e8f-9cb5-36892bbdbe6d}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_ConvertUnits_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_ConvertUnits_Test EXTENDS FB_TestSuiteExtended
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
@@ -108,7 +108,7 @@ fbQuantityMock.Units := 'km/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'km/s',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -142,7 +142,7 @@ fbQuantityMock.Units := 'km/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'INVALID',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -176,7 +176,7 @@ fbQuantityMock.Units := 'INVALID';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mm/min',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -210,7 +210,7 @@ fbQuantityMock.Units := 'µm';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mm',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -231,7 +231,7 @@ fbQuantityMock.Units := 'nm/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mm/h',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -252,7 +252,7 @@ fbQuantityMock.Units := 'meter/second**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'inch/second**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -273,7 +273,7 @@ fbQuantityMock.Units := 'centimeter/second**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µm/s**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -294,7 +294,7 @@ fbQuantityMock.Units := 'm/min';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'micrometer/second',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -315,7 +315,7 @@ fbQuantityMock.Units := 'millimeter/minute';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'cm/h',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -336,7 +336,7 @@ fbQuantityMock.Units := 'µm/min';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'centimeter/hour',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -357,7 +357,7 @@ fbQuantityMock.Units := 'picometer/minute';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µm/min',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -378,7 +378,7 @@ fbQuantityMock.Units := 'µm/h';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'micron/minute',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -399,7 +399,7 @@ fbQuantityMock.Units := 'inch/minute';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'ft/min',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -420,7 +420,7 @@ fbQuantityMock.Units := 'µ/h';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'yard/hour',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -441,7 +441,7 @@ fbQuantityMock.Units := 'mg';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'pg',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -462,7 +462,7 @@ fbQuantityMock.Units := 'mil/second';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mil/minute',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -483,7 +483,7 @@ fbQuantityMock.Units := 'picogram';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'pg',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -506,7 +506,7 @@ fbQuantityMock.Units := 'a';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'year',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -529,7 +529,7 @@ fbQuantityMock.Units := 'kelvin';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'kelvin',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -552,7 +552,7 @@ fbQuantityMock.Units := 'ft';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'ft',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -577,7 +577,7 @@ fbQuantityMock.Units := 'kiloampere';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'A',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -598,7 +598,7 @@ fbQuantityMock.Units := 'micropascal';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'nPa',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -620,7 +620,7 @@ fbQuantityMock.Units := 'microgram';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'picogram',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -641,7 +641,7 @@ fbQuantityMock.Units := 'microtorr';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µPa',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -663,7 +663,7 @@ fbQuantityMock.Units := 'km';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'in',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -684,7 +684,7 @@ fbQuantityMock.Units := 'foot/minute';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mm/h',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -707,7 +707,7 @@ fbQuantityMock.Units := 'in/s**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'foot/second**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -729,7 +729,7 @@ fbQuantityMock.Units := 'kilogram';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'microgram',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -751,7 +751,7 @@ fbQuantityMock.Units := 'ms';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'month',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -773,7 +773,7 @@ fbQuantityMock.Units := 'cm/h';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'ft/min',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -794,7 +794,7 @@ fbQuantityMock.Units := 'mil/second**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mil/s**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -815,7 +815,7 @@ fbQuantityMock.Units := 'picoampere';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'kA',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -836,7 +836,7 @@ fbQuantityMock.Units := '°C';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'K',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -858,7 +858,7 @@ fbQuantityMock.Units := 'mile/minute';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'millimeter/hour',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -879,7 +879,7 @@ fbQuantityMock.Units := 'keV';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'eV',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -901,7 +901,7 @@ fbQuantityMock.Units := 'nanometer';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'in',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -923,7 +923,7 @@ fbQuantityMock.Units := 'µ/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mi/min',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -944,7 +944,7 @@ fbQuantityMock.Units := 'micron/second**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'micron/second**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -965,7 +965,7 @@ fbQuantityMock.Units := 'g';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µg',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -987,7 +987,7 @@ fbQuantityMock.Units := 'µ/min';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mile/minute',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1008,7 +1008,7 @@ fbQuantityMock.Units := 'mA';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'A',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1031,7 +1031,7 @@ fbQuantityMock.Units := 'mi/h';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µ/s',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1052,7 +1052,7 @@ fbQuantityMock.Units := 'mil/h';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mil/second',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1073,7 +1073,7 @@ fbQuantityMock.Units := 'nA';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'nA',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1095,7 +1095,7 @@ fbQuantityMock.Units := 'kPa';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'picopascal',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1116,7 +1116,7 @@ fbQuantityMock.Units := 'picopascal';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µPa',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1138,7 +1138,7 @@ fbQuantityMock.Units := 'hour';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'a',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1160,7 +1160,7 @@ fbQuantityMock.Units := 'pm';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'inch',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1181,7 +1181,7 @@ fbQuantityMock.Units := 'µm/s**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'ft/s**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1202,7 +1202,7 @@ fbQuantityMock.Units := 'nm/s**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'inch/second**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1223,7 +1223,7 @@ fbQuantityMock.Units := 'yard';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'picometer',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1244,7 +1244,7 @@ fbQuantityMock.Units := 'd';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'h',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1265,7 +1265,7 @@ fbQuantityMock.Units := 'centigram';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'pg',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1286,7 +1286,7 @@ fbQuantityMock.Units := 'cA';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'pA',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1307,7 +1307,7 @@ fbQuantityMock.Units := 'megapascal';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mPa',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1329,7 +1329,7 @@ fbQuantityMock.Units := 'cm/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mile/hour',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1350,7 +1350,7 @@ fbQuantityMock.Units := 'mi/s**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'foot/second**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1371,7 +1371,7 @@ fbQuantityMock.Units := 'yard/second**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'nm/s**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1392,7 +1392,7 @@ fbQuantityMock.Units := 'pound_force_per_square_inch';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'pound_force_per_square_inch',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1414,7 +1414,7 @@ fbQuantityMock.Units := 'm';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'm',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1436,7 +1436,7 @@ fbQuantityMock.Units := 'atm';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µPa',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1458,7 +1458,7 @@ fbQuantityMock.Units := 'km/min';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µ/s',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1479,7 +1479,7 @@ fbQuantityMock.Units := 'km/h';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mile/minute',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1500,7 +1500,7 @@ fbQuantityMock.Units := 'week';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'year',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1521,7 +1521,7 @@ fbQuantityMock.Units := 'µA';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mA',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1543,7 +1543,7 @@ fbQuantityMock.Units := 'mm/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'cm/h',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1564,7 +1564,7 @@ fbQuantityMock.Units := 'yard/minute';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'yd/min',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1585,7 +1585,7 @@ fbQuantityMock.Units := 'delta_degree_Fahrenheit';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := '°R',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1606,7 +1606,7 @@ fbQuantityMock.Units := 'mmHg';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'atm',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1628,7 +1628,7 @@ fbQuantityMock.Units := 'kilometer/second';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µ/s',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1649,7 +1649,7 @@ fbQuantityMock.Units := 'm/h';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'mi/h',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1670,7 +1670,7 @@ fbQuantityMock.Units := 'micron';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'ft',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1691,7 +1691,7 @@ fbQuantityMock.Units := 'torr';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'millipascal',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1713,7 +1713,7 @@ fbQuantityMock.Units := 'picometer/second**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'picometer/second**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1734,7 +1734,7 @@ fbQuantityMock.Units := 'mile';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'yard',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1756,7 +1756,7 @@ fbQuantityMock.Units := 'cm/min';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'km/min',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1777,7 +1777,7 @@ fbQuantityMock.Units := 'yd/h';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'km/h',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1798,7 +1798,7 @@ fbQuantityMock.Units := 'nanogram';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'cg',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1820,7 +1820,7 @@ fbQuantityMock.Units := 'µm/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'centimeter/minute',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1841,7 +1841,7 @@ fbQuantityMock.Units := 'pm/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'foot/minute',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1862,7 +1862,7 @@ fbQuantityMock.Units := 'nm/min';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'cm/s',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1883,7 +1883,7 @@ fbQuantityMock.Units := 'in/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'km/min',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1904,7 +1904,7 @@ fbQuantityMock.Units := 'foot/hour';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'kilometer/second',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1925,7 +1925,7 @@ fbQuantityMock.Units := 's';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'hour',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1947,7 +1947,7 @@ fbQuantityMock.Units := 'cm';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'inch',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1968,7 +1968,7 @@ fbQuantityMock.Units := 'm/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'kilometer/minute',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -1989,7 +1989,7 @@ fbQuantityMock.Units := 'mm/s**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'pm/s**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2010,7 +2010,7 @@ fbQuantityMock.Units := 'nanometer/hour';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'µ/s',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2031,7 +2031,7 @@ fbQuantityMock.Units := 'ft/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'centimeter/second',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2052,7 +2052,7 @@ fbQuantityMock.Units := 'degree_Fahrenheit';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'K',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2073,7 +2073,7 @@ fbQuantityMock.Units := 'mtorr';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'nanopascal',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2095,7 +2095,7 @@ fbQuantityMock.Units := 'km/s**2';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'yd/s**2',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2117,7 +2117,7 @@ fbQuantityMock.Units := 'millimeter';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'millimeter',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2138,7 +2138,7 @@ fbQuantityMock.Units := 'pm/h';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'ft/s',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2159,7 +2159,7 @@ fbQuantityMock.Units := 'mi/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'kilometer/second',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2180,7 +2180,7 @@ fbQuantityMock.Units := 'yd/s';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'micrometer/second',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2201,7 +2201,7 @@ fbQuantityMock.Units := 'inch/hour';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'meter/hour',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2222,7 +2222,7 @@ fbQuantityMock.Units := 'Pa';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'kPa',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(
@@ -2243,7 +2243,7 @@ fbQuantityMock.Units := 'bar';
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
     DesiredUnits := 'pPa',
-    ConvertedQuantity => fbQuantityOutput
+    ConvertedQuantity := fbQuantityOutput
 );
 
 AssertNoErrorCorrectResult(

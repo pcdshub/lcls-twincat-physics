@@ -217,21 +217,27 @@
     </Compile>
     <Compile Include="Tests\LookupTables\FB_AtomicMass_Test.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_ElementLUT_Test.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_AtomicNumber_Test.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_f1Chantler_Test.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_ScatteringFactorLUT_Test.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_ElementDensity_Test.TcPOU">
       <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\Mocks\FB_CalcFocalLengthSingleLensMock.TcPOU">
       <SubType>Code</SubType>
@@ -369,7 +375,7 @@
                   <d n="SubKeys" t="Hashtable" />
                   <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
                     <v>bActive</v>
-                    <v>True</v>
+                    <v>False</v>
                   </d>
                 </o>
                 <v>175</v>

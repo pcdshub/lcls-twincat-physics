@@ -2,89 +2,29 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_LensSet_Test" Id="{959fcf0e-1b33-40b1-a7be-9a4bd9a118a1}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_LensSet_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_LensSet_Test EXTENDS FB_TestSuiteExtended
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-TestGetFocalLengthOfExpectNoErrorCorrectValue();
-
 TestIndexIndexInRangeExpectTrue();
 
 TestSetInvalidNumLensesExpectErrorNoChangeToValue();
 
-TestSetMaterialNameOfGetMaterialNameOfExpectNoErrorCorrectValue();
-
-TestSetMultiplierOfGetMultiplierOfExpectNoErrorCorrectValue();
+TestSetLensGetLensExpectNoErrorCorrectValue();
 
 TestSetNumLensesGetNumLensesExpectNoErrorValueSet();
-
-TestSetRadiusOfGetRadiusOfExpectNoErrorCorrectValue();
 
 TestTooHighIndexIndexInRangeExpectFalse();
 
 TestTooLowIndexIndexInRangeExpectFalse();
 ]]></ST>
     </Implementation>
-    <Method Name="TestGetFocalLengthOfExpectNoErrorCorrectValue" Id="{948c4df3-6b74-4e4d-9d26-00e4d7a6426e}">
-      <Declaration><![CDATA[
-METHOD TestGetFocalLengthOfExpectNoErrorCorrectValue
-VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
-    // Subject under test
-    fbLensSet : FB_LensSet(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
-    );
-    fExpected : LREAL;
-    fResult : LREAL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST('TestGetFocalLengthOfExpectNoErrorCorrectValue');
-
-// Test Fixture
-fExpected := 12.0;
-
-fbLensSet.NumLenses:= 5;
-fbCalcFocalLengthSingleLens.SetResult(fExpected);
-
-// Here the test starts
-fResult := fbLensSet.GetFocalLengthOf(nLensNum := 1);
-
-AssertFalse(
-    Condition := fbLensSet.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
-
-AssertTrue(
-    Condition := fbLensSet.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := fExpected,
-    Actual := fResult,
-    Delta := 0.0,
-    Message := 'Focallength did not have the correct value.'
-);
-
-TEST_FINISHED();
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="TestIndexIndexInRangeExpectTrue" Id="{1564fb33-badf-45fa-8b05-f60c5ace519e}">
       <Declaration><![CDATA[
 METHOD TestIndexIndexInRangeExpectTrue
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
-    );
+    fbLensSet : FB_LensSet;
     bResult : BOOL;
 END_VAR
 ]]></Declaration>
@@ -98,15 +38,7 @@ fbLensSet.NumLenses:= 9;
 // Here the test starts
 bResult := fbLensSet.IndexInRange(nIndex := 9);
 
-AssertFalse(
-    Condition := fbLensSet.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
-
-AssertTrue(
-    Condition := fbLensSet.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
+AssertNoError(iFallible := fbLensSet);
 
 AssertTrue(
     Condition := bResult,
@@ -121,13 +53,8 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetInvalidNumLensesExpectErrorNoChangeToValue
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
-    );
+    fbLensSet : FB_LensSet;
     nNumLenses : INT;
 END_VAR
 ]]></Declaration>
@@ -142,15 +69,7 @@ fbLensSet.NumLenses:= nNumLenses;
 // Here the test starts
 fbLensSet.NumLenses := 0;
 
-AssertTrue(
-    Condition := fbLensSet.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertFalse(
-    Condition := fbLensSet.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(iFallible := fbLensSet);
 
 AssertEquals_INT(
     Expected := nNumLenses,
@@ -162,19 +81,22 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestSetMaterialNameOfGetMaterialNameOfExpectNoErrorCorrectValue" Id="{06da589f-bfc8-49ef-b9bc-1f973a59e2e8}">
+    <Method Name="TestSetLensGetLensExpectNoErrorCorrectValue" Id="{06da589f-bfc8-49ef-b9bc-1f973a59e2e8}">
       <Declaration><![CDATA[
-METHOD TestSetMaterialNameOfGetMaterialNameOfExpectNoErrorCorrectValue
+METHOD TestSetLensGetLensExpectNoErrorCorrectValue
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
+    fbLensMock : FB_LensMock;
+    fbRadiusMock : FB_QuantityLREALPublicMock;
+
     // Subject under test
-    fbLensSet : FB_LensSet(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
-    );
+    fbLensSet : FB_LensSet;
+    fbLens : FB_Lens;
+    fbRadiusResult : FB_QuantityLREALPublic(Units := 'm');
+
     sExpected : T_MaxString;
+    nExpected : INT;
     sResult : T_MaxString;
+    nResult : INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -183,22 +105,26 @@ TEST('TestSetMaterialNameOfGetMaterialNameOfExpectNoErrorCorrectValue');
 
 // Test Fixture
 sExpected := 'Material1';
+nExpected := 32;
+
+fbRadiusMock.Val := 27.65;
+fbRadiusMock.Units := 'cm';
 
 fbLensSet.NumLenses:= 5;
 
+fbLensMock.MaterialFormula := sExpected;
+fbLensMock.Multiplier := nExpected;
+fbLensMock.SetRadius(Radius := fbRadiusMock);
+
 // Here the test starts
-fbLensSet.SetMaterialNameOf(nLensNum := 1, sMaterialName := sExpected);
-sResult := fbLensSet.GetMaterialFormulaOf(nLensNum := 1);
+fbLensSet.SetLens(LensNum := 1, Lens := fbLensMock);
+fbLensSet.GetLens(LensNum := 1, Lens := fbLens);
 
-AssertFalse(
-    Condition := fbLensSet.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
+sResult := fbLens.MaterialFormula;
+nResult := fbLens.Multiplier;
+fbLens.GetRadius(Radius := fbRadiusResult);
 
-AssertTrue(
-    Condition := fbLensSet.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
+AssertNoError(iFallible := fbLensSet);
 
 AssertEquals_STRING(
     Expected := sExpected,
@@ -206,52 +132,15 @@ AssertEquals_STRING(
     Message := 'String did not have the correct value.'
 );
 
-TEST_FINISHED();
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="TestSetMultiplierOfGetMultiplierOfExpectNoErrorCorrectValue" Id="{f512f237-d31e-4a91-b6ef-e14738bdb174}">
-      <Declaration><![CDATA[
-METHOD TestSetMultiplierOfGetMultiplierOfExpectNoErrorCorrectValue
-VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
-    // Subject under test
-    fbLensSet : FB_LensSet(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
-    );
-    nExpected : INT;
-    nResult : INT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST('TestSetMultiplierOfGetMultiplierOfExpectNoErrorCorrectValue');
-
-// Test Fixture
-nExpected := 15;
-
-fbLensSet.NumLenses:= 5;
-
-// Here the test starts
-fbLensSet.SetMultiplierOf(nLensNum := 1, nMultiplier := nExpected);
-nResult := fbLensSet.GetMultiplierOf(nLensNum := 1);
-
-AssertFalse(
-    Condition := fbLensSet.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
-
-AssertTrue(
-    Condition := fbLensSet.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
-
 AssertEquals_INT(
     Expected := nExpected,
     Actual := nResult,
-    Message := 'Mutlplier did not have the correct value.'
+    Message := 'Multiplier did not have the correct value.'
+);
+
+AssertNoErrorExactExpectedQuantityLREAL(
+    iExpected := fbRadiusMock,
+    iActual := fbRadiusResult
 );
 
 TEST_FINISHED();
@@ -265,10 +154,7 @@ VAR
     fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
-    );
+    fbLensSet : FB_LensSet;
     nNumLenses : INT;
 END_VAR
 ]]></Declaration>
@@ -282,15 +168,7 @@ nNumLenses := 5;
 // Here the test starts
 fbLensSet.NumLenses:= nNumLenses;
 
-AssertFalse(
-    Condition := fbLensSet.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
-
-AssertTrue(
-    Condition := fbLensSet.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
+AssertNoError(iFallible := fbLensSet);
 
 AssertEquals_INT(
     Expected := nNumLenses,
@@ -302,73 +180,12 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestSetRadiusOfGetRadiusOfExpectNoErrorCorrectValue" Id="{f1e9f4c9-0c54-48de-97f0-f274b818e695}">
-      <Declaration><![CDATA[
-METHOD TestSetRadiusOfGetRadiusOfExpectNoErrorCorrectValue
-VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
-    // Subject under test
-    fbLensSet : FB_LensSet(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
-    );
-    fbExpected : FB_QuantityLREALPublicMock;
-    fbResult : FB_QuantityLREALPublic(Units := '1');
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-TEST('TestSetRadiusOfGetRadiusOfExpectNoErrorCorrectValue');
-
-// Test Fixture
-fbExpected.Val := 76.32;
-fbExpected.Units := 'm';
-
-fbLensSet.NumLenses := 5;
-
-// Here the test starts
-fbLensSet.SetRadiusOf(LensNum := 1, Radius := fbExpected);
-fbResult := fbLensSet.GetRadiusOf(LensNum := 1);
-
-AssertFalse(
-    Condition := fbLensSet.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
-
-AssertTrue(
-    Condition := fbLensSet.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := fbExpected.Val,
-    Actual := fbResult.Val,
-    Delta := 0.0,
-    Message := 'Radius did not have the correct value.'
-);
-
-AssertEquals_STRING(
-    Expected := fbExpected.Units,
-    Actual := fbResult.Units,
-    Message := 'Radius did not have the correct units.'
-);
-
-TEST_FINISHED();
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="TestTooHighIndexIndexInRangeExpectFalse" Id="{af6a7413-9b4b-4008-b3a7-e0c356c39a51}">
       <Declaration><![CDATA[
 METHOD TestTooHighIndexIndexInRangeExpectFalse
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
-    );
+    fbLensSet : FB_LensSet;
     bResult : BOOL;
 END_VAR
 ]]></Declaration>
@@ -382,15 +199,7 @@ fbLensSet.NumLenses:= 9;
 // Here the test starts
 bResult := fbLensSet.IndexInRange(nIndex := fbLensSet.NumLenses + 1);
 
-AssertFalse(
-    Condition := fbLensSet.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
-
-AssertTrue(
-    Condition := fbLensSet.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
+AssertNoError(iFallible := fbLensSet);
 
 AssertFalse(
     Condition := bResult,
@@ -405,13 +214,8 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestTooLowIndexIndexInRangeExpectFalse
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
-    fbLensSet : FB_LensSet(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcFocalLengthSingleLens := fbCalcFocalLengthSingleLens
-    );
+    fbLensSet : FB_LensSet;
     bResult : BOOL;
 END_VAR
 ]]></Declaration>
@@ -425,15 +229,7 @@ fbLensSet.NumLenses:= 9;
 // Here the test starts
 bResult := fbLensSet.IndexInRange(nIndex := 0);
 
-AssertFalse(
-    Condition := fbLensSet.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
-
-AssertTrue(
-    Condition := fbLensSet.GetErrorMsg() = '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
+AssertNoError(iFallible := fbLensSet);
 
 AssertFalse(
     Condition := bResult,

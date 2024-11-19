@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_LagrangePolyInterp_Test" Id="{90adfa0b-c231-4270-92e5-172e2d551dee}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_LagrangePolyInterp_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_LagrangePolyInterp_Test EXTENDS FB_TestSuiteExtended
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[

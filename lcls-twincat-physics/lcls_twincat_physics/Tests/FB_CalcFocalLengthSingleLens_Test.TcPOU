@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CalcFocalLengthSingleLens_Test" Id="{85175de0-d809-48a0-9035-d5cabefef591}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcFocalLengthSingleLens_Test EXTENDS FB_TestSuite
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLens_Test EXTENDS FB_TestSuiteExtended
 VAR
     nTestID : INT;
 END_VAR
@@ -91,12 +91,14 @@ VAR
     fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
     // Subject under test
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcXRayDelta := fbCalcXRayDeltaMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -109,25 +111,23 @@ SetInitialDeltaAndLensValues(
     fbLensMock := fbLensMock
 );
 
-fbCalcXRayDeltaMock.SetResult(0.0);
+fbDeltaMock.Val := 0.0;
+fbCalcXRayDeltaMock.SetResult(Result := fbDeltaMock);
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
 
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+// Subject Under Test
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(iFallible := fbCalcFocalLengthSingleLens);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'Calculated focal length should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -142,12 +142,14 @@ VAR
     fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
     // Subject under test
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcXRayDelta := fbCalcXRayDeltaMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -165,23 +167,20 @@ fbRadius.Units := 'm';
 
 fbLensMock.SetRadius(fbRadius);
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
 
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+// Subject Under Test
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(iFallible := fbCalcFocalLengthSingleLens);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'Calculated focal length should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -195,12 +194,14 @@ VAR
     fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
     // Subject under test
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcXRayDelta := fbCalcXRayDeltaMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -215,25 +216,21 @@ SetInitialDeltaAndLensValues(
 
 fbCalcXRayDeltaMock.SetError(Msg := 'Error');
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
 
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+// Subject Under Test
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(iFallible := fbCalcFocalLengthSingleLens);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'Calculated focal length should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
-
 TEST_FINISHED();
 ]]></ST>
       </Implementation>
@@ -245,12 +242,14 @@ VAR
     fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
     // Subject under test
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcXRayDelta := fbCalcXRayDeltaMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -265,23 +264,20 @@ SetInitialDeltaAndLensValues(
 
 fbLensMock.SetError(Msg := 'Error');
 
-fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
 
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+// Subject Under Test
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcFocalLengthSingleLens.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(iFallible := fbCalcFocalLengthSingleLens);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'Calculated focal length should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -302,12 +298,14 @@ VAR
     fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
     fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
     // Subject under test
     fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
-        iConvertUnits := fbConvertUnitsLREALMock,
-        iCalcXRayDelta := fbCalcXRayDeltaMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -321,36 +319,35 @@ SetInitialDeltaAndLensValues(
     fbLensMock := fbLensMock
 );
 
-fbCalcXRayDeltaMock.SetResult(fDelta);
+fbDeltaMock.Val := fDelta;
+fbCalcXRayDeltaMock.SetResult(Result := fbDeltaMock);
 
 fbRadius.Val := fRadius;
 fbRadius.Units := 'm';
 
 fbLensMock.SetRadius(fbRadius);
 
+fbExpected.Val := fExpected;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcFocalLengthSingleLens.Calculate(Lens := fbLensMock);
-
-AssertFalse(
-    Condition := fbCalcFocalLengthSingleLens.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
 );
 
-AssertFalse(
-    Condition := fbCalcFocalLengthSingleLens.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
+AssertNoError(iFallible := fbCalcFocalLengthSingleLens);
 
-AssertEquals_LREAL(
-    Expected := fExpected,
-    Actual := fResult,
-    Delta := ABS(0.001 * fExpected),
-    Message := 'Calculated focal length did not calculate close enough to the expected value.'
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
 
-nTestID := nTestID + 1;]]></ST>
+nTestID := nTestID + 1;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

@@ -145,12 +145,16 @@ VAR_INPUT
     bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
     bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 
-    iLensCompounder : I_LensCompounder;
+    ConvertUnits : I_ConvertUnitsLREAL;
+    LensCompounder : I_LensCompounder;
+    CalcFocalLengthSingleLens : I_CalcFocalLengthSingleLens;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.iLensCompounder := iLensCompounder;
+THIS^.iConvertUnits := ConvertUnits;
+THIS^.iLensCompounder := LensCompounder;
+THIS^.iCalcFocalLengthSingleLens := CalcFocalLengthSingleLens;
 ]]></ST>
       </Implementation>
     </Method>

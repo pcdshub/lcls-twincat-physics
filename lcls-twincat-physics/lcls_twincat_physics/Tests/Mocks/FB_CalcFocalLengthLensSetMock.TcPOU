@@ -4,7 +4,7 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_CalcFocalLengthLensSetMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcFocalLengthLensSet
 VAR
-    fFocalLength : LREAL; // The focal length of the lens, in meters.
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -12,14 +12,17 @@ END_VAR
     </Implementation>
     <Method Name="Calculate" Id="{9449408e-a2a8-4a84-848f-08f055b3b183}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
-    iLensSet : I_LensSet;
+    LensSet : I_LensSet;
+END_VAR
+VAR_IN_OUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-Calculate := fFocalLength;
+FocalLength := fbFocalLength;
 ]]></ST>
       </Implementation>
     </Method>
@@ -27,12 +30,12 @@ Calculate := fFocalLength;
       <Declaration><![CDATA[
 METHOD SetResult
 VAR_INPUT
-    fResult : LREAL;
+    Result : I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fFocalLength := fResult;
+fbFocalLength.Copy(QuantityToCopy := Result);
 ]]></ST>
       </Implementation>
     </Method>
@@ -42,7 +45,9 @@ METHOD SetValid
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fFocalLength := 1.0;
+fbFocalLength.Val := 1.0;
+fbFocalLength.Units := 'm';
+fbFocalLength.ClearError();
 ClearError();
 ]]></ST>
       </Implementation>

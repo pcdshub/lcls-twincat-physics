@@ -4,7 +4,7 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_StringLookupINTMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_StringLookupINT
 VAR
-    nValue : INT;
+    fbValue : FB_QuantityINTPublic(Units := '');
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -12,14 +12,30 @@ END_VAR
     </Implementation>
     <Method Name="Lookup" Id="{5c037a72-ea45-45f3-9d22-aab555885a73}">
       <Declaration><![CDATA[
-METHOD Lookup : INT
+METHOD Lookup
 VAR_INPUT
-    StringToLookup	: T_MaxString;
+    StringToLookup : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Result : FB_QuantityINTPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-Lookup := nValue;
+Result := fbValue;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{12e6a65f-4981-45ab-90cc-0c6a3b5dcf92}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : FB_QuantityINTPublic(Units := '');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbValue.Copy(QuantityToCopy := Result);
 ]]></ST>
       </Implementation>
     </Method>
@@ -29,30 +45,11 @@ METHOD SetValid
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+fbValue.ClearError();
+
 ClearError();
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{549f9beb-0972-43ae-9ac1-fa1088bda929}">
-      <Declaration><![CDATA[
-PROPERTY Value : INT
-]]></Declaration>
-      <Get Name="Get" Id="{e7a1b1b9-d2b6-4281-aad6-e931af3ded02}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-Value := nValue;
-]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{7a124785-655d-4006-a23a-e9d21360a96e}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-nValue := Value;
-]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
   </POU>
 </TcPlcObject>

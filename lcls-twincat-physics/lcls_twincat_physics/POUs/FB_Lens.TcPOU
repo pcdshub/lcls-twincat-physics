@@ -4,8 +4,6 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_Lens EXTENDS FB_Fallible IMPLEMENTS I_Lens
 VAR
-    iConvertUnits : I_ConvertUnitsLREAL;
-
     {attribute 'pytmc' := '
         pv: MaterialName
         io: io
@@ -27,27 +25,47 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="FB_Init" Id="{4497aa12-2471-47f4-b812-c441978fbf9f}">
+    <Method Name="Copy" Id="{bfd9c162-bdd5-4020-a4a4-9ab0f417f9eb}">
       <Declaration><![CDATA[
-METHOD FB_Init: BOOL
+METHOD Copy
 VAR_INPUT
-    bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
-    bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
-
-    iConvertUnits : I_ConvertUnitsLREAL;
+    Lens : I_Lens;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.iConvertUnits := iConvertUnits;
+ClearError();
+
+IF Lens.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens has the following error message: [',
+        CONCAT(Lens.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+Lens.GetRadius(Radius := fbRadius);
+
+IF Lens.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens has the following error message after getting the radius: [',
+        CONCAT(Lens.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+MaterialFormula := Lens.MaterialFormula;
+Multiplier := Lens.Multiplier;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="GetRadius" Id="{be4de050-0497-4c6f-93c9-3795433ab058}">
       <Declaration><![CDATA[
 METHOD GetRadius
-VAR_OUTPUT
-    Radius : FB_QuantityLREALPublic(Units := '');
+VAR_IN_OUT
+    Radius : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -143,31 +161,11 @@ METHOD SetRadius
 VAR_INPUT
     Radius : I_QuantityLREAL;
 END_VAR
-VAR
-    fbRadiusTemp : FB_QuantityLREALPublic(Units := 'm');
-    sUnits : T_MaxString;
-END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 ClearError();
-
 fbRadius.ClearError();
-
-iConvertUnits.ConvertQuantityLREAL(
-    QuantityToConvert := Radius,
-    DesiredUnits := fbRadius.Units,
-    ConvertedQuantity => fbRadiusTemp
-);
-
-IF iConvertUnits.GetError() THEN
-    SetError(Msg :=
-        CONCAT('Error returned when attempting to convert units of radius input: ',
-        iConvertUnits.GetErrorMsg())
-    );
-    fbRadius.SetError(Msg := GetErrorMsg());
-    RETURN;
-END_IF
 
 IF Radius.Val <= 0 THEN
     SetError(Msg := NonPositiveRadiusErrorMsg(fRadius := Radius.Val));
@@ -175,20 +173,9 @@ IF Radius.Val <= 0 THEN
     RETURN;
 END_IF
 
-fbRadius := fbRadiusTemp;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="SetRadiusUnits" Id="{3f703e38-66c1-490d-ab71-6b1976f1420b}">
-      <Declaration><![CDATA[
-METHOD SetRadiusUnits
-VAR_INPUT
-    Units : T_MaxString;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-fbRadius.Units := Units;
+fbRadius.Copy(QuantityToCopy := Radius);
+
+
 ]]></ST>
       </Implementation>
     </Method>

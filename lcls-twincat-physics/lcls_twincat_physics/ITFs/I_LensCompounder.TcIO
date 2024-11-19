@@ -8,7 +8,7 @@ INTERFACE I_LensCompounder EXTENDS I_Fallible
       <Declaration><![CDATA[
 METHOD Compound
 VAR_INPUT
-    FocalLength : FB_QuantityLREALPublic(Units := 'm');
+    FocalLength : I_QuantityLREAL;
     Multiplier : INT;
 END_VAR
 VAR_IN_OUT

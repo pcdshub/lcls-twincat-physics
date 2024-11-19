@@ -3,7 +3,7 @@
   <POU Name="FB_ScatteringFactorLUT_Test" Id="{d816876d-bba9-4af1-b4f7-b3136cfa69a7}" SpecialFunc="None">
     <Declaration><![CDATA[
 (* WARNING: This file is auto-generated. Do not modify it.*)
-FUNCTION_BLOCK FB_ScatteringFactorLUT_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_ScatteringFactorLUT_Test EXTENDS FB_TestSuiteExtended
 VAR
     fbTest : FB_ScatteringFactorLUT;
 END_VAR

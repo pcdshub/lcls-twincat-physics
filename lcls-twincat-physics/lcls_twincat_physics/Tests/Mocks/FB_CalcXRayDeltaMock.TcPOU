@@ -4,7 +4,7 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_CalcXRayDeltaMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcXRayDelta
 VAR
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -12,14 +12,17 @@ END_VAR
     </Implementation>
     <Method Name="Calculate" Id="{5bac6286-2214-4e59-adf7-609a7f98ff61}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
-    sChemicalFormula : T_MaxString;
+    MaterialFormula : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Delta : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-Calculate := fResult;
+Delta := fbResult;
 ]]></ST>
       </Implementation>
     </Method>
@@ -27,12 +30,12 @@ Calculate := fResult;
       <Declaration><![CDATA[
 METHOD SetResult
 VAR_INPUT
-    fResult : LREAL;
+    Result : I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.fResult := fResult;
+fbResult.Copy(QuantityToCopy := Result);
 ]]></ST>
       </Implementation>
     </Method>
@@ -42,7 +45,9 @@ METHOD SetValid
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fResult := 1.0;
+fbResult.Val := 1.0;
+fbResult.Units := '1';
+fbResult.ClearError();
 ClearError();
 ]]></ST>
       </Implementation>

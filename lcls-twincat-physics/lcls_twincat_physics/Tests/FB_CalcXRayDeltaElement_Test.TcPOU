@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_CalcXRayDeltaElement_Test" Id="{98858369-0487-4f19-ba02-1eea298ccad3}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcXRayDeltaElement_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_CalcXRayDeltaElement_Test EXTENDS FB_TestSuiteExtended
 VAR
     nTestID : INT;
 END_VAR
@@ -230,13 +230,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -252,26 +256,20 @@ SetInitialValues(
 
 fbStringLookupElementMock.AtomicMass := 0.0;
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -285,13 +283,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -307,27 +309,22 @@ SetInitialValues(
 
 fbStringLookupElementMock.AtomicNumber := 0;
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+AssertError(iFallible := fbCalcXRayDeltaElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
-);
 
 TEST_FINISHED();
 ]]></ST>
@@ -340,13 +337,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -362,26 +363,20 @@ SetInitialValues(
 
 fbStringLookupElementMock.Density := 0.0;
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -395,13 +390,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -417,26 +416,20 @@ SetInitialValues(
 
 fbQuantityLREALPublicEnergyMock.Val := 0.0;
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -450,13 +443,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -472,26 +469,20 @@ SetInitialValues(
 
 fbStringLookupElementMock.SetError(Msg := 'Error');
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -505,13 +496,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -527,28 +522,21 @@ SetInitialValues(
 
 fbQuantityLREALPublicEnergyMock.SetError(Msg := 'Error');
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
-);
-
 TEST_FINISHED();
 ]]></ST>
       </Implementation>
@@ -560,13 +548,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -582,26 +574,20 @@ SetInitialValues(
 
 fbStringLookupLREALMock.SetError(Msg := 'Error');
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -615,13 +601,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -637,26 +627,20 @@ SetInitialValues(
 
 fbStringLookupElementMock.AtomicMass := -10.0;
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -670,13 +654,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -692,26 +680,20 @@ SetInitialValues(
 
 fbStringLookupElementMock.AtomicNumber := -10;
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -725,13 +707,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -747,26 +733,20 @@ SetInitialValues(
 
 fbStringLookupElementMock.Density := 0.0;
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -780,13 +760,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -802,26 +786,20 @@ SetInitialValues(
 
 fbQuantityLREALPublicEnergyMock.Val := 0.0;
 
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
+AssertError(iFallible := fbCalcXRayDeltaElement);
 
-AssertTrue(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'X-ray delta should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult
 );
 
 TEST_FINISHED();
@@ -844,13 +822,17 @@ VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
     fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
     fbCalcXRayDeltaElement : FB_CalcXRayDeltaElement(
-        iEnergy := fbQuantityLREALPublicEnergyMock,
-        if1LUT := fbStringLookupLREALMock,
-        iElementLUT := fbStringLookupElementMock
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f1LUT := fbStringLookupLREALMock,
+        ElementLUT := fbStringLookupElementMock
     );
-    fResult : LREAL;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -864,32 +846,28 @@ SetInitialValues(
     fbStringLookupLREALMock := fbStringLookupLREALMock,
     fbStringLookupElementMock := fbStringLookupElementMock
 );
+
 fbQuantityLREALPublicEnergyMock.Val := fEnergy;
 fbStringLookupLREALMock.Value := fF1;
 fbStringLookupElementMock.Density := fDensity;
 fbStringLookupElementMock.AtomicNumber := nAtomicNumber;
 fbStringLookupElementMock.AtomicMass := fAtomicMass;
 
+fbExpected.Val := fExpected;
+fbExpected.Units := fbResult.Units;
+
 // Here the test starts
-fResult := fbCalcXRayDeltaElement.Calculate(
-    sChemicalFormula := 'Be'
+fbCalcXRayDeltaElement.Calculate(
+    MaterialFormula := 'Be',
+    Delta := fbResult
 );
 
-AssertFalse(
-    Condition := fbCalcXRayDeltaElement.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
+AssertNoError(iFallible := fbCalcXRayDeltaElement);
 
-AssertFalse(
-    Condition := fbCalcXRayDeltaElement.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to be empty.'
-);
-
-AssertEquals_LREAL(
-    Expected := fExpected,
-    Actual := fResult,
-    Delta := ABS(0.001 * fExpected),
-    Message := 'X-ray delta did not calculate close enough to the expected value.'
+AssertNoErrorExpectedQuantityLREAL(
+    iExpected := fbExpected,
+    iActual := fbResult,
+    fDelta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();

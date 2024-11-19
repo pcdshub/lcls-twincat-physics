@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_Transmission_Test" Id="{f94191b6-3825-415f-a312-fbd5fd0cc44d}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_Transmission_Test EXTENDS TcUnit.FB_TestSuite
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_Transmission_Test EXTENDS FB_TestSuiteExtended
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
@@ -13,7 +14,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[TEST('Absorption constant');
+      <ST><![CDATA[
+TEST('Absorption constant');
 
 
 (* Cherry-picked test values, verified by Python solid-attenuator IOC *)

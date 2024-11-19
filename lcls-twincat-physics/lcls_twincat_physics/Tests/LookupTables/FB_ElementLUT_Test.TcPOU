@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_ElementLUT_Test" Id="{3ff69030-7098-4c44-963f-c70efce3cce1}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_ElementLUT_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_ElementLUT_Test EXTENDS FB_TestSuiteExtended
 VAR
     nTestID : INT;
 END_VAR

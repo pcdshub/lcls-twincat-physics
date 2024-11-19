@@ -122,7 +122,7 @@ END_IF
 
 fbSourceDistanceUpstream.Val := fbSourceDistance.Val - fbDistanceBetween.Val;
 
-fbFocalLengthCompounded := iLensSetCompounder.Compound(
+iLensSetCompounder.Compound(
     FocalLength := fbFocalLengthUpstream,
     SourceDistance := fbSourceDistanceUpstream,
     FocalLengthCompounded := fbImageDistanceUpstream

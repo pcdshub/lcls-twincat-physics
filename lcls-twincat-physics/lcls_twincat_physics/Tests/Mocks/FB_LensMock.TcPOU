@@ -15,7 +15,7 @@ END_VAR
     <Method Name="GetRadius" Id="{1e936b74-6ae1-48de-8fb7-a0e4f6da68ed}">
       <Declaration><![CDATA[
 METHOD GetRadius
-VAR_OUTPUT
+VAR_IN_OUT
     Radius : FB_QuantityLREALPublic(Units := '');
 END_VAR
 ]]></Declaration>

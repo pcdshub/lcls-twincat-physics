@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_f1Chantler_Test" Id="{06cdb937-8fc1-4cc7-8819-e31aa3c3fd8b}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_f1Chantler_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_f1Chantler_Test EXTENDS FB_TestSuiteExtended
 VAR
     nTestID : INT;
 END_VAR

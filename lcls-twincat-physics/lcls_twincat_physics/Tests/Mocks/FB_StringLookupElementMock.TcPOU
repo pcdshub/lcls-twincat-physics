@@ -4,107 +4,160 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_StringLookupElementMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_StringLookupElement;
 VAR
-    fAtomicMass : LREAL;
-    nAtomicNumber : INT;
-    fDensity : LREAL;
+    fbAtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
+    fbAtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
+    fbDensity : FB_QuantityLREALPublic(Units := 'g/cm**3');
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Property Name="AtomicMass" Id="{635032a6-311e-4d7c-9b55-f9024148140d}">
-      <Declaration><![CDATA[PROPERTY AtomicMass : LREAL]]></Declaration>
-      <Get Name="Get" Id="{f7c57037-db88-45ae-a7df-97c3b6733e71}">
+    <Property Name="AtomicMass" Id="{d5ffb32e-4f64-4156-9996-dfa716402f7f}">
+      <Declaration><![CDATA[
+PROPERTY AtomicMass : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{44c9d25e-aeca-43a1-85a2-af8d688ce3aa}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-AtomicMass := fAtomicMass;
+AtomicMass := fbAtomicMass.Val;
 ]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{6e4e3849-a0c8-41a4-8ebe-a5f025f04260}">
+      <Set Name="Set" Id="{4583724f-7a7b-4425-9b95-10863a4d14bf}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-fAtomicMass := AtomicMass;
+fbAtomicMass.Val := AtomicMass;
 ]]></ST>
         </Implementation>
       </Set>
     </Property>
-    <Property Name="AtomicNumber" Id="{06122f6b-f517-481a-9749-dc246c897461}">
-      <Declaration><![CDATA[PROPERTY AtomicNumber : INT]]></Declaration>
-      <Get Name="Get" Id="{e9d734fe-c826-493a-b424-586d3f706478}">
+    <Property Name="AtomicNumber" Id="{dbf2ebd8-b0c9-4822-beae-dff0f699d8c2}">
+      <Declaration><![CDATA[
+PROPERTY AtomicNumber : INT
+]]></Declaration>
+      <Get Name="Get" Id="{561a1723-686c-437a-bd0c-21b30ba4ad09}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-AtomicNumber := nAtomicNumber;
+AtomicNumber := fbAtomicNumber.Val;
 ]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{2b4c4e29-c09c-46cb-98bb-b25e81a01b1b}">
+      <Set Name="Set" Id="{40feb076-83c6-4511-a729-e50a90509ceb}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-nAtomicNumber := AtomicNumber;
+fbAtomicNumber.Val := AtomicNumber;
 ]]></ST>
         </Implementation>
       </Set>
     </Property>
-    <Property Name="Density" Id="{b79e1095-9dde-44a0-a231-d917464f7a3d}">
-      <Declaration><![CDATA[PROPERTY Density : LREAL]]></Declaration>
-      <Get Name="Get" Id="{f0b638fa-d258-48cb-b13e-0dd7005455a7}">
+    <Property Name="Density" Id="{d2be1fef-1d02-4178-acd1-f749a67b665e}">
+      <Declaration><![CDATA[
+PROPERTY Density : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{ed02ef4e-d20b-4a1b-a291-5774db4daccf}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-Density := fDensity;
+Density := fbDensity.Val;
 ]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{8ff93d78-1bb5-4ac0-b979-6e67459ed291}">
+      <Set Name="Set" Id="{ebbfbf51-ef40-4965-aa40-210d9a86c210}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[
-fDensity := Density;
+fbDensity.Val := Density;
 ]]></ST>
         </Implementation>
       </Set>
     </Property>
     <Method Name="LookupAtomicMass" Id="{1dcfeecf-8505-43bc-a7d2-9b5fa59ddc2b}">
       <Declaration><![CDATA[
-METHOD LookupAtomicMass : LREAL
+METHOD LookupAtomicMass
 VAR_INPUT
-    ElementName	: T_MaxString;
+    ElementName : T_MaxString;
 END_VAR
-]]></Declaration>
+VAR_IN_OUT
+    AtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-LookupAtomicMass := fAtomicMass;
+AtomicMass := fbAtomicMass;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="LookupAtomicNumber" Id="{69859d7c-928a-4813-9e19-d45971dbc25d}">
       <Declaration><![CDATA[
-METHOD LookupAtomicNumber : INT
+METHOD LookupAtomicNumber
 VAR_INPUT
-    ElementName	: T_MaxString;
+    ElementName : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    AtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-LookupAtomicNumber := nAtomicNumber;
+AtomicNumber := fbAtomicNumber;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="LookupDensity" Id="{c68ca04a-b56a-4ca8-ad9e-4621f979c04d}">
       <Declaration><![CDATA[
-METHOD LookupDensity : LREAL
+METHOD LookupDensity
 VAR_INPUT
-    ElementName	: T_MaxString;
+    ElementName : T_MaxString;
+END_VAR
+VAR_IN_OUT
+    Density : FB_QuantityLREALPublic(Units := 'g/cm**3');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-LookupDensity := fDensity;
+Density := fbDensity;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetAtomicMass" Id="{c741d1a7-f8e7-4c87-8ac8-a7b8e657f29f}">
+      <Declaration><![CDATA[
+METHOD SetAtomicMass
+VAR_INPUT
+    AtomicMass : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbAtomicMass.Copy(QuantityToCopy := AtomicMass);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetAtomicNumber" Id="{e9e997bd-36e7-4c37-8d3d-c448fcc215dd}">
+      <Declaration><![CDATA[
+METHOD SetAtomicNumber
+VAR_INPUT
+    AtomicNumber : I_QuantityINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbAtomicNumber.Copy(QuantityToCopy := AtomicNumber);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetDensity" Id="{f9205b53-778b-409f-af78-c8161ce18073}">
+      <Declaration><![CDATA[
+METHOD SetDensity
+VAR_INPUT
+    Density : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbDensity.Copy(QuantityToCopy := Density);
 ]]></ST>
       </Implementation>
     </Method>
@@ -114,9 +167,19 @@ METHOD SetValid
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fAtomicMass := 1.0;
-nAtomicNumber := 1;
-fDensity := 1.0;
+fbAtomicMass.Val := 1.0;
+fbAtomicMass.Units := 'AMU';
+fbAtomicMass.ClearError();
+
+fbAtomicNumber.Val := 1;
+fbAtomicNumber.Units := 'Protons';
+fbAtomicNumber.ClearError();
+
+fbDensity.Val := 1.0;
+fbDensity.Units := 'g/cm**3';
+fbDensity.ClearError();
+
+ClearError();
 ]]></ST>
       </Implementation>
     </Method>

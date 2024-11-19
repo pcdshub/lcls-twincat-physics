@@ -4,7 +4,7 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_CalcImageDistanceMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcImageDistance
 VAR
-    fFocalLengthCompounded : LREAL;
+    fbImageDistance : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -12,15 +12,18 @@ END_VAR
     </Implementation>
     <Method Name="Calculate" Id="{abc95be1-d404-4bee-adcd-9e1134ab5397}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
-    fFocalLength	: LREAL;
-    fSourceDistance	: LREAL;
+    FocalLength : I_QuantityLREAL;
+    SourceDistance : I_QuantityLREAL;
+END_VAR
+VAR_IN_OUT
+    ImageDistance : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-Calculate := fFocalLengthCompounded;
+ImageDistance := fbImageDistance;
 ]]></ST>
       </Implementation>
     </Method>
@@ -28,12 +31,12 @@ Calculate := fFocalLengthCompounded;
       <Declaration><![CDATA[
 METHOD SetResult
 VAR_INPUT
-    fResult : LREAL;
+    Result : I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fFocalLengthCompounded := fResult;
+fbImageDistance.Copy(QuantityToCopy := Result);
 ]]></ST>
       </Implementation>
     </Method>
@@ -43,7 +46,9 @@ METHOD SetValid
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fFocalLengthCompounded := 1.0;
+fbImageDistance.Val := 1.0;
+fbImageDistance.Units := 'm';
+fbImageDistance.ClearError();
 ClearError();
 ]]></ST>
       </Implementation>

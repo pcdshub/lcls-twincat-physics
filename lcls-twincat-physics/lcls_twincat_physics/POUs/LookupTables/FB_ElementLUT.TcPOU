@@ -4,13 +4,14 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_ElementLUT EXTENDS FB_Fallible IMPLEMENTS I_StringLookupElement
 VAR
-    fbAtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
-    fbAtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
-    fbDensity : FB_QuantityLREALPublic(Units := 'g/cm**3');
-
+    iConvertUnits : I_ConvertUnitsLREAL;
     iAtomicMassLUT : I_StringLookupLREAL;
     iAtomicNumberLUT : I_StringLookupINT;
     iDensityLUT : I_StringLookupLREAL;
+
+    fbAtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
+    fbAtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
+    fbDensity : FB_QuantityLREALPublic(Units := 'g/cm**3');
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -23,12 +24,15 @@ VAR_INPUT
     bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
     bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
 
+    ConvertUnits : I_ConvertUnitsLREAL;
     AtomicMassLUT : I_StringLookupLREAL;
     AtomicNumberLUT : I_StringLookupINT;
     DensityLUT : I_StringLookupLREAL;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
 THIS^.iAtomicMassLUT := AtomicMassLUT;
 THIS^.iAtomicNumberLUT := AtomicNumberLUT;
 THIS^.iDensityLUT := DensityLUT;
@@ -65,6 +69,21 @@ IF iAtomicMassLUT.GetError() THEN
     RETURN;
 END_IF
 
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbAtomicMass,
+    DesiredUnits := AtomicMass.Units,
+    ConvertedQuantity := fbAtomicMass
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of atomic mass: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    AtomicMass.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
 AtomicMass := fbAtomicMass;
 ]]></ST>
       </Implementation>
@@ -84,6 +103,8 @@ END_VAR
 ClearError();
 fbAtomicNumber.ClearError();
 
+fbAtomicNumber.Units := AtomicNumber.Units;
+
 iAtomicNumberLUT.Lookup(
     StringToLookup := ElementName,
     Result := fbAtomicNumber
@@ -99,7 +120,7 @@ IF iAtomicNumberLUT.GetError() THEN
     RETURN;
 END_IF
 
-AtomicNumber := fbAtomicMass;
+AtomicNumber := fbAtomicNumber;
 ]]></ST>
       </Implementation>
     </Method>
@@ -111,11 +132,14 @@ VAR_INPUT
 END_VAR
 VAR_IN_OUT
     Density : FB_QuantityLREALPublic(Units := 'g/cm**3');
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 ClearError();
 fbDensity.ClearError();
+
+fbDensity.Units := Density.Units;
 
 iDensityLUT.Lookup(
     StringToLookup := ElementName,
@@ -128,6 +152,21 @@ IF iDensityLUT.GetError() THEN
         iDensityLUT.GetErrorMsg())
     );
     fbDensity.SetError(Msg := GetErrorMsg());
+    Density.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbDensity,
+    DesiredUnits := Density.Units,
+    ConvertedQuantity := fbDensity
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of density: ',
+        iConvertUnits.GetErrorMsg())
+    );
     Density.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF

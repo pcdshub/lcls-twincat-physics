@@ -4,11 +4,16 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_LensCompounder EXTENDS FB_Fallible IMPLEMENTS I_LensCompounder
 VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
+
     bFirstCompound : BOOL := TRUE;
-    fFocalLength1Inverse : LREAL;
-    fFocalLength2Inverse : LREAL;
-    fFocalLengthCompoundedInverse : LREAL;
-    fFocalLengthCompounded : LREAL;
+    fbFocalLength1Inverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbFocalLength2Inverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbFocalLengthCompoundedInverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
+
+    {attribute 'pytmc' := 'pv: FocalLengthCompounded'}
+    fbFocalLengthCompounded : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -16,83 +21,112 @@ END_VAR
     </Implementation>
     <Method Name="Compound" Id="{a3ada262-9e56-4d19-98a8-21adb0f78d19}">
       <Declaration><![CDATA[
-METHOD Compound : LREAL
+METHOD Compound
 VAR_INPUT
-    fFocalLength	: LREAL;
-    nMultiplier	: INT;
+    FocalLength	: I_QuantityLREAL;
+    Multiplier	: INT;
+END_VAR
+VAR_IN_OUT
+    FocalLengthCompounded : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+SetUnits(Units := FocalLengthCompounded.Units);
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := FocalLength,
+    DesiredUnits := FocalLengthCompounded.Units,
+    ConvertedQuantity := fbFocalLength
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of focal length input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
 // Check for an invalid focal length input.
-IF fFocalLength = 0.0 THEN
+IF fbFocalLength.Val = 0.0 THEN
     SetError(
         Msg := CONCAT('The focal length specified: [',
-        CONCAT(LREAL_TO_STRING(fFocalLength),
+        CONCAT(LREAL_TO_STRING(fbFocalLength.Val),
         '] must not be 0.'))
     );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
 // Calculate the inverse of focal length input.
-fFocalLength1Inverse := 1.0 / fFocalLength;
+fbFocalLength1Inverse.Val := 1.0 / fbFocalLength.Val;
 
 IF NOT bFirstCompound THEN
     // Check for an invalid compounded focal length.
-    IF fFocalLengthCompounded = 0.0 THEN
+    IF fbFocalLengthCompounded.Val = 0.0 THEN
         SetError(
             Msg := CONCAT('The current compounded focal length must not be 0: [',
-            CONCAT(LREAL_TO_STRING(fFocalLengthCompounded),
+            CONCAT(LREAL_TO_STRING(fbFocalLengthCompounded.Val),
             '] must not be 0.'))
         );
+        FocalLengthCompounded.SetError(Msg := GetErrorMsg());
         RETURN;
     END_IF
 
     // Calculate the inverse of the present compounded focal length.
-    fFocalLength2Inverse := 1.0 / fFocalLengthCompounded;
+    fbFocalLength2Inverse.Val := 1.0 / fbFocalLengthCompounded.Val;
 ELSE
     bFirstCompound := FALSE;
 END_IF
 
 // Check for an invalid multiplier input.
-IF nMultiplier <= 0 THEN
+IF Multiplier <= 0 THEN
     SetError(
         Msg := CONCAT('The multiplier specified: [',
-        CONCAT(LREAL_TO_STRING(nMultiplier),
+        CONCAT(LREAL_TO_STRING(Multiplier),
         '] must be greater than 0.'))
     );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
 // Calculate the inverse of the compounded focal length.
-fFocalLengthCompoundedInverse := INT_TO_LREAL(nMultiplier) * fFocalLength1Inverse + fFocalLength2Inverse;
+fbFocalLengthCompoundedInverse.Val := INT_TO_LREAL(Multiplier) * fbFocalLength1Inverse.Val + fbFocalLength2Inverse.Val;
 
 // Check if the resultant inverse compounded focal length is 0. Prevent a divide by 0.
-IF fFocalLengthCompoundedInverse = 0.0 THEN
+IF fbFocalLengthCompoundedInverse.Val = 0.0 THEN
     SetError(
         Msg := 'The calculated inverse compound focal length was 0 and it must not be 0.'
     );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
 // Calculate the resultant compounded focal length.
-fFocalLengthCompounded := 1.0 / fFocalLengthCompoundedInverse;
+fbFocalLengthCompounded.Val := 1.0 / fbFocalLengthCompoundedInverse.Val;
+
+FocalLengthCompounded := fbFocalLengthCompounded;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="FocalLengthCompounded" Id="{7d429e18-eddd-4714-9bca-68ada33fb459}">
+    <Method Name="FB_init" Id="{25c61bf4-7f60-40f1-91a6-892c3aa5d9cf}">
       <Declaration><![CDATA[
-PROPERTY FocalLengthCompounded : LREAL
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    ConvertUnits : I_ConvertUnitsLREAL;
+END_VAR
 ]]></Declaration>
-      <Get Name="Get" Id="{e01b39c1-1a32-48db-bd74-e4b615700285}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[
-FocalLengthCompounded := fFocalLengthCompounded;
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
 ]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
+      </Implementation>
+    </Method>
     <Method Name="Reset" Id="{775e5bba-edca-420a-87f5-347a62f686b1}">
       <Declaration><![CDATA[
 METHOD Reset
@@ -100,12 +134,28 @@ METHOD Reset
       <Implementation>
         <ST><![CDATA[
 // Initialize focal length and error values.
-fFocalLengthCompounded := 0.0;
-fFocalLength1Inverse := 0.0;
-fFocalLength2Inverse := 0.0;
-fFocalLengthCompoundedInverse := 0.0;
+fbFocalLengthCompounded.Val := 0.0;
+fbFocalLength1Inverse.Val := 0.0;
+fbFocalLength2Inverse.Val := 0.0;
+fbFocalLengthCompoundedInverse.Val := 0.0;
 ClearError();
 bFirstCompound := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetUnits" Id="{a84cf75b-57ac-4a77-8692-15fad7c3725c}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetUnits
+VAR_INPUT
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbFocalLength1Inverse.Units := CONCAT('1/', Units);
+fbFocalLength2Inverse.Units := CONCAT('1/', Units);
+fbFocalLengthCompoundedInverse.Units := CONCAT('1/', Units);
+fbFocalLengthCompounded.Units := Units;
 ]]></ST>
       </Implementation>
     </Method>

@@ -4,126 +4,24 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_LensSet EXTENDS FB_Fallible IMPLEMENTS I_LensSet
 VAR
-    iConvertUnits : I_ConvertUnitsLREAL;
-    iCalcFocalLengthSingleLens : I_CalcFocalLengthSingleLens;
+    fbRadius : FB_QuantityLREALPublic(Units := 'm');
+    fbLens : FB_Lens;
 
-    afbLens : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF FB_Lens(iConvertUnits := iConvertUnits);
+    afbLens : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF FB_Lens;
     nNumLenses : INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="FB_init" Id="{fe559d94-9129-430f-9008-66737ede8a73}">
+    <Method Name="GetLens" Id="{9e1ed0e8-5daa-4afd-85a9-a0c8ba1a6071}">
       <Declaration><![CDATA[
-METHOD FB_init : BOOL
-VAR_INPUT
-    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-
-    iConvertUnits : I_ConvertUnitsLREAL;
-    iCalcFocalLengthSingleLens : I_CalcFocalLengthSingleLens;
-END_VAR
-VAR
-    nIndex : INT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-THIS^.iConvertUnits := iConvertUnits;
-THIS^.iCalcFocalLengthSingleLens := iCalcFocalLengthSingleLens;
-
-FOR nIndex := 1 TO GVL_Physics.nMaxNumLensesInSet BY 1 DO
-    afbLens[nIndex].FB_Init(
-        bInitRetains := bInitRetains,
-        bInCopyCode := bInCopyCode,
-        iConvertUnits := iConvertUnits
-    );
-END_FOR
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetFocalLengthOf" Id="{1c9b1209-03ff-43db-86e9-e0c5cdd2a72e}">
-      <Declaration><![CDATA[
-METHOD GetFocalLengthOf : LREAL
-VAR_INPUT
-    nLensNum	: INT;
-END_VAR
-VAR
-    fFocalLength : LREAL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-ClearError();
-
-IF NOT IndexInRange(nLensNum) THEN
-    SetError(Msg := IndexOutOfRangeErrorMsg(nLensNum := nLensNum));
-    RETURN;
-END_IF
-
-fFocalLength := iCalcFocalLengthSingleLens.Calculate(iLens := afbLens[nLensNum]);
-
-IF iCalcFocalLengthSingleLens.GetError() THEN
-    SetError(Msg :=
-        CONCAT('Error returned when attempting the calculate focal length for lens number: [',
-        CONCAT(INT_TO_STRING(nLensNum),
-        CONCAT(']. Error message is: ',
-        iCalcFocalLengthSingleLens.GetErrorMsg())))
-    );
-    RETURN;
-END_IF
-
-GetFocalLengthOf := fFocalLength;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetMaterialFormulaOf" Id="{51876747-123d-4353-83f5-0881279e54a8}">
-      <Declaration><![CDATA[
-METHOD GetMaterialFormulaOf : T_MaxString
-VAR_INPUT
-    nLensNum	: INT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-ClearError();
-
-IF NOT IndexInRange(nLensNum) THEN
-    SetError(Msg := IndexOutOfRangeErrorMsg(nLensNum := nLensNum));
-    RETURN;
-END_IF
-
-GetMaterialFormulaOf := afbLens[nLensNum].MaterialFormula;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetMultiplierOf" Id="{cf92e14b-e5e6-4f30-bfb0-2bd8a1aa55dd}">
-      <Declaration><![CDATA[
-METHOD GetMultiplierOf : INT
-VAR_INPUT
-    nLensNum	: INT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-ClearError();
-
-IF NOT IndexInRange(nLensNum) THEN
-    SetError(Msg := IndexOutOfRangeErrorMsg(nLensNum := nLensNum));
-    RETURN;
-END_IF
-
-GetMultiplierOf := afbLens[nLensNum].Multiplier;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="GetRadiusOf" Id="{7215f3a4-5170-4bdc-8ce5-3b2710bc63a0}">
-      <Declaration><![CDATA[
-METHOD GetRadiusOf
+METHOD GetLens
 VAR_INPUT
     LensNum	: INT;
 END_VAR
-VAR_OUTPUT
-    Radius : FB_QuantityLREALPublic(Units := 'm');
+VAR_IN_OUT
+    Lens	: FB_Lens;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -135,7 +33,7 @@ IF NOT IndexInRange(LensNum) THEN
     RETURN;
 END_IF
 
-Radius := afbLens[LensNum].GetRadius();]]></ST>
+Lens := afbLens[LensNum];]]></ST>
       </Implementation>
     </Method>
     <Method Name="IndexInRange" Id="{736b6ca6-387b-4727-80f6-b6d61a70ddd3}">
@@ -199,63 +97,12 @@ END_IF
         </Implementation>
       </Set>
     </Property>
-    <Method Name="SetMaterialNameOf" Id="{fa7f7c0a-b699-4773-9a65-4e6a96415d7f}">
+    <Method Name="SetLens" Id="{d2a31209-d8ac-4b1d-a13e-7d8ca7bdb34d}">
       <Declaration><![CDATA[
-METHOD SetMaterialNameOf
+METHOD SetLens
 VAR_INPUT
-    nLensNum	: INT;
-    sMaterialName : T_MaxString;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-ClearError();
-
-IF NOT IndexInRange(nLensNum) THEN
-    SetError(Msg := IndexOutOfRangeErrorMsg(nLensNum := nLensNum));
-    RETURN;
-END_IF
-
-afbLens[nLensNum].MaterialFormula := sMaterialName;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="SetMultiplierOf" Id="{64026241-a25f-4372-9868-f8b9e830a9e6}">
-      <Declaration><![CDATA[
-METHOD SetMultiplierOf
-VAR_INPUT
-    nLensNum	: INT;
-    nMultiplier : INT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-ClearError();
-
-IF NOT IndexInRange(nLensNum) THEN
-    SetError(Msg := IndexOutOfRangeErrorMsg(nLensNum := nLensNum));
-    RETURN;
-END_IF
-
-afbLens[nLensNum].Multiplier := nMultiplier;
-
-IF afbLens[nLensNum].GetError() THEN
-    SetError(Msg := CONCAT('There was an error when trying to set the multiplier of lens [',
-        CONCAT(INT_TO_STRING(nLensNum),
-        CONCAT(']: ',
-        afbLens[nLensNum].GetErrorMsg())))
-    );
-    RETURN;
-END_IF
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="SetRadiusOf" Id="{597de808-0ace-440d-99fd-44c3824ba2f2}">
-      <Declaration><![CDATA[
-METHOD SetRadiusOf
-VAR_INPUT
+    Lens : I_Lens;
     LensNum : INT;
-    Radius : I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -267,16 +114,19 @@ IF NOT IndexInRange(LensNum) THEN
     RETURN;
 END_IF
 
-afbLens[LensNum].SetRadius(Radius);
+fbLens.Copy(Lens);
 
-IF afbLens[LensNum].GetError() THEN
-    SetError(Msg := CONCAT('There was an error when trying to set the radius of lens [',
-        CONCAT(INT_TO_STRING(LensNum),
-        CONCAT(']: ',
-        afbLens[LensNum].GetErrorMsg())))
+IF fbLens.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens has the following error message: [',
+        CONCAT(fbLens.GetErrorMsg(),
+        ']'))
     );
     RETURN;
-END_IF]]></ST>
+END_IF
+
+afbLens[LensNum] := fbLens;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

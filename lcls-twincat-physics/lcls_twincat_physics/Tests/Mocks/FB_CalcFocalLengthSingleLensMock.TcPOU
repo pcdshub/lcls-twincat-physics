@@ -4,7 +4,9 @@
     <Declaration><![CDATA[
 FUNCTION_BLOCK FB_CalcFocalLengthSingleLensMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcFocalLengthSingleLens
 VAR
-    fFocalLength : LREAL; // The focal length of the lens, in meters.
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
+    afFocalLength : ARRAY[1..GVL_Physics.nMaxNumLensesInSet] OF LREAL;
+    nIndex : INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -12,27 +14,39 @@ END_VAR
     </Implementation>
     <Method Name="Calculate" Id="{b2c83659-42d3-4010-bd66-b5ff217644cd}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
-    iLens	: I_Lens;
+    Lens : I_Lens;
+END_VAR
+VAR_IN_OUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-Calculate := fFocalLength;
+nIndex := nIndex + 1;
+
+IF nIndex > GVL_Physics.nMaxNumLensesInSet THEN
+    nIndex := 1;
+END_IF
+
+fbFocalLength.Val := afFocalLength[nIndex];
+
+FocalLength := fbFocalLength;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetResult" Id="{835781e9-6739-4758-b0fe-16be034758e3}">
+    <Method Name="SetResult" Id="{fa56926d-e362-4a57-9807-06847d87b563}">
       <Declaration><![CDATA[
 METHOD SetResult
 VAR_INPUT
-    fResult : LREAL;
+    Result : LREAL;
+    LensNum : INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fFocalLength := fResult;
+afFocalLength[LensNum] := Result;
 ]]></ST>
       </Implementation>
     </Method>
@@ -42,8 +56,14 @@ METHOD SetValid
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-fFocalLength := 1.0;
+fbFocalLength.Val := 1.0;
+fbFocalLength.Units := 'm';
+fbFocalLength.ClearError();
 ClearError();
+
+FOR nIndex := 1 TO GVL_Physics.nMaxNumLensesInSet DO
+    afFocalLength[nIndex] := 1.0;
+END_FOR
 ]]></ST>
       </Implementation>
     </Method>

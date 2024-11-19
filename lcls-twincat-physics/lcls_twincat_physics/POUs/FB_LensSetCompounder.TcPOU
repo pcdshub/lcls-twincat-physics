@@ -9,6 +9,13 @@ VAR
 
     bFirstCompound : BOOL := TRUE;
     fbPrevSourceDistance : FB_QuantityLREALPublic(Units := 'm');
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
+    fbSourceDistance : FB_QuantityLREALPublic(Units := 'm');
+    fbFocalLengthInverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbVirtualSourceDistance : FB_QuantityLREALPublic(Units := 'm');
+    fbVirtualSourceDistanceInverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbSourceDistanceInverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbFocalLengthCompoundedInverse : FB_QuantityLREALPublic(Units := '1/m');
 
     {attribute 'pytmc' := 'pv: FocalLengthCompounded'}
     fbFocalLengthCompounded : FB_QuantityLREALPublic(Units := 'm');
@@ -24,35 +31,18 @@ VAR_INPUT
     FocalLength : I_QuantityLREAL;
     SourceDistance : I_QuantityLREAL;
 END_VAR
-VAR_OUTPUT
+VAR_IN_OUT
     FocalLengthCompounded : FB_QuantityLREALPublic(Units := 'm');
-END_VAR
-VAR
-    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
-    fbSourceDistance : FB_QuantityLREALPublic(Units := 'm');
-    fbFocalLengthInverse : FB_QuantityLREALPublic(Units := '1/m');
-    fbVirtualSourceDistance : FB_QuantityLREALPublic(Units := 'm');
-    fbVirtualSourceDistanceInverse : FB_QuantityLREALPublic(Units := '1/m');
-    fbSourceDistanceInverse : FB_QuantityLREALPublic(Units := '1/m');
-    fbFocalLengthCompoundedInverse : FB_QuantityLREALPublic(Units := '1/m');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-// Check for an invalid focal length input.
-IF FocalLength.Val = 0.0 THEN
-    SetError(
-        Msg := CONCAT('The focal length specified: [',
-        CONCAT(LREAL_TO_STRING(FocalLength.Val),
-        '] must not be 0.'))
-    );
-    RETURN;
-END_IF
+SetUnits(Units := FocalLengthCompounded.Units);
 
 iConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := FocalLength,
     DesiredUnits := FocalLengthCompounded.Units,
-    ConvertedQuantity => fbFocalLength
+    ConvertedQuantity := fbFocalLength
 );
 
 IF iConvertUnits.GetError() THEN
@@ -60,26 +50,28 @@ IF iConvertUnits.GetError() THEN
         CONCAT('Error returned when attempting to convert units of focal length input: ',
         iConvertUnits.GetErrorMsg())
     );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check for an invalid focal length input.
+IF fbFocalLength.Val = 0.0 THEN
+    SetError(
+        Msg := CONCAT('The focal length specified: [',
+        CONCAT(LREAL_TO_STRING(fbFocalLength.Val),
+        '] must not be 0.'))
+    );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
 // Calculate the inverse of focal length input.
-fbFocalLengthInverse.Val := 1.0 / FocalLength.Val;
-
-// Check for an invalid source distance input.
-IF SourceDistance.Val = 0.0 THEN
-    SetError(
-        Msg := CONCAT('The source distance specified: [',
-        CONCAT(LREAL_TO_STRING(SourceDistance),
-        '] must not be 0.'))
-    );
-    RETURN;
-END_IF
+fbFocalLengthInverse.Val := 1.0 / fbFocalLength.Val;
 
 iConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := SourceDistance,
     DesiredUnits := FocalLengthCompounded.Units,
-    ConvertedQuantity => fbSourceDistance
+    ConvertedQuantity := fbSourceDistance
 );
 
 IF iConvertUnits.GetError() THEN
@@ -87,6 +79,18 @@ IF iConvertUnits.GetError() THEN
         CONCAT('Error returned when attempting to convert units of source distance input: ',
         iConvertUnits.GetErrorMsg())
     );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check for an invalid source distance input.
+IF fbSourceDistance.Val = 0.0 THEN
+    SetError(
+        Msg := CONCAT('The source distance specified: [',
+        CONCAT(LREAL_TO_STRING(fbSourceDistance.Val),
+        '] must not be 0.'))
+    );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
@@ -101,30 +105,33 @@ IF NOT bFirstCompound THEN
         RETURN;
     END_IF
 
-    fbFocalLengthCompounded := iCalcImageDistance.Calculate(
-        fFocalLength := FocalLength,
-        fSourceDistance := fbVirtualSourceDistance
+    iCalcImageDistance.Calculate(
+        FocalLength := fbFocalLength,
+        SourceDistance := fbVirtualSourceDistance,
+        ImageDistance := fbFocalLengthCompounded
     );
 ELSE
     bFirstCompound := FALSE;
 
-    fbFocalLengthCompounded := iCalcImageDistance.Calculate(
-        fFocalLength := FocalLength,
-        fSourceDistance := SourceDistance
+    iCalcImageDistance.Calculate(
+        FocalLength := fbFocalLength,
+        SourceDistance := fbSourceDistance,
+        ImageDistance := fbFocalLengthCompounded
     );
 END_IF
 
-fPrevSourceDistance := SourceDistance;
+fbPrevSourceDistance := fbSourceDistance;
 
 IF iCalcImageDistance.GetError() THEN
     SetError(Msg :=
         CONCAT('Error returned when attempting to calculate the image distance: ',
         iCalcImageDistance.GetErrorMsg())
     );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
-Compound := fbFocalLengthCompounded;
+FocalLengthCompounded := fbFocalLengthCompounded;
 ]]></ST>
       </Implementation>
     </Method>
@@ -135,13 +142,14 @@ VAR_INPUT
     bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
     bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
 
-    iConvertUnits : I_ConvertUnitsLREAL;
-    iCalcImageDistance : I_CalcImageDistance;
-END_VAR]]></Declaration>
+    ConvertUnits : I_ConvertUnitsLREAL;
+    CalcImageDistance : I_CalcImageDistance;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.iConvertUnits := iConvertUnits;
-THIS^.iCalcImageDistance := iCalcImageDistance;
+THIS^.iConvertUnits := ConvertUnits;
+THIS^.iCalcImageDistance := CalcImageDistance;
 ]]></ST>
       </Implementation>
     </Method>
@@ -153,15 +161,35 @@ METHOD Reset
         <ST><![CDATA[
 bFirstCompound := TRUE;
 ClearError();
-fbFocalLengthCompounded := 0.0;
-fFocalLengthInverse := 0.0;
-fVirtualSourceDistance := 0.0;
-fVirtualSourceDistanceInverse := 0.0;
-fPrevSourceDistance := 0.0;
-fSourceDistanceInverse := 0.0;
-fbFocalLengthCompounded := 0.0;
-fFocalLengthCompoundedInverse := 0.0;
+fbFocalLengthCompounded.Val := 0.0;
+fbFocalLengthInverse.Val := 0.0;
+fbVirtualSourceDistance.Val := 0.0;
+fbVirtualSourceDistanceInverse.Val := 0.0;
+fbPrevSourceDistance.Val := 0.0;
+fbSourceDistanceInverse.Val := 0.0;
+fbFocalLengthCompounded.Val := 0.0;
+fbFocalLengthCompoundedInverse.Val := 0.0;
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetUnits" Id="{66a1b583-7e55-4c60-9dd4-64e48e32c780}">
+      <Declaration><![CDATA[
+METHOD SetUnits
+VAR_INPUT
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbPrevSourceDistance.Units := Units;
+fbFocalLength.Units := Units;
+fbSourceDistance.Units := Units;
+fbFocalLengthInverse.Units := CONCAT('1/', Units);
+fbVirtualSourceDistance.Units := Units;
+fbVirtualSourceDistanceInverse.Units := CONCAT('1/', Units);
+fbSourceDistanceInverse.Units := CONCAT('1/', Units);
+fbFocalLengthCompoundedInverse.Units := CONCAT('1/', Units);
+fbFocalLengthCompounded.Units := Units;]]></ST>
       </Implementation>
     </Method>
   </POU>

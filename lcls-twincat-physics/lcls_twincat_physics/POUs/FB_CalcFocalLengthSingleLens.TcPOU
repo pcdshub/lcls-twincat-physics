@@ -20,11 +20,11 @@ END_VAR
     </Implementation>
     <Method Name="Calculate" Id="{ccac877d-2b8a-4013-bf1b-351f6a9d80e6}">
       <Declaration><![CDATA[
-METHOD Calculate : LREAL
+METHOD Calculate
 VAR_INPUT
     Lens : I_Lens;
 END_VAR
-VAR_OUTPUT
+VAR_IN_OUT
     FocalLength : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
@@ -108,7 +108,7 @@ IF fbRadius.Val <= 0.0 THEN
     RETURN;
 END_IF
 
-fbFocalLength.Val := fbRadius.Val / 2.0 / fbDelta;
+fbFocalLength.Val := fbRadius.Val / 2.0 / fbDelta.Val;
 
 FocalLength := fbFocalLength;
 ]]></ST>
@@ -133,14 +133,14 @@ VAR_INPUT
     bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
     bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 
-    iConvertUnits : I_ConvertUnitsLREAL;
-    iCalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
+    ConvertUnits : I_ConvertUnitsLREAL;
+    CalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-THIS^.iConvertUnits := iConvertUnits;
-THIS^.iCalcXRayDelta := iCalcXRayDelta;
+THIS^.iConvertUnits := ConvertUnits;
+THIS^.iCalcXRayDelta := CalcXRayDelta;
 ]]></ST>
       </Implementation>
     </Method>

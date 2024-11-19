@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_Fallible_Test" Id="{8cba201b-995e-4a53-ab27-125a677e950d}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_Fallible_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_Fallible_Test EXTENDS FB_TestSuiteExtended
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[

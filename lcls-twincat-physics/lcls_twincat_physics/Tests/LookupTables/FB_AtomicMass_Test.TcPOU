@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_AtomicMass_Test" Id="{941b9b80-3c86-4469-9604-bd2e5bf73994}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_AtomicMass_Test EXTENDS TcUnit.FB_TestSuite
+FUNCTION_BLOCK FB_AtomicMass_Test EXTENDS FB_TestSuiteExtended
 VAR
     nTestID : INT;
 END_VAR
