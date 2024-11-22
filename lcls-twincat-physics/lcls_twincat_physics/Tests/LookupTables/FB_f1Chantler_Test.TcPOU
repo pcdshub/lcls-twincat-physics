@@ -11,17 +11,17 @@ END_VAR
       <ST><![CDATA[
 nTestID := 1;
 
-Test0EnergyExpectError0f1();
+Test0EnergyExpectErrorf1Unchanged();
 
-TestBadNameExpectError0f1();
+TestBadNameExpectErrorf1Unchanged();
 
-TestInvalidEnergyExpectError0f1();
+TestInvalidEnergyExpectErrorf1Unchanged();
 
-TestNegEnergyExpectError0f1();
+TestNegEnergyExpectErrorf1Unchanged();
 
-TestOverrangeEnergyExpectError0f1();
+TestOverrangeEnergyExpectErrorf1Unchanged();
 
-TestUnderrangeEnergyExpectError0f1();
+TestUnderrangeEnergyExpectErrorf1Unchanged();
 
 // Expected results taken from xraydb python module.
 // Element = Be. Test Count = 1.
@@ -543,127 +543,139 @@ fbQuantityLREALPublicEnergyMock.ClearError();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test0EnergyExpectError0f1" Id="{697e390f-4f8c-4c28-8b8e-2c4ae951ce3a}">
+    <Method Name="Test0EnergyExpectErrorf1Unchanged" Id="{697e390f-4f8c-4c28-8b8e-2c4ae951ce3a}">
       <Declaration><![CDATA[
-METHOD Test0EnergyExpectError0f1
+METHOD Test0EnergyExpectErrorf1Unchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('Test0EnergyExpectError0f1');
+TEST('Test0EnergyExpectErrorf1Unchanged');
 
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
 
 fbQuantityLREALPublicEnergyMock.Val := 0.0;
 
+fbResult.Val := fbExpected.Val;
+
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
-
-AssertTrue(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+fbf1Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'f1 should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestBadNameExpectError0f1" Id="{157f7fce-b91c-45ca-8879-feb41d5c00ea}">
+    <Method Name="TestBadNameExpectErrorf1Unchanged" Id="{157f7fce-b91c-45ca-8879-feb41d5c00ea}">
       <Declaration><![CDATA[
-METHOD TestBadNameExpectError0f1
+METHOD TestBadNameExpectErrorf1Unchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestBadNameExpectError0f1');
+TEST('TestBadNameExpectErrorf1Unchanged');
 
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
+fbResult.Val := fbExpected.Val;
+
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := 'Invalid');
-
-AssertTrue(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+fbf1Chantler.Lookup(
+    StringToLookup := 'INVALID',
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'f1 should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestInvalidEnergyExpectError0f1" Id="{3d980aa4-21f6-4c47-baf9-595157e71a2e}">
+    <Method Name="TestInvalidEnergyExpectErrorf1Unchanged" Id="{3d980aa4-21f6-4c47-baf9-595157e71a2e}">
       <Declaration><![CDATA[
-METHOD TestInvalidEnergyExpectError0f1
+METHOD TestInvalidEnergyExpectErrorf1Unchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestInvalidEnergyExpectError0f1');
+TEST('TestInvalidEnergyExpectErrorf1Unchanged');
 
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbQuantityLREALPublicEnergyMock.SetError('Error');
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
+fbQuantityLREALPublicEnergyMock.SetError(Msg := 'Error');
+
+fbResult.Val := fbExpected.Val;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
-
-AssertTrue(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+fbf1Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'f1 should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -680,9 +692,15 @@ VAR_INPUT
 END_VAR
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -693,28 +711,23 @@ TEST(CONCAT(STR1 := 'TestMaxEnergyExpectNoErrorAccuratef1 ID: ',
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
+fbExpected.Val := fExpected;
+fbExpected.Units := '1';
+
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMaxeV;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := sName);
-
-AssertFalse(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
+fbf1Chantler.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() = '',
-    Message := CONCAT('Expected sErrorMsg to be empty but it was: [',
-               CONCAT(fbf1Chantler.GetErrorMsg(),
-               ']'))
-);
+AssertNoError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := fExpected,
-    Actual := fResult,
-    Delta := ABS(0.01 * fExpected),
-    Message := 'f1 did not calculate close enough to the expected value.'
+AssertNoErrorDeltaFractionExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    DeltaFraction := 0.002
 );
 
 TEST_FINISHED();
@@ -733,9 +746,15 @@ VAR_INPUT
 END_VAR
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -746,28 +765,23 @@ TEST(CONCAT(STR1 := 'TestMidEnergyExpectNoErrorAccuratef1 ID: ',
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
+fbExpected.Val := fExpected;
+fbExpected.Units := '1';
+
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMideV;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := sName);
-
-AssertFalse(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
+fbf1Chantler.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() = '',
-    Message := CONCAT('Expected sErrorMsg to be empty but it was: [',
-               CONCAT(fbf1Chantler.GetErrorMsg(),
-               ']'))
-);
+AssertNoError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := fExpected,
-    Actual := fResult,
-    Delta := ABS(0.01 * fExpected),
-    Message := 'f1 did not calculate close enough to the expected value.'
+AssertNoErrorDeltaFractionExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    DeltaFraction := 0.002
 );
 
 TEST_FINISHED();
@@ -786,9 +800,15 @@ VAR_INPUT
 END_VAR
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -799,28 +819,23 @@ TEST(CONCAT(STR1 := 'TestMinEnergyExpectNoErrorAccuratef1 ID: ',
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
+fbExpected.Val := fExpected;
+fbExpected.Units := '1';
+
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMineV;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := sName);
-
-AssertFalse(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
+fbf1Chantler.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() = '',
-    Message := CONCAT('Expected sErrorMsg to be empty but it was: [',
-               CONCAT(fbf1Chantler.GetErrorMsg(),
-               ']'))
-);
+AssertNoError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := fExpected,
-    Actual := fResult,
-    Delta := ABS(0.01 * fExpected),
-    Message := 'f1 did not calculate close enough to the expected value.'
+AssertNoErrorDeltaFractionExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    DeltaFraction := 0.002
 );
 
 TEST_FINISHED();
@@ -829,129 +844,141 @@ nTestID := nTestID + 1;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestNegEnergyExpectError0f1" Id="{415186b2-24af-4112-893c-bf6a320a8165}">
+    <Method Name="TestNegEnergyExpectErrorf1Unchanged" Id="{415186b2-24af-4112-893c-bf6a320a8165}">
       <Declaration><![CDATA[
-METHOD TestNegEnergyExpectError0f1
+METHOD TestNegEnergyExpectErrorf1Unchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestNegEnergyExpectError0f1');
+TEST('TestNegEnergyExpectErrorf1Unchanged');
 
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
-fbQuantityLREALPublicEnergyMock.Val := -10.0;
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
+fbQuantityLREALPublicEnergyMock.Val := -1.0;
+
+fbResult.Val := fbExpected.Val;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
-
-AssertTrue(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+fbf1Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'f1 should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestOverrangeEnergyExpectError0f1" Id="{6f2d54a4-00af-4657-9ec8-a9c903ea5205}">
+    <Method Name="TestOverrangeEnergyExpectErrorf1Unchanged" Id="{6f2d54a4-00af-4657-9ec8-a9c903ea5205}">
       <Declaration><![CDATA[
-METHOD TestOverrangeEnergyExpectError0f1
+METHOD TestOverrangeEnergyExpectErrorf1Unchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestOverrangeEnergyExpectError0f1');
+TEST('TestOverrangeEnergyExpectErrorf1Unchanged');
 
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
 
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMaxeV + 1.0;
 
+fbResult.Val := fbExpected.Val;
+
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
-
-AssertTrue(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+fbf1Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'f1 should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestUnderrangeEnergyExpectError0f1" Id="{70b95c35-10c5-4de1-b068-aaeff37f00f2}">
+    <Method Name="TestUnderrangeEnergyExpectErrorf1Unchanged" Id="{70b95c35-10c5-4de1-b068-aaeff37f00f2}">
       <Declaration><![CDATA[
-METHOD TestUnderrangeEnergyExpectError0f1
+METHOD TestUnderrangeEnergyExpectErrorf1Unchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestUnderrangeEnergyExpectError0f1');
+TEST('TestUnderrangeEnergyExpectErrorf1Unchanged');
 
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
 fbQuantityLREALPublicEnergyMock.Val := fbf1Chantler.fMineV - 1.0;
 
+fbResult.Val := fbExpected.Val;
+
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := 'Be');
-
-AssertTrue(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
+fbf1Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() <> '',
-    Message := 'Expected sErrorMsg to not be empty.'
-);
+AssertError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := 0,
-    Actual := fResult,
-    Delta := 0,
-    Message := 'f1 should be 0 when an error is detected.'
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -969,9 +996,15 @@ VAR_INPUT
 END_VAR
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
     // Subject under test
-    fbf1Chantler : FB_f1Chantler(iEnergy := fbQuantityLREALPublicEnergyMock);
-    fResult : LREAL;
+    fbf1Chantler : FB_f1Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -982,28 +1015,23 @@ TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccuratef1 ID: ',
 // Test fixture
 SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
 
+fbExpected.Val := fExpected;
+fbExpected.Units := '1';
+
 fbQuantityLREALPublicEnergyMock.Val := fEnergy;
 
 // Here the test starts
-fResult := fbf1Chantler.Lookup(StringToLookup := sName);
-
-AssertFalse(
-    Condition := fbf1Chantler.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
+fbf1Chantler.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
 );
 
-AssertTrue(
-    Condition := fbf1Chantler.GetErrorMsg() = '',
-    Message := CONCAT('Expected sErrorMsg to be empty but it was: [',
-               CONCAT(fbf1Chantler.GetErrorMsg(),
-               ']'))
-);
+AssertNoError(Fallible := fbf1Chantler);
 
-AssertEquals_LREAL(
-    Expected := fExpected,
-    Actual := fResult,
-    Delta := ABS(0.01 * fExpected),
-    Message := 'f1 did not calculate close enough to the expected value.'
+AssertNoErrorDeltaFractionExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    DeltaFraction := 0.002
 );
 
 TEST_FINISHED();

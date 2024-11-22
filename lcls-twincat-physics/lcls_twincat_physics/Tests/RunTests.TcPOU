@@ -6,12 +6,12 @@ PROGRAM RunTests
 VAR
     fbFallible_Test : FB_Fallible_Test;
 
-    //fbAtomicMass_Test : FB_AtomicMass_Test;
-    //fbAtomicNumber_Test : FB_AtomicNumber_Test;
-    //fbElementDensity_Test : FB_ElementDensity_Test;
-    //fbElementLUT_Test : FB_ElementLUT_Test;
-    //fbf1Chantler_Test : FB_f1Chantler_Test;
-    //fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
+    fbAtomicMass_Test : FB_AtomicMass_Test;
+    fbAtomicNumber_Test : FB_AtomicNumber_Test;
+    fbElementDensity_Test : FB_ElementDensity_Test;
+    fbElementLUT_Test : FB_ElementLUT_Test;
+    fbf1Chantler_Test : FB_f1Chantler_Test;
+    fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
 
     fbCalcFocalLength2LensSet_Test : FB_CalcFocalLength2LensSet_Test;
     fbCalcFocalLengthLensSet_Test : FB_CalcFocalLengthLensSet_Test;

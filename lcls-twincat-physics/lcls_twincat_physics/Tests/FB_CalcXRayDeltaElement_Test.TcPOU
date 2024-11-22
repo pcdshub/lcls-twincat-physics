@@ -265,11 +265,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -318,11 +318,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 
@@ -372,11 +372,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -425,11 +425,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -478,11 +478,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -531,11 +531,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 TEST_FINISHED();
 ]]></ST>
@@ -583,11 +583,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -636,11 +636,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -689,11 +689,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -742,11 +742,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -795,11 +795,11 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertError(iFallible := fbCalcXRayDeltaElement);
+AssertError(Fallible := fbCalcXRayDeltaElement);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -862,12 +862,12 @@ fbCalcXRayDeltaElement.Calculate(
     Delta := fbResult
 );
 
-AssertNoError(iFallible := fbCalcXRayDeltaElement);
+AssertNoError(Fallible := fbCalcXRayDeltaElement);
 
 AssertNoErrorExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult,
-    fDelta := ABS(0.001 * fbExpected.Val)
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();

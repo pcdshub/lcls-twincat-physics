@@ -16,6 +16,14 @@ VAR_IN_OUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="GetCurrentResult" Id="{175f0052-9092-4a8e-b47b-5595b0033d77}">
+      <Declaration><![CDATA[
+METHOD GetCurrentResult
+VAR_IN_OUT
+    FocalLengthCompounded : FB_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Reset" Id="{b8f90921-d231-4706-a1d2-5c3ccbdb351f}">
       <Declaration><![CDATA[
 METHOD Reset

@@ -43,7 +43,7 @@ fbLens.Multiplier := nMultiplier;
 // Here the test starts
 fbLens.Multiplier := 0;
 
-AssertError(iFallible := fbLens);
+AssertError(Fallible := fbLens);
 
 AssertEquals_INT(
     Expected := nMultiplier,
@@ -92,8 +92,8 @@ AssertError(fbLens);
 fbLens.GetRadius(Radius := fbRadiusActual);
 
 AssertExactExpectedQuantityLREAL(
-    iExpected := fbRadiusExpected,
-    iActual := fbRadiusActual
+    Expected := fbRadiusExpected,
+    Actual := fbRadiusActual
 );
 
 TEST_FINISHED();
@@ -122,7 +122,7 @@ fbLens.Multiplier := nMultiplier;
 // Here the test starts
 fbLens.Multiplier := -1;
 
-AssertError(iFallible := fbLens);
+AssertError(Fallible := fbLens);
 
 AssertEquals_INT(
     Expected := nMultiplier,
@@ -171,8 +171,8 @@ AssertError(fbLens);
 fbLens.GetRadius(Radius := fbRadiusActual);
 
 AssertExactExpectedQuantityLREAL(
-    iExpected := fbRadiusExpected,
-    iActual := fbRadiusActual
+    Expected := fbRadiusExpected,
+    Actual := fbRadiusActual
 );
 
 TEST_FINISHED();
@@ -198,7 +198,7 @@ sMaterialName := 'Material1';
 // Here the test starts
 fbLens.MaterialFormula:= sMaterialName;
 
-AssertNoError(iFallible := fbLens);
+AssertNoError(Fallible := fbLens);
 
 AssertEquals_STRING(
     Expected := sMaterialName,
@@ -229,7 +229,7 @@ nMultiplier := 34;
 // Here the test starts
 fbLens.Multiplier := nMultiplier;
 
-AssertNoError(iFallible := fbLens);
+AssertNoError(Fallible := fbLens);
 
 AssertEquals_INT(
     Expected := nMultiplier,
@@ -273,8 +273,8 @@ fbLens.GetRadius(Radius := fbRadiusActual);
 AssertNoError(fbLens);
 
 AssertExactExpectedQuantityLREAL(
-    iExpected := fbRadius,
-    iActual := fbRadiusActual
+    Expected := fbRadius,
+    Actual := fbRadiusActual
 );
 
 TEST_FINISHED();

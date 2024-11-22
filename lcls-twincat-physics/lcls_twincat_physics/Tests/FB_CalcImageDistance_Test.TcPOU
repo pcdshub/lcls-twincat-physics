@@ -584,11 +584,11 @@ fbCalcImageDistance.Calculate(
     ImageDistance := fbResult
 );
 
-AssertError(iFallible := fbCalcImageDistance);
+AssertError(Fallible := fbCalcImageDistance);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -631,11 +631,11 @@ fbCalcImageDistance.Calculate(
     ImageDistance := fbResult
 );
 
-AssertError(iFallible := fbCalcImageDistance);
+AssertError(Fallible := fbCalcImageDistance);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -686,12 +686,12 @@ fbCalcImageDistance.Calculate(
     ImageDistance := fbResult
 );
 
-AssertNoError(iFallible := fbCalcImageDistance);
+AssertNoError(Fallible := fbCalcImageDistance);
 
 AssertNoErrorExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult,
-    fDelta := ABS(0.001 * fbExpected.Val)
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();

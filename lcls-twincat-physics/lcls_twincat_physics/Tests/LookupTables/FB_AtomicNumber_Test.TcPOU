@@ -11,13 +11,11 @@ END_VAR
       <ST><![CDATA[
 nTestID := 0;
 
-TestInvalidElementExpectNotFoundAndNegAtomicNumber(
-    sName := 'INVALID'
-);
+TestInvalidElementExpectNotFoundAndNegAtomicNumber();
 
-TestLookupInvalidElementExpectNotFoundAndNegAtomicNumber(
-    sName := 'INVALID'
-);
+TestLookupInvalidElementExpectNotFoundAndNoChangeToResult();
+
+TestLookupValidElementDifferentUnitsExpectUnitsChanged();
 
 TestValidElementExpectFoundAndCorrectAtomicNumber(
     sName := 'Be',
@@ -73,21 +71,16 @@ TestLookupValidElementExpectFoundAndCorrectAtomicNumber(
     <Method Name="TestInvalidElementExpectNotFoundAndNegAtomicNumber" Id="{035f3ae2-1d37-4a24-b1c6-fbd41790d608}">
       <Declaration><![CDATA[
 METHOD TestInvalidElementExpectNotFoundAndNegAtomicNumber
-VAR_INPUT
-    sName : STRING;
-END_VAR
 VAR
     fbAtomicNumber : FB_AtomicNumber;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestInvalidElementExpectNotFoundAndNegAtomicNumber ID: ',
-    INT_TO_STRING(nTestID))
-);
+TEST('TestInvalidElementExpectNotFoundAndNegAtomicNumber');
 
 fbAtomicNumber(
-    sName := sName,
+    sName := 'INVALID',
     bFound =>,
     nValue =>,
 );
@@ -115,50 +108,78 @@ AssertTrue(
 );
 
 TEST_FINISHED();
-
-nTestID := nTestID + 1;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestLookupInvalidElementExpectNotFoundAndNegAtomicNumber" Id="{5142e8db-35b4-4b18-bfb6-0da7ca83161e}">
+    <Method Name="TestLookupInvalidElementExpectNotFoundAndNoChangeToResult" Id="{5142e8db-35b4-4b18-bfb6-0da7ca83161e}">
       <Declaration><![CDATA[
-METHOD TestLookupInvalidElementExpectNotFoundAndNegAtomicNumber
-VAR_INPUT
-    sName : STRING;
-END_VAR
+METHOD TestLookupInvalidElementExpectNotFoundAndNoChangeToResult
 VAR
-    nValue : INT;
+    fbExpected : FB_QuantityINTPublicMock;
+    fbResult : FB_QuantityINTPublic(Units := 'Protons');
     fbAtomicNumber : FB_AtomicNumber;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST(CONCAT('TestLookupInvalidElementExpectNotFoundAndNegAtomicNumber ID: ',
-    INT_TO_STRING(nTestID))
+TEST('TestLookupInvalidElementExpectNotFoundAndNoChangeToResult');
+
+// Test Fixture
+fbExpected.Val := 12;
+fbExpected.Units := 'Protons';
+
+fbResult.Val := 12;
+
+// Subject Under Test
+fbAtomicNumber.Lookup(
+    StringToLookup := 'INVALID',
+    Result := fbResult
 );
 
-nValue := fbAtomicNumber.Lookup(StringToLookup := sName);
+AssertError(Fallible := fbAtomicNumber);
 
-AssertTrue(
-    Condition := fbAtomicNumber.GetError(),
-    Message := 'Expected bError bit to be true but it was false.'
-);
-
-AssertFalse(
-    Condition := fbAtomicNumber.GetErrorMsg() = '',
-    Message := 'Expected there to be an error message but there was none.'
-);
-
-AssertTrue(
-    Condition := nValue < 0,
-    Message := CONCAT('Expected atomic number to be negative but it was [',
-        CONCAT(INT_TO_STRING(nValue),
-        '].'))
+AssertErrorExactExpectedQuantityINT(
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
 
 nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupValidElementDifferentUnitsExpectUnitsChanged" Id="{e8649b7c-de37-419b-8392-8a0ae25b5009}">
+      <Declaration><![CDATA[
+METHOD TestLookupValidElementDifferentUnitsExpectUnitsChanged
+VAR
+    fbExpected : FB_QuantityINTPublicMock;
+    fbResult : FB_QuantityINTPublic(Units := '1');
+    fbAtomicNumber : FB_AtomicNumber;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupValidElementDifferentUnitsExpectUnitsChanged');
+
+// Test Fixture
+fbExpected.Val := 4;
+fbExpected.Units := 'Protons';
+
+// Subject Under Test
+fbAtomicNumber.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
+);
+
+AssertNoError(Fallible := fbAtomicNumber);
+
+AssertNoErrorExactExpectedQuantityINT(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
@@ -170,7 +191,8 @@ VAR_INPUT
     nExpectedNumber : INT;
 END_VAR
 VAR
-    nValue : INT;
+    fbExpected : FB_QuantityINTPublicMock;
+    fbResult : FB_QuantityINTPublic(Units := 'Protons');
     fbAtomicNumber : FB_AtomicNumber;
 END_VAR
 ]]></Declaration>
@@ -180,31 +202,21 @@ TEST(CONCAT('TestLookupValidElementExpectFoundAndCorrectAtomicNumber ID: ',
     INT_TO_STRING(nTestID))
 );
 
-nValue := fbAtomicNumber.Lookup(StringToLookup := sName);
+// Test Fixture
+fbExpected.Val := nExpectedNumber;
+fbExpected.Units := 'Protons';
 
-AssertTrue(
-    Condition := fbAtomicNumber.bFound,
-    Message := 'Expected bFound bit to be true but it was false.'
+// Subject Under Test
+fbAtomicNumber.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
 );
 
-AssertFalse(
-    Condition := fbAtomicNumber.GetError(),
-    Message := 'Expected bError bit to be false but it was true.'
-);
+AssertNoError(Fallible := fbAtomicNumber);
 
-AssertTrue(
-    Condition := fbAtomicNumber.GetErrorMsg() = '',
-    Message := 'Expected there to be no error message but there was one.'
-);
-
-AssertEquals_INT(
-    Expected := nExpectedNumber,
-    Actual := nValue,
-    Message := CONCAT('Expected atomic number to be [',
-        CONCAT(INT_TO_STRING(nExpectedNumber),
-        CONCAT('] but it was [',
-        CONCAT(INT_TO_STRING(nValue),
-        ']'))))
+AssertNoErrorExactExpectedQuantityINT(
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();

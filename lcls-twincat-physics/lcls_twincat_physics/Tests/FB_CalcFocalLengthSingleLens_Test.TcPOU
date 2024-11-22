@@ -123,11 +123,11 @@ fbCalcFocalLengthSingleLens.Calculate(
     FocalLength := fbResult
 );
 
-AssertError(iFallible := fbCalcFocalLengthSingleLens);
+AssertError(Fallible := fbCalcFocalLengthSingleLens);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -176,11 +176,11 @@ fbCalcFocalLengthSingleLens.Calculate(
     FocalLength := fbResult
 );
 
-AssertError(iFallible := fbCalcFocalLengthSingleLens);
+AssertError(Fallible := fbCalcFocalLengthSingleLens);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -225,11 +225,11 @@ fbCalcFocalLengthSingleLens.Calculate(
     FocalLength := fbResult
 );
 
-AssertError(iFallible := fbCalcFocalLengthSingleLens);
+AssertError(Fallible := fbCalcFocalLengthSingleLens);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 TEST_FINISHED();
 ]]></ST>
@@ -273,11 +273,11 @@ fbCalcFocalLengthSingleLens.Calculate(
     FocalLength := fbResult
 );
 
-AssertError(iFallible := fbCalcFocalLengthSingleLens);
+AssertError(Fallible := fbCalcFocalLengthSingleLens);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult
+    Expected := fbExpected,
+    Actual := fbResult
 );
 
 TEST_FINISHED();
@@ -336,12 +336,12 @@ fbCalcFocalLengthSingleLens.Calculate(
     FocalLength := fbResult
 );
 
-AssertNoError(iFallible := fbCalcFocalLengthSingleLens);
+AssertNoError(Fallible := fbCalcFocalLengthSingleLens);
 
 AssertNoErrorExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbResult,
-    fDelta := ABS(0.001 * fbExpected.Val)
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();

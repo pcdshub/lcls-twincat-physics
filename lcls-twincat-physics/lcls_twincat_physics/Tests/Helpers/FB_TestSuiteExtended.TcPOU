@@ -11,19 +11,38 @@ FUNCTION_BLOCK FB_TestSuiteExtended EXTENDS FB_TestSuite
       <Declaration><![CDATA[
 METHOD AssertError : REFERENCE TO FB_Test
 VAR_INPUT
-    iFallible : I_Fallible;
+    Fallible : I_Fallible;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 AssertTrue(
-    Condition := iFallible.GetError(),
+    Condition := Fallible.GetError(),
     Message := 'Expected error bit to be true but it was false.'
 );
 
 AssertFalse(
-    Condition := iFallible.GetErrorMsg() = '',
+    Condition := Fallible.GetErrorMsg() = '',
     Message := 'Expected error message to not be empty but it was empty.'
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertErrorExactExpectedQuantityINT" Id="{c0375e2b-21b4-412f-a8a4-1e4c972e2c80}">
+      <Declaration><![CDATA[
+METHOD AssertErrorExactExpectedQuantityINT
+VAR_INPUT
+    Expected : I_QuantityINT;
+    Actual : I_QuantityINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertError(Fallible := Actual);
+
+AssertExactExpectedQuantityINT(
+    Expected := Expected,
+    Actual := Actual
 );
 ]]></ST>
       </Implementation>
@@ -32,17 +51,42 @@ AssertFalse(
       <Declaration><![CDATA[
 METHOD AssertErrorExactExpectedQuantityLREAL
 VAR_INPUT
-    iExpected : I_QuantityLREAL;
-    iActual : I_QuantityLREAL;
+    Expected : I_QuantityLREAL;
+    Actual : I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-AssertNoErrorExpectedQuantityLREAL(
-    iExpected := iExpected,
-    iActual := iActual,
-    fDelta := 0.0
+AssertError(Fallible := Actual);
+
+AssertExactExpectedQuantityLREAL(
+    Expected := Expected,
+    Actual := Actual
 );
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertExactExpectedQuantityINT" Id="{f49b507d-65f5-4fec-8fc2-18ec38fd6ac6}">
+      <Declaration><![CDATA[
+METHOD AssertExactExpectedQuantityINT
+VAR_INPUT
+    Expected : I_QuantityINT;
+    Actual : I_QuantityINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertExpectedQuantity(
+    Expected := Expected,
+    Actual := Actual,
+);
+
+AssertEquals_INT(
+    Expected := Expected.Val,
+    Actual := Actual.Val,
+    Message := 'Expected quantity value did not match actual quantity value.'
+);
+
 ]]></ST>
       </Implementation>
     </Method>
@@ -50,16 +94,16 @@ AssertNoErrorExpectedQuantityLREAL(
       <Declaration><![CDATA[
 METHOD AssertExactExpectedQuantityLREAL
 VAR_INPUT
-    iExpected : I_QuantityLREAL;
-    iActual : I_QuantityLREAL;
+    Expected : I_QuantityLREAL;
+    Actual : I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 AssertExpectedQuantityLREAL(
-    iExpected := iExpected,
-    iActual := iActual,
-    fDelta := 0.0
+    Expected := Expected,
+    Actual := Actual,
+    Delta := 0.0
 );
 ]]></ST>
       </Implementation>
@@ -68,15 +112,15 @@ AssertExpectedQuantityLREAL(
       <Declaration><![CDATA[
 METHOD AssertExpectedQuantity : REFERENCE TO FB_Test
 VAR_INPUT
-    iExpected : I_Quantity;
-    iActual : I_Quantity;
+    Expected : I_Quantity;
+    Actual : I_Quantity;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 AssertEquals_STRING(
-    Expected := iExpected.Units,
-    Actual := iActual.Units,
+    Expected := Expected.Units,
+    Actual := Actual.Units,
     Message := 'The quantity units were not the expected string.'
 );
 ]]></ST>
@@ -86,22 +130,22 @@ AssertEquals_STRING(
       <Declaration><![CDATA[
 METHOD AssertExpectedQuantityLREAL
 VAR_INPUT
-    iExpected : I_QuantityLREAL;
-    iActual : I_QuantityLREAL;
-    fDelta : LREAL;
+    Expected : I_QuantityLREAL;
+    Actual : I_QuantityLREAL;
+    Delta : LREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 AssertExpectedQuantity(
-    iExpected := iExpected,
-    iActual := iActual,
+    Expected := Expected,
+    Actual := Actual,
 );
 
 AssertEquals_LREAL(
-    Expected := iExpected.Val,
-    Actual := iActual.Val,
-    Delta := fDelta,
+    Expected := Expected.Val,
+    Actual := Actual.Val,
+    Delta := Delta,
     Message := 'Expected quantity value did not match actual quantity value.'
 );
 ]]></ST>
@@ -111,21 +155,61 @@ AssertEquals_LREAL(
       <Declaration><![CDATA[
 METHOD PUBLIC AssertNoError
 VAR_INPUT
-    iFallible : I_Fallible;
+    Fallible : I_Fallible;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 AssertFalse(
-    Condition := iFallible.GetError(),
+    Condition := Fallible.GetError(),
     Message := 'Expected error bit to be false but it was true.'
 );
 
 AssertTrue(
-    Condition := iFallible.GetErrorMsg() = '',
+    Condition := Fallible.GetErrorMsg() = '',
     Message := 'Expected error message to be empty but it was not empty.'
 );
 
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertNoErrorDeltaFractionExpectedQuantityLREAL" Id="{301cdc3c-dd7c-4b22-be03-57f066fee865}">
+      <Declaration><![CDATA[
+METHOD AssertNoErrorDeltaFractionExpectedQuantityLREAL
+VAR_INPUT
+    Expected : I_QuantityLREAL;
+    Actual : I_QuantityLREAL;
+    DeltaFraction : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertNoError(Fallible := Actual);
+
+AssertExpectedQuantityLREAL(
+    Expected := Expected,
+    Actual := Actual,
+    Delta := ABS(DeltaFraction * Expected.Val)
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertNoErrorExactExpectedQuantityINT" Id="{49e26438-2ef4-49ae-9325-ea4b92f15b00}">
+      <Declaration><![CDATA[
+METHOD AssertNoErrorExactExpectedQuantityINT
+VAR_INPUT
+    Expected : I_QuantityINT;
+    Actual : I_QuantityINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertNoError(Fallible := Actual);
+
+AssertExactExpectedQuantityINT(
+    Expected := Expected,
+    Actual := Actual
+);
 ]]></ST>
       </Implementation>
     </Method>
@@ -133,16 +217,16 @@ AssertTrue(
       <Declaration><![CDATA[
 METHOD AssertNoErrorExactExpectedQuantityLREAL
 VAR_INPUT
-    iExpected : I_QuantityLREAL;
-    iActual : I_QuantityLREAL;
+    Expected : I_QuantityLREAL;
+    Actual : I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 AssertNoErrorExpectedQuantityLREAL(
-    iExpected := iExpected,
-    iActual := iActual,
-    fDelta := 0.0
+    Expected := Expected,
+    Actual := Actual,
+    Delta := 0.0
 );
 ]]></ST>
       </Implementation>
@@ -151,19 +235,19 @@ AssertNoErrorExpectedQuantityLREAL(
       <Declaration><![CDATA[
 METHOD AssertNoErrorExpectedQuantityLREAL
 VAR_INPUT
-    iExpected : I_QuantityLREAL;
-    iActual : I_QuantityLREAL;
-    fDelta : LREAL;
+    Expected : I_QuantityLREAL;
+    Actual : I_QuantityLREAL;
+    Delta : LREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-AssertNoError(iFallible := iActual);
+AssertNoError(Fallible := Actual);
 
 AssertExpectedQuantityLREAL(
-    iExpected := iExpected,
-    iActual := iActual,
-    fDelta := fDelta
+    Expected := Expected,
+    Actual := Actual,
+    Delta := Delta
 );
 ]]></ST>
       </Implementation>

@@ -127,6 +127,34 @@ THIS^.iConvertUnits := ConvertUnits;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetCurrentResult" Id="{794d6c63-1fdf-4c3c-bbe5-8f2e4a4ea833}">
+      <Declaration><![CDATA[
+METHOD GetCurrentResult
+VAR_IN_OUT
+    FocalLengthCompounded : FB_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbFocalLengthCompounded,
+    DesiredUnits := fbFocalLength.Units,
+    ConvertedQuantity := fbFocalLengthCompounded
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of focal length input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+FocalLengthCompounded := fbFocalLengthCompounded;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Reset" Id="{775e5bba-edca-420a-87f5-347a62f686b1}">
       <Declaration><![CDATA[
 METHOD Reset

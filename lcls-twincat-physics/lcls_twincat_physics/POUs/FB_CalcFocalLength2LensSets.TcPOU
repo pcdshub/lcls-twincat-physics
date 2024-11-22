@@ -138,7 +138,7 @@ IF iLensSetCompounder.GetError() THEN
 END_IF
 
 iLensSetCompounder.Compound(
-    FocalLength := fbImageDistanceUpstream,
+    FocalLength := fbFocalLengthDownstream,
     SourceDistance := fbSourceDistance,
     FocalLengthCompounded := fbFocalLengthCompounded
 );

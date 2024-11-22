@@ -38,7 +38,7 @@ fbLensSet.NumLenses:= 9;
 // Here the test starts
 bResult := fbLensSet.IndexInRange(nIndex := 9);
 
-AssertNoError(iFallible := fbLensSet);
+AssertNoError(Fallible := fbLensSet);
 
 AssertTrue(
     Condition := bResult,
@@ -69,7 +69,7 @@ fbLensSet.NumLenses:= nNumLenses;
 // Here the test starts
 fbLensSet.NumLenses := 0;
 
-AssertError(iFallible := fbLensSet);
+AssertError(Fallible := fbLensSet);
 
 AssertEquals_INT(
     Expected := nNumLenses,
@@ -124,7 +124,7 @@ sResult := fbLens.MaterialFormula;
 nResult := fbLens.Multiplier;
 fbLens.GetRadius(Radius := fbRadiusResult);
 
-AssertNoError(iFallible := fbLensSet);
+AssertNoError(Fallible := fbLensSet);
 
 AssertEquals_STRING(
     Expected := sExpected,
@@ -139,8 +139,8 @@ AssertEquals_INT(
 );
 
 AssertNoErrorExactExpectedQuantityLREAL(
-    iExpected := fbRadiusMock,
-    iActual := fbRadiusResult
+    Expected := fbRadiusMock,
+    Actual := fbRadiusResult
 );
 
 TEST_FINISHED();
@@ -168,7 +168,7 @@ nNumLenses := 5;
 // Here the test starts
 fbLensSet.NumLenses:= nNumLenses;
 
-AssertNoError(iFallible := fbLensSet);
+AssertNoError(Fallible := fbLensSet);
 
 AssertEquals_INT(
     Expected := nNumLenses,
@@ -199,7 +199,7 @@ fbLensSet.NumLenses:= 9;
 // Here the test starts
 bResult := fbLensSet.IndexInRange(nIndex := fbLensSet.NumLenses + 1);
 
-AssertNoError(iFallible := fbLensSet);
+AssertNoError(Fallible := fbLensSet);
 
 AssertFalse(
     Condition := bResult,
@@ -229,7 +229,7 @@ fbLensSet.NumLenses:= 9;
 // Here the test starts
 bResult := fbLensSet.IndexInRange(nIndex := 0);
 
-AssertNoError(iFallible := fbLensSet);
+AssertNoError(Fallible := fbLensSet);
 
 AssertFalse(
     Condition := bResult,

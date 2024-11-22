@@ -153,6 +153,34 @@ THIS^.iCalcImageDistance := CalcImageDistance;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetCurrentResult" Id="{a031ddb8-dd2d-4c01-ac6e-a159c01cfdae}">
+      <Declaration><![CDATA[
+METHOD GetCurrentResult
+VAR_IN_OUT
+    FocalLengthCompounded : FB_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbFocalLengthCompounded,
+    DesiredUnits := fbFocalLength.Units,
+    ConvertedQuantity := fbFocalLengthCompounded
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of focal length input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    FocalLengthCompounded.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+FocalLengthCompounded := fbFocalLengthCompounded;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Reset" Id="{964519e4-1caa-4e37-9ecd-f4a5e090d640}">
       <Declaration><![CDATA[
 METHOD Reset

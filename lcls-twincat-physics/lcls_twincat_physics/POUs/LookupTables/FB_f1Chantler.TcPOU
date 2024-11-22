@@ -57,11 +57,13 @@ VAR_INPUT
     bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
     bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 
+    ConvertUnits : I_ConvertUnitsLREAL;
     Energy : I_QuantityLREAL; // The photon energy of the x-rays.
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
 THIS^.iEnergy := Energy;
 
 MakeTables();
@@ -170,6 +172,7 @@ IF iEnergy.GetError() THEN
         CONCAT(iEnergy.GetErrorMsg(),
         ']'))
     );
+    Result.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
@@ -184,6 +187,7 @@ IF iConvertUnits.GetError() THEN
         CONCAT('Error returned when attempting to convert units of photon energy input: ',
         iConvertUnits.GetErrorMsg())
     );
+    Result.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
@@ -198,6 +202,7 @@ IF fbEnergy.Val < fMineV OR fbEnergy.Val > fMaxeV THEN
         CONCAT(LREAL_TO_STRING(fMaxeV),
         ' eV].'))))))
     );
+    Result.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
@@ -239,6 +244,7 @@ fbf1.Val := F_LagrangePolyInterp(
 
 IF bInterpError THEN
     SetError(Msg := sInterpErrorMsg);
+    Result.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 

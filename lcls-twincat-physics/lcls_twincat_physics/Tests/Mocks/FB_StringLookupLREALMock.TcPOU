@@ -30,7 +30,7 @@ Result := fbValue;
       <Declaration><![CDATA[
 METHOD SetResult
 VAR_INPUT
-    Result : FB_QuantityLREALPublic(Units := '');
+    Result : I_QuantityLREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>

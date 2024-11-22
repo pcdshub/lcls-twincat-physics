@@ -176,6 +176,9 @@
     <Compile Include="Tests\Fallibles\FB_Fallible_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\Fallibles\FB_FalliblePublic_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\FB_CalcFocalLength2LensSet_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -217,27 +220,27 @@
     </Compile>
     <Compile Include="Tests\LookupTables\FB_AtomicMass_Test.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_ElementLUT_Test.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_AtomicNumber_Test.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_f1Chantler_Test.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_ScatteringFactorLUT_Test.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\LookupTables\FB_ElementDensity_Test.TcPOU">
       <SubType>Code</SubType>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
     <Compile Include="Tests\Mocks\FB_CalcFocalLengthSingleLensMock.TcPOU">
       <SubType>Code</SubType>

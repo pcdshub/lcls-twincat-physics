@@ -29,6 +29,19 @@ FocalLengthCompounded := fbFocalLengthCompounded;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="GetCurrentResult" Id="{9e0bbfd4-2b08-407b-8a31-a076896a341a}">
+      <Declaration><![CDATA[
+METHOD GetCurrentResult
+VAR_IN_OUT
+    FocalLengthCompounded : FB_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+FocalLengthCompounded := fbFocalLengthCompounded;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Reset" Id="{01cee560-272e-4fe8-acac-ea83151ba838}">
       <Declaration><![CDATA[
 METHOD Reset

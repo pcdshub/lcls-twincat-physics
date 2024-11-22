@@ -378,11 +378,11 @@ fbLensCompounder.Compound(
     FocalLengthCompounded := fbFocalLengthCompounded
 );
 
-AssertError(iFallible := fbLensCompounder);
+AssertError(Fallible := fbLensCompounder);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbFocalLengthCompounded
+    Expected := fbExpected,
+    Actual := fbFocalLengthCompounded
 );
 
 TEST_FINISHED();
@@ -425,11 +425,11 @@ fbLensCompounder.Compound(
     FocalLengthCompounded := fbFocalLengthCompounded
 );
 
-AssertError(iFallible := fbLensCompounder);
+AssertError(Fallible := fbLensCompounder);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbFocalLengthCompounded
+    Expected := fbExpected,
+    Actual := fbFocalLengthCompounded
 );
 
 TEST_FINISHED();
@@ -472,11 +472,11 @@ fbLensCompounder.Compound(
     FocalLengthCompounded := fbFocalLengthCompounded
 );
 
-AssertError(iFallible := fbLensCompounder);
+AssertError(Fallible := fbLensCompounder);
 
 AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbFocalLengthCompounded
+    Expected := fbExpected,
+    Actual := fbFocalLengthCompounded
 );
 
 TEST_FINISHED();
@@ -521,11 +521,13 @@ fbLensCompounder.Compound(
 
 fbLensCompounder.Reset();
 
-AssertNoError(iFallible := fbLensCompounder);
+fbLensCompounder.GetCurrentResult(FocalLengthCompounded := fbFocalLengthCompounded);
 
-AssertErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbFocalLengthCompounded
+AssertNoError(Fallible := fbLensCompounder);
+
+AssertNoErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbFocalLengthCompounded
 );
 
 TEST_FINISHED();
@@ -578,11 +580,11 @@ fbLensCompounder.Compound(
     FocalLengthCompounded := fbFocalLengthCompounded
 );
 
-AssertNoError(iFallible := fbLensCompounder);
+AssertNoError(Fallible := fbLensCompounder);
 
 AssertNoErrorExactExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbFocalLengthCompounded
+    Expected := fbExpected,
+    Actual := fbFocalLengthCompounded
 );
 
 TEST_FINISHED();
@@ -643,12 +645,12 @@ fbLensCompounder.Compound(
     FocalLengthCompounded := fbFocalLengthCompounded
 );
 
-AssertNoError(iFallible := fbLensCompounder);
+AssertNoError(Fallible := fbLensCompounder);
 
 AssertNoErrorExpectedQuantityLREAL(
-    iExpected := fbExpected,
-    iActual := fbFocalLengthCompounded,
-    fDelta := ABS(0.001 * fbExpected.Val)
+    Expected := fbExpected,
+    Actual := fbFocalLengthCompounded,
+    Delta := ABS(0.001 * fbExpected.Val)
 );
 
 TEST_FINISHED();
