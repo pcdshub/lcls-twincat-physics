@@ -9,11 +9,89 @@ VAR
 
     afbLens : ARRAY [1..GVL_Physics.nMaxNumLensesInSet] OF FB_Lens;
     nNumLenses : INT;
+
+    nIndex : INT;
+    fbLensToCompare : FB_Lens;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Copy" Id="{3821df4e-e750-4186-9812-ba052484d4f4}">
+      <Declaration><![CDATA[
+METHOD Copy
+VAR_INPUT
+    LensSet : I_LensSet;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+
+IF LensSet.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens set has the following error message: [',
+        CONCAT(LensSet.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+IF LensSet.NumLenses < 1 THEN
+    SetError(Msg := 'The input lens set has less than 1 lens.');
+    RETURN;
+END_IF
+
+FOR nIndex := 1 TO LensSet.NumLenses BY 1 DO
+    LensSet.GetLens(LensNum := nIndex, Lens := fbLens);
+
+    IF LensSet.GetError() THEN
+        SetError(
+            Msg := CONCAT('The input lens set has the following error message after getting a lens: [',
+            CONCAT(LensSet.GetErrorMsg(),
+            ']'))
+        );
+        RETURN;
+    END_IF
+
+    afbLens[nIndex] := fbLens;
+
+    nNumLenses := nIndex;
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Equals" Id="{95cb53e2-d03a-4c63-9880-4637e39a1ba5}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    LensSet : I_LensSet;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Equals := TRUE;
+
+IF LensSet.NumLenses <> NumLenses THEN
+    Equals := FALSE;
+
+    RETURN;
+END_IF
+
+FOR nIndex := 1 TO NumLenses BY 1 DO
+    GetLens(LensNum := nIndex, Lens := fbLens);
+
+    LensSet.GetLens(LensNum := nIndex, Lens := fbLensToCompare);
+
+    IF NOT fbLens.Equals(Lens := fbLensToCompare) THEN
+        Equals := FALSE;
+
+        RETURN;
+    END_IF
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetLens" Id="{9e1ed0e8-5daa-4afd-85a9-a0c8ba1a6071}">
       <Declaration><![CDATA[
 METHOD GetLens

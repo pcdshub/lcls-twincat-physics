@@ -4,6 +4,14 @@
     <Declaration><![CDATA[
 INTERFACE I_QuantityINT EXTENDS I_Quantity
 ]]></Declaration>
+    <Method Name="Equals" Id="{75922ae9-885c-4929-8e5f-49b17d0821f4}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    Quantity : I_QuantityINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Property Name="Val" Id="{557475ef-ad12-4e0b-9044-e63f1495b352}">
       <Declaration><![CDATA[
 PROPERTY Val : INT

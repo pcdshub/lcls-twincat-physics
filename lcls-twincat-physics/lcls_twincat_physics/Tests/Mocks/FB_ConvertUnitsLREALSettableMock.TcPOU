@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ConvertUnitsLREALSettableMock" Id="{c3a1e0f5-b0f0-4b5e-a31a-9e11710a5a7d}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_ConvertUnitsLREALSettableMock EXTENDS FB_ConvertUnitsLREALMock IMPLEMENTS I_ConvertUnitsLREAL
+VAR
+    fbResult : FB_QuantityLREALPublic(Units := '');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ConvertQuantityLREAL" Id="{76d900c9-aa3d-4714-8f19-b8de62b23393}">
+      <Declaration><![CDATA[
+METHOD ConvertQuantityLREAL
+VAR_INPUT
+    QuantityToConvert	: I_QuantityLREAL;
+    DesiredUnits	: T_MaxString;
+    ConvertedQuantity	: I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ConvertedQuantity := fbResult;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{986d2d44-29a4-4678-ab35-e99a3bc52974}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbResult.Copy(QuantityToCopy := Result);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

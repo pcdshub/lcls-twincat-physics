@@ -4,6 +4,14 @@
     <Declaration><![CDATA[
 INTERFACE I_QuantityLREAL EXTENDS I_Quantity
 ]]></Declaration>
+    <Method Name="Equals" Id="{fa763e10-9d99-44ce-8923-440c5f0c6aec}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    Quantity : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+    </Method>
     <Property Name="Val" Id="{b2d2511a-043b-42b2-ab27-3fd7bcd93780}">
       <Declaration><![CDATA[
 PROPERTY Val : LREAL

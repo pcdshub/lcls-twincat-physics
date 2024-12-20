@@ -20,6 +20,8 @@ VAR
 
     {attribute 'pytmc' := 'pv: Radius'}
     fbRadius : FB_QuantityLREALPublic(Units := 'm');
+
+    fbRadiusToCompare : FB_QuantityLREALPublic(Units := 'm');
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -58,6 +60,23 @@ END_IF
 
 MaterialFormula := Lens.MaterialFormula;
 Multiplier := Lens.Multiplier;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Equals" Id="{c769d50a-3bdd-4943-91c7-1cf626c61eb9}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    Lens : I_Lens;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Lens.GetRadius(Radius := fbRadiusToCompare);
+
+Equals := fbRadius.Equals(Quantity := fbRadiusToCompare) AND
+    Lens.MaterialFormula = MaterialFormula AND
+    Lens.Multiplier = Multiplier;
 ]]></ST>
       </Implementation>
     </Method>

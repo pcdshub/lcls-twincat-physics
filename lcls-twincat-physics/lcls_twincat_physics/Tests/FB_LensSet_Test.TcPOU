@@ -6,6 +6,8 @@ FUNCTION_BLOCK FB_LensSet_Test EXTENDS FB_TestSuiteExtended
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
+TestCopyExpectNoErrorCorrectValue();
+
 TestIndexIndexInRangeExpectTrue();
 
 TestSetInvalidNumLensesExpectErrorNoChangeToValue();
@@ -19,6 +21,70 @@ TestTooHighIndexIndexInRangeExpectFalse();
 TestTooLowIndexIndexInRangeExpectFalse();
 ]]></ST>
     </Implementation>
+    <Method Name="TestCopyExpectNoErrorCorrectValue" Id="{3986ce4c-eaf8-4b42-95ab-15c85277cc24}">
+      <Declaration><![CDATA[
+METHOD TestCopyExpectNoErrorCorrectValue
+VAR
+    fbLensMock : FB_LensMock;
+    fbLensSetMock : FB_LensSetMock;
+    fbRadiusMock : FB_QuantityLREALPublicMock;
+
+    // Subject under test
+    fbLensSet : FB_LensSet;
+    fbLens : FB_Lens;
+    fbLensExpected : FB_Lens;
+    fbRadiusExpected : FB_QuantityLREALPublic(Units := 'm');
+    fbRadiusResult : FB_QuantityLREALPublic(Units := 'm');
+
+    sExpected : T_MaxString;
+    nExpected : INT;
+    sResult : T_MaxString;
+    nResult : INT;
+
+    nIndex : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestCopyExpectNoErrorCorrectValue');
+
+// Test Fixture
+
+fbLensSetMock.SetValid();
+
+fbLensSetMock.NumLenses := 4;
+
+FOR nIndex := 1 TO fbLensSetMock.NumLenses BY 1 DO
+    fbLensSetMock.SetMaterialNameOf(LensNum := nIndex, MaterialFormula := INT_TO_STRING(nIndex));
+    fbLensSetMock.SetMultiplierOf(LensNum := nIndex, Multiplier := nIndex * 2);
+    fbRadiusMock.Val := INT_TO_LREAL(nIndex * 3);
+    fbRadiusMock.Units := INT_TO_STRING(nIndex * 4);
+    fbLensSetMock.SetRadiusOf(LensNum := nIndex, Radius := fbRadiusMock);
+END_FOR
+
+AssertFalse(
+    Condition := fbLensSet.Equals(fbLensSetMock),
+    Message := 'Lens set should not equal other lens set before copy occurs.'
+);
+
+AssertNoError(Fallible := fbLensSet);
+
+// Here the test starts
+fbLensSet.Copy(LensSet := fbLensSetMock);
+
+AssertNoError(Fallible := fbLensSet);
+
+AssertTrue(
+    Condition := fbLensSet.Equals(fbLensSetMock),
+    Message := 'Lens set did not have the expected result after copy executed.'
+);
+
+AssertNoError(Fallible := fbLensSet);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="TestIndexIndexInRangeExpectTrue" Id="{1564fb33-badf-45fa-8b05-f60c5ace519e}">
       <Declaration><![CDATA[
 METHOD TestIndexIndexInRangeExpectTrue

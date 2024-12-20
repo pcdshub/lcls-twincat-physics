@@ -242,6 +242,9 @@
       <SubType>Code</SubType>
       <ExcludeFromBuild>false</ExcludeFromBuild>
     </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcFocalLength2LensSetsMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\Mocks\FB_CalcFocalLengthSingleLensMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -255,6 +258,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Mocks\FB_ConvertUnitsLREALMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_ConvertUnitsLREALSettableMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Mocks\FB_FalliblePublicMock.TcPOU">

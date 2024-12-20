@@ -42,6 +42,19 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Equals" Id="{a3c906de-6891-4e18-bf17-5b94f506c4b4}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    Quantity : I_QuantityINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Equals := Quantity.Units = Units AND Quantity.Val = Val;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_Init" Id="{5707d2e2-0fa5-4325-b044-341311ed4385}">
       <Declaration><![CDATA[
 METHOD FB_Init: BOOL

@@ -11,6 +11,39 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Copy" Id="{2750d99e-b0cb-4ae8-85e0-f3708d488206}">
+      <Declaration><![CDATA[
+METHOD Copy
+VAR_INPUT
+    QuantityToCopy : I_QuantityINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Val := QuantityToCopy.Val;
+Units := QuantityToCopy.Units;
+
+IF QuantityToCopy.GetError() THEN
+    SetError(Msg := QuantityToCopy.GetErrorMsg());
+ELSE
+    ClearError();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Equals" Id="{1947b1d1-c2a2-456d-afe6-cdf6e06bcaf0}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    Quantity	: I_QuantityINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Equals := Quantity.Units = Units AND Quantity.Val = Val;
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Units" Id="{04680986-f99a-4221-a383-34b986d809d4}">
       <Declaration><![CDATA[
 PROPERTY Units : T_MaxString
