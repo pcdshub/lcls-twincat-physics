@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.11" ClassName="CNestedPlcProjDef">
 	<Project GUID="{923B58D7-ACD6-43CB-8E2A-D2F64687C200}" Name="LCLS_TwinCAT_Physics" PrjFilePath="..\..\lcls_twincat_physics\LCLS_TwinCAT_Physics.plcproj" TmcFilePath="..\..\lcls_twincat_physics\lcls_twincat_physics.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{215C402F-6388-28E8-35CE-106532DD0B53}" TmcPath="lcls_twincat_physics\lcls_twincat_physics.tmc">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{96276A37-FEF9-B1F1-CBE5-ABB21E10DDE6}" TmcPath="lcls_twincat_physics\lcls_twincat_physics.tmc">
 			<Name>lcls_twincat_physics Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Contexts>

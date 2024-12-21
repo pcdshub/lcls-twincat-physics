@@ -8,9 +8,9 @@ FUNCTION_BLOCK FB_CalcFocalLength2LensSet_Test EXTENDS FB_TestSuiteExtended
       <ST><![CDATA[
 TestIntegrationValidInputsExpectNoErrorCorrectFocalLength();
 
-TestInvalidCalcFocalLengthExpectError0FocalLength();
+TestInvalidCalcFocalLengthExpectErrorUnchangedFocalLength();
 
-TestInvalidLensSetCompounderExpectError0FocalLength();
+TestInvalidLensSetCompounderExpectErrorUnchangedFocalLength();
 ]]></ST>
     </Implementation>
     <Method Name="AssertError0Result" Id="{680c3f97-1e1b-4b2b-b5f5-3f9b5fc8d262}">
@@ -982,9 +982,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestInvalidCalcFocalLengthExpectError0FocalLength" Id="{a5181570-3139-498e-a11b-a5a831ca649e}">
+    <Method Name="TestInvalidCalcFocalLengthExpectErrorUnchangedFocalLength" Id="{a5181570-3139-498e-a11b-a5a831ca649e}">
       <Declaration><![CDATA[
-METHOD PRIVATE TestInvalidCalcFocalLengthExpectError0FocalLength
+METHOD PRIVATE TestInvalidCalcFocalLengthExpectErrorUnchangedFocalLength
 VAR
     fbLensSetUpstreamMock : FB_LensSetMock;
     fbLensSetDownstreamMock : FB_LensSetMock;
@@ -1005,10 +1005,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestInvalidCalcFocalLengthExpectError0FocalLength');
+TEST('TestInvalidCalcFocalLengthExpectErrorUnchangedFocalLength');
 
 // Test fixture
-fbExpected.Val := 0.0;
+fbResult.Val := 1.23;
+fbExpected.Val := 1.23;
 fbExpected.Units := 'm';
 
 fbLensSetUpstreamMock.SetValid();
@@ -1041,9 +1042,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestInvalidLensSetCompounderExpectError0FocalLength" Id="{9a49607c-94d1-4854-8627-98384369e4ee}">
+    <Method Name="TestInvalidLensSetCompounderExpectErrorUnchangedFocalLength" Id="{9a49607c-94d1-4854-8627-98384369e4ee}">
       <Declaration><![CDATA[
-METHOD PRIVATE TestInvalidLensSetCompounderExpectError0FocalLength
+METHOD PRIVATE TestInvalidLensSetCompounderExpectErrorUnchangedFocalLength
 VAR
     fbLensSetUpstreamMock : FB_LensSetMock;
     fbLensSetDownstreamMock : FB_LensSetMock;
@@ -1064,10 +1065,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestInvalidLensSetCompounderExpectError0FocalLength');
+TEST('TestInvalidLensSetCompounderExpectErrorUnchangedFocalLength');
 
 // Test fixture
-fbExpected.Val := 0.0;
+fbResult.Val := 1.23;
+fbExpected.Val := 1.23;
 fbExpected.Units := 'm';
 
 fbLensSetUpstreamMock.SetValid();

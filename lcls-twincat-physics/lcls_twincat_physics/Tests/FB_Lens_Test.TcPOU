@@ -25,7 +25,6 @@ TestSetRadiusGetRadiusExpectNoErrorValueSet();
       <Declaration><![CDATA[
 METHOD Test0MultiplierExpectErrorValueUnchanged
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
     fbLens : FB_Lens;
     nMultiplier : INT;
@@ -39,6 +38,12 @@ TEST('Test0MultiplierExpectErrorValueUnchanged');
 nMultiplier := 34;
 
 fbLens.Multiplier := nMultiplier;
+
+AssertEquals_INT(
+    Expected := nMultiplier,
+    Actual := fbLens.Multiplier,
+    Message := 'Multiplier value should match before test starts.'
+);
 
 // Here the test starts
 fbLens.Multiplier := 0;
@@ -61,7 +66,6 @@ METHOD Test0RadiusExpectErrorValueUnchanged
 VAR
     fbRadius : FB_QuantityLREALPublicMock;
     fbRadiusExpected : FB_QuantityLREALPublicMock;
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
     fbLens : FB_Lens;
     fbRadiusActual : FB_QuantityLREALPublic(Units := '1');
@@ -104,7 +108,6 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestNegMultiplierExpectErrorValueUnchanged
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
     fbLens : FB_Lens;
     nMultiplier : INT;
@@ -140,7 +143,6 @@ METHOD TestNegRadiusExpectErrorValueUnchanged
 VAR
     fbRadius : FB_QuantityLREALPublicMock;
     fbRadiusExpected : FB_QuantityLREALPublicMock;
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
     fbLens : FB_Lens;
     fbRadiusActual : FB_QuantityLREALPublic(Units := '1');
@@ -183,7 +185,6 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetMaterialGetMaterialNameExpectNoErrorValueSet
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
     fbLens : FB_Lens;
     sMaterialName : T_MaxString;
@@ -214,7 +215,6 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetMultiplierGetMultiplierExpectNoErrorValueSet
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
     fbLens : FB_Lens;
     nMultiplier : INT;
@@ -246,7 +246,6 @@ TEST_FINISHED();
 METHOD TestSetRadiusGetRadiusExpectNoErrorValueSet
 VAR
     fbRadius : FB_QuantityLREALPublicMock;
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
     // Subject under test
     fbLens : FB_Lens;
     fbRadiusActual : FB_QuantityLREALPublic(Units := '1');

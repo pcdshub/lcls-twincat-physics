@@ -15,14 +15,12 @@ END_VAR
 METHOD Lookup
 VAR_INPUT
     StringToLookup : T_MaxString;
-END_VAR
-VAR_IN_OUT
-    Result : FB_QuantityINTPublic(Units := '1');
+    Result : I_QuantityINTPublic;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-Result := fbValue;
+Result.Copy(QuantityToCopy := fbValue);
 ]]></ST>
       </Implementation>
     </Method>

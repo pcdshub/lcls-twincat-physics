@@ -72,6 +72,13 @@ ELSIF sName = 'C' THEN
     sUnits := 'None';
     sCaveat := 'None';
     bFound := TRUE;
+ELSIF sName = 'Diamond' OR sName = 'diamond' OR sName = 'dmd' THEN
+    nValue := 6;
+    fUncertainty := 0;
+    sDescription := 'Atomic number of C (carbon - diamond)';
+    sUnits := 'None';
+    sCaveat := 'None';
+    bFound := TRUE;
 ELSIF sName = 'N' THEN
     nValue := 7;
     fUncertainty := 0;
@@ -884,11 +891,8 @@ fbAtomicNumber.ClearError();
 METHOD Lookup
 VAR_INPUT
     StringToLookup : T_MaxString;
+    Result : I_QuantityINTPublic;
 END_VAR
-VAR_IN_OUT
-    Result : FB_QuantityINTPublic(Units := 'Protons');
-END_VAR
-
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
@@ -906,7 +910,7 @@ IF GetError() THEN
     RETURN;
 END_IF
 
-Result := fbAtomicNumber;]]></ST>
+Result.Copy(fbAtomicNumber);]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetError" Id="{1ad3a2e8-9293-49dd-8e1f-6b32f9393ba8}">

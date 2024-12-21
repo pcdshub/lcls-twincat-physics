@@ -9,9 +9,7 @@ INTERFACE I_StringLookupElement EXTENDS I_Fallible
 METHOD LookupAtomicMass
 VAR_INPUT
     ElementName : T_MaxString;
-END_VAR
-VAR_IN_OUT
-    AtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
+    AtomicMass : I_QuantityLREALPublic;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -20,9 +18,7 @@ END_VAR
 METHOD LookupAtomicNumber
 VAR_INPUT
     ElementName : T_MaxString;
-END_VAR
-VAR_IN_OUT
-    AtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
+    AtomicNumber : I_QuantityINTPublic;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -31,9 +27,7 @@ END_VAR
 METHOD LookupDensity
 VAR_INPUT
     ElementName : T_MaxString;
-END_VAR
-VAR_IN_OUT
-    Density : FB_QuantityLREALPublic(Units := 'g/cm**3');
+    Density : I_QuantityLREALPublic;
 END_VAR
 ]]></Declaration>
     </Method>

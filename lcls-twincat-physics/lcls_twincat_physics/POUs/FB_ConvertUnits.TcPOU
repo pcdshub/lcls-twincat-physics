@@ -157,11 +157,12 @@ GetConversionToBase(
     fOffsetFactorToBase => fOffsetInputToBaseUnits,
     sBaseUnitLong => sBaseUnitLong,
     sBaseUnitShort => sBaseUnitShort,
-    bError => bError,
-    sErrorMsg => sErrorMsg
+    bErrorOut => THIS^.bError,
+    sErrorMsgOut => THIS^.sErrorMsg
 );
 
 IF GetError() THEN
+    ConvertedQuantity.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
@@ -169,11 +170,12 @@ GetConversionToBase(
     sUnit := DesiredUnits,
     fConversionFactorToBase => fConversionDesiredToBaseUnits,
     fOffsetFactorToBase => fOffsetDesiredToBaseUnits,
-    bError => bError,
-    sErrorMsg => sErrorMsg
+    bErrorOut => bError,
+    sErrorMsgOut => sErrorMsg
 );
 
 IF GetError() THEN
+    ConvertedQuantity.SetError(Msg := GetErrorMsg());
     RETURN;
 END_IF
 
@@ -195,16 +197,16 @@ VAR_OUTPUT
     sBaseUnitShort : T_MaxString;
     fConversionFactorToBase : LREAL;
     fOffsetFactorToBase : LREAL;
-    bError : BOOL;
-    sErrorMsg : T_MaxString;
+    bErrorOut : BOOL;
+    sErrorMsgOut : T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 sBaseUnitLong := '';
 sBaseUnitShort := '';
-bError := FALSE;
-sErrorMsg := '';
+bErrorOut := FALSE;
+sErrorMsgOut := '';
 
 IF sUnit = 'kilometer' OR sUnit = 'KILOMETER' OR sUnit = 'km' THEN
     sBaseUnitLong := 'meter';
@@ -240,6 +242,71 @@ ELSIF sUnit = 'picometer' OR sUnit = 'PICOMETER' OR sUnit = 'pm' THEN
     sBaseUnitLong := 'meter';
     sBaseUnitShort := 'm';
     fConversionFactorToBase := 1e-12;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/kilometer' OR sUnit = '1/KILOMETER' OR sUnit = '1/km' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 0.001;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/meter' OR sUnit = '1/METER' OR sUnit = '1/m' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/centimeter' OR sUnit = '1/CENTIMETER' OR sUnit = '1/cm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 100.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/millimeter' OR sUnit = '1/MILLIMETER' OR sUnit = '1/mm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/micrometer' OR sUnit = '1/MICROMETER' OR sUnit = '1/µm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1000000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/nanometer' OR sUnit = '1/NANOMETER' OR sUnit = '1/nm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 999999999.9999999;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/picometer' OR sUnit = '1/PICOMETER' OR sUnit = '1/pm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1000000000000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/inch' OR sUnit = '1/INCH' OR sUnit = '1/in' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 39.37007874015748;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/mile' OR sUnit = '1/MILE' OR sUnit = '1/mi' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 0.0006213711922373339;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/foot' OR sUnit = '1/FOOT' OR sUnit = '1/ft' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 3.2808398950131235;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/mil' OR sUnit = '1/MIL' OR sUnit = '1/mil' THEN
+    sBaseUnitLong := '1/radian';
+    sBaseUnitShort := '1/rad';
+    fConversionFactorToBase := 10185.916357881302;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/micron' OR sUnit = '1/MICRON' OR sUnit = '1/µ' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1000000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/yard' OR sUnit = '1/YARD' OR sUnit = '1/yd' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1.0936132983377078;
     fOffsetFactorToBase := 0.0;
 ELSIF sUnit = 'kilometer/second' OR sUnit = 'KILOMETER/SECOND' OR sUnit = 'km/s' THEN
     sBaseUnitLong := 'meter/second';
@@ -749,8 +816,8 @@ ELSIF sUnit = 'standard_atmosphere' OR sUnit = 'STANDARD_ATMOSPHERE' OR sUnit = 
 ELSE
     sBaseUnitLong := 'INVALID';
     sBaseUnitShort := 'INVALID';
-    bError := TRUE;
-    sErrorMsg := CONCAT('Conversion attempted with unknown unit: [',
+    bErrorOut := TRUE;
+    sErrorMsgOut := CONCAT('Conversion attempted with unknown unit: [',
                  CONCAT(sUnit,
                  ']'));
     fConversionFactorToBase := 1.0;

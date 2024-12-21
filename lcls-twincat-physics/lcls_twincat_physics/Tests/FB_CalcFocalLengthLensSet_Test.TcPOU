@@ -71,6 +71,7 @@ SetInitialLensSetValues(
 
 fbLensSetMock.NumLenses := 0;
 
+fbResult.Val := 4235.2;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -120,6 +121,7 @@ SetInitialLensSetValues(
 
 fbLensCompounderMock.SetError(Msg := 'Error');
 
+fbResult.Val := 4235.2;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -169,6 +171,7 @@ SetInitialLensSetValues(
 
 fbLensSetMock.SetError(Msg := 'Error');
 
+fbResult.Val := 4235.2;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -218,6 +221,7 @@ SetInitialLensSetValues(
 
 fbLensSetMock.NumLenses := -1;
 
+fbResult.Val := 4235.2;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -267,6 +271,7 @@ SetInitialLensSetValues(
 
 fbLensSetMock.NumLenses := GVL_Physics.nMaxNumLensesInSet + 1;
 
+fbResult.Val := 4235.2;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 

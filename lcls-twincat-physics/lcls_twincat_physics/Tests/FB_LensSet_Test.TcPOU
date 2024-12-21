@@ -217,8 +217,6 @@ TEST_FINISHED();
       <Declaration><![CDATA[
 METHOD TestSetNumLensesGetNumLensesExpectNoErrorValueSet
 VAR
-    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
-    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLensMock;
     // Subject under test
     fbLensSet : FB_LensSet;
     nNumLenses : INT;

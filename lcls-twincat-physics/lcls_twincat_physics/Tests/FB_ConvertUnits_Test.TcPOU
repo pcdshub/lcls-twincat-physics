@@ -67,8 +67,9 @@ AssertFalse(
     Message := 'Expected bError bit to be false but it was true.'
 );
 
-AssertFalse(
-    Condition := iQuantity.GetErrorMsg() <> '',
+AssertEquals_STRING(
+    Expected := '',
+    Actual := iQuantity.GetErrorMsg(),
     Message := 'Expected sErrorMsg to be empty.'
 );
 
@@ -138,6 +139,8 @@ fbQuantityMock.ClearError();
 fbQuantityMock.Val := 223.456;
 fbQuantityMock.Units := 'km/s';
 
+fbQuantityOutput.Val := 13;
+
 // Convert km/s to mm/min
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
@@ -145,10 +148,12 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
-AssertNoErrorCorrectResult(
-    iQuantity := fbQuantityMock,
-    fExpected := 223.456,
-    sExpected := 'km/s'
+AssertError(Fallible := fbConvertUnits);
+
+AssertErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := 13,
+    sExpected := '1'
 );
 
 TEST_FINISHED();
@@ -172,6 +177,8 @@ fbQuantityMock.ClearError();
 fbQuantityMock.Val := 123.456;
 fbQuantityMock.Units := 'INVALID';
 
+fbQuantityOutput.Val := 13;
+
 // Convert km/s to mm/min
 fbConvertUnits.ConvertQuantityLREAL(
     QuantityToConvert := fbQuantityMock,
@@ -179,10 +186,12 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
-AssertNoErrorCorrectResult(
-    iQuantity := fbQuantityMock,
-    fExpected := 123.456,
-    sExpected := 'INVALID'
+AssertError(Fallible := fbConvertUnits);
+
+AssertErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := 13,
+    sExpected := '1'
 );
 
 TEST_FINISHED();
@@ -213,6 +222,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 8.930411656902525,
@@ -233,6 +244,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'mm/h',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -255,6 +268,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -283328.74794455693,
@@ -275,6 +290,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'µm/s**2',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -297,6 +314,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 96892074.08186707,
@@ -317,6 +336,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'cm/h',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -339,6 +360,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 39.90297869340968,
@@ -359,6 +382,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'µm/min',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -381,6 +406,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -130.78303058163414,
@@ -401,6 +428,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'ft/min',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -423,6 +452,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 0.009573165057296329,
@@ -443,6 +474,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'pg',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -465,6 +498,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -74230.65419343734,
@@ -486,6 +521,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -3116.912127853686,
@@ -493,8 +530,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[a]TO[year]');
 
@@ -509,6 +544,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -242.69670049333945,
@@ -516,8 +553,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[kelvin]TO[kelvin]');
 
@@ -532,6 +567,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 9832.917859291003,
@@ -539,8 +576,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[ft]TO[ft]');
 
@@ -555,6 +590,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 7508.322458867668,
@@ -562,10 +599,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
-
-
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[kiloampere]TO[A]');
 
@@ -579,6 +612,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'A',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -601,6 +636,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 3079036.348483854,
@@ -608,7 +645,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[microgram]TO[picogram]');
 
@@ -622,6 +658,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'picogram',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -643,6 +681,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'µPa',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -666,6 +706,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 33197615.8308794,
@@ -687,6 +729,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -174106182.29567537,
@@ -694,8 +738,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[in/s**2]TO[foot/second**2]');
 
@@ -710,6 +752,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -714.4607905921682,
@@ -717,7 +761,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[kilogram]TO[microgram]');
 
@@ -732,6 +775,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 1837332114115.7212,
@@ -739,7 +784,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[ms]TO[month]');
 
@@ -754,6 +798,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -3.516028371197377e-06,
@@ -761,7 +807,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[cm/h]TO[ft/min]');
 
@@ -775,6 +820,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'ft/min',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -797,6 +844,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -1797.9127614233512,
@@ -817,6 +866,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'kA',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -847,7 +898,6 @@ AssertNoErrorCorrectResult(
 
 TEST_FINISHED();
 
-
 TEST('TestValidInputExpectNoErrorCorrectResult[mile/minute]TO[millimeter/hour]');
 
 fbQuantityMock.ClearError();
@@ -860,6 +910,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'millimeter/hour',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -882,6 +934,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -943048.524565238,
@@ -889,7 +943,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[nanometer]TO[in]');
 
@@ -904,6 +957,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -3.476754668644948e-05,
@@ -911,7 +966,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[µ/s]TO[mi/min]');
 
@@ -925,6 +979,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'mi/min',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -947,6 +1003,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -3171.6356385593162,
@@ -968,6 +1026,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 5696739494.12332,
@@ -975,7 +1035,6 @@ AssertNoErrorCorrectResult(
 );
 
 TEST_FINISHED();
-
 
 TEST('TestValidInputExpectNoErrorCorrectResult[µ/min]TO[mile/minute]');
 
@@ -989,6 +1048,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'mile/minute',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1010,6 +1071,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'A',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1034,6 +1097,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -1882029001.0288677,
@@ -1055,6 +1120,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -1.6238411810551339,
@@ -1075,6 +1142,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'nA',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1098,6 +1167,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -3.090745189854089e+18,
@@ -1118,6 +1189,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'µPa',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1141,6 +1214,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 1.1168262210560438,
@@ -1163,6 +1238,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -1.3532102973160874e-07,
@@ -1183,6 +1260,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'ft/s**2',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1205,6 +1284,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 0.0002697172326682519,
@@ -1225,6 +1306,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'picometer',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1247,6 +1330,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -53669.23514327526,
@@ -1267,6 +1352,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'pg',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1289,6 +1376,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -91039764004624.39,
@@ -1309,6 +1398,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'mPa',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1332,6 +1423,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -207.87993421017921,
@@ -1352,6 +1445,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'foot/second**2',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1374,6 +1469,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -7555950133888.255,
@@ -1394,6 +1491,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'pound_force_per_square_inch',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1417,6 +1516,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 9239.649527516322,
@@ -1438,6 +1539,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'µPa',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1461,6 +1564,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 12849789932.624208,
@@ -1481,6 +1586,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'mile/minute',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1503,6 +1610,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -4.89105481078452,
@@ -1523,6 +1632,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'mA',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1546,6 +1657,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 755465.8601927848,
@@ -1566,6 +1679,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'yd/min',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1588,6 +1703,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 7438.882173078058,
@@ -1608,6 +1725,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'atm',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1631,6 +1750,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 4500500374992.675,
@@ -1651,6 +1772,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'mi/h',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1673,6 +1796,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -0.018189920385032757,
@@ -1693,6 +1818,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'millipascal',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1716,6 +1843,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -402.2176758856767,
@@ -1736,6 +1865,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'yard',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1759,6 +1890,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 0.05877558364412509,
@@ -1780,6 +1913,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -6.641802069865475,
@@ -1800,6 +1935,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'cg',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1823,6 +1960,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 52.63112034808698,
@@ -1843,6 +1982,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'foot/minute',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1865,6 +2006,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -5.821049148594286e-06,
@@ -1885,6 +2028,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'km/min',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1907,6 +2052,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -8.742430920166616e-05,
@@ -1927,6 +2074,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'hour',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1950,6 +2099,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 2361.072426827515,
@@ -1970,6 +2121,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'kilometer/minute',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -1992,6 +2145,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 3296754960643.275,
@@ -2012,6 +2167,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'µ/s',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -2034,6 +2191,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 168127.32664637378,
@@ -2055,6 +2214,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 2831.2309824013373,
@@ -2075,6 +2236,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'nanopascal',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -2098,6 +2261,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -3928259.798646827,
@@ -2120,6 +2285,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -290.97898970632014,
@@ -2140,6 +2307,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'ft/s',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -2162,6 +2331,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := -13677.209283108323,
@@ -2182,6 +2353,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'micrometer/second',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -2204,6 +2377,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 154.68408120098647,
@@ -2224,6 +2399,8 @@ fbConvertUnits.ConvertQuantityLREAL(
     DesiredUnits := 'kPa',
     ConvertedQuantity := fbQuantityOutput
 );
+
+AssertNoError(Fallible := fbConvertUnits);
 
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
@@ -2246,10 +2423,311 @@ fbConvertUnits.ConvertQuantityLREAL(
     ConvertedQuantity := fbQuantityOutput
 );
 
+AssertNoError(Fallible := fbConvertUnits);
+
 AssertNoErrorCorrectResult(
     iQuantity := fbQuantityOutput,
     fExpected := 7.83804135927176e+20,
     sExpected := 'pPa'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/cm]TO[1/pm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -520.7154802751884;
+fbQuantityMock.Units := '1/cm';
+
+// Convert 1/cm to 1/pm
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/pm',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := -5.207154802751884e-08,
+    sExpected := '1/pm'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/micrometer]TO[1/kilometer]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 6123.075300586777;
+fbQuantityMock.Units := '1/micrometer';
+
+// Convert 1/micrometer to 1/kilometer
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/kilometer',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := 6123075300586.777,
+    sExpected := '1/kilometer'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/inch]TO[1/m]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -4687.946948821551;
+fbQuantityMock.Units := '1/inch';
+
+// Convert 1/inch to 1/m
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/m',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := -184564.84050478548,
+    sExpected := '1/m'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/foot]TO[1/nanometer]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -5236.620781043473;
+fbQuantityMock.Units := '1/foot';
+
+// Convert 1/foot to 1/nanometer
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/nanometer',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := -1.7180514373502208e-05,
+    sExpected := '1/nanometer'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/yd]TO[1/mm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 3433.297813684443;
+fbQuantityMock.Units := '1/yd';
+
+// Convert 1/yd to 1/mm
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/mm',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := 3.754700146199085,
+    sExpected := '1/mm'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/meter]TO[1/mile]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -9180.58419569764;
+fbQuantityMock.Units := '1/meter';
+
+// Convert 1/meter to 1/mile
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/mile',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := -14774718.091840824,
+    sExpected := '1/mile'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/nanometer]TO[1/m]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -4919.135876374241;
+fbQuantityMock.Units := '1/nanometer';
+
+// Convert 1/nanometer to 1/m
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/m',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := -4919135876374.24,
+    sExpected := '1/m'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/mile]TO[1/nm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 5141.367279873293;
+fbQuantityMock.Units := '1/mile';
+
+// Convert 1/mile to 1/nm
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/nm',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := 3.1946975164248868e-09,
+    sExpected := '1/nm'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/mil]TO[1/mil]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 406.44107192739284;
+fbQuantityMock.Units := '1/mil';
+
+// Convert 1/mil to 1/mil
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/mil',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := 406.44107192739284,
+    sExpected := '1/mil'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/micron]TO[1/m]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := -1709.2503851797792;
+fbQuantityMock.Units := '1/micron';
+
+// Convert 1/micron to 1/m
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/m',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := -1709250385.1797793,
+    sExpected := '1/m'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/kilometer]TO[1/mm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 9602.86427445474;
+fbQuantityMock.Units := '1/kilometer';
+
+// Convert 1/kilometer to 1/mm
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/mm',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := 0.00960286427445474,
+    sExpected := '1/mm'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/pm]TO[1/mm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 8330.616996107969;
+fbQuantityMock.Units := '1/pm';
+
+// Convert 1/pm to 1/mm
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/mm',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := 8330616996107.969,
+    sExpected := '1/mm'
+);
+
+TEST_FINISHED();
+
+TEST('TestValidInputExpectNoErrorCorrectResult[1/mm]TO[1/cm]');
+
+fbQuantityMock.ClearError();
+fbQuantityMock.Val := 8507.446422989968;
+fbQuantityMock.Units := '1/mm';
+
+// Convert 1/mm to 1/mm
+fbConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbQuantityMock,
+    DesiredUnits := '1/cm',
+    ConvertedQuantity := fbQuantityOutput
+);
+
+AssertNoError(Fallible := fbConvertUnits);
+
+AssertNoErrorCorrectResult(
+    iQuantity := fbQuantityOutput,
+    fExpected := 85074.46422989968,
+    sExpected := '1/cm'
 );
 
 TEST_FINISHED();

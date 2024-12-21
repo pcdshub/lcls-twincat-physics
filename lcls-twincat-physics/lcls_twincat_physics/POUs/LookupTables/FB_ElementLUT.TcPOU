@@ -44,9 +44,7 @@ THIS^.iDensityLUT := DensityLUT;
 METHOD LookupAtomicMass
 VAR_INPUT
     ElementName : T_MaxString;
-END_VAR
-VAR_IN_OUT
-    AtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
+    AtomicMass : I_QuantityLREALPublic;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -84,7 +82,7 @@ IF iConvertUnits.GetError() THEN
     RETURN;
 END_IF
 
-AtomicMass := fbAtomicMass;
+AtomicMass.Copy(fbAtomicMass);
 ]]></ST>
       </Implementation>
     </Method>
@@ -93,9 +91,7 @@ AtomicMass := fbAtomicMass;
 METHOD LookupAtomicNumber
 VAR_INPUT
     ElementName : T_MaxString;
-END_VAR
-VAR_IN_OUT
-    AtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
+    AtomicNumber : I_QuantityINTPublic;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -120,7 +116,7 @@ IF iAtomicNumberLUT.GetError() THEN
     RETURN;
 END_IF
 
-AtomicNumber := fbAtomicNumber;
+AtomicNumber.Copy(fbAtomicNumber);
 ]]></ST>
       </Implementation>
     </Method>
@@ -129,9 +125,7 @@ AtomicNumber := fbAtomicNumber;
 METHOD LookupDensity
 VAR_INPUT
     ElementName : T_MaxString;
-END_VAR
-VAR_IN_OUT
-    Density : FB_QuantityLREALPublic(Units := 'g/cm**3');
+    Density : I_QuantityLREALPublic;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -171,7 +165,7 @@ IF iConvertUnits.GetError() THEN
     RETURN;
 END_IF
 
-Density := fbDensity;
+Density.Copy(fbDensity);
 ]]></ST>
       </Implementation>
     </Method>

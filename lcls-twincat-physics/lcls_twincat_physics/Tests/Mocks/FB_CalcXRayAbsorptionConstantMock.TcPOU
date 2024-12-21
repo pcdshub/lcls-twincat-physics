@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_CalcXRayDeltaMock" Id="{7e76b36a-b6f5-47d3-8356-cf5207a967e6}" SpecialFunc="None">
+  <POU Name="FB_CalcXRayAbsorptionConstantMock" Id="{b5e25519-ff34-4705-a41c-07a33cb4f6f6}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcXRayDeltaMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcXRayDelta
+FUNCTION_BLOCK FB_CalcXRayAbsorptionConstantMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcXRayAbsorptionConstant
 VAR
     fbResult : FB_QuantityLREALPublic(Units := '1');
 END_VAR
@@ -10,21 +10,21 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Calculate" Id="{5bac6286-2214-4e59-adf7-609a7f98ff61}">
+    <Method Name="Calculate" Id="{94aba10b-275d-4077-b728-766a54da529d}">
       <Declaration><![CDATA[
 METHOD Calculate
 VAR_INPUT
-    MaterialFormula : T_MaxString;
-    Delta : I_QuantityLREALPublic;
+    MaterialFormula	: T_MaxString;
+    AbsorptionConstant	: I_QuantityLREALPublic;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-Delta.Copy(fbResult);
+AbsorptionConstant.Copy(fbResult);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetResult" Id="{46e7158a-7ca6-4c4a-904d-ba67c1b04a23}">
+    <Method Name="SetResult" Id="{94d86c85-0b5e-4065-b511-44934c8eb565}">
       <Declaration><![CDATA[
 METHOD SetResult
 VAR_INPUT
@@ -37,14 +37,14 @@ fbResult.Copy(QuantityToCopy := Result);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetValid" Id="{e4af4d1f-4e6c-4927-9bea-b5784d00c67b}">
+    <Method Name="SetValid" Id="{afb99497-16bd-4be9-baa6-a37f9f34dc80}">
       <Declaration><![CDATA[
 METHOD SetValid
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
 fbResult.Val := 1.0;
-fbResult.Units := '1';
+fbResult.Units := '1/m';
 fbResult.ClearError();
 ClearError();
 ]]></ST>

@@ -65,12 +65,19 @@ ELSIF sName = 'C' THEN
     sUnits := 'g/cm^3';
     sCaveat := '1.9-2.3 (graphite); CXRO, RSC and CRC use 2.2; NIST Xray tables use 2.26';
     bFound := TRUE;
-ELSIF sName = 'N' THEN
-    fValue := 0.808; (* Units: g/cm^3 *)
+ELSIF sName = 'C' THEN
+    fValue := 2.2; (* Units: g/cm^3 *)
     fUncertainty := 0;
-    sDescription := 'Elemental density of N';
+    sDescription := 'Elemental density of C';
     sUnits := 'g/cm^3';
-    sCaveat := 'T=-195.79';
+    sCaveat := '1.9-2.3 (graphite); CXRO, RSC and CRC use 2.2; NIST Xray tables use 2.26';
+    bFound := TRUE;
+ELSIF sName = 'Diamond' OR sName = 'diamond' OR sName = 'dmd' THEN
+    fValue := 3.51; (* Units: g/cm^3 *)
+    fUncertainty := 0;
+    sDescription := 'Elemental density of diamond';
+    sUnits := 'g/cm^3';
+    sCaveat := 'Override for carbon that is diamond.';
     bFound := TRUE;
 ELSIF sName = 'O' THEN
     fValue := 1.14; (* Units: g/cm^3 *)
@@ -695,9 +702,7 @@ fbDensity.ClearError();
 METHOD Lookup
 VAR_INPUT
     StringToLookup : T_MaxString;
-END_VAR
-VAR_IN_OUT
-    Result : FB_QuantityLREALPublic(Units := 'g/cm**3');
+    Result : I_QuantityLREALPublic;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -716,7 +721,7 @@ IF GetError() THEN
     RETURN;
 END_IF
 
-Result := fbDensity;
+Result.Copy(fbDensity);
 ]]></ST>
       </Implementation>
     </Method>

@@ -11,9 +11,9 @@ END_VAR
       <ST><![CDATA[
 nTestID := 0;
 
-Test0FocalLengthExpectError0ImageDistance();
+Test0FocalLengthExpectErrorImageDistanceUnchanged();
 
-Test0SourceDistanceExpectError0ImageDistance();
+Test0SourceDistanceExpectErrorImageDistanceUnchanged();
 
 // Expected results taken from pcdscalc/be_lens_calcs.py.
 // Element = Be. Test Count = 1.
@@ -548,9 +548,9 @@ SourceDistance.ClearError();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test0FocalLengthExpectError0ImageDistance" Id="{4e7b4f83-062f-4494-90d5-114858ee4334}">
+    <Method Name="Test0FocalLengthExpectErrorImageDistanceUnchanged" Id="{4e7b4f83-062f-4494-90d5-114858ee4334}">
       <Declaration><![CDATA[
-METHOD PRIVATE Test0FocalLengthExpectError0ImageDistance
+METHOD PRIVATE Test0FocalLengthExpectErrorImageDistanceUnchanged
 VAR
     fbFocalLength : FB_QuantityLREALPublicMock;
     fbSourceDistance: FB_QuantityLREALPublicMock;
@@ -564,7 +564,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('Test0FocalLengthExpectError0ImageDistance');
+TEST('Test0FocalLengthExpectErrorImageDistanceUnchanged');
 
 // Test fixture
 SetInitialFocalLengthAndSourceDistanceValues(
@@ -574,6 +574,7 @@ SetInitialFocalLengthAndSourceDistanceValues(
 
 fbFocalLength.Val := 0.0;
 
+fbResult.Val := 893.54;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -595,9 +596,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test0SourceDistanceExpectError0ImageDistance" Id="{f361b565-9cec-4761-816e-1823401b0168}">
+    <Method Name="Test0SourceDistanceExpectErrorImageDistanceUnchanged" Id="{f361b565-9cec-4761-816e-1823401b0168}">
       <Declaration><![CDATA[
-METHOD PRIVATE Test0SourceDistanceExpectError0ImageDistance
+METHOD PRIVATE Test0SourceDistanceExpectErrorImageDistanceUnchanged
 VAR
     fbFocalLength : FB_QuantityLREALPublicMock;
     fbSourceDistance: FB_QuantityLREALPublicMock;
@@ -611,7 +612,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('Test0SourceDistanceExpectError0ImageDistance');
+TEST('Test0SourceDistanceExpectErrorImageDistanceUnchanged');
 
 // Test fixture
 SetInitialFocalLengthAndSourceDistanceValues(
@@ -621,6 +622,7 @@ SetInitialFocalLengthAndSourceDistanceValues(
 
 fbSourceDistance.Val := 0.0;
 
+fbResult.Val := 893.54;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 

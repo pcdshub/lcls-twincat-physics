@@ -11,27 +11,27 @@ END_VAR
       <ST><![CDATA[
 nTestID := 0;
 
-Test0AtomicMassExpectError0Delta();
+Test0AtomicMassExpectErrorDeltaUnchanged();
 
-Test0AtomicNumberExpectError0Delta();
+Test0AtomicNumberExpectErrorDeltaUnchanged();
 
-Test0DensityExpectError0Delta();
+Test0DensityExpectErrorDeltaUnchanged();
 
-Test0EnergyExpectError0Delta();
+Test0EnergyExpectErrorDeltaUnchanged();
 
-TestInvalidElementExpectError0Delta();
+TestInvalidElementExpectErrorDeltaUnchanged();
 
-TestInvalidEnergyExpectError0Delta();
+TestInvalidEnergyExpectErrorDeltaUnchanged();
 
-TestInvalidf1ExpectError0Delta();
+TestInvalidf1ExpectErrorDeltaUnchanged();
 
-TestNegAtomicMassExpectError0Delta();
+TestNegAtomicMassExpectErrorDeltaUnchanged();
 
-TestNegAtomicNumberExpectError0Delta();
+TestNegAtomicNumberExpectErrorDeltaUnchanged();
 
-TestNegDensityExpectError0Delta();
+TestNegDensityExpectErrorDeltaUnchanged();
 
-TestNegEnergyExpectError0Delta();
+TestNegEnergyExpectErrorDeltaUnchanged();
 
 // Expected results taken from xraydb python module.
 // Element = Be. Test Count = 1.
@@ -223,9 +223,9 @@ fbStringLookupElementMock.ClearError();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test0AtomicMassExpectError0Delta" Id="{b6dc767c-cf65-41d6-8be0-32b5df8d14ad}">
+    <Method Name="Test0AtomicMassExpectErrorDeltaUnchanged" Id="{b6dc767c-cf65-41d6-8be0-32b5df8d14ad}">
       <Declaration><![CDATA[
-METHOD Test0AtomicMassExpectError0Delta
+METHOD Test0AtomicMassExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -245,7 +245,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('Test0AtomicMassExpectError0Delta');
+TEST('Test0AtomicMassExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -256,6 +256,7 @@ SetInitialValues(
 
 fbStringLookupElementMock.AtomicMass := 0.0;
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -276,9 +277,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test0AtomicNumberExpectError0Delta" Id="{19f8aed2-3809-4397-9ebb-60e03b7208cf}">
+    <Method Name="Test0AtomicNumberExpectErrorDeltaUnchanged" Id="{19f8aed2-3809-4397-9ebb-60e03b7208cf}">
       <Declaration><![CDATA[
-METHOD Test0AtomicNumberExpectError0Delta
+METHOD Test0AtomicNumberExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -298,7 +299,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('Test0AtomicNumberExpectError0Delta');
+TEST('Test0AtomicNumberExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -309,6 +310,7 @@ SetInitialValues(
 
 fbStringLookupElementMock.AtomicNumber := 0;
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -330,9 +332,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test0DensityExpectError0Delta" Id="{a22c9ec5-6265-4c4b-81b1-88d5546cb3c5}">
+    <Method Name="Test0DensityExpectErrorDeltaUnchanged" Id="{a22c9ec5-6265-4c4b-81b1-88d5546cb3c5}">
       <Declaration><![CDATA[
-METHOD Test0DensityExpectError0Delta
+METHOD Test0DensityExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -352,7 +354,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('Test0DensityExpectError0Delta');
+TEST('Test0DensityExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -363,6 +365,7 @@ SetInitialValues(
 
 fbStringLookupElementMock.Density := 0.0;
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -383,9 +386,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test0EnergyExpectError0Delta" Id="{27c084a3-dc63-4167-a57f-ff90d70c622f}">
+    <Method Name="Test0EnergyExpectErrorDeltaUnchanged" Id="{27c084a3-dc63-4167-a57f-ff90d70c622f}">
       <Declaration><![CDATA[
-METHOD Test0EnergyExpectError0Delta
+METHOD Test0EnergyExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -405,7 +408,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('Test0EnergyExpectError0Delta');
+TEST('Test0EnergyExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -416,6 +419,7 @@ SetInitialValues(
 
 fbQuantityLREALPublicEnergyMock.Val := 0.0;
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -436,9 +440,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestInvalidElementExpectError0Delta" Id="{6e484356-c61f-45c5-80a8-578577b9fc57}">
+    <Method Name="TestInvalidElementExpectErrorDeltaUnchanged" Id="{6e484356-c61f-45c5-80a8-578577b9fc57}">
       <Declaration><![CDATA[
-METHOD TestInvalidElementExpectError0Delta
+METHOD TestInvalidElementExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -458,7 +462,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestInvalidElementExpectError0Delta');
+TEST('TestInvalidElementExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -469,6 +473,7 @@ SetInitialValues(
 
 fbStringLookupElementMock.SetError(Msg := 'Error');
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -489,9 +494,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestInvalidEnergyExpectError0Delta" Id="{708d60b9-322c-4b04-ac4c-a6f261d3e002}">
+    <Method Name="TestInvalidEnergyExpectErrorDeltaUnchanged" Id="{708d60b9-322c-4b04-ac4c-a6f261d3e002}">
       <Declaration><![CDATA[
-METHOD TestInvalidEnergyExpectError0Delta
+METHOD TestInvalidEnergyExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -511,7 +516,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestInvalidEnergyExpectError0Delta');
+TEST('TestInvalidEnergyExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -522,6 +527,7 @@ SetInitialValues(
 
 fbQuantityLREALPublicEnergyMock.SetError(Msg := 'Error');
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -541,9 +547,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestInvalidf1ExpectError0Delta" Id="{0fc9efb7-0fe3-4d4f-9e8d-8ecac8e37e76}">
+    <Method Name="TestInvalidf1ExpectErrorDeltaUnchanged" Id="{0fc9efb7-0fe3-4d4f-9e8d-8ecac8e37e76}">
       <Declaration><![CDATA[
-METHOD TestInvalidf1ExpectError0Delta
+METHOD TestInvalidf1ExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -563,7 +569,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestInvalidf1ExpectError0Delta');
+TEST('TestInvalidf1ExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -574,6 +580,7 @@ SetInitialValues(
 
 fbStringLookupLREALMock.SetError(Msg := 'Error');
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -594,9 +601,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestNegAtomicMassExpectError0Delta" Id="{1fe53040-1c34-4a85-99a3-d4bfb0bd91fb}">
+    <Method Name="TestNegAtomicMassExpectErrorDeltaUnchanged" Id="{1fe53040-1c34-4a85-99a3-d4bfb0bd91fb}">
       <Declaration><![CDATA[
-METHOD TestNegAtomicMassExpectError0Delta
+METHOD TestNegAtomicMassExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -616,7 +623,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestNegAtomicMassExpectError0Delta');
+TEST('TestNegAtomicMassExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -627,6 +634,7 @@ SetInitialValues(
 
 fbStringLookupElementMock.AtomicMass := -10.0;
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -647,9 +655,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestNegAtomicNumberExpectError0Delta" Id="{da7f21be-bbb5-4949-8587-a784e59a2f1d}">
+    <Method Name="TestNegAtomicNumberExpectErrorDeltaUnchanged" Id="{da7f21be-bbb5-4949-8587-a784e59a2f1d}">
       <Declaration><![CDATA[
-METHOD TestNegAtomicNumberExpectError0Delta
+METHOD TestNegAtomicNumberExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -669,7 +677,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestNegAtomicNumberExpectError0Delta');
+TEST('TestNegAtomicNumberExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -680,6 +688,7 @@ SetInitialValues(
 
 fbStringLookupElementMock.AtomicNumber := -10;
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -700,9 +709,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestNegDensityExpectError0Delta" Id="{7770c05a-bc0a-490d-8217-61adc2d656a7}">
+    <Method Name="TestNegDensityExpectErrorDeltaUnchanged" Id="{7770c05a-bc0a-490d-8217-61adc2d656a7}">
       <Declaration><![CDATA[
-METHOD TestNegDensityExpectError0Delta
+METHOD TestNegDensityExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -722,7 +731,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestNegDensityExpectError0Delta');
+TEST('TestNegDensityExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -733,6 +742,7 @@ SetInitialValues(
 
 fbStringLookupElementMock.Density := 0.0;
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 
@@ -753,9 +763,9 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="TestNegEnergyExpectError0Delta" Id="{74f08a4b-e970-41a6-8f17-caa755927812}">
+    <Method Name="TestNegEnergyExpectErrorDeltaUnchanged" Id="{74f08a4b-e970-41a6-8f17-caa755927812}">
       <Declaration><![CDATA[
-METHOD TestNegEnergyExpectError0Delta
+METHOD TestNegEnergyExpectErrorDeltaUnchanged
 VAR
     fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
     fbStringLookupLREALMock : FB_StringLookupLREALMock;
@@ -775,7 +785,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-TEST('TestNegEnergyExpectError0Delta');
+TEST('TestNegEnergyExpectErrorDeltaUnchanged');
 
 // Test fixture
 SetInitialValues(
@@ -786,6 +796,7 @@ SetInitialValues(
 
 fbQuantityLREALPublicEnergyMock.Val := 0.0;
 
+fbResult.Val := 5038.538;
 fbExpected.Val := fbResult.Val;
 fbExpected.Units := fbResult.Units;
 

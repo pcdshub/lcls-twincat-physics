@@ -9,9 +9,7 @@ INTERFACE I_StringLookupLREAL EXTENDS I_Fallible
 METHOD Lookup
 VAR_INPUT
     StringToLookup : T_MaxString;
-END_VAR
-VAR_IN_OUT
-    Result : FB_QuantityLREALPublic(Units := '1');
+    Result : I_QuantityLREALPublic;
 END_VAR
 ]]></Declaration>
     </Method>

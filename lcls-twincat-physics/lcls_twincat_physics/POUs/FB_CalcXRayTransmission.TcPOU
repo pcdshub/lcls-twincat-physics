@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcXRayTransmission" Id="{a846d3b5-b187-4681-a7ef-c45d8c095dd7}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcXRayTransmission EXTENDS FB_Fallible IMPLEMENTS I_CalcXRayTransmission
+VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
+    iCalcXRayAbsorption : I_CalcXRayAbsorptionConstant;
+
+    fbAbsorptionConstant : FB_QuantityLREALPublic(Units := '1/m');
+    fbAbsorptionConstantum : FB_QuantityLREALPublic(Units := '1/um');
+    fbThickness : FB_QuantityLREALPublic(Units := 'um');
+    fbTransmission : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{1f5a4880-09a7-446f-853b-269d7643a2b1}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    MaterialFormula : T_MaxString;
+    Thickness : I_QuantityLREAL;
+    Transmission : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Initialize error values
+ClearError();
+
+IF Thickness.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Input thickness has an error: ',
+        Thickness.GetErrorMsg())
+    );
+    Transmission.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+IF Thickness.Val < 0.0 THEN
+    SetError(Msg := 'Input thickness cannot be negative.');
+    Transmission.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iCalcXRayAbsorption.Calculate(
+    MaterialFormula := MaterialFormula,
+    AbsorptionConstant := fbAbsorptionConstant
+);
+
+IF iCalcXRayAbsorption.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error while calculating xray absorption constant: ',
+        iCalcXRayAbsorption.GetErrorMsg())
+    );
+    Transmission.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+IF fbAbsorptionConstant.Val < 0.0 THEN
+    SetError(Msg := 'Absorption constant cannot be negative.');
+    Transmission.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbAbsorptionConstant,
+    DesiredUnits := fbAbsorptionConstantum.Units,
+    ConvertedQuantity := fbAbsorptionConstantum
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of absorption constant: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    Transmission.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := Thickness,
+    DesiredUnits := fbThickness.Units,
+    ConvertedQuantity := fbThickness
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of thickness input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    Transmission.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbTransmission.Val := EXP(-1.0 * fbAbsorptionConstantum.Val * fbThickness.Val);
+
+Transmission.Copy(fbTransmission);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearError" Id="{12b9784a-fb13-45d7-a1d0-5d32b72becbf}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbAbsorptionConstant.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{67c78747-d1c8-4172-b820-05ed15f819d2}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    ConvertUnits : I_ConvertUnitsLREAL;
+    CalcXRayAbsorption : I_CalcXRayAbsorptionConstant;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
+THIS^.iCalcXRayAbsorption := CalcXRayAbsorption;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{fa7903af-869e-4548-b6a3-67b566afc549}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbAbsorptionConstant.SetError(Msg := Msg);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
