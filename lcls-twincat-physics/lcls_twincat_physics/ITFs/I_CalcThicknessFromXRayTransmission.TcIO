@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_CalcThicknessFromXRayTransmission" Id="{7392466d-a1ca-4218-bf3e-e96dfd30823e}">
+    <Declaration><![CDATA[
+INTERFACE I_CalcThicknessFromXRayTransmission EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Calculate" Id="{dbdd9771-bb12-49af-8778-a0e433a83d02}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    MaterialFormula : T_MaxString;
+    Transmission : I_QuantityLREAL;
+    Thickness : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

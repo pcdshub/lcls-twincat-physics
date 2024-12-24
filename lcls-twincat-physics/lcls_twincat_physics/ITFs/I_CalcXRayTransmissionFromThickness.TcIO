@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="I_CalcXRayTransmission" Id="{8458f888-4a53-4be0-a69f-01ded61fb385}">
+  <Itf Name="I_CalcXRayTransmissionFromThickness" Id="{8458f888-4a53-4be0-a69f-01ded61fb385}">
     <Declaration><![CDATA[
-INTERFACE I_CalcXRayTransmission EXTENDS I_Fallible
+INTERFACE I_CalcXRayTransmissionFromThickness EXTENDS I_Fallible
 ]]></Declaration>
     <Method Name="Calculate" Id="{38d14163-0eee-40ab-9f58-da47106742f3}">
       <Declaration><![CDATA[

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_CalcXRayTransmission_Test" Id="{08b25b53-940f-45c0-9304-c9eb09305566}" SpecialFunc="None">
+  <POU Name="FB_CalcXRayTransmissionFromThickness_Test" Id="{08b25b53-940f-45c0-9304-c9eb09305566}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION_BLOCK FB_CalcXRayTransmission_Test EXTENDS FB_TestSuiteExtended
+FUNCTION_BLOCK FB_CalcXRayTransmissionFromThickness_Test EXTENDS FB_TestSuiteExtended
 VAR
     nTestID : INT;
 END_VAR
@@ -128,7 +128,7 @@ VAR
     fbThicknessMock : FB_QuantityLREALPublicMock;
 
     // Subject under test
-    fbCalcXRayTransmission : FB_CalcXRayTransmission(
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
         ConvertUnits := fbConvertUnitsLREALMock,
         CalcXRayAbsorption := fbCalcXRayAbsorptionMock
     );
@@ -179,7 +179,7 @@ VAR
     fbThicknessMock : FB_QuantityLREALPublicMock;
 
     // Subject under test
-    fbCalcXRayTransmission : FB_CalcXRayTransmission(
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
         ConvertUnits := fbConvertUnitsLREALMock,
         CalcXRayAbsorption := fbCalcXRayAbsorptionMock
     );
@@ -230,7 +230,7 @@ VAR
     fbThicknessMock : FB_QuantityLREALPublicMock;
 
     // Subject under test
-    fbCalcXRayTransmission : FB_CalcXRayTransmission(
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
         ConvertUnits := fbConvertUnitsLREALMock,
         CalcXRayAbsorption := fbCalcXRayAbsorptionMock
     );
@@ -282,7 +282,7 @@ VAR
     fbAbsorptionConstantResultMock : FB_QuantityLREALPublicMock;
 
     // Subject under test
-    fbCalcXRayTransmission : FB_CalcXRayTransmission(
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
         ConvertUnits := fbConvertUnitsLREALMock,
         CalcXRayAbsorption := fbCalcXRayAbsorptionMock
     );
@@ -335,7 +335,7 @@ VAR
     fbThicknessMock : FB_QuantityLREALPublicMock;
 
     // Subject under test
-    fbCalcXRayTransmission : FB_CalcXRayTransmission(
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
         ConvertUnits := fbConvertUnitsLREALMock,
         CalcXRayAbsorption := fbCalcXRayAbsorptionMock
     );
@@ -393,7 +393,7 @@ VAR
     fbAbsorptionConstantResultMock : FB_QuantityLREALPublicMock;
 
     // Subject under test
-    fbCalcXRayTransmission : FB_CalcXRayTransmission(
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
         ConvertUnits := fbConvertUnitsLREALMock,
         CalcXRayAbsorption := fbCalcXRayAbsorptionMock
     );

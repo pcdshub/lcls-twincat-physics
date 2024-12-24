@@ -53,13 +53,16 @@
     <Compile Include="ITFs\I_CalcImageDistance.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ITFs\I_CalcXRayTransmission.TcIO">
+    <Compile Include="ITFs\I_CalcXRayTransmissionFromThickness.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ITFs\I_CalcXRayDelta.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ITFs\I_CalcXRayAbsorptionConstant.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcThicknessFromXRayTransmission.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ITFs\I_ConvertUnitsLREAL.TcIO">
@@ -125,7 +128,10 @@
     <Compile Include="POUs\FB_CalcXRayAbsorptionConstantElement.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_CalcXRayTransmission.TcPOU">
+    <Compile Include="POUs\FB_CalcXRayTransmissionFromThickness.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcThicknessFromXRayTransmission.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_ConvertUnits.TcPOU">
@@ -206,7 +212,10 @@
     <Compile Include="Tests\FB_CalcXRayAbsorptionConstantElement_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_CalcXRayTransmission_Test.TcPOU">
+    <Compile Include="Tests\FB_CalcXRayTransmissionFromThickness_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcThicknessFromXRayTransmission_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_LagrangePolyInterp_Test.TcPOU">

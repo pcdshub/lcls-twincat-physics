@@ -18,9 +18,10 @@ VAR
     fbCalcFocalLengthLensSet_Test : FB_CalcFocalLengthLensSet_Test;
     fbCalcFocalLengthSingleLens_Test : FB_CalcFocalLengthSingleLens_Test;
     fbCalcImageDistance_Test : FB_CalcImageDistance_Test;
+    fbCalcThicknessFromXRayTransmission_Test : FB_CalcThicknessFromXRayTransmission_Test;
     fbCalcXRayAbsorptionConstantElement_Test : FB_CalcXRayAbsorptionConstantElement_Test;
     fbCalcXRayDeltaElement_Test : FB_CalcXRayDeltaElement_Test;
-    fbCalcXRayTransmission_Test : FB_CalcXRayTransmission_Test;
+    fbCalcXRayTransmissionFromThickness_Test : FB_CalcXRayTransmissionFromThickness_Test;
     fbConvertUnits_Test : FB_ConvertUnits_Test;
     fbLagrangePolyInterp_Test : FB_LagrangePolyInterp_Test;
     fbLens_Test : FB_Lens_Test;
