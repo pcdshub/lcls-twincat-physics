@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance2" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{40255D97-6E8A-6D47-9D07-8D1CB28408C4}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance2" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{FE434EA7-5692-8953-11F8-BA3FE651232E}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="LCLS_General">ST_System</Name>
@@ -4585,7 +4585,7 @@
       </Method>
     </DataType>
     <DataType>
-      <Name>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Name>
+      <Name>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Name>
       <BitSize>16</BitSize>
       <BaseType>UINT</BaseType>
       <Properties>
@@ -4600,7 +4600,7 @@
       </Properties>
     </DataType>
     <DataType>
-      <Name>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Name>
+      <Name>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Name>
       <BitSize>16</BitSize>
       <BaseType>UINT</BaseType>
       <Properties>
@@ -4628,7 +4628,7 @@
       </SubItem>
       <SubItem>
         <Name>StoringTestSuiteResultNumber</Name>
-        <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Type>
+        <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Type>
         <Comment> Misc variables</Comment>
         <BitSize>16</BitSize>
         <BitOffs>125657856</BitOffs>
@@ -4653,7 +4653,7 @@
       </SubItem>
       <SubItem>
         <Name>NumberOfTestsToAnalyse</Name>
-        <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
+        <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
         <BitSize>16</BitSize>
         <BitOffs>125658064</BitOffs>
       </SubItem>
@@ -4700,7 +4700,7 @@
       </SubItem>
       <SubItem>
         <Name>PrintingTestSuiteResultNumber</Name>
-        <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Type>
+        <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Type>
         <BitSize>16</BitSize>
         <BitOffs>192</BitOffs>
       </SubItem>
@@ -4738,12 +4738,12 @@
         </Local>
         <Local>
           <Name>TestsInTestSuiteCounter</Name>
-          <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
+          <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
           <BitSize>16</BitSize>
         </Local>
         <Local>
           <Name>MaxNumberOfTestsToPrint</Name>
-          <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
+          <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
           <BitSize>16</BitSize>
         </Local>
         <Local>
@@ -5642,7 +5642,7 @@
       </SubItem>
       <SubItem>
         <Name>WritingTestSuiteResultNumber</Name>
-        <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Type>
+        <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Type>
         <BitSize>16</BitSize>
         <BitOffs>530752</BitOffs>
       </SubItem>
@@ -6077,6 +6077,21 @@
         <Property>
           <Name>PouType</Name>
           <Value>FunctionBlock</Value>
+        </Property>
+      </Properties>
+    </DataType>
+    <DataType>
+      <Name>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Name>
+      <BitSize>16</BitSize>
+      <BaseType>UINT</BaseType>
+      <Properties>
+        <Property>
+          <Name>LowerBorder</Name>
+          <Value>1</Value>
+        </Property>
+        <Property>
+          <Name>UpperBorder</Name>
+          <Value>200</Value>
         </Property>
       </Properties>
     </DataType>
@@ -8762,7 +8777,7 @@
         </Local>
         <Local>
           <Name>NumberOfTestsToAnalyse</Name>
-          <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
+          <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
           <BitSize>16</BitSize>
         </Local>
         <Local>
@@ -10314,7 +10329,7 @@
         </Local>
         <Local>
           <Name>NumberOfTestsToAnalyse</Name>
-          <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Type>
+          <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestSuites)</Type>
           <BitSize>16</BitSize>
         </Local>
       </Method>
@@ -10467,7 +10482,7 @@
         </Local>
         <Local>
           <Name>NumberOfTestsToAnalyse</Name>
-          <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
+          <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
           <BitSize>16</BitSize>
         </Local>
       </Method>
@@ -11125,7 +11140,7 @@
         </Local>
         <Local>
           <Name>NumberOfTestsToAnalyse</Name>
-          <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
+          <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
           <BitSize>16</BitSize>
         </Local>
       </Method>
@@ -11606,7 +11621,7 @@
         </Local>
         <Local>
           <Name>NumberOfTestsToAnalyse</Name>
-          <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
+          <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
           <BitSize>16</BitSize>
         </Local>
       </Method>
@@ -11982,7 +11997,7 @@
         </Local>
         <Local>
           <Name>NumberOfTestsToAnalyse</Name>
-          <Type>UINT (1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
+          <Type>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Type>
           <BitSize>16</BitSize>
         </Local>
       </Method>
@@ -12457,21 +12472,6 @@
         </Property>
         <Property>
           <Name>conditionalshow_all_locals</Name>
-        </Property>
-      </Properties>
-    </DataType>
-    <DataType>
-      <Name>UINT (UINT#1..GVL_Param_TcUnit.MaxNumberOfTestsForEachTestSuite)</Name>
-      <BitSize>16</BitSize>
-      <BaseType>UINT</BaseType>
-      <Properties>
-        <Property>
-          <Name>LowerBorder</Name>
-          <Value>1</Value>
-        </Property>
-        <Property>
-          <Name>UpperBorder</Name>
-          <Value>200</Value>
         </Property>
       </Properties>
     </DataType>
@@ -17305,19 +17305,6 @@
         <BitOffs>92544</BitOffs>
       </SubItem>
       <Method>
-        <Name>SetMultiplierOf</Name>
-        <Parameter>
-          <Name>LensNum</Name>
-          <Type>INT</Type>
-          <BitSize>16</BitSize>
-        </Parameter>
-        <Parameter>
-          <Name>Multiplier</Name>
-          <Type>INT</Type>
-          <BitSize>16</BitSize>
-        </Parameter>
-      </Method>
-      <Method>
         <Name>SetMaterialNameOf</Name>
         <Parameter>
           <Name>LensNum</Name>
@@ -17329,45 +17316,6 @@
           <Type Namespace="Tc2_System">T_MaxString</Type>
           <BitSize>2048</BitSize>
         </Parameter>
-      </Method>
-      <Method>
-        <Name>SetRadiusOf</Name>
-        <Parameter>
-          <Name>LensNum</Name>
-          <Type>INT</Type>
-          <BitSize>16</BitSize>
-        </Parameter>
-        <Parameter>
-          <Name>Radius</Name>
-          <Type>I_QuantityLREAL</Type>
-          <BitSize>64</BitSize>
-        </Parameter>
-      </Method>
-      <Method>
-        <Name>__setNumLenses</Name>
-        <Parameter>
-          <Name>NumLenses</Name>
-          <Type>INT</Type>
-          <BitSize>16</BitSize>
-        </Parameter>
-        <Properties>
-          <Property>
-            <Name>property</Name>
-          </Property>
-        </Properties>
-      </Method>
-      <Method>
-        <Name>SetValid</Name>
-        <Local>
-          <Name>nIndex</Name>
-          <Type>INT</Type>
-          <BitSize>16</BitSize>
-        </Local>
-        <Local>
-          <Name>fbRadius</Name>
-          <Type>FB_QuantityLREALPublicMock</Type>
-          <BitSize>4544</BitSize>
-        </Local>
       </Method>
       <Method>
         <Name>GetLens</Name>
@@ -17387,6 +17335,58 @@
             </Property>
           </Properties>
         </Parameter>
+      </Method>
+      <Method>
+        <Name>SetRadiusOf</Name>
+        <Parameter>
+          <Name>LensNum</Name>
+          <Type>INT</Type>
+          <BitSize>16</BitSize>
+        </Parameter>
+        <Parameter>
+          <Name>Radius</Name>
+          <Type>I_QuantityLREAL</Type>
+          <BitSize>64</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>SetValid</Name>
+        <Local>
+          <Name>nIndex</Name>
+          <Type>INT</Type>
+          <BitSize>16</BitSize>
+        </Local>
+        <Local>
+          <Name>fbRadius</Name>
+          <Type>FB_QuantityLREALPublicMock</Type>
+          <BitSize>4544</BitSize>
+        </Local>
+      </Method>
+      <Method>
+        <Name>SetMultiplierOf</Name>
+        <Parameter>
+          <Name>LensNum</Name>
+          <Type>INT</Type>
+          <BitSize>16</BitSize>
+        </Parameter>
+        <Parameter>
+          <Name>Multiplier</Name>
+          <Type>INT</Type>
+          <BitSize>16</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>__setNumLenses</Name>
+        <Parameter>
+          <Name>NumLenses</Name>
+          <Type>INT</Type>
+          <BitSize>16</BitSize>
+        </Parameter>
+        <Properties>
+          <Property>
+            <Name>property</Name>
+          </Property>
+        </Properties>
       </Method>
       <Method>
         <Name>__getNumLenses</Name>
@@ -19856,7 +19856,7 @@
     </DataType>
     <DataType>
       <Name>FB_CalcThicknessFromXRayTransmission</Name>
-      <BitSize>20608</BitSize>
+      <BitSize>16064</BitSize>
       <ExtendsType>FB_Fallible</ExtendsType>
       <Implements>I_CalcThicknessFromXRayTransmission</Implements>
       <SubItem>
@@ -19996,7 +19996,7 @@
           <Name>fbCalcThickness</Name>
           <Comment> Subject under test</Comment>
           <Type>FB_CalcThicknessFromXRayTransmission</Type>
-          <BitSize>20608</BitSize>
+          <BitSize>16064</BitSize>
         </Local>
         <Local>
           <Name>fbResult</Name>
@@ -20035,7 +20035,7 @@
           <Name>fbCalcThickness</Name>
           <Comment> Subject under test</Comment>
           <Type>FB_CalcThicknessFromXRayTransmission</Type>
-          <BitSize>20608</BitSize>
+          <BitSize>16064</BitSize>
         </Local>
         <Local>
           <Name>fbResult</Name>
@@ -20089,7 +20089,7 @@
           <Name>fbCalcThickness</Name>
           <Comment> Subject under test</Comment>
           <Type>FB_CalcThicknessFromXRayTransmission</Type>
-          <BitSize>20608</BitSize>
+          <BitSize>16064</BitSize>
         </Local>
         <Local>
           <Name>fbResult</Name>
@@ -20123,7 +20123,7 @@
           <Name>fbCalcThickness</Name>
           <Comment> Subject under test</Comment>
           <Type>FB_CalcThicknessFromXRayTransmission</Type>
-          <BitSize>20608</BitSize>
+          <BitSize>16064</BitSize>
         </Local>
         <Local>
           <Name>fbResult</Name>
@@ -20157,7 +20157,7 @@
           <Name>fbCalcThickness</Name>
           <Comment> Subject under test</Comment>
           <Type>FB_CalcThicknessFromXRayTransmission</Type>
-          <BitSize>20608</BitSize>
+          <BitSize>16064</BitSize>
         </Local>
         <Local>
           <Name>fbResult</Name>
@@ -20191,7 +20191,7 @@
           <Name>fbCalcThickness</Name>
           <Comment> Subject under test</Comment>
           <Type>FB_CalcThicknessFromXRayTransmission</Type>
-          <BitSize>20608</BitSize>
+          <BitSize>16064</BitSize>
         </Local>
         <Local>
           <Name>fbResult</Name>
@@ -20225,7 +20225,7 @@
           <Name>fbCalcThickness</Name>
           <Comment> Subject under test</Comment>
           <Type>FB_CalcThicknessFromXRayTransmission</Type>
-          <BitSize>20608</BitSize>
+          <BitSize>16064</BitSize>
         </Local>
         <Local>
           <Name>fbResult</Name>
@@ -20259,7 +20259,7 @@
           <Name>fbCalcThickness</Name>
           <Comment> Subject under test</Comment>
           <Type>FB_CalcThicknessFromXRayTransmission</Type>
-          <BitSize>20608</BitSize>
+          <BitSize>16064</BitSize>
         </Local>
         <Local>
           <Name>fbResult</Name>
@@ -37473,7 +37473,7 @@
           <AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
           <Name>PlcTask Internal</Name>
           <ContextId>0</ContextId>
-          <ByteSize>255459328</ByteSize>
+          <ByteSize>255328256</ByteSize>
           <Symbol>
             <Name>DefaultGlobals.stSys</Name>
             <Comment>Included for you</Comment>
@@ -59383,7 +59383,7 @@
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-12-23T19:26:58</Value>
+          <Value>2025-01-08T13:52:39</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
