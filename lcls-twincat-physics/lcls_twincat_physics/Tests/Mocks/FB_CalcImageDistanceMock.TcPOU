@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcImageDistanceMock" Id="{fb46a70c-077b-4cbb-a4c8-e4e73262c8d8}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcImageDistanceMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcImageDistance
+VAR
+    fbImageDistance : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{abc95be1-d404-4bee-adcd-9e1134ab5397}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    FocalLength : I_QuantityLREAL;
+    SourceDistance : I_QuantityLREAL;
+END_VAR
+VAR_IN_OUT
+    ImageDistance : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ImageDistance := fbImageDistance;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{9f126574-7e18-4d0f-93b7-49fca5fa9b3f}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbImageDistance.Copy(QuantityToCopy := Result);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{ec154779-3c50-4599-8334-a67678752675}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbImageDistance.Val := 1.0;
+fbImageDistance.Units := 'm';
+fbImageDistance.ClearError();
+ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

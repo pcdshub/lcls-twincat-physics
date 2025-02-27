@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_FalliblePublic_Test" Id="{1c35488e-a1b4-4740-8d28-946a9629b058}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_FalliblePublic_Test EXTENDS FB_TestSuiteExtended
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+TestSetErrorGetErrorExpectErrorStatus();
+]]></ST>
+    </Implementation>
+    <Method Name="TestSetErrorGetErrorExpectErrorStatus" Id="{2a272c6d-58f1-41c7-953d-9cf107ecb189}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestSetErrorGetErrorExpectErrorStatus
+VAR
+    sMsg : T_MaxString;
+    fbFalliblePublic : FB_FalliblePublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetErrorGetErrorExpectErrorStatus');
+
+// Test fixture
+sMsg := 'Error';
+fbFalliblePublic.SetError(Msg := sMsg);
+
+// Subject Under Test
+AssertTrue(
+    Condition := fbFalliblePublic.GetError(),
+    Message := 'Expected GetError to be true, but it was false.'
+);
+
+AssertTrue(
+    Condition := fbFalliblePublic.GetErrorMsg() = sMsg,
+    Message := 'Expected error message to match what it was set to.'
+);
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

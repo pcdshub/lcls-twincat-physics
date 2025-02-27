@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Lens_Test" Id="{92b12951-f187-4f4b-affe-53258e124d48}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_Lens_Test EXTENDS FB_TestSuiteExtended
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+Test0MultiplierExpectErrorValueUnchanged();
+
+Test0RadiusExpectErrorValueUnchanged();
+
+TestNegMultiplierExpectErrorValueUnchanged();
+
+TestNegRadiusExpectErrorValueUnchanged();
+
+TestSetMaterialGetMaterialNameExpectNoErrorValueSet();
+
+TestSetMultiplierGetMultiplierExpectNoErrorValueSet();
+
+TestSetRadiusGetRadiusExpectNoErrorValueSet();
+]]></ST>
+    </Implementation>
+    <Method Name="Test0MultiplierExpectErrorValueUnchanged" Id="{58ab7bba-1af7-4126-a694-319bd07664ed}">
+      <Declaration><![CDATA[
+METHOD Test0MultiplierExpectErrorValueUnchanged
+VAR
+    // Subject under test
+    fbLens : FB_Lens;
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0MultiplierExpectErrorValueUnchanged');
+
+// Test Fixture
+nMultiplier := 34;
+
+fbLens.Multiplier := nMultiplier;
+
+AssertEquals_INT(
+    Expected := nMultiplier,
+    Actual := fbLens.Multiplier,
+    Message := 'Multiplier value should match before test starts.'
+);
+
+// Here the test starts
+fbLens.Multiplier := 0;
+
+AssertError(Fallible := fbLens);
+
+AssertEquals_INT(
+    Expected := nMultiplier,
+    Actual := fbLens.Multiplier,
+    Message := 'Multiplier value should not have changed.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0RadiusExpectErrorValueUnchanged" Id="{f01b0918-fc1e-4201-a9ec-6f5427cd144b}">
+      <Declaration><![CDATA[
+METHOD Test0RadiusExpectErrorValueUnchanged
+VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    fbRadiusExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbLens : FB_Lens;
+    fbRadiusActual : FB_QuantityLREALPublic(Units := '1');
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0RadiusExpectErrorValueUnchanged');
+
+// Test Fixture
+fRadius := 34.0;
+
+fbRadius.Val := fRadius;
+fbRadius.Units := 'm';
+
+fbRadiusExpected := fbRadius;
+
+fbLens.SetRadius(fbRadius);
+
+// Here the test starts
+fbRadius.Val := 0.0;
+
+fbLens.SetRadius(fbRadius);
+
+AssertError(fbLens);
+
+fbLens.GetRadius(Radius := fbRadiusActual);
+
+AssertExactExpectedQuantityLREAL(
+    Expected := fbRadiusExpected,
+    Actual := fbRadiusActual
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegMultiplierExpectErrorValueUnchanged" Id="{9b2ca019-0af7-4039-af09-ecb85beb274e}">
+      <Declaration><![CDATA[
+METHOD TestNegMultiplierExpectErrorValueUnchanged
+VAR
+    // Subject under test
+    fbLens : FB_Lens;
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegMultiplierExpectErrorValueUnchanged');
+
+// Test Fixture
+nMultiplier := 34;
+
+fbLens.Multiplier := nMultiplier;
+
+// Here the test starts
+fbLens.Multiplier := -1;
+
+AssertError(Fallible := fbLens);
+
+AssertEquals_INT(
+    Expected := nMultiplier,
+    Actual := fbLens.Multiplier,
+    Message := 'Multiplier value should not have changed.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegRadiusExpectErrorValueUnchanged" Id="{6c0156ba-e1b0-4bf8-82f3-6f279e001cf6}">
+      <Declaration><![CDATA[
+METHOD TestNegRadiusExpectErrorValueUnchanged
+VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    fbRadiusExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbLens : FB_Lens;
+    fbRadiusActual : FB_QuantityLREALPublic(Units := '1');
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegRadiusExpectErrorValueUnchanged');
+
+// Test Fixture
+fRadius := 34.0;
+
+fbRadius.Val := fRadius;
+fbRadius.Units := 'm';
+
+fbRadiusExpected := fbRadius;
+
+fbLens.SetRadius(fbRadius);
+
+// Here the test starts
+fbRadius.Val := -1.0;
+
+fbLens.SetRadius(fbRadius);
+
+AssertError(fbLens);
+
+fbLens.GetRadius(Radius := fbRadiusActual);
+
+AssertExactExpectedQuantityLREAL(
+    Expected := fbRadiusExpected,
+    Actual := fbRadiusActual
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSetMaterialGetMaterialNameExpectNoErrorValueSet" Id="{953ecb6d-08f9-429b-842b-ececdd9772b1}">
+      <Declaration><![CDATA[
+METHOD TestSetMaterialGetMaterialNameExpectNoErrorValueSet
+VAR
+    // Subject under test
+    fbLens : FB_Lens;
+    sMaterialName : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetMaterialGetMaterialNameExpectNoErrorValueSet');
+
+sMaterialName := 'Material1';
+
+// Here the test starts
+fbLens.MaterialFormula:= sMaterialName;
+
+AssertNoError(Fallible := fbLens);
+
+AssertEquals_STRING(
+    Expected := sMaterialName,
+    Actual := fbLens.MaterialFormula,
+    Message := 'Material name did not set properly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSetMultiplierGetMultiplierExpectNoErrorValueSet" Id="{03be4f49-5981-42f2-87a9-82f80d1a6e2c}">
+      <Declaration><![CDATA[
+METHOD TestSetMultiplierGetMultiplierExpectNoErrorValueSet
+VAR
+    // Subject under test
+    fbLens : FB_Lens;
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetMultiplierGetMultiplierExpectNoErrorValueSet');
+
+nMultiplier := 34;
+
+// Here the test starts
+fbLens.Multiplier := nMultiplier;
+
+AssertNoError(Fallible := fbLens);
+
+AssertEquals_INT(
+    Expected := nMultiplier,
+    Actual := fbLens.Multiplier,
+    Message := 'Multiplier did not set properly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSetRadiusGetRadiusExpectNoErrorValueSet" Id="{92f78dad-ab8f-4d8a-be01-dff5659448da}">
+      <Declaration><![CDATA[
+METHOD TestSetRadiusGetRadiusExpectNoErrorValueSet
+VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbLens : FB_Lens;
+    fbRadiusActual : FB_QuantityLREALPublic(Units := '1');
+    fRadius : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetRadiusGetRadiusExpectNoErrorValueSet');
+
+// Test Fixture
+fRadius := 27.34;
+
+fbRadius.Val := fRadius;
+fbRadius.Units := 'm';
+
+// Here the test starts
+fbLens.SetRadius(fbRadius);
+
+AssertNoError(fbLens);
+
+fbLens.GetRadius(Radius := fbRadiusActual);
+
+AssertNoError(fbLens);
+
+AssertExactExpectedQuantityLREAL(
+    Expected := fbRadius,
+    Actual := fbRadiusActual
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

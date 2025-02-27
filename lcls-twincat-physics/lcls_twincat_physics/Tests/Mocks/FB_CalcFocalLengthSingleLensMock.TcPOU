@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLengthSingleLensMock" Id="{6906ef4b-70f5-42bd-b512-b76eb2dac2e2}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLensMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcFocalLengthSingleLens
+VAR
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
+    afFocalLength : ARRAY[1..GVL_Physics.nMaxNumLensesInSet] OF LREAL;
+    nIndex : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{b2c83659-42d3-4010-bd66-b5ff217644cd}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    Lens : I_Lens;
+END_VAR
+VAR_IN_OUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+nIndex := nIndex + 1;
+
+IF nIndex > GVL_Physics.nMaxNumLensesInSet THEN
+    nIndex := 1;
+END_IF
+
+fbFocalLength.Val := afFocalLength[nIndex];
+
+FocalLength := fbFocalLength;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{fa56926d-e362-4a57-9807-06847d87b563}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : LREAL;
+    LensNum : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+afFocalLength[LensNum] := Result;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{dad76da5-b9b0-428c-86cd-6f3a241cdfd8}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbFocalLength.Val := 1.0;
+fbFocalLength.Units := 'm';
+fbFocalLength.ClearError();
+ClearError();
+
+FOR nIndex := 1 TO GVL_Physics.nMaxNumLensesInSet DO
+    afFocalLength[nIndex] := 1.0;
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_Element_Test" Id="{bd0c266d-fa8e-486d-9ee0-df4319948b6f}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_Element_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+    nTestID : INT;
+    fbElement : FB_Element;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+TestInvalidNameInvalidMassExpectErrorPreviousMass();
+
+TestInvalidNameInvalidProtonsExpectErrorPreviousProtons();
+
+TestInvalidNameInvalidDensityExpectErrorPreviousDensity();
+
+TestInvalidNameValidStateExpectNoErrorPreviousState();
+
+TestValidNameValidStateExpectNoErrorPreviousState();
+
+TestValidNameZeroStateExpectNoErrorAccurateState();
+]]></ST>
+    </Implementation>
+    <Method Name="TestInvalidNameInvalidDensityExpectErrorPreviousDensity" Id="{9177ba4e-1cf4-4608-9af2-8b0faf39832f}">
+      <Declaration><![CDATA[
+METHOD TestInvalidNameInvalidDensityExpectErrorPreviousDensity
+VAR
+    sName : STRING := 'INVALID';
+    fMassExpected : LREAL := 10.0;
+    nProtonsExpected : INT := 12;
+    fDensityExpected : LREAL := -5.0;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidNameInvalidDensityExpectErrorPreviousDensity ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbElement.setState(
+    fMass := fMassExpected,
+    sName := sName,
+    nProtons := nProtonsExpected,
+    fDensity := fDensityExpected
+);
+
+AssertTrue(
+    Condition := fbElement.Error,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbElement.ErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fDensityExpected,
+    Actual := fbElement.Density,
+    Delta := ABS(0.001 * fDensityExpected),
+    Message := 'Density value returned is not close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidNameInvalidMassExpectErrorPreviousMass" Id="{867eeafd-007c-425b-8ce7-3df5068d2fc6}">
+      <Declaration><![CDATA[
+METHOD TestInvalidNameInvalidMassExpectErrorPreviousMass
+VAR
+    sName : STRING := 'INVALID';
+    fMassExpected : LREAL := -10.0;
+    nProtonsExpected : INT := 67;
+    fDensityExpected : LREAL := 5.0;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidNameInvalidMassExpectErrorPreviousMass ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbElement.setState(
+    fMass := fMassExpected,
+    sName := sName,
+    nProtons := nProtonsExpected,
+    fDensity := fDensityExpected
+);
+
+AssertTrue(
+    Condition := fbElement.Error,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbElement.ErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fMassExpected,
+    Actual := fbElement.Mass,
+    Delta := ABS(0.001 * fMassExpected),
+    Message := 'Mass value returned is not close enough to the expected value.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidNameInvalidProtonsExpectErrorPreviousProtons" Id="{df0fa38a-a1db-4b53-b078-75ae17575832}">
+      <Declaration><![CDATA[
+METHOD TestInvalidNameInvalidProtonsExpectErrorPreviousProtons
+VAR
+    sName : STRING := 'INVALID';
+    fMassExpected : LREAL := 10.0;
+    nProtonsExpected : INT := -67;
+    fDensityExpected : LREAL := 12.0;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidNameInvalidProtonsExpectErrorPreviousProtons ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbElement.setState(
+    fMass := fMassExpected,
+    sName := sName,
+    nProtons := nProtonsExpected,
+    fDensity := fDensityExpected
+);
+
+AssertTrue(
+    Condition := fbElement.Error,
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertTrue(
+    Condition := fbElement.ErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_INT(
+    Expected := nProtonsExpected,
+    Actual := fbElement.Protons,
+    Message := 'Number of protons value returned is not close enough to the expected value.'
+);
+
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidNameValidStateExpectNoErrorPreviousState" Id="{41c48598-0ac3-4471-86da-baeba415562b}">
+      <Declaration><![CDATA[
+METHOD TestInvalidNameValidStateExpectNoErrorPreviousState
+VAR
+    sName : STRING := 'INVALID';
+    fMassExpected : LREAL := 4.0;
+    nProtonsExpected : INT := 5;
+    fDensityExpected : LREAL := 6.0;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestInvalidNameValidStateExpectNoErrorPreviousState ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbElement.setState(
+    fMass := fMassExpected,
+    sName := sName,
+    nProtons := nProtonsExpected,
+    fDensity := fDensityExpected
+);
+
+AssertEquals_LREAL(
+    Expected := fMassExpected,
+    Actual := fbElement.Mass,
+    Delta := ABS(0.001 * fMassExpected),
+    Message := 'Mass value returned is not close enough to the expected value.'
+);
+
+AssertEquals_INT(
+    Expected := nProtonsExpected,
+    Actual := fbElement.Protons,
+    Message := 'Number of protons value returned is not close enough to the expected value.'
+);
+
+AssertEquals_LREAL(
+    Expected := fDensityExpected,
+    Actual := fbElement.Density,
+    Delta := ABS(0.001 * fDensityExpected),
+    Message := 'Density value returned is not close enough to the expected value.'
+);
+
+AssertFalse(
+    Condition := fbElement.Error,
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbElement.ErrorMsg <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidNameValidStateExpectNoErrorPreviousState" Id="{32092be5-282b-4506-b5a3-c14d9576adcf}">
+      <Declaration><![CDATA[
+METHOD TestValidNameValidStateExpectNoErrorPreviousState
+VAR
+    sName : STRING := 'C';
+    fMassExpected : LREAL := 1.0;
+    nProtonsExpected : INT := 2;
+    fDensityExpected : LREAL := 3.0;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestValidNameValidStateExpectNoErrorPreviousState ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbElement.setState(
+    fMass := fMassExpected,
+    sName := sName,
+    nProtons := nProtonsExpected,
+    fDensity := fDensityExpected
+);
+
+AssertEquals_LREAL(
+    Expected := fMassExpected,
+    Actual := fbElement.Mass,
+    Delta := ABS(0.001 * fMassExpected),
+    Message := 'Mass value returned is not close enough to the expected value.'
+);
+
+AssertEquals_INT(
+    Expected := nProtonsExpected,
+    Actual := fbElement.Protons,
+    Message := 'Number of protons value returned is not close enough to the expected value.'
+);
+
+AssertEquals_LREAL(
+    Expected := fDensityExpected,
+    Actual := fbElement.Density,
+    Delta := ABS(0.001 * fDensityExpected),
+    Message := 'Density value returned is not close enough to the expected value.'
+);
+
+AssertFalse(
+    Condition := fbElement.Error,
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbElement.ErrorMsg <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidNameZeroStateExpectNoErrorAccurateState" Id="{ad191ef7-1934-4776-814c-81680fe4aaf3}">
+      <Declaration><![CDATA[
+METHOD TestValidNameZeroStateExpectNoErrorAccurateState
+VAR
+    sName : STRING := 'Be';
+    fMassExpected : LREAL := 9.0121831;
+    nProtonsExpected : INT := 4;
+    fDensityExpected : LREAL := 1.848;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestValidNameZeroStateExpectNoErrorAccurateState ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbElement.setState(
+    fMass := 0.0,
+    sName := sName,
+    nProtons := 0,
+    fDensity := 0.0
+);
+
+AssertEquals_LREAL(
+    Expected := fMassExpected,
+    Actual := fbElement.Mass,
+    Delta := ABS(0.001 * fMassExpected),
+    Message := 'Mass value returned is not close enough to the expected value.'
+);
+
+AssertEquals_INT(
+    Expected := nProtonsExpected,
+    Actual := fbElement.Protons,
+    Message := 'Number of protons value returned is not close enough to the expected value.'
+);
+
+AssertEquals_LREAL(
+    Expected := fDensityExpected,
+    Actual := fbElement.Density,
+    Delta := ABS(0.001 * fDensityExpected),
+    Message := 'Density value returned is not close enough to the expected value.'
+);
+
+AssertFalse(
+    Condition := fbElement.Error,
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := fbElement.ErrorMsg <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

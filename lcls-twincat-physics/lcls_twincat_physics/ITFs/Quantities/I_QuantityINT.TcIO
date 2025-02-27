@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_QuantityINT" Id="{52fcf1d4-4739-4a46-a8fa-247f0cf96327}">
+    <Declaration><![CDATA[
+INTERFACE I_QuantityINT EXTENDS I_Quantity
+]]></Declaration>
+    <Method Name="Equals" Id="{75922ae9-885c-4929-8e5f-49b17d0821f4}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    Quantity : I_QuantityINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Val" Id="{557475ef-ad12-4e0b-9044-e63f1495b352}">
+      <Declaration><![CDATA[
+PROPERTY Val : INT
+]]></Declaration>
+      <Get Name="Get" Id="{de7ee6ba-6ebc-4c25-8507-7b869ba00b61}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

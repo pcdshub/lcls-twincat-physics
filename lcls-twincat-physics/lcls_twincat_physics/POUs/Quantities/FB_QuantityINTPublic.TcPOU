@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_QuantityINTPublic" Id="{8e2c99df-d649-4bfc-a956-baf4a7b6ac0e}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_QuantityINTPublic EXTENDS FB_FalliblePublic IMPLEMENTS I_QuantityINTPublic
+VAR
+    {attribute 'pytmc' := '
+        pv: Value
+        io: io
+        field: DESC Value of quantity.
+    '}
+    nValue : INT;
+
+    {attribute 'pytmc' := '
+        pv: Units
+        io: io
+        field: DESC Units of quantity.
+    '}
+    sUnits : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Copy" Id="{6f88bde4-c6bd-4a44-8b41-302e399f8a90}">
+      <Declaration><![CDATA[
+METHOD Copy
+VAR_INPUT
+    QuantityToCopy : I_QuantityINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Val := QuantityToCopy.Val;
+Units := QuantityToCopy.Units;
+
+IF QuantityToCopy.GetError() THEN
+    SetError(Msg := QuantityToCopy.GetErrorMsg());
+ELSE
+    ClearError();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Equals" Id="{a3c906de-6891-4e18-bf17-5b94f506c4b4}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    Quantity : I_QuantityINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Equals := Quantity.Units = Units AND Quantity.Val = Val;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_Init" Id="{5707d2e2-0fa5-4325-b044-341311ed4385}">
+      <Declaration><![CDATA[
+METHOD FB_Init: BOOL
+VAR_INPUT
+    bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
+    bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)
+
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.Units := Units;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Units" Id="{2a0cdbe1-dec3-4f78-bd70-dbba6b5e1c62}">
+      <Declaration><![CDATA[
+PROPERTY Units : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{1b9b5d2f-ef6a-4d6b-8fc0-e64e5a287de1}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Units := sUnits;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{4d927f6e-373f-455c-b26c-454373e8531c}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+sUnits := Units;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Val" Id="{da39bdea-8128-4ea2-a0e8-acce7d4fd43e}">
+      <Declaration><![CDATA[
+PROPERTY Val : INT
+]]></Declaration>
+      <Get Name="Get" Id="{204b559b-b427-4ca6-903c-ea60f8c99380}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Val := nValue;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a54ae9af-7b84-4183-a8c7-57a17fa9c929}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+nValue := Val;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

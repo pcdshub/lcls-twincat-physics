@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_LagrangePolyInterp" Id="{992a5909-2ac8-4dba-a6ae-a43121d34ea8}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION F_LagrangePolyInterp : LREAL
+VAR_INPUT
+    fX : LREAL; // The point at which to calculate the output for.
+    afX : ARRAY[1..5] OF LREAL; // The reference input points.
+    afY : ARRAY[1..5] OF LREAL; // The reference output points.
+    nPoints : UINT := 2;
+END_VAR
+VAR_OUTPUT
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+END_VAR
+VAR
+    nIndexi : UINT;
+    fYi : LREAL;
+    fPi : LREAL;
+    nIndexj : UINT;
+    fXi : LREAL;
+    fXj : LREAL;
+    fL : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+IF nPoints > 5 THEN
+    bError := TRUE;
+    sErrorMsg := 'Number of polynomial points cannot exceed 5.';
+    RETURN;
+ELSIF nPoints < 2 THEN
+    bError := TRUE;
+    sErrorMsg := 'Number of polynomial points must be greater than 1.';
+    RETURN;
+END_IF
+
+FOR nIndexi := 1 TO nPoints BY 1 DO
+    fYi := afY[nIndexi];
+    fPi := 1.0;
+    FOR nIndexj := 1 TO nPoints BY 1 DO
+        IF nIndexi <> nIndexj THEN
+            fXi := afX[nIndexi];
+            fXj := afX[nIndexj];
+            IF fXi = fXj THEN
+                bError := TRUE;
+                sErrorMsg := 'None of the provided x points may be equal.';
+                RETURN;
+            ELSE
+                fPi := fPi * (fX - fXj) / (fXi - fXj);
+            END_IF
+        END_IF
+    END_FOR
+    fL := fL + fYi * fPi;
+END_FOR
+
+F_LagrangePolyInterp := fL;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

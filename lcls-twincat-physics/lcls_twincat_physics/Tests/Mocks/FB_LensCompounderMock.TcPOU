@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LensCompounderMock" Id="{f3a1ef28-98f7-4a8c-a126-ddef21ffe39c}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_LensCompounderMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_LensCompounder
+VAR
+    fbFocalLengthCompounded : FB_QuantityLREALPublic(Units := 'm');
+    afFocalLength : ARRAY[1..GVL_Physics.nMaxNumLensesInSet] OF LREAL;
+    nIndex : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Compound" Id="{785c0eab-8b59-435e-bd8e-fdfd5fe072fc}">
+      <Declaration><![CDATA[
+METHOD Compound
+VAR_INPUT
+    FocalLength : I_QuantityLREAL;
+    Multiplier : INT;
+END_VAR
+VAR_IN_OUT
+    FocalLengthCompounded : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+nIndex := nIndex + 1;
+
+fbFocalLengthCompounded.Val := afFocalLength[nIndex];
+
+FocalLengthCompounded := fbFocalLengthCompounded;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetCurrentResult" Id="{6edad1f8-ce19-4e2a-ba26-1028a554fb44}">
+      <Declaration><![CDATA[
+METHOD GetCurrentResult
+VAR_IN_OUT
+    FocalLengthCompounded : FB_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+FocalLengthCompounded := fbFocalLengthCompounded;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{899c1ae2-1f7c-43b4-bab3-4851756d6c8f}">
+      <Declaration><![CDATA[
+METHOD Reset
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+nIndex := 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{f0250d49-ded2-4b17-a105-c0f47d18423b}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : LREAL;
+    LensNum : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+afFocalLength[LensNum] := Result;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{c1823eea-07dc-4ea6-ac07-5ee9857edefe}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbFocalLengthCompounded.Val := 1.0;
+fbFocalLengthCompounded.Units := 'm';
+fbFocalLengthCompounded.ClearError();
+ClearError();
+
+FOR nIndex := 1 TO GVL_Physics.nMaxNumLensesInSet DO
+    afFocalLength[nIndex] := 1.0;
+END_FOR
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcXRayAbsorptionConstantElement" Id="{c8bc99e0-81d8-4acf-9106-e13fc68cdcfa}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcXRayAbsorptionConstantElement EXTENDS FB_Fallible IMPLEMENTS I_CalcXRayAbsorptionConstant
+VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
+    iEnergy : I_QuantityLREAL; // The photon energy of the x-rays.
+    if2LUT : I_StringLookupLREAL;
+    iElementLUT : I_StringLookupElement;
+
+    fbEnergy : FB_QuantityLREALPublic(Units := 'eV');
+    fbf2 : FB_QuantityLREALPublic(Units := 'e/atom'); // The f2 scattering factor. Units are e/atom
+
+    fbDensity : FB_QuantityLREALPublic(Units := 'g/cm**3');
+    fbAtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
+
+    fbPlanckConstant : FB_QuantityLREALPublic(Units := 'eV/Hz');
+    fbRElectron : FB_QuantityLREALPublic(Units := 'cm');
+    fbSpeedOfLightInVacuum : FB_QuantityLREALPublic(Units := 'cm/s');
+    fbAvogadrosNumber : FB_QuantityLREALPublic(Units := '1/mol');
+    fbConstantMultiplier : FB_QuantityLREALPublic(Units := 'eV*cm**2/mol');
+
+    {attribute 'pytmc' := 'pv: AbsorptionConstant'}
+    fbAbsorptionConstant : FB_QuantityLREALPublic(Units := '1/um');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{698a4a56-0347-4e35-9478-8e1d23ed0a43}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    MaterialFormula : T_MaxString;
+    AbsorptionConstant : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Initialize delta and error values.
+ClearError();
+
+// Check to see if there is an error reported for the photon energy input.
+IF iEnergy.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input photon energy has an error: [',
+        CONCAT(iEnergy.GetErrorMsg(),
+        ']'))
+    );
+    AbsorptionConstant.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := iEnergy,
+    DesiredUnits := fbEnergy.Units,
+    ConvertedQuantity := fbEnergy
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of photon energy input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    AbsorptionConstant.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check to make sure the photon energy is a nonzero, positive number before attempting to divide by it.
+IF iEnergy.Val <= 0.0 THEN
+    SetError(
+        Msg := CONCAT('The photon energy specified: [',
+        CONCAT(LREAL_TO_STRING(iEnergy.Val),
+        '] must be greater than 0.'))
+    );
+    AbsorptionConstant.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iElementLUT.LookupDensity(
+    ElementName := MaterialFormula,
+    Density := fbDensity
+);
+iElementLUT.LookupAtomicMass(
+    ElementName := MaterialFormula,
+    AtomicMass := fbAtomicMass
+);
+
+// Check to see if there is an error reported for the density input.
+IF iElementLUT.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input element lookup table has an error: [',
+        CONCAT(iElementLUT.GetErrorMsg(),
+        ']'))
+    );
+    AbsorptionConstant.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check to make sure the density is a nonzero, positive number.
+IF fbDensity.Val <= 0.0 THEN
+    SetError(
+        Msg := CONCAT('The density specified: [',
+        CONCAT(LREAL_TO_STRING(fbDensity.Val),
+        '] must be greater than 0.'))
+    );
+    AbsorptionConstant.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+if2LUT.Lookup(
+    StringToLookup := MaterialFormula,
+    Result := fbf2
+);
+
+// Check to see if there is an error reported for the scatterer input.
+IF if2LUT.GetError() THEN
+    SetError(
+        Msg := CONCAT('The f2 lookup table has an error: [',
+        CONCAT(if2LUT.GetErrorMsg(),
+        ']'))
+    );
+    AbsorptionConstant.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check to make sure the atomic mass is a nonzero, positive number.
+IF fbAtomicMass.Val <= 0.0 THEN
+    SetError(
+        Msg := CONCAT('The atomic mass specified: [',
+        CONCAT(LREAL_TO_STRING(fbAtomicMass.Val),
+        '] must be greater than 0.'))
+    );
+    AbsorptionConstant.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbAbsorptionConstant.Val := 100.0 * fbConstantMultiplier.Val * fbf2.Val * fbDensity.Val / (iEnergy.Val * fbAtomicMass.Val);
+fbAbsorptionConstant.Units := '1/m';
+
+AbsorptionConstant.Copy(fbAbsorptionConstant);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearError" Id="{f732404c-8a81-4cfd-aa6f-6cc81293f23e}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbAbsorptionConstant.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{4a9af861-e2b2-48cd-923a-df74b8e4526b}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    ConvertUnits : I_ConvertUnitsLREAL;
+    Energy : I_QuantityLREAL; // The photon energy of the x-rays.
+    f2LUT : I_StringLookupLREAL;
+    ElementLUT : I_StringLookupElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
+THIS^.iEnergy := Energy;
+THIS^.if2LUT := f2LUT;
+THIS^.iElementLUT := ElementLUT;
+
+fbPlanckConstant.Val := GVL_PhysicalConstants.fPlanckConstantInEVS_in_eV_s;
+fbPlanckConstant.Units := 'eV/Hz';
+
+fbRElectron.Val := 100 * GVL_PhysicalConstants.fClassicalElectronRadius_in_m;
+fbRElectron.Units := 'cm';
+
+fbSpeedOfLightInVacuum.Val := 100 * GVL_PhysicalConstants.fSpeedOfLightInVacuum_in_m_s_1;
+fbSpeedOfLightInVacuum.Units := 'cm/s';
+
+fbAvogadrosNumber.Val := GVL_PhysicalConstants.fAvogadroConstant_in_mol_1;
+fbAvogadrosNumber.Units := '1/mol';
+
+fbConstantMultiplier.Val := 2.0 * fbRElectron.Val * fbPlanckConstant.Val * fbSpeedOfLightInVacuum.Val * fbAvogadrosNumber.Val;
+fbConstantMultiplier.Units := 'eV*cm**2/mol';
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{7f9ab395-de0c-4e91-895e-28e8dfc49d87}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbAbsorptionConstant.SetError(Msg := Msg);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcXRayAbsorptionConstantMock" Id="{b5e25519-ff34-4705-a41c-07a33cb4f6f6}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcXRayAbsorptionConstantMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcXRayAbsorptionConstant
+VAR
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{94aba10b-275d-4077-b728-766a54da529d}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    MaterialFormula	: T_MaxString;
+    AbsorptionConstant	: I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AbsorptionConstant.Copy(fbResult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{94d86c85-0b5e-4065-b511-44934c8eb565}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbResult.Copy(QuantityToCopy := Result);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{afb99497-16bd-4be9-baa6-a37f9f34dc80}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbResult.Val := 1.0;
+fbResult.Units := '1/m';
+fbResult.ClearError();
+ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

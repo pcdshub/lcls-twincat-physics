@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_StringLookupLREAL" Id="{674c74e5-87a8-4d86-bcac-d267f06a9630}">
+    <Declaration><![CDATA[
+INTERFACE I_StringLookupLREAL EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Lookup" Id="{cec974d9-256d-43bf-826a-e26013831226}">
+      <Declaration><![CDATA[
+METHOD Lookup
+VAR_INPUT
+    StringToLookup : T_MaxString;
+    Result : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

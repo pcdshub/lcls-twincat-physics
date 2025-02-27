@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_QuantityLREALPublic" Id="{054488e9-23a0-4927-be35-da45401b7565}">
+    <Declaration><![CDATA[
+INTERFACE I_QuantityLREALPublic EXTENDS I_QuantityPublic, I_QuantityLREAL
+]]></Declaration>
+    <Method Name="Copy" Id="{74285296-16ea-43e3-bcb3-6f7ad2de0fcf}">
+      <Declaration><![CDATA[
+METHOD Copy
+VAR_INPUT
+    QuantityToCopy : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Val" Id="{7bcda038-7fd6-4d42-9931-f7f5c952fa96}">
+      <Declaration><![CDATA[
+PROPERTY Val : LREAL
+]]></Declaration>
+      <Set Name="Set" Id="{6193ebdc-af3c-429e-84f0-fe7b372da9c3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

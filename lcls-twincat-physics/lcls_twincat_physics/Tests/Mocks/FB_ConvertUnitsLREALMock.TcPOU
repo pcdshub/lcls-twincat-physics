@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ConvertUnitsLREALMock" Id="{83003460-d466-485e-a7d1-48cce8fdc0de}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_ConvertUnitsLREALMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_ConvertUnitsLREAL
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ConvertQuantityLREAL" Id="{7ff13a66-4da9-43c9-a2da-d725026499fd}">
+      <Declaration><![CDATA[
+METHOD ConvertQuantityLREAL
+VAR_INPUT
+    QuantityToConvert : I_QuantityLREAL;
+    DesiredUnits : T_MaxString;
+    ConvertedQuantity : I_QuantityLREALPublic;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ConvertedQuantity.Val := QuantityToConvert.Val;
+ConvertedQuantity.Units := DesiredUnits;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

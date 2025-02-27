@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLengthSingleLens" Id="{4986d52d-63ec-4366-87a7-ec07b5c7c44d}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLens EXTENDS FB_Fallible IMPLEMENTS I_CalcFocalLengthSingleLens
+VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
+    iCalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
+
+    fbDelta : FB_QuantityLREALPublic(Units := '1');
+    fbRadiusLens : FB_QuantityLREALPublic(Units := 'm');
+    fbRadius : FB_QuantityLREALPublic(Units := 'm');
+
+    {attribute 'pytmc' := 'pv: FocalLength'}
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{ccac877d-2b8a-4013-bf1b-351f6a9d80e6}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    Lens : I_Lens;
+END_VAR
+VAR_IN_OUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+
+SetUnits(Units := FocalLength.Units);
+
+// Check for an invalid lens input.
+IF Lens.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens has the following error message: [',
+        CONCAT(Lens.GetErrorMsg(),
+        ']'))
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iCalcXRayDelta.Calculate(
+    MaterialFormula := Lens.MaterialFormula,
+    Delta := fbDelta
+);
+
+// Check for an invalid delta input.
+IF iCalcXRayDelta.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input delta has the following error message: [',
+        CONCAT(iCalcXRayDelta.GetErrorMsg(),
+        ']'))
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+IF fbDelta.Val = 0.0 THEN
+    SetError(
+        Msg := CONCAT('The delta calculated: [',
+        CONCAT(LREAL_TO_STRING(fbDelta.Val),
+        '] must not be 0.'))
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+Lens.GetRadius(Radius := fbRadiusLens);
+
+IF Lens.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens has the following error message after attempting to get the radius: [',
+        CONCAT(Lens.GetErrorMsg(),
+        ']'))
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbRadiusLens,
+    DesiredUnits := fbFocalLength.Units,
+    ConvertedQuantity := fbRadius
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of lens radius input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+IF fbRadius.Val <= 0.0 THEN
+    SetError(
+        Msg := CONCAT('The radius specified: [',
+        CONCAT(LREAL_TO_STRING(fbRadius.Val),
+        '] must be greater than 0.'))
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbFocalLength.Val := fbRadius.Val / 2.0 / fbDelta.Val;
+
+FocalLength := fbFocalLength;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearError" Id="{823614fd-b6c8-45ac-8eda-92208d6946c9}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbFocalLength.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{20bb0204-195a-417d-97fe-efa1e33a672d}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    ConvertUnits : I_ConvertUnitsLREAL;
+    CalcXRayDelta : I_CalcXRayDelta; // The x-ray delta, the real part of the index of refraction, unitless value.
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
+THIS^.iCalcXRayDelta := CalcXRayDelta;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{39bdceda-5710-4f76-ad8a-31260711b475}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbFocalLength.SetError(Msg := Msg);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetUnits" Id="{bac298fe-f860-43bf-bf5f-6044e0ceda58}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetUnits
+VAR_INPUT
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbDelta.Units := '1';
+fbRadius.Units := Units;
+fbRadiusLens.Units := Units;
+fbFocalLength.Units := Units;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

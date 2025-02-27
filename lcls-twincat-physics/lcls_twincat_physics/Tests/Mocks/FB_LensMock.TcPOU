@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LensMock" Id="{8e5e1b9f-38a8-4173-b9ab-660968f25168}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_LensMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_Lens
+VAR
+    sMaterialName : T_MaxString;
+    nMultiplier : INT;
+    fbRadius : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetRadius" Id="{1e936b74-6ae1-48de-8fb7-a0e4f6da68ed}">
+      <Declaration><![CDATA[
+METHOD GetRadius
+VAR_IN_OUT
+    Radius : FB_QuantityLREALPublic(Units := '');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Radius := fbRadius;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="MaterialFormula" Id="{d5018cf9-ae4a-4b2b-bb13-fbe3f764b9b8}">
+      <Declaration><![CDATA[
+PROPERTY MaterialFormula : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{8f4c5ef5-2e6e-4653-bf7c-5b3586634ae6}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+MaterialFormula := sMaterialName;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{68152525-8594-40ce-9e2d-cd99711db00a}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+sMaterialName := MaterialFormula;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Multiplier" Id="{61aeae02-dce5-4640-a899-9989b314e3b7}">
+      <Declaration><![CDATA[
+PROPERTY Multiplier : INT
+]]></Declaration>
+      <Get Name="Get" Id="{3c7cbc25-d2b2-4f4a-8456-b8ec28707001}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Multiplier := nMultiplier;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{520f5cdf-d172-4950-99f3-6e7264aedd43}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+nMultiplier := Multiplier;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="SetRadius" Id="{fc452968-65ff-4321-92f9-1af7b8d51ad8}">
+      <Declaration><![CDATA[
+METHOD SetRadius
+VAR_INPUT
+    Radius : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbRadius.Copy(QuantityToCopy := Radius);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{a370019b-6194-4481-bd92-0da263acb531}">
+      <Declaration><![CDATA[
+METHOD SetValid
+VAR
+    nIndex : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+sMaterialName := 'Be';
+nMultiplier := 1;
+fbRadius.Val := 1.0;
+fbRadius.Units := 'm';
+fbRadius.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

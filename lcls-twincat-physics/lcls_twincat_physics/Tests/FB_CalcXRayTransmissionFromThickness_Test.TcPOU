@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcXRayTransmissionFromThickness_Test" Id="{08b25b53-940f-45c0-9304-c9eb09305566}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcXRayTransmissionFromThickness_Test EXTENDS FB_TestSuiteExtended
+VAR
+    nTestID : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+TestInvalidThicknessExpectErrorTransmissionUnchanged();
+
+TestInvalidConvertUnitsExpectErrorTransmissionUnchanged();
+
+TestInvalidAbsorptionConstantExpectErrorTransmissionUnchanged();
+
+TestNegThicknessExpectErrorTransmissionUnchanged();
+
+TestNegAbsorptionConstantExpectErrorTransmissionUnchanged();
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 1.
+TestValidInputsExpectNoErrorAccurateTransmission(
+    fAbsorptionConstant := 12.800951999485301 * 1e-6,
+    fThickness := 12724.012905022842,
+    fExpected := 0.8496935886422485
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 2.
+TestValidInputsExpectNoErrorAccurateTransmission(
+    fAbsorptionConstant := 12.800951999485301 * 1e-6,
+    fThickness := 21460.91937937377,
+    fExpected := 0.7597846821217343
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 3.
+TestValidInputsExpectNoErrorAccurateTransmission(
+    fAbsorptionConstant := 12.800951999485301 * 1e-6,
+    fThickness := 25127.915533544812,
+    fExpected := 0.7249437302469476
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 4.
+TestValidInputsExpectNoErrorAccurateTransmission(
+    fAbsorptionConstant := 7513993.7275719205 * 1e-6,
+    fThickness := 12724.012905022842,
+    fExpected := 0.0
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 5.
+TestValidInputsExpectNoErrorAccurateTransmission(
+    fAbsorptionConstant := 7513993.7275719205 * 1e-6,
+    fThickness := 21460.91937937377,
+    fExpected := 0.0
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 6.
+TestValidInputsExpectNoErrorAccurateTransmission(
+    fAbsorptionConstant := 7513993.7275719205 * 1e-6,
+    fThickness := 25127.915533544812,
+    fExpected := 0.0
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 7.
+TestValidInputsExpectNoErrorAccurateTransmission(
+    fAbsorptionConstant := 1541.6645715071177 * 1e-6,
+    fThickness := 12724.012905022842,
+    fExpected := 3.025589455654965e-09
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 8.
+TestValidInputsExpectNoErrorAccurateTransmission(
+    fAbsorptionConstant := 1541.6645715071177 * 1e-6,
+    fThickness := 21460.91937937377,
+    fExpected := 4.276937926274507e-15
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 9.
+TestValidInputsExpectNoErrorAccurateTransmission(
+    fAbsorptionConstant := 1541.6645715071177 * 1e-6,
+    fThickness := 25127.915533544812,
+    fExpected := 1.4994965928436257e-17
+);
+]]></ST>
+    </Implementation>
+    <Method Name="SetInitialValues" Id="{89f6a1bd-d7ee-454e-90a8-bad3ce1b2efe}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetInitialValues
+VAR_IN_OUT
+    fbCalcXRayAbsorptionMock : FB_CalcXRayAbsorptionConstantMock;
+    fbThicknessMock : FB_QuantityLREALPublicMock;
+END_VAR
+VAR
+    fbResult : FB_QuantityLREALPublicMock;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbResult.Val := 1.0;
+fbResult.Units := '1/m';
+
+fbCalcXRayAbsorptionMock.SetResult(fbResult);
+fbCalcXRayAbsorptionMock.ClearError();
+
+fbThicknessMock.Val := 1.0;
+fbThicknessMock.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidAbsorptionConstantExpectErrorTransmissionUnchanged" Id="{2f346236-49b5-4b77-b2ce-e714dc876c81}">
+      <Declaration><![CDATA[
+METHOD TestInvalidAbsorptionConstantExpectErrorTransmissionUnchanged
+VAR
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayAbsorptionMock : FB_CalcXRayAbsorptionConstantMock;
+    fbThicknessMock : FB_QuantityLREALPublicMock;
+
+    // Subject under test
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayAbsorption := fbCalcXRayAbsorptionMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidAbsorptionConstantExpectErrorTransmissionUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbCalcXRayAbsorptionMock := fbCalcXRayAbsorptionMock,
+    fbThicknessMock := fbThicknessMock
+);
+
+fbCalcXRayAbsorptionMock.SetError(Msg := 'Error');
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayTransmission.Calculate(
+    MaterialFormula := 'Be',
+    Thickness := fbThicknessMock,
+    Transmission := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayTransmission);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidConvertUnitsExpectErrorTransmissionUnchanged" Id="{18d2f880-d6bd-4567-ac2c-21aef913237a}">
+      <Declaration><![CDATA[
+METHOD TestInvalidConvertUnitsExpectErrorTransmissionUnchanged
+VAR
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayAbsorptionMock : FB_CalcXRayAbsorptionConstantMock;
+    fbThicknessMock : FB_QuantityLREALPublicMock;
+
+    // Subject under test
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayAbsorption := fbCalcXRayAbsorptionMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidConvertUnitsExpectErrorTransmissionUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbCalcXRayAbsorptionMock := fbCalcXRayAbsorptionMock,
+    fbThicknessMock := fbThicknessMock
+);
+
+fbConvertUnitsLREALMock.SetError(Msg := 'Error');
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayTransmission.Calculate(
+    MaterialFormula := 'Be',
+    Thickness := fbThicknessMock,
+    Transmission := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayTransmission);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidThicknessExpectErrorTransmissionUnchanged" Id="{7c0c4471-8971-424d-ba92-1a476a12656e}">
+      <Declaration><![CDATA[
+METHOD TestInvalidThicknessExpectErrorTransmissionUnchanged
+VAR
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayAbsorptionMock : FB_CalcXRayAbsorptionConstantMock;
+    fbThicknessMock : FB_QuantityLREALPublicMock;
+
+    // Subject under test
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayAbsorption := fbCalcXRayAbsorptionMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidThicknessExpectErrorTransmissionUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbCalcXRayAbsorptionMock := fbCalcXRayAbsorptionMock,
+    fbThicknessMock := fbThicknessMock
+);
+
+fbThicknessMock.SetError(Msg := 'Error');
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayTransmission.Calculate(
+    MaterialFormula := 'Be',
+    Thickness := fbThicknessMock,
+    Transmission := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayTransmission);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegAbsorptionConstantExpectErrorTransmissionUnchanged" Id="{6c213ac9-0c7d-416d-88b7-0de15f3d2c9c}">
+      <Declaration><![CDATA[
+METHOD TestNegAbsorptionConstantExpectErrorTransmissionUnchanged
+VAR
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayAbsorptionMock : FB_CalcXRayAbsorptionConstantMock;
+    fbThicknessMock : FB_QuantityLREALPublicMock;
+    fbAbsorptionConstantResultMock : FB_QuantityLREALPublicMock;
+
+    // Subject under test
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayAbsorption := fbCalcXRayAbsorptionMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegAbsorptionConstantExpectErrorTransmissionUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbCalcXRayAbsorptionMock := fbCalcXRayAbsorptionMock,
+    fbThicknessMock := fbThicknessMock
+);
+
+fbAbsorptionConstantResultMock.Val := -10.0;
+fbAbsorptionConstantResultMock.Units := '1/m';
+fbCalcXRayAbsorptionMock.SetResult(fbAbsorptionConstantResultMock);
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayTransmission.Calculate(
+    MaterialFormula := 'Be',
+    Thickness := fbThicknessMock,
+    Transmission := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayTransmission);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegThicknessExpectErrorTransmissionUnchanged" Id="{e5756f37-41c7-4e44-8192-65b349b1102e}">
+      <Declaration><![CDATA[
+METHOD TestNegThicknessExpectErrorTransmissionUnchanged
+VAR
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayAbsorptionMock : FB_CalcXRayAbsorptionConstantMock;
+    fbThicknessMock : FB_QuantityLREALPublicMock;
+
+    // Subject under test
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayAbsorption := fbCalcXRayAbsorptionMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegThicknessExpectErrorTransmissionUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbCalcXRayAbsorptionMock := fbCalcXRayAbsorptionMock,
+    fbThicknessMock := fbThicknessMock
+);
+
+fbThicknessMock.Val := -10.0;
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayTransmission.Calculate(
+    MaterialFormula := 'Be',
+    Thickness := fbThicknessMock,
+    Transmission := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayTransmission);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateTransmission" Id="{07b9719e-12f1-41e0-b373-8812a2f9397e}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccurateTransmission
+VAR_INPUT
+    fAbsorptionConstant : LREAL;
+    fThickness : LREAL;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayAbsorptionMock : FB_CalcXRayAbsorptionConstantMock;
+    fbThicknessMock : FB_QuantityLREALPublicMock;
+    fbAbsorptionConstantResultMock : FB_QuantityLREALPublicMock;
+
+    // Subject under test
+    fbCalcXRayTransmission : FB_CalcXRayTransmissionFromThickness(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayAbsorption := fbCalcXRayAbsorptionMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccurateTransmission ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialValues(
+    fbCalcXRayAbsorptionMock := fbCalcXRayAbsorptionMock,
+    fbThicknessMock := fbThicknessMock
+);
+
+fbAbsorptionConstantResultMock.Val := fAbsorptionConstant;
+fbAbsorptionConstantResultMock.Units := '1/um';
+fbCalcXRayAbsorptionMock.SetResult(fbAbsorptionConstantResultMock);
+
+fbThicknessMock.Val := fThickness;
+fbThicknessMock.Units := 'um';
+
+fbExpected.Val := fExpected;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayTransmission.Calculate(
+    MaterialFormula := 'Be',
+    Thickness := fbThicknessMock,
+    Transmission := fbResult
+);
+
+AssertNoError(Fallible := fbCalcXRayTransmission);
+
+AssertNoErrorExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

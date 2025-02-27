@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_StringLookupLREALMock" Id="{682595e9-23e7-433f-b4e7-703251f5a029}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_StringLookupLREALMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_StringLookupLREAL
+VAR
+    fbValue : FB_QuantityLREALPublic(Units := '');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Lookup" Id="{630af135-431d-4e29-ba31-858823424239}">
+      <Declaration><![CDATA[
+METHOD Lookup
+VAR_INPUT
+    StringToLookup : T_MaxString;
+    Result : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Result.Copy(fbValue);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{f191b27d-26c4-439f-bb30-68eb93c40b83}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbValue.Copy(QuantityToCopy := Result);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{d166fb74-2990-4b60-a23f-5d3fe53ca986}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbValue.ClearError();
+
+ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{ef73bd49-8fb0-4be1-8d86-b76d703be7f0}">
+      <Declaration><![CDATA[PROPERTY Value : LREAL]]></Declaration>
+      <Get Name="Get" Id="{f7f5b9d6-d215-4861-8597-f4ea07c65436}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Value := fbValue.Val;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c0e07afa-1415-49db-b4d8-936c2ba30d95}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+fbValue.Val := Value;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

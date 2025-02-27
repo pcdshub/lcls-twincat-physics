@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_CalcImageDistance" Id="{9de12eff-520d-467e-99ab-024e0bc23921}">
+    <Declaration><![CDATA[
+INTERFACE I_CalcImageDistance EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Calculate" Id="{73a9a5ee-8e75-47d0-bbff-d8be94099a30}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    FocalLength : I_QuantityLREAL;
+    SourceDistance : I_QuantityLREAL;
+END_VAR
+VAR_IN_OUT
+    ImageDistance : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

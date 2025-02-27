@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLengthSingleLens_Test" Id="{85175de0-d809-48a0-9035-d5cabefef591}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthSingleLens_Test EXTENDS FB_TestSuiteExtended
+VAR
+    nTestID : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+Test0DeltaExpectErrorFocalLengthUnchanged();
+
+Test0RadiusExpectErrorFocalLengthUnchanged();
+
+TestInvalidDeltaExpectErrorFocalLengthUnchanged();
+
+TestInvalidLensExpectErrorFocalLengthUnchanged();
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 1.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0001,
+    fExpected := 0.008893754309452119
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 2.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 0.005621922785393444,
+    fRadius := 0.0051,
+    fExpected := 0.45358146978205804
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 3.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0001,
+    fExpected := 29.15893454819898
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 4.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 1.7147402940032417e-06,
+    fRadius := 0.0051,
+    fExpected := 1487.105661958148
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 5.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0001,
+    fExpected := 115.84311231310711
+);
+
+// Expected results taken from pcdscalc/be_lens_calcs.py.
+// Element = Be. Test Count = 6.
+TestValidInputsExpectNoErrorAccurateFocalLength(
+    fDelta := 4.316182378185529e-07,
+    fRadius := 0.0051,
+    fExpected := 5907.998727968463
+);
+]]></ST>
+    </Implementation>
+    <Method Name="SetInitialDeltaAndLensValues" Id="{bdf9ec0b-14ec-48c2-a21f-eb2530271dd3}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetInitialDeltaAndLensValues
+VAR_IN_OUT
+    fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbCalcXRayDeltaMock.SetValid();
+
+fbLensMock.SetValid();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0DeltaExpectErrorFocalLengthUnchanged" Id="{884decc0-7ccd-43be-b539-b042f489f0ce}">
+      <Declaration><![CDATA[
+METHOD PRIVATE Test0DeltaExpectErrorFocalLengthUnchanged
+VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0DeltaExpectErrorFocalLengthUnchanged');
+
+// Test Fixture
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
+);
+
+fbDeltaMock.Val := 0.0;
+fbCalcXRayDeltaMock.SetResult(Result := fbDeltaMock);
+
+fbResult.Val := 52351.463;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
+);
+
+AssertError(Fallible := fbCalcFocalLengthSingleLens);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0RadiusExpectErrorFocalLengthUnchanged" Id="{2678e1cc-84be-4dd6-bdd3-4144cce0f4be}">
+      <Declaration><![CDATA[
+METHOD PRIVATE Test0RadiusExpectErrorFocalLengthUnchanged
+VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0RadiusExpectErrorFocalLengthUnchanged');
+
+// Test Fixture
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
+);
+
+fbRadius.Val := 0.0;
+fbRadius.Units := 'm';
+
+fbLensMock.SetRadius(fbRadius);
+
+fbResult.Val := 52351.463;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
+);
+
+AssertError(Fallible := fbCalcFocalLengthSingleLens);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidDeltaExpectErrorFocalLengthUnchanged" Id="{8ce1ae93-c963-4cfd-a51e-bb3ddb1a3cf0}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInvalidDeltaExpectErrorFocalLengthUnchanged
+VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidDeltaExpectErrorFocalLengthUnchanged');
+
+// Test fixture
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
+);
+
+fbCalcXRayDeltaMock.SetError(Msg := 'Error');
+
+fbResult.Val := 52351.463;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
+);
+
+AssertError(Fallible := fbCalcFocalLengthSingleLens);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidLensExpectErrorFocalLengthUnchanged" Id="{eb958df2-7b0a-4723-a248-f2c9d68420eb}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInvalidLensExpectErrorFocalLengthUnchanged
+VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidLensExpectErrorFocalLengthUnchanged');
+
+// Test fixture
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
+);
+
+fbLensMock.SetError(Msg := 'Error');
+
+fbResult.Val := 52351.463;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
+);
+
+AssertError(Fallible := fbCalcFocalLengthSingleLens);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength" Id="{ecdb3377-455a-469a-8223-4fdf93173dff}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorAccurateFocalLength
+VAR_INPUT
+    fDelta : LREAL;
+    fRadius : LREAL;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbRadius : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcXRayDeltaMock : FB_CalcXRayDeltaMock;
+    fbLensMock : FB_LensMock;
+    fbDeltaMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthSingleLens : FB_CalcFocalLengthSingleLens(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcXRayDelta := fbCalcXRayDeltaMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccurateFocalLength ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialDeltaAndLensValues(
+    fbCalcXRayDeltaMock := fbCalcXRayDeltaMock,
+    fbLensMock := fbLensMock
+);
+
+fbDeltaMock.Val := fDelta;
+fbCalcXRayDeltaMock.SetResult(Result := fbDeltaMock);
+
+fbRadius.Val := fRadius;
+fbRadius.Units := 'm';
+
+fbLensMock.SetRadius(fbRadius);
+
+fbExpected.Val := fExpected;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcFocalLengthSingleLens.Calculate(
+    Lens := fbLensMock,
+    FocalLength := fbResult
+);
+
+AssertNoError(Fallible := fbCalcFocalLengthSingleLens);
+
+AssertNoErrorExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

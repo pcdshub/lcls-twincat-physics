@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ElementLUT_Test" Id="{3ff69030-7098-4c44-963f-c70efce3cce1}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_ElementLUT_Test EXTENDS FB_TestSuiteExtended
+VAR
+    nTestID : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+TestLookupAtomicMassInvalidExpectErrorAndNoChangeToResult();
+
+TestLookupAtomicMassExpectNoErrorAndCorrectAtomicMass();
+
+TestLookupAtomicNumberInvalidExpectErrorAndNoChangeToResult();
+
+TestLookupAtomicNumberExpectNoErrorAndCorrectAtomicNumber();
+
+TestLookupDensityInvalidExpectErrorAndNoChangeToResult();
+
+TestLookupDensityExpectNoErrorAndCorrectDensity();
+]]></ST>
+    </Implementation>
+    <Method Name="TestLookupAtomicMassExpectNoErrorAndCorrectAtomicMass" Id="{b98aa2b8-156a-4478-b39a-bdc366fd7e17}">
+      <Declaration><![CDATA[
+METHOD TestLookupAtomicMassExpectNoErrorAndCorrectAtomicMass
+VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbElementLUT : FB_ElementLUT(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        AtomicMassLUT := fbAtomicMassLUTMock,
+        AtomicNumberLUT := fbAtomicNumberLUTMock,
+        DensityLUT := fbDensityLUTMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'AMU');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupAtomicMassExpectNoErrorAndCorrectAtomicMass');
+
+// Test Fixture
+fbExpected.Val := 123.4;
+fbExpected.Units := 'AMU';
+
+fbAtomicMassLUTMock.SetResult(Result := fbExpected);
+
+// Subject Under Test
+fbElementLUT.LookupAtomicMass(
+    ElementName := 'Be',
+    AtomicMass := fbResult
+);
+
+AssertNoError(Fallible := fbElementLUT);
+
+AssertNoErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupAtomicMassInvalidExpectErrorAndNoChangeToResult" Id="{8522e912-618a-41d3-9098-b6783a18e8f2}">
+      <Declaration><![CDATA[
+METHOD TestLookupAtomicMassInvalidExpectErrorAndNoChangeToResult
+VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbElementLUT : FB_ElementLUT(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        AtomicMassLUT := fbAtomicMassLUTMock,
+        AtomicNumberLUT := fbAtomicNumberLUTMock,
+        DensityLUT := fbDensityLUTMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupAtomicMassInvalidExpectErrorAndNoChangeToResult');
+
+// Test Fixture
+fbExpected.Val := 32.1;
+fbExpected.Units := '1';
+
+fbAtomicMassLUTMock.SetResult(Result := fbExpected);
+fbAtomicMassLUTMock.SetError(Msg := 'Error');
+
+fbResult.Val := 32.1;
+
+// Subject Under Test
+fbElementLUT.LookupAtomicMass(
+    ElementName := 'Be',
+    AtomicMass := fbResult
+);
+
+AssertError(Fallible := fbElementLUT);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupAtomicNumberExpectNoErrorAndCorrectAtomicNumber" Id="{4d6c9674-8db1-4ae3-b6ef-4ec1f0e35989}">
+      <Declaration><![CDATA[
+METHOD TestLookupAtomicNumberExpectNoErrorAndCorrectAtomicNumber
+VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fbExpected : FB_QuantityINTPublicMock;
+    fbElementLUT : FB_ElementLUT(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        AtomicMassLUT := fbAtomicMassLUTMock,
+        AtomicNumberLUT := fbAtomicNumberLUTMock,
+        DensityLUT := fbDensityLUTMock
+    );
+    fbResult : FB_QuantityINTPublic(Units := 'Protons');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupAtomicNumberExpectNoErrorAndCorrectAtomicNumber');
+
+// Test Fixture
+fbExpected.Val := 32;
+fbExpected.Units := '1';
+
+fbAtomicNumberLUTMock.SetResult(Result := fbExpected);
+
+// Subject Under Test
+fbElementLUT.LookupAtomicNumber(
+    ElementName := 'Be',
+    AtomicNumber := fbResult
+);
+
+AssertNoError(Fallible := fbElementLUT);
+
+AssertNoErrorExactExpectedQuantityINT(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupAtomicNumberInvalidExpectErrorAndNoChangeToResult" Id="{f5dce7d6-0895-4115-b996-ce0de61ab839}">
+      <Declaration><![CDATA[
+METHOD TestLookupAtomicNumberInvalidExpectErrorAndNoChangeToResult
+VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fbExpected : FB_QuantityINTPublicMock;
+    fbElementLUT : FB_ElementLUT(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        AtomicMassLUT := fbAtomicMassLUTMock,
+        AtomicNumberLUT := fbAtomicNumberLUTMock,
+        DensityLUT := fbDensityLUTMock
+    );
+    fbResult : FB_QuantityINTPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupAtomicNumberInvalidExpectErrorAndNoChangeToResult');
+
+// Test Fixture
+fbExpected.Val := 32;
+fbExpected.Units := '1';
+
+fbAtomicNumberLUTMock.SetResult(Result := fbExpected);
+fbAtomicNumberLUTMock.SetError(Msg := 'Error');
+
+fbResult.Val := 32;
+
+// Subject Under Test
+fbElementLUT.LookupAtomicNumber(
+    ElementName := 'Be',
+    AtomicNumber := fbResult
+);
+
+AssertError(Fallible := fbElementLUT);
+
+AssertErrorExactExpectedQuantityINT(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupDensityExpectNoErrorAndCorrectDensity" Id="{cc3f6451-4afe-4949-824e-164497207237}">
+      <Declaration><![CDATA[
+METHOD TestLookupDensityExpectNoErrorAndCorrectDensity
+VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbElementLUT : FB_ElementLUT(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        AtomicMassLUT := fbAtomicMassLUTMock,
+        AtomicNumberLUT := fbAtomicNumberLUTMock,
+        DensityLUT := fbDensityLUTMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'g/cm**3');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupDensityExpectNoErrorAndCorrectDensity');
+
+// Test Fixture
+fbExpected.Val := 123.4;
+fbExpected.Units := 'g/cm**3';
+
+fbDensityLUTMock.SetResult(Result := fbExpected);
+
+// Subject Under Test
+fbElementLUT.LookupDensity(
+    ElementName := 'Be',
+    Density := fbResult
+);
+
+AssertNoError(Fallible := fbElementLUT);
+
+AssertNoErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupDensityInvalidExpectErrorAndNoChangeToResult" Id="{20dba153-5bdf-4929-9b1f-5d59a28fbe9e}">
+      <Declaration><![CDATA[
+METHOD TestLookupDensityInvalidExpectErrorAndNoChangeToResult
+VAR
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbAtomicMassLUTMock : FB_StringLookupLREALMock;
+    fbAtomicNumberLUTMock : FB_StringLookupINTMock;
+    fbDensityLUTMock : FB_StringLookupLREALMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbElementLUT : FB_ElementLUT(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        AtomicMassLUT := fbAtomicMassLUTMock,
+        AtomicNumberLUT := fbAtomicNumberLUTMock,
+        DensityLUT := fbDensityLUTMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupDensityInvalidExpectErrorAndNoChangeToResult');
+
+// Test Fixture
+fbExpected.Val := 123.4;
+fbExpected.Units := '1';
+
+fbDensityLUTMock.SetResult(Result := fbExpected);
+fbDensityLUTMock.SetError(Msg := 'Error');
+
+fbResult.Val := 123.4;
+
+// Subject Under Test
+fbElementLUT.LookupDensity(
+    ElementName := 'Be',
+    Density := fbResult
+);
+
+AssertError(Fallible := fbElementLUT);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

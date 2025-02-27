@@ -5,7 +5,7 @@
     <ProjectGuid>{923b58d7-acd6-43cb-8e2a-d2f64687c200}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <Name>lcls_twincat_physics</Name>
-    <ProgramVersion>3.1.4022.7</ProgramVersion>
+    <ProgramVersion>3.1.4026.11</ProgramVersion>
     <Application>{81ad023f-33c9-49f1-8ddf-b5604ba0e1bc}</Application>
     <TypeSystem>{804f24b0-4c29-4ebe-bca6-589953bff872}</TypeSystem>
     <Implicit_Task_Info>{7fe8507f-4b39-4e90-8bcf-c6938fa21bee}</Implicit_Task_Info>
@@ -17,6 +17,9 @@
     <Released>false</Released>
     <Title>lcls-twincat-physics</Title>
     <ProjectVersion>0.0.0</ProjectVersion>
+    <AllowChecksForLibrary>false</AllowChecksForLibrary>
+    <POUsForPropertyAccessIncluded>false</POUsForPropertyAccessIncluded>
+    <GlobalVersionStructureIncluded>false</GlobalVersionStructureIncluded>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GVLs\GVL_AbsorptionTest.TcGVL">
@@ -32,22 +35,121 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="ITFs\Fallibles\I_Fallible.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Fallibles\I_FalliblePublic.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcFocalLength2LensSets.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcFocalLengthSingleLens.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcFocalLengthLensSet.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcImageDistance.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcXRayTransmissionFromThickness.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcXRayDelta.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcXRayAbsorptionConstant.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_CalcThicknessFromXRayTransmission.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_ConvertUnitsLREAL.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_Lens.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_LensCompounder.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_LensSetCompounder.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\I_LensSet.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\LookupTables\I_StringLookupINT.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\LookupTables\I_StringLookupLREAL.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\LookupTables\I_StringLookupElement.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_Quantity.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityLREAL.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityLREALPublic.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityINT.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityINTPublic.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ITFs\Quantities\I_QuantityPublic.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_AtomicMass.TcPOU">
+    <Compile Include="POUs\Fallibles\FB_Fallible.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_AtomicNumber.TcPOU">
+    <Compile Include="POUs\Fallibles\FB_FalliblePublic.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ElementDensity.TcPOU">
+    <Compile Include="POUs\FB_CalcFocalLengthLensSet.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_PhysicalConstants.TcPOU">
+    <Compile Include="POUs\FB_CalcFocalLengthSingleLens.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_ScatteringFactorLUT.TcPOU">
+    <Compile Include="POUs\FB_CalcImageDistance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcXRayAbsorptionConstantElement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcXRayTransmissionFromThickness.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcThicknessFromXRayTransmission.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_ConvertUnits.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_Lens.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_LensCompounder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_LensSet.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_LensSetCompounder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcXRayDeltaElement.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\F_CalculateAbsorptionConstant.TcPOU">
@@ -56,30 +158,214 @@
     <Compile Include="POUs\F_CalculateTransmission.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\RunTests.TcPOU">
+    <Compile Include="POUs\F_LagrangePolyInterp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_AtomicNumber_Test.TcPOU">
+    <Compile Include="POUs\LookupTables\FB_AtomicMass.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_ScatteringFactorLUT_Test.TcPOU">
+    <Compile Include="POUs\LookupTables\FB_AtomicNumber.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_TestTransmission.TcPOU">
+    <Compile Include="POUs\LookupTables\FB_ElementDensity.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_TestElementDensity.TcPOU">
+    <Compile Include="POUs\LookupTables\FB_ElementLUT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_f1Chantler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_f2Chantler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_PhysicalConstants.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LookupTables\FB_ScatteringFactorLUT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_CalcFocalLength2LensSets.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Quantities\FB_QuantityLREALPublic.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Quantities\FB_QuantityINTPublic.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Fallibles\FB_Fallible_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Fallibles\FB_FalliblePublic_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcFocalLength2LensSet_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcFocalLengthSingleLens_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcFocalLengthLensSet_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcXRayAbsorptionConstantElement_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcXRayTransmissionFromThickness_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcThicknessFromXRayTransmission_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_LagrangePolyInterp_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_LensCompounder_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcImageDistance_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalcXRayDeltaElement_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_LensSetCompounder_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_Lens_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_LensSet_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_ConvertUnits_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_Transmission_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Helpers\FB_TestSuiteExtended.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\LookupTables\FB_AtomicMass_Test.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Tests\LookupTables\FB_ElementLUT_Test.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Tests\LookupTables\FB_AtomicNumber_Test.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Tests\LookupTables\FB_f1Chantler_Test.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Tests\LookupTables\FB_f2Chantler_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\LookupTables\FB_ScatteringFactorLUT_Test.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Tests\LookupTables\FB_ElementDensity_Test.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcFocalLength2LensSetsMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcFocalLengthSingleLensMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcFocalLengthLensSetMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcImageDistanceMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcXRayDeltaMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_CalcXRayAbsorptionConstantMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_ConvertUnitsLREALMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_ConvertUnitsLREALSettableMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_FalliblePublicMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_LensSetCompounderMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_LensMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_QuantityLREALPublicMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_StringLookupElementMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_QuantityINTPublicMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_LensCompounderMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_LensSetMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_StringLookupINTMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Mocks\FB_StringLookupLREALMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\RunTests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="ITFs" />
+    <Folder Include="ITFs\Fallibles" />
+    <Folder Include="ITFs\LookupTables" />
+    <Folder Include="ITFs\Quantities" />
+    <Folder Include="POUs\LookupTables" />
+    <Folder Include="POUs\Fallibles" />
+    <Folder Include="POUs\Quantities" />
     <Folder Include="Tests" />
+    <Folder Include="Tests\Mocks" />
+    <Folder Include="Tests\LookupTables" />
+    <Folder Include="Tests\Fallibles" />
+    <Folder Include="Tests\Helpers" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="LCLS General">
+      <DefaultResolution>LCLS General, * (SLAC)</DefaultResolution>
+      <Namespace>LCLS_General</Namespace>
+      <Parameters>
+        <Parameter ListName="GENERALCONSTANTS" xmlns="">
+          <Key>MAX_STATES</Key>
+          <Value>15</Value>
+        </Parameter>
+      </Parameters>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Math">
+      <DefaultResolution>Tc2_Math, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Math</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -87,6 +373,32 @@
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
+      <Parameters>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>TABLE_UPPER_BOUND</Key>
+          <Value>15</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>STRING_LENGTH_EXP</Key>
+          <Value>255</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>STRING_LENGTH_ADDRESS</Key>
+          <Value>20</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>STRING_LENGTH_COMMENT</Key>
+          <Value>255</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>STRING_LENGTH_OUTSTRING</Key>
+          <Value>255</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>TABLE_SHOW_VALID_ITEMS</Key>
+          <Value>FALSE</Value>
+        </Parameter>
+      </Parameters>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -95,11 +407,49 @@
     <PlaceholderReference Include="TcUnit">
       <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
       <Namespace>TcUnit</Namespace>
+      <Parameters>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>MAXNUMBEROFTESTSUITES</Key>
+          <Value>100</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>MAXNUMBEROFTESTSFOREACHTESTSUITE</Key>
+          <Value>200</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>MAXNUMBEROFASSERTSFOREACHTESTSUITE</Key>
+          <Value>2000</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>LOGEXTENDEDRESULTS</Key>
+          <Value>FALSE</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>XUNITENABLEPUBLISH</Key>
+          <Value>FALSE</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>XUNITBUFFERSIZE</Key>
+          <Value>65535</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>XUNITFILEPATH</Key>
+          <Value>'%TC_BOOTPRJPATH%tcunit_xunit_testresults.xml'</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>ADSLOGMESSAGEFIFORINGBUFFERSIZE</Key>
+          <Value>3000</Value>
+        </Parameter>
+        <Parameter ListName="GVL_PARAM_TCUNIT">
+          <Key>TIMEBETWEENTESTSUITESEXECUTION</Key>
+          <Value>TIME#0ms</Value>
+        </Parameter>
+      </Parameters>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="TcUnit">
-      <Resolution>TcUnit, * (www.tcunit.org)</Resolution>
+      <Resolution>TcUnit, 1.3.1 (www.tcunit.org)</Resolution>
     </PlaceholderResolution>
   </ItemGroup>
   <ItemGroup>
@@ -110,8 +460,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -126,6 +476,83 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" />
         </o>
+        <v>{29BD8D0C-3586-4548-BB48-497B9A01693F}</v>
+        <o>
+          <v n="Name">"{29BD8D0C-3586-4548-BB48-497B9A01693F}"</v>
+          <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+            <v>Rules</v>
+            <o>
+              <v n="Name">"Rules"</v>
+              <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+                <v>167</v>
+                <o>
+                  <v n="Name">"167"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>175</v>
+                <o>
+                  <v n="Name">"175"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>27</v>
+                <o>
+                  <v n="Name">"27"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>True</v>
+                  </d>
+                </o>
+                <v>28</v>
+                <o>
+                  <v n="Name">"28"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>True</v>
+                  </d>
+                </o>
+                <v>33</v>
+                <o>
+                  <v n="Name">"33"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>4</v>
+                <o>
+                  <v n="Name">"4"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>True</v>
+                  </d>
+                </o>
+                <v>6</v>
+                <o>
+                  <v n="Name">"6"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>True</v>
+                  </d>
+                </o>
+              </d>
+              <d n="Values" t="Hashtable" />
+            </o>
+          </d>
+          <d n="Values" t="Hashtable" />
+        </o>
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
         <o>
           <v n="Name">"{40450F57-0AA3-4216-96F3-5444ECB29763}"</v>
@@ -135,16 +562,32 @@
             <v>IR0whWr8bwfyBwAAHf+pawAAAABVAgAADnffSgAAAAABAAAAAAAAAAEaUwB5AHMAdABlAG0ALgBTAHQAcgBpAG4AZwACTHsAZgA5ADUAYgBiADQAMgA2AC0ANQA1ADIANAAtADQAYgA0ADUALQA5ADQAMAAwAC0AZgBiADAAZgAyAGUANwA3AGUANQAxAGIAfQADCE4AYQBtAGUABDJUAHcAaQBuAEMAQQBUACAAMwAuADEAIABCAHUAaQBsAGQAIAA0ADAAMgAyAC4AMQAwAAUWUAByAG8AZgBpAGwAZQBEAGEAdABhAAZMewAxADYAZQA1ADUAYgA2ADAALQA3ADAANAAzAC0ANABhADYAMwAtAGIANgA1AGIALQA2ADEANAA3ADEAMwA4ADcAOABkADQAMgB9AAcSTABpAGIAcgBhAHIAaQBlAHMACEx7ADMAYgBmAGQANQA0ADUAOQAtAGIAMAA3AGYALQA0AGQANgBlAC0AYQBlADEAYQAtAGEAOAAzADMANQA2AGEANQA1ADEANAAyAH0ACUx7ADkAYwA5ADUAOAA5ADYAOAAtADIAYwA4ADUALQA0ADEAYgBiAC0AOAA4ADcAMQAtADgAOQA1AGYAZgAxAGYAZQBkAGUAMQBhAH0ACg5WAGUAcgBzAGkAbwBuAAsGaQBuAHQADApVAHMAYQBnAGUADQpUAGkAdABsAGUADhpWAGkAcwB1AEUAbABlAG0ATQBlAHQAZQByAA8OQwBvAG0AcABhAG4AeQAQDFMAeQBzAHQAZQBtABESVgBpAHMAdQBFAGwAZQBtAHMAEjBWAGkAcwB1AEUAbABlAG0AcwBTAHAAZQBjAGkAYQBsAEMAbwBuAHQAcgBvAGwAcwATKFYAaQBzAHUARQBsAGUAbQBzAFcAaQBuAEMAbwBuAHQAcgBvAGwAcwAUJFYAaQBzAHUARQBsAGUAbQBUAGUAeAB0AEUAZABpAHQAbwByABUiVgBpAHMAdQBOAGEAdABpAHYAZQBDAG8AbgB0AHIAbwBsABYUdgBpAHMAdQBpAG4AcAB1AHQAcwAXDHMAeQBzAHQAZQBtABgYVgBpAHMAdQBFAGwAZQBtAEIAYQBzAGUAGSZEAGUAdgBQAGwAYQBjAGUAaABvAGwAZABlAHIAcwBVAHMAZQBkABoIYgBvAG8AbAAbIlAAbAB1AGcAaQBuAEMAbwBuAHMAdAByAGEAaQBuAHQAcwAcTHsANAAzAGQANQAyAGIAYwBlAC0AOQA0ADIAYwAtADQANABkADcALQA5AGUAOQA0AC0AMQBiAGYAZABmADMAMQAwAGUANgAzAGMAfQAdHEEAdABMAGUAYQBzAHQAVgBlAHIAcwBpAG8AbgAeFFAAbAB1AGcAaQBuAEcAdQBpAGQAHxZTAHkAcwB0AGUAbQAuAEcAdQBpAGQAIEhhAGYAYwBkADUANAA0ADYALQA0ADkAMQA0AC0ANABmAGUANwAtAGIAYgA3ADgALQA5AGIAZgBmAGUAYgA3ADAAZgBkADEANwAhFFUAcABkAGEAdABlAEkAbgBmAG8AIkx7AGIAMAAzADMANgA2AGEAOAAtAGIANQBjADAALQA0AGIAOQBhAC0AYQAwADAAZQAtAGUAYgA4ADYAMAAxADEAMQAwADQAYwAzAH0AIw5VAHAAZABhAHQAZQBzACRMewAxADgANgA4AGYAZgBjADkALQBlADQAZgBjAC0ANAA1ADMAMgAtAGEAYwAwADYALQAxAGUAMwA5AGIAYgA1ADUANwBiADYAOQB9ACVMewBhADUAYgBkADQAOABjADMALQAwAGQAMQA3AC0ANAAxAGIANQAtAGIAMQA2ADQALQA1AGYAYwA2AGEAZAAyAGIAOQA2AGIANwB9ACYWTwBiAGoAZQBjAHQAcwBUAHkAcABlACdUVQBwAGQAYQB0AGUATABhAG4AZwB1AGEAZwBlAE0AbwBkAGUAbABGAG8AcgBDAG8AbgB2AGUAcgB0AGkAYgBsAGUATABpAGIAcgBhAHIAaQBlAHMAKBBMAGkAYgBUAGkAdABsAGUAKRRMAGkAYgBDAG8AbQBwAGEAbgB5ACoeVQBwAGQAYQB0AGUAUAByAG8AdgBpAGQAZQByAHMAKzhTAHkAcwB0AGUAbQAuAEMAbwBsAGwAZQBjAHQAaQBvAG4AcwAuAEgAYQBzAGgAdABhAGIAbABlACwSdgBpAHMAdQBlAGwAZQBtAHMALUg2AGMAYgAxAGMAZABlADEALQBkADUAZABjAC0ANABhADMAYgAtADkAMAA1ADQALQAyADEAZgBhADcANQA2AGEAMwBmAGEANAAuKEkAbgB0AGUAcgBmAGEAYwBlAFYAZQByAHMAaQBvAG4ASQBuAGYAbwAvTHsAYwA2ADEAMQBlADQAMAAwAC0ANwBmAGIAOQAtADQAYwAzADUALQBiADkAYQBjAC0ANABlADMAMQA0AGIANQA5ADkANgA0ADMAfQAwGE0AYQBqAG8AcgBWAGUAcgBzAGkAbwBuADEYTQBpAG4AbwByAFYAZQByAHMAaQBvAG4AMgxMAGUAZwBhAGMAeQAzMEwAYQBuAGcAdQBhAGcAZQBNAG8AZABlAGwAVgBlAHIAcwBpAG8AbgBJAG4AZgBvADQwTABvAGEAZABMAGkAYgByAGEAcgBpAGUAcwBJAG4AdABvAFAAcgBvAGoAZQBjAHQANRpDAG8AbQBwAGEAdABpAGIAaQBsAGkAdAB5ANAAAhoD0AMBLQTQBQYaB9AHCBoBRQcJCNAACRoERQoLBAMAAAAFAAAACgAAAAAAAADQDAutAgAAANANAS0O0A8BLRDQAAkaBEUKCwQDAAAABQAAAAoAAAAoAAAA0AwLrQEAAADQDQEtEdAPAS0Q0AAJGgRFCgsEAwAAAAUAAAAKAAAAAAAAANAMC60CAAAA0A0BLRLQDwEtENAACRoERQoLBAMAAAAFAAAACgAAACgAAADQDAutAgAAANANAS0T0A8BLRDQAAkaBEUKCwQDAAAABQAAAAoAAAAKAAAA0AwLrQIAAADQDQEtFNAPAS0Q0AAJGgRFCgsEAwAAAAUAAAAKAAAAKAAAANAMC60CAAAA0A0BLRXQDwEtENAACRoERQoLBAMAAAAFAAAACgAAAAAAAADQDAutAgAAANANAS0W0A8BLRfQAAkaBEUKCwQDAAAABQAAAAoAAAAoAAAA0AwLrQQAAADQDQEtGNAPAS0Q0BkarQFFGxwB0AAcGgJFHQsEAwAAAAUAAAAKAAAAAAAAANAeHy0g0CEiGgJFIyQC0AAlGgVFCgsEAwAAAAMAAAAAAAAACgAAANAmC60AAAAA0AMBLSfQKAEtEdApAS0Q0AAlGgVFCgsEAwAAAAMAAAAAAAAACgAAANAmC60BAAAA0AMBLSfQKAEtEdApAS0QmiorAUUAAQLQAAEtLNAAAS0X0AAfLS3QLi8aA9AwC60BAAAA0DELrRMAAADQMhqtANAzLxoD0DALrQIAAADQMQutAwAAANAyGq0A0DQarQDQNRqtAA==</v>
           </d>
         </o>
+        <v>{8A0FB252-96EB-4DCC-A5B4-B4804D05E2D6}</v>
+        <o>
+          <v n="Name">"{8A0FB252-96EB-4DCC-A5B4-B4804D05E2D6}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+            <v>WriteLineIDs</v>
+            <v>True</v>
+          </d>
+        </o>
+        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
+        <o>
+          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

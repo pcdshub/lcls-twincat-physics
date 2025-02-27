@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcImageDistance" Id="{85972a9f-836a-4795-bb47-ce7ac4834d74}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcImageDistance EXTENDS FB_Fallible IMPLEMENTS I_CalcImageDistance
+VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
+
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
+    fbSourceDistance : FB_QuantityLREALPublic(Units := 'm');
+    fbFocalLengthInverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbSourceDistanceInverse : FB_QuantityLREALPublic(Units := '1/m');
+    fbImageDistanceInverse : FB_QuantityLREALPublic(Units := '1/m');
+
+    {attribute 'pytmc' := 'pv: ImageDistance'}
+    fbImageDistance : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{24dc5037-bbac-4834-9c1a-8a671b6b88cd}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    FocalLength : I_QuantityLREAL; // The focal length, in meters.
+    SourceDistance : I_QuantityLREAL; // The distance, in meters, from the source to the lens.
+END_VAR
+VAR_IN_OUT
+    ImageDistance : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+
+SetUnits(Units := ImageDistance.Units);
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := FocalLength,
+    DesiredUnits := fbImageDistance.Units,
+    ConvertedQuantity := fbFocalLength
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of focal length input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    ImageDistance.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check for an invalid focal length input.
+IF fbFocalLength.Val = 0.0 THEN
+    SetError(
+        Msg := CONCAT('The focal length specified: [',
+        CONCAT(LREAL_TO_STRING(fbFocalLength.Val),
+        '] must not be 0.'))
+    );
+    ImageDistance.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbFocalLengthInverse.Val := 1.0 / FocalLength.Val;
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := SourceDistance,
+    DesiredUnits := fbImageDistance.Units,
+    ConvertedQuantity := fbSourceDistance
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of source distance input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    ImageDistance.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check for an invalid source distance input.
+IF fbSourceDistance.Val = 0.0 THEN
+    SetError(
+        Msg := CONCAT('The source distance specified: [',
+        CONCAT(LREAL_TO_STRING(fbSourceDistance.Val),
+        '] must not be 0.'))
+    );
+    ImageDistance.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbSourceDistanceInverse.Val := 1.0 / fbSourceDistance.Val;
+
+fbImageDistanceInverse.Val := fbFocalLengthInverse.Val - fbSourceDistanceInverse.Val;
+
+// Check for an invalid inverted image distance.
+IF fbImageDistanceInverse.Val = 0.0 THEN
+    SetError(
+        Msg := CONCAT('The calculated inverse image distance: [',
+        CONCAT(LREAL_TO_STRING(fbImageDistanceInverse.Val),
+        '] must not be 0.'))
+    );
+    ImageDistance.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbImageDistance.Val := 1.0 / fbImageDistanceInverse.Val;
+
+ImageDistance := fbImageDistance;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearError" Id="{b94b43b7-c9f4-4520-98ef-fd76bb56d34f}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbImageDistance.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{d3c982f5-6b5c-429c-959b-98e8306b08c3}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    ConvertUnits : I_ConvertUnitsLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{05080ecf-080b-46a2-b697-01f57b259296}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbImageDistance.SetError(Msg := Msg);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetUnits" Id="{c9f69b9e-c320-4582-9c16-eca4eb7fb45b}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetUnits
+VAR_INPUT
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbFocalLength.Units := Units;
+fbSourceDistance.Units := Units;
+fbFocalLengthInverse.Units := CONCAT('1/',Units);
+fbSourceDistanceInverse.Units := CONCAT('1/',Units);
+fbImageDistanceInverse.Units := CONCAT('1/',Units);
+fbImageDistance.Units := Units;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

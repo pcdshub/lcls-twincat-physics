@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_Lens" Id="{bf346408-0b62-45a9-9a2f-81f6f85ec812}">
+    <Declaration><![CDATA[
+INTERFACE I_Lens EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="GetRadius" Id="{ca07dbcf-ae63-43be-a79b-e5de1cdda4ba}">
+      <Declaration><![CDATA[
+METHOD GetRadius
+VAR_IN_OUT
+    Radius : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="MaterialFormula" Id="{67848c91-aa02-4771-a617-055db8820c0f}">
+      <Declaration><![CDATA[
+PROPERTY MaterialFormula : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{841b14e8-08c9-44a7-8afd-e2f22d6336df}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Multiplier" Id="{8a4f5b17-bad2-4b3c-a570-8d2ac341b320}">
+      <Declaration><![CDATA[
+PROPERTY Multiplier : INT
+]]></Declaration>
+      <Get Name="Get" Id="{8e761575-c478-43a9-95bf-592fe5f844ba}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_FalliblePublic" Id="{b31e2ad8-b7ee-4d66-a0d2-490aab45eadc}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_FalliblePublic IMPLEMENTS I_FalliblePublic
+VAR
+    {attribute 'pytmc' := '
+        pv: Error
+        io: i
+        field: DESC TRUE if in error state. FALSE if not.
+    '}
+    bError : BOOL;
+    {attribute 'pytmc' := '
+        pv: ErrorMsg
+        io: i
+        field: DESC Message to aid in debugging if error is true.
+    '}
+    sErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ClearError" Id="{e508f329-7528-441e-8224-c35c1c1d76fc}">
+      <Declaration><![CDATA[
+METHOD ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+bError := FALSE;
+sErrorMsg := '';
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetError" Id="{9e2f6e28-2861-47e9-a8e4-2a94f8af3a74}">
+      <Declaration><![CDATA[
+METHOD PUBLIC GetError : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetError := bError;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetErrorMsg" Id="{6d3edd89-1b7c-4e6d-b76c-799a48331a0a}">
+      <Declaration><![CDATA[
+METHOD PUBLIC GetErrorMsg : T_MaxString
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetErrorMsg := sErrorMsg;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{c14920fb-6747-422b-8d39-c0e873f896ca}">
+      <Declaration><![CDATA[
+METHOD SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+bError := TRUE;
+sErrorMsg := Msg;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

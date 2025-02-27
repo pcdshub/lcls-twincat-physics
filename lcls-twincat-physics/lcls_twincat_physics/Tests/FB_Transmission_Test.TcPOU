@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Transmission_Test" Id="{f94191b6-3825-415f-a312-fbd5fd0cc44d}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_Transmission_Test EXTENDS FB_TestSuiteExtended
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    fMu: LREAL;
+    bError: BOOL;
+    fTransmission: LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+TEST('Absorption constant');
+
+
+(* Cherry-picked test values, verified by Python solid-attenuator IOC *)
+fMu := F_CalculateAbsorptionConstant(
+    sElement:='C',
+    fEnergyEV:=10000,
+    fDensity_gm3:=3.51E6,  (* C (Diamond) g/m^3 *)
+    fAtomicWeight:=12.0107,
+    bError=>bError,
+);
+AssertFalse(bError, 'F_CalculateAbsorptionConstant lookup reported error');
+AssertEquals_LREAL(724.7224642932565, fMu, Delta:=0.0001, Message:='Absorption constant value');
+TEST_FINISHED();
+
+TEST('F_CalculateTransmission');
+fTransmission := F_CalculateTransmission(fAbsorptionConstant:=fMu, fThickness_in_m:=1E-3);
+AssertEquals_LREAL(0.4844590049714352, fTransmission, Delta:=0.0001, Message:='Transmission check');
+TEST_FINISHED();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

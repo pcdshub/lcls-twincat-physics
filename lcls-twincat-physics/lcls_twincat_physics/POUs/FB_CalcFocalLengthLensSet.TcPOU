@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLengthLensSet" Id="{6543ad7e-352c-476d-a708-9a7e07f74363}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthLensSet EXTENDS FB_Fallible IMPLEMENTS I_CalcFocalLengthLensSet
+VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
+    iLensCompounder : I_LensCompounder;
+    iCalcFocalLengthSingleLens : I_CalcFocalLengthSingleLens;
+
+    fbLens : FB_Lens;
+    fbFocalLengthLens : FB_QuantityLREALPublic(Units := 'm');
+
+    {attribute 'pytmc' := 'pv: FocalLength'}
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
+
+    nIndex : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{f5016e8c-13ab-47cb-a173-def6706fd2c4}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    LensSet : I_LensSet;
+END_VAR
+VAR_IN_OUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+
+SetUnits(Units := FocalLength.Units);
+
+// Check for an invalid lens set input.
+IF LensSet.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens set has the following error message: [',
+        CONCAT(LensSet.GetErrorMsg(),
+        ']'))
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check for an invalid number of lenses
+IF LensSet.NumLenses < 1.0 THEN
+    SetError(
+        Msg := CONCAT('The input lens set has 0 or negative lenses: [',
+        CONCAT(INT_TO_STRING(LensSet.NumLenses),
+        ']'))
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check for a number of lenses greater than the max.
+IF LensSet.NumLenses > GVL_Physics.nMaxNumLensesInSet THEN
+    SetError(
+        Msg := CONCAT('The input lens set number of lenses is greater than the global max number: [',
+        CONCAT(INT_TO_STRING(LensSet.NumLenses),
+        CONCAT('] = (setting) > (max) = [',
+        CONCAT(INT_TO_STRING(GVL_Physics.nMaxNumLensesInSet),
+        ']'))))
+    );
+    FocalLength.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iLensCompounder.Reset();
+
+FOR nIndex := 1 TO LensSet.NumLenses BY 1 DO
+    LensSet.GetLens(
+        LensNum := nIndex,
+        Lens := fbLens
+    );
+
+    IF LensSet.GetError() THEN
+        SetError(
+            Msg := CONCAT('The lens set returned the following error message when attempting to get a lens: [',
+            CONCAT(LensSet.GetErrorMsg(),
+            ']'))
+        );
+        FocalLength.SetError(Msg := GetErrorMsg());
+        RETURN;
+    END_IF
+
+    iCalcFocalLengthSingleLens.Calculate(
+        Lens := fbLens,
+        FocalLength := fbFocalLengthLens
+    );
+
+    IF iCalcFocalLengthSingleLens.GetError() THEN
+        SetError(Msg :=
+            CONCAT('Error returned when attempting the calculate focal length for lens number: [',
+            CONCAT(INT_TO_STRING(nIndex),
+            CONCAT(']. Error message is: ',
+            iCalcFocalLengthSingleLens.GetErrorMsg())))
+        );
+        RETURN;
+    END_IF
+
+    iLensCompounder.Compound(
+        FocalLength := fbFocalLengthLens,
+        Multiplier := fbLens.Multiplier,
+        FocalLengthCompounded := fbFocalLength
+    );
+
+    // Check for an error while compounding lenses.
+    IF iLensCompounder.GetError() THEN
+        SetError(
+            Msg := CONCAT('Error detected while compounding lenses: [',
+            CONCAT(iLensCompounder.GetErrorMsg(),
+            ']'))
+        );
+        FocalLength.SetError(Msg := GetErrorMsg());
+        RETURN;
+    END_IF
+END_FOR
+
+FocalLength := fbFocalLength;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearError" Id="{85feb07e-790f-4b47-bebd-7692a9984a0d}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbFocalLength.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1f20d000-d2a9-49d0-af13-4ff4a0f34aef}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    ConvertUnits : I_ConvertUnitsLREAL;
+    LensCompounder : I_LensCompounder;
+    CalcFocalLengthSingleLens : I_CalcFocalLengthSingleLens;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
+THIS^.iLensCompounder := LensCompounder;
+THIS^.iCalcFocalLengthSingleLens := CalcFocalLengthSingleLens;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{5f27a043-9969-438c-a750-7a002bbe0e22}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbFocalLength.SetError(Msg := Msg);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetUnits" Id="{7e175d42-711c-49a0-a07a-db592521747b}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetUnits
+VAR_INPUT
+    Units : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbFocalLengthLens.Units := Units;
+fbFocalLength.Units := Units;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

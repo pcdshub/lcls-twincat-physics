@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_LensSet" Id="{af8928da-13fc-4163-8eee-ff4c1855e013}">
+    <Declaration><![CDATA[
+INTERFACE I_LensSet EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="GetLens" Id="{6c86fb6b-f724-48fc-b94b-df9e82d596e4}">
+      <Declaration><![CDATA[
+METHOD GetLens
+VAR_INPUT
+    LensNum : INT;
+END_VAR
+VAR_IN_OUT
+    Lens : FB_Lens;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="NumLenses" Id="{7f9d4f52-506b-44d3-a51f-13e55de73178}">
+      <Declaration><![CDATA[
+PROPERTY NumLenses : INT
+]]></Declaration>
+      <Get Name="Get" Id="{ad7b4714-f6a1-4b3b-9746-9146660d587b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

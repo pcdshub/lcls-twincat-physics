@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Lens" Id="{957df398-fc17-4d3d-8259-efbd2826ce0a}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_Lens EXTENDS FB_Fallible IMPLEMENTS I_Lens
+VAR
+    {attribute 'pytmc' := '
+        pv: MaterialName
+        io: io
+        field: DESC Name of lens material.
+    '}
+    sMaterialName : T_MaxString;
+
+    {attribute 'pytmc' := '
+        pv: Multiplier
+        io: io
+        field: DESC Number of lenses of same kind.
+    '}
+    nMultiplier : INT;
+
+    {attribute 'pytmc' := 'pv: Radius'}
+    fbRadius : FB_QuantityLREALPublic(Units := 'm');
+
+    fbRadiusToCompare : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Copy" Id="{bfd9c162-bdd5-4020-a4a4-9ab0f417f9eb}">
+      <Declaration><![CDATA[
+METHOD Copy
+VAR_INPUT
+    Lens : I_Lens;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+
+IF Lens.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens has the following error message: [',
+        CONCAT(Lens.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+Lens.GetRadius(Radius := fbRadius);
+
+IF Lens.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input lens has the following error message after getting the radius: [',
+        CONCAT(Lens.GetErrorMsg(),
+        ']'))
+    );
+    RETURN;
+END_IF
+
+MaterialFormula := Lens.MaterialFormula;
+Multiplier := Lens.Multiplier;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Equals" Id="{c769d50a-3bdd-4943-91c7-1cf626c61eb9}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    Lens : I_Lens;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Lens.GetRadius(Radius := fbRadiusToCompare);
+
+Equals := fbRadius.Equals(Quantity := fbRadiusToCompare) AND
+    Lens.MaterialFormula = MaterialFormula AND
+    Lens.Multiplier = Multiplier;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetRadius" Id="{be4de050-0497-4c6f-93c9-3795433ab058}">
+      <Declaration><![CDATA[
+METHOD GetRadius
+VAR_IN_OUT
+    Radius : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Radius := fbRadius;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="MaterialFormula" Id="{b2fab391-7651-45c1-ab26-07c187736073}">
+      <Declaration><![CDATA[
+PROPERTY MaterialFormula : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{e00aa37c-ca86-4eca-9fcd-e966cf75e9b6}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+MaterialFormula := sMaterialName;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{55ffced3-a939-497c-94f4-6d70d9a46315}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+sMaterialName := MaterialFormula;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Multiplier" Id="{200a7dfc-f3f3-4666-adbd-e1ca5ac12dd0}">
+      <Declaration><![CDATA[
+PROPERTY Multiplier : INT
+]]></Declaration>
+      <Get Name="Get" Id="{b3d82859-9ccf-4e6f-8b3d-7bb3d15ef54d}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Multiplier := nMultiplier;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{6dc3a0c5-5cdb-435a-8688-d597fbad8625}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+ClearError();
+
+IF Multiplier <= 0 THEN
+    SetError(Msg := NonPositiveMultiplierErrorMsg(
+        nMultiplier := Multiplier
+    ));
+    RETURN;
+END_IF
+
+nMultiplier := Multiplier;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="NonPositiveMultiplierErrorMsg" Id="{36a5c803-9bc8-4d9b-91e4-bff88830b366}">
+      <Declaration><![CDATA[
+METHOD NonPositiveMultiplierErrorMsg : T_MaxString
+VAR_INPUT
+    nMultiplier : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+NonPositiveMultiplierErrorMsg :=
+        CONCAT('Attempted to set muliplier to a non-positive value of: [',
+        CONCAT(INT_TO_STRING(nMultiplier),
+        ']'));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="NonPositiveRadiusErrorMsg" Id="{95415334-fe57-431a-962c-0f4016f5c927}">
+      <Declaration><![CDATA[
+METHOD NonPositiveRadiusErrorMsg : T_MaxString
+VAR_INPUT
+    fRadius: LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+NonPositiveRadiusErrorMsg :=
+        CONCAT('Attempted to set radius to a non-positive value of: [',
+        CONCAT(LREAL_TO_STRING(fRadius),
+        ']'));]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetRadius" Id="{0207b0c5-3489-47ba-9113-36b433558829}">
+      <Declaration><![CDATA[
+METHOD SetRadius
+VAR_INPUT
+    Radius : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+ClearError();
+fbRadius.ClearError();
+
+IF Radius.Val <= 0 THEN
+    SetError(Msg := NonPositiveRadiusErrorMsg(fRadius := Radius.Val));
+    fbRadius.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbRadius.Copy(QuantityToCopy := Radius);
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

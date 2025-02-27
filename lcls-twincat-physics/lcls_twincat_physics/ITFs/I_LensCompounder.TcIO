@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_LensCompounder" Id="{189c73c1-218b-43e0-9071-b2f04c9c5f2f}">
+    <Declaration><![CDATA[
+INTERFACE I_LensCompounder EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="Compound" Id="{d26e5efe-a98a-494e-9f0a-b13836021aba}">
+      <Declaration><![CDATA[
+METHOD Compound
+VAR_INPUT
+    FocalLength : I_QuantityLREAL;
+    Multiplier : INT;
+END_VAR
+VAR_IN_OUT
+    FocalLengthCompounded : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="GetCurrentResult" Id="{cc619e41-f8a4-4ed3-a092-da046439ea65}">
+      <Declaration><![CDATA[
+METHOD GetCurrentResult
+VAR_IN_OUT
+    FocalLengthCompounded : FB_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Reset" Id="{60082cfe-04c6-4032-849f-43568023ac1a}">
+      <Declaration><![CDATA[
+METHOD Reset
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

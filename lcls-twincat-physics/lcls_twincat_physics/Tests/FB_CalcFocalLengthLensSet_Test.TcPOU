@@ -1,0 +1,607 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLengthLensSet_Test" Id="{bdeecc39-c97b-4a05-9f5c-8a087e02414a}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthLensSet_Test EXTENDS FB_TestSuiteExtended
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+Test0NumLensesExpectErrorFocalLengthUnchanged();
+
+TestInvalidLensSetExpectErrorFocalLengthUnchanged();
+
+TestNegNumLensesExpectErrorFocalLengthUnchanged();
+
+TestTooManyNumLensesExpectErrorFocalLengthUnchanged();
+
+TestValidInputsExpectNoErrorAccurateFocalLength_1();
+
+TestValidInputsExpectNoErrorAccurateFocalLength_10();
+
+TestValidInputsExpectNoErrorAccurateFocalLength_2();
+
+TestValidInputsExpectNoErrorAccurateFocalLength_5();
+
+TestValidInputsExpectNoErrorMockedValue();
+]]></ST>
+    </Implementation>
+    <Method Name="SetInitialLensSetValues" Id="{d50a08e3-4acc-4042-8a6d-3b07f3a92af7}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetInitialLensSetValues
+VAR_IN_OUT
+    fbLensSetMock :  FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbLensSetMock.SetValid();
+
+fbLensCompounderMock.SetValid();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0NumLensesExpectErrorFocalLengthUnchanged" Id="{ac0d9e71-6fa9-4bd0-8455-608b027d66e2}">
+      <Declaration><![CDATA[
+METHOD PRIVATE Test0NumLensesExpectErrorFocalLengthUnchanged
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        LensCompounder := fbLensCompounderMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0NumLensesExpectErrorFocalLengthUnchanged');
+
+// Test Fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock
+);
+
+fbLensSetMock.NumLenses := 0;
+
+fbResult.Val := 4235.2;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidLensCompounderExpectErrorFocalLengthUnchanged" Id="{32481fac-6149-429b-b483-2b9ac94cc161}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInvalidLensCompounderExpectErrorFocalLengthUnchanged
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        LensCompounder := fbLensCompounderMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidLensCompounderExpectErrorFocalLengthUnchanged');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensCompounderMock.SetError(Msg := 'Error');
+
+fbResult.Val := 4235.2;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidLensSetExpectErrorFocalLengthUnchanged" Id="{b02dd673-232a-4ee4-94da-bfc0d51ec8c4}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestInvalidLensSetExpectErrorFocalLengthUnchanged
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        LensCompounder := fbLensCompounderMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidLensSetExpectErrorFocalLengthUnchanged');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.SetError(Msg := 'Error');
+
+fbResult.Val := 4235.2;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegNumLensesExpectErrorFocalLengthUnchanged" Id="{240e54ed-ae24-47e9-afa8-953584d03cb5}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestNegNumLensesExpectErrorFocalLengthUnchanged
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        LensCompounder := fbLensCompounderMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegNumLensesExpectErrorFocalLengthUnchanged');
+
+// Test Fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := -1;
+
+fbResult.Val := 4235.2;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTooManyNumLensesExpectErrorFocalLengthUnchanged" Id="{33d300af-7422-4d56-a50d-3a7ff1ca2aa1}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestTooManyNumLensesExpectErrorFocalLengthUnchanged
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        LensCompounder := fbLensCompounderMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestTooManyNumLensesExpectErrorFocalLengthUnchanged');
+
+// Test Fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := GVL_Physics.nMaxNumLensesInSet + 1;
+
+fbResult.Val := 4235.2;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength_1" Id="{5a123922-cbe3-48b4-af26-a583c74a1e37}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorAccurateFocalLength_1
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbLensCompounder : FB_LensCompounder(ConvertUnits := fbConvertUnitsLREALMock);
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock,
+        LensCompounder := fbLensCompounder
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorAccurateFocalLength_1');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock
+);
+fbCalcFocalLengthSingleLensMock.SetValid();
+
+fbLensSetMock.NumLenses := 1;
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 1, Result := 5.432559656205233);
+fbLensSetMock.SetMultiplierOf(LensNum := 1, Multiplier := 3);
+
+fbExpected.Val := 1.8108532187350777;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertNoError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertNoErrorExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength_10" Id="{787dd553-c354-4bc1-9d3c-e083d9b9af05}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorAccurateFocalLength_10
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbLensCompounder : FB_LensCompounder(ConvertUnits := fbConvertUnitsLREALMock);
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock,
+        LensCompounder := fbLensCompounder
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorAccurateFocalLength_10');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 10;
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 1, Result := 64.49770504851323);
+fbLensSetMock.SetMultiplierOf(LensNum := 1, Multiplier := 2);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 2, Result := 17.55989067563841);
+fbLensSetMock.SetMultiplierOf(LensNum := 2, Multiplier := 2);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 3, Result := 39.060939904121604);
+fbLensSetMock.SetMultiplierOf(LensNum := 3, Multiplier := 2);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 4, Result := 37.311452185702414);
+fbLensSetMock.SetMultiplierOf(LensNum := 4, Multiplier := 2);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 5, Result := 4.064871242092158);
+fbLensSetMock.SetMultiplierOf(LensNum := 5, Multiplier := 3);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 6, Result := 44.641870817722506);
+fbLensSetMock.SetMultiplierOf(LensNum := 6, Multiplier := 3);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 7, Result := 39.77123049266423);
+fbLensSetMock.SetMultiplierOf(LensNum := 7, Multiplier := 4);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 8, Result := 26.430440657688667);
+fbLensSetMock.SetMultiplierOf(LensNum := 8, Multiplier := 3);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 9, Result := 9.308673329783526);
+fbLensSetMock.SetMultiplierOf(LensNum := 9, Multiplier := 2);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 10, Result := 22.385604888857902);
+fbLensSetMock.SetMultiplierOf(LensNum := 10, Multiplier := 4);
+
+fbExpected.Val := 0.6014812345659636;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertNoError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertNoErrorExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength_2" Id="{3b3ff841-a462-4925-b6a0-a982b07292c5}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorAccurateFocalLength_2
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbLensCompounder : FB_LensCompounder(ConvertUnits := fbConvertUnitsLREALMock);
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock,
+        LensCompounder := fbLensCompounder
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorAccurateFocalLength_2');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 2;
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 1, Result := 37.103552927362315);
+fbLensSetMock.SetMultiplierOf(LensNum := 1, Multiplier := 2);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 2, Result := 17.97957068853701);
+fbLensSetMock.SetMultiplierOf(LensNum := 2, Multiplier := 1);
+
+fbExpected.Val := 9.130596113437862;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertNoError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertNoErrorExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateFocalLength_5" Id="{18f02f6c-6944-49aa-9948-377ec69e1463}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorAccurateFocalLength_5
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbLensCompounder : FB_LensCompounder(ConvertUnits := fbConvertUnitsLREALMock);
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock,
+        LensCompounder := fbLensCompounder
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorAccurateFocalLength_5');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 5;
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 1, Result := 44.65768574079866);
+fbLensSetMock.SetMultiplierOf(LensNum := 1, Multiplier := 2);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 2, Result := 46.32293709604767);
+fbLensSetMock.SetMultiplierOf(LensNum := 2, Multiplier := 3);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 3, Result := 9.35031771630454);
+fbLensSetMock.SetMultiplierOf(LensNum := 3, Multiplier := 3);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 4, Result := 37.18298101348557);
+fbLensSetMock.SetMultiplierOf(LensNum := 4, Multiplier := 2);
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 5, Result := 35.749628513695576);
+fbLensSetMock.SetMultiplierOf(LensNum := 5, Multiplier := 1);
+
+fbExpected.Val := 1.9525417656102253;
+fbExpected.Units := fbResult.Units;
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertNoError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertNoErrorExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorMockedValue" Id="{532c4a57-f4c7-48cc-ad4a-84fcc6a44d34}">
+      <Declaration><![CDATA[
+METHOD PRIVATE TestValidInputsExpectNoErrorMockedValue
+VAR
+    fbLensSetMock : FB_LensSetMock;
+    fbLensCompounderMock : FB_LensCompounderMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+    fbCalcFocalLengthSingleLensMock : FB_CalcFocalLengthSingleLensMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    // Subject under test
+    fbCalcFocalLengthLensSet : FB_CalcFocalLengthLensSet(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        CalcFocalLengthSingleLens := fbCalcFocalLengthSingleLensMock,
+        LensCompounder := fbLensCompounderMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorMockedValue');
+
+// Test fixture
+SetInitialLensSetValues(
+    fbLensSetMock := fbLensSetMock,
+    fbLensCompounderMock := fbLensCompounderMock);
+
+fbLensSetMock.NumLenses := 1;
+
+fbCalcFocalLengthSingleLensMock.SetResult(LensNum := 1, Result := 770.6879219348848);
+fbLensSetMock.SetMultiplierOf(LensNum := 1, Multiplier := 1);
+
+fbExpected.Val := 770.6879219348848;
+fbExpected.Units := fbResult.Units;
+fbLensCompounderMock.SetResult(LensNum := 1, Result := fbExpected.Val);
+
+// Subject Under Test
+fbCalcFocalLengthLensSet.Calculate(
+    LensSet := fbLensSetMock,
+    FocalLength := fbResult
+);
+
+AssertNoError(Fallible := fbCalcFocalLengthLensSet);
+
+AssertNoErrorExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_StringLookupElement" Id="{ba7a2c21-deb3-474b-b7eb-995f7adb6478}">
+    <Declaration><![CDATA[
+INTERFACE I_StringLookupElement EXTENDS I_Fallible
+]]></Declaration>
+    <Method Name="LookupAtomicMass" Id="{913d3b19-2087-41aa-8e5c-39fc748f1444}">
+      <Declaration><![CDATA[
+METHOD LookupAtomicMass
+VAR_INPUT
+    ElementName : T_MaxString;
+    AtomicMass : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LookupAtomicNumber" Id="{5f83cf7a-fc59-42db-9ede-3a362b64e71d}">
+      <Declaration><![CDATA[
+METHOD LookupAtomicNumber
+VAR_INPUT
+    ElementName : T_MaxString;
+    AtomicNumber : I_QuantityINTPublic;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="LookupDensity" Id="{3579ce78-6b57-4a66-ad8f-4e83b829e31d}">
+      <Declaration><![CDATA[
+METHOD LookupDensity
+VAR_INPUT
+    ElementName : T_MaxString;
+    Density : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

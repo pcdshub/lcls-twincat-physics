@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLengthLensSetMock" Id="{db9e08db-5cbf-4afa-b31b-28bcb5b02fc5}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLengthLensSetMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcFocalLengthLensSet
+VAR
+    fbFocalLength : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{9449408e-a2a8-4a84-848f-08f055b3b183}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    LensSet : I_LensSet;
+END_VAR
+VAR_IN_OUT
+    FocalLength : FB_QuantityLREALPublic(Units := 'm');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+FocalLength := fbFocalLength;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{b90caf58-8ba2-4f62-ae29-0aec1937810d}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbFocalLength.Copy(QuantityToCopy := Result);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetValid" Id="{4f9c11d6-93e5-42e8-a4e7-e7a7d4a383f5}">
+      <Declaration><![CDATA[
+METHOD SetValid
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbFocalLength.Val := 1.0;
+fbFocalLength.Units := 'm';
+fbFocalLength.ClearError();
+ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

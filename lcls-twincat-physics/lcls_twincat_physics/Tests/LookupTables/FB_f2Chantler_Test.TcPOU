@@ -1,0 +1,1045 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_f2Chantler_Test" Id="{3def92fc-08d4-4d9a-b119-fa14f4004f0f}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_f2Chantler_Test EXTENDS FB_TestSuiteExtended
+VAR
+    nTestID : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 1;
+
+Test0EnergyExpectErrorf2Unchanged();
+
+TestBadNameExpectErrorf2Unchanged();
+
+TestInvalidEnergyExpectErrorf2Unchanged();
+
+TestNegEnergyExpectErrorf2Unchanged();
+
+TestOverrangeEnergyExpectErrorf2Unchanged();
+
+TestUnderrangeEnergyExpectErrorf2Unchanged();
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 1.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 2046,
+    fExpected := 0.027654970387687283,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 2.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 4778,
+    fExpected := 0.00435822723523232,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 3.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 2835,
+    fExpected := 0.013864958868987361,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 4.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 3871,
+    fExpected := 0.006969115589243053,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 5.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 3594,
+    fExpected := 0.008222649498392832,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 6.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 6145,
+    fExpected := 0.0024866838890009505,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 7.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 13918,
+    fExpected := 0.00038647032408369725,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 8.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 13675,
+    fExpected := 0.0004025708030220293,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 9.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 12377,
+    fExpected := 0.0005071668914144335,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 10.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fEnergy := 21562,
+    fExpected := 0.00014021165419929982,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 11.
+TestMinEnergyExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fExpected := 0.1767358719139104,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 12.
+TestMidEnergyExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fExpected := 0.003938475442486804,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Be. Test Count = 13.
+TestMaxEnergyExpectNoErrorAccuratef2(
+    sName := 'Be',
+    fExpected := 6.524124777617112e-05,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 14.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 167,
+    fExpected := 13.456259221442718,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 15.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 2543,
+    fExpected := 6.295639209771963,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 16.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 3087,
+    fExpected := 4.6060532874234745,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 17.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 4234,
+    fExpected := 2.666172544021086,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 18.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 345,
+    fExpected := 9.646002683748584,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 19.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 26048,
+    fExpected := 0.8899001111871914,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 20.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 12832,
+    fExpected := 2.965627973602784,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 21.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 26296,
+    fExpected := 0.8749698657959837,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 22.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 10250,
+    fExpected := 0.5615621781984969,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 23.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fEnergy := 11926,
+    fExpected := 3.350150495401823,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 24.
+TestMinEnergyExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fExpected := 0.008812656081729084,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 25.
+TestMidEnergyExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fExpected := 2.015547341983068,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Ge. Test Count = 26.
+TestMaxEnergyExpectNoErrorAccuratef2(
+    sName := 'Ge',
+    fExpected := 0.6859490388224805,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 27.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 4717,
+    fExpected := 0.028307056789069442,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 28.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 4464,
+    fExpected := 0.031738636553831835,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 29.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 1486,
+    fExpected := 0.28014419808366936,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 30.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 4866,
+    fExpected := 0.02653733289341602,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 31.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 3113,
+    fExpected := 0.06706778362009266,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 32.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 16113,
+    fExpected := 0.0019115259407176605,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 33.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 16713,
+    fExpected := 0.0017605804842960265,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 34.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 17416,
+    fExpected := 0.0016047476380491468,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 35.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 12468,
+    fExpected := 0.0034035571765490135,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 36.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'C',
+    fEnergy := 6733,
+    fExpected := 0.013267536067937024,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 37.
+TestMinEnergyExpectNoErrorAccuratef2(
+    sName := 'C',
+    fExpected := 1.763311642166343,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 38.
+TestMidEnergyExpectNoErrorAccuratef2(
+    sName := 'C',
+    fExpected := 0.025082673016296988,
+);
+
+// Expected results taken from xraydb python module.
+// Element = C. Test Count = 39.
+TestMaxEnergyExpectNoErrorAccuratef2(
+    sName := 'C',
+    fExpected := 0.000470666356808839,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 40.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 326,
+    fExpected := 3.783332393495896,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 41.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 502,
+    fExpected := 2.0423676516384117,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 42.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 337,
+    fExpected := 3.6159362092140315,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 43.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 2418,
+    fExpected := 2.1225836405578793,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 44.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 3251,
+    fExpected := 1.2990473248891234,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 45.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 13215,
+    fExpected := 0.08954331848982303,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 46.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 15405,
+    fExpected := 0.0653522883104546,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 47.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 21446,
+    fExpected := 0.0331334882682619,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 48.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 7076,
+    fExpected := 0.3139997024353309,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 49.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fEnergy := 17993,
+    fExpected := 0.04750960892161786,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 50.
+TestMinEnergyExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fExpected := 0.027084174537175112,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 51.
+TestMidEnergyExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fExpected := 0.5932742186659329,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Al. Test Count = 52.
+TestMaxEnergyExpectNoErrorAccuratef2(
+    sName := 'Al',
+    fExpected := 0.01652812683095509,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 53.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 971,
+    fExpected := 1.0252343223929388,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 54.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 1067,
+    fExpected := 0.8720683399916503,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 55.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 1584,
+    fExpected := 0.43991696192859386,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 56.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 3935,
+    fExpected := 1.2157257217011463,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 57.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 4959,
+    fExpected := 0.7973336448099249,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 58.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 5262,
+    fExpected := 0.7156522068004174,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 59.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 21754,
+    fExpected := 0.04430844569910344,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 60.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 8446,
+    fExpected := 0.30071897280588117,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 61.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 28548,
+    fExpected := 0.025360720135574246,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 62.
+TestValidInputsExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fEnergy := 28144,
+    fExpected := 0.026142320274039822,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 63.
+TestMinEnergyExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fExpected := 0.6812450482989264,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 64.
+TestMidEnergyExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fExpected := 0.7854633723299188,
+);
+
+// Expected results taken from xraydb python module.
+// Element = Si. Test Count = 65.
+TestMaxEnergyExpectNoErrorAccuratef2(
+    sName := 'Si',
+    fExpected := 0.02290078645346444,
+);
+]]></ST>
+    </Implementation>
+    <Method Name="SetInitialNameAndEnergyValues" Id="{45778e15-9dea-4603-a49e-ed3d044cc2b5}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetInitialNameAndEnergyValues
+VAR_IN_OUT
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbQuantityLREALPublicEnergyMock.Val := 50.0;
+fbQuantityLREALPublicEnergyMock.Units := 'eV';
+fbQuantityLREALPublicEnergyMock.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0EnergyExpectErrorf2Unchanged" Id="{63a6d844-59be-4fe0-b8b6-3b022fa2eb30}">
+      <Declaration><![CDATA[
+METHOD Test0EnergyExpectErrorf2Unchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0EnergyExpectErrorf2Unchanged');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
+fbQuantityLREALPublicEnergyMock.Val := 0.0;
+
+fbResult.Val := fbExpected.Val;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
+);
+
+AssertError(Fallible := fbf2Chantler);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestBadNameExpectErrorf2Unchanged" Id="{b9574cc5-35d5-4522-a490-feef83a66474}">
+      <Declaration><![CDATA[
+METHOD TestBadNameExpectErrorf2Unchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestBadNameExpectErrorf2Unchanged');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
+fbResult.Val := fbExpected.Val;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := 'INVALID',
+    Result := fbResult
+);
+
+AssertError(Fallible := fbf2Chantler);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidEnergyExpectErrorf2Unchanged" Id="{1f20aef8-c4e7-4553-821b-e66e350641f2}">
+      <Declaration><![CDATA[
+METHOD TestInvalidEnergyExpectErrorf2Unchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidEnergyExpectErrorf2Unchanged');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
+fbQuantityLREALPublicEnergyMock.SetError(Msg := 'Error');
+
+fbResult.Val := fbExpected.Val;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
+);
+
+AssertError(Fallible := fbf2Chantler);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMaxEnergyExpectNoErrorAccuratef2" Id="{79ecc6ea-f278-402e-8fee-886a93d821d4}">
+      <Declaration><![CDATA[
+METHOD TestMaxEnergyExpectNoErrorAccuratef2
+VAR_INPUT
+    sName : STRING;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestMaxEnergyExpectNoErrorAccuratef2 ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := fExpected;
+fbExpected.Units := 'e/atom';
+
+fbQuantityLREALPublicEnergyMock.Val := fbf2Chantler.fMaxeV;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
+);
+
+AssertNoError(Fallible := fbf2Chantler);
+
+AssertNoErrorDeltaFractionExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    DeltaFraction := 0.002
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMidEnergyExpectNoErrorAccuratef2" Id="{e4945350-0440-4e7b-a25f-b8af399b0ba0}">
+      <Declaration><![CDATA[
+METHOD TestMidEnergyExpectNoErrorAccuratef2
+VAR_INPUT
+    sName : STRING;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestMidEnergyExpectNoErrorAccuratef2 ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := fExpected;
+fbExpected.Units := 'e/atom';
+
+fbQuantityLREALPublicEnergyMock.Val := fbf2Chantler.fMideV;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
+);
+
+AssertNoError(Fallible := fbf2Chantler);
+
+AssertNoErrorDeltaFractionExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    DeltaFraction := 0.002
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestMinEnergyExpectNoErrorAccuratef2" Id="{7da154e3-17ad-4a8c-909d-da1ff7fb5d5e}">
+      <Declaration><![CDATA[
+METHOD TestMinEnergyExpectNoErrorAccuratef2
+VAR_INPUT
+    sName : STRING;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestMinEnergyExpectNoErrorAccuratef2 ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := fExpected;
+fbExpected.Units := 'e/atom';
+
+fbQuantityLREALPublicEnergyMock.Val := fbf2Chantler.fMineV;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
+);
+
+AssertNoError(Fallible := fbf2Chantler);
+
+AssertNoErrorDeltaFractionExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    DeltaFraction := 0.002
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegEnergyExpectErrorf2Unchanged" Id="{fb6d5f93-bdbd-44f6-bafc-73594259a267}">
+      <Declaration><![CDATA[
+METHOD TestNegEnergyExpectErrorf2Unchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegEnergyExpectErrorf2Unchanged');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
+fbQuantityLREALPublicEnergyMock.Val := -1.0;
+
+fbResult.Val := fbExpected.Val;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
+);
+
+AssertError(Fallible := fbf2Chantler);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestOverrangeEnergyExpectErrorf2Unchanged" Id="{5789ecbd-49c4-4fc5-b88f-1429bfa8dcf1}">
+      <Declaration><![CDATA[
+METHOD TestOverrangeEnergyExpectErrorf2Unchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestOverrangeEnergyExpectErrorf2Unchanged');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
+fbQuantityLREALPublicEnergyMock.Val := fbf2Chantler.fMaxeV + 1.0;
+
+fbResult.Val := fbExpected.Val;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
+);
+
+AssertError(Fallible := fbf2Chantler);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestUnderrangeEnergyExpectErrorf2Unchanged" Id="{89b4bebc-c417-41c3-b339-4c366c90abc8}">
+      <Declaration><![CDATA[
+METHOD TestUnderrangeEnergyExpectErrorf2Unchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestUnderrangeEnergyExpectErrorf2Unchanged');
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := 12.3;
+fbExpected.Units := '1';
+
+fbQuantityLREALPublicEnergyMock.Val := fbf2Chantler.fMineV - 1.0;
+
+fbResult.Val := fbExpected.Val;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
+);
+
+AssertError(Fallible := fbf2Chantler);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccuratef2" Id="{53208cc9-7e85-4f6a-aafa-db48899b217c}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccuratef2
+VAR_INPUT
+    sName : STRING;
+    fEnergy : LREAL;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbf2Chantler : FB_f2Chantler(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccuratef2 ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialNameAndEnergyValues(fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock);
+
+fbExpected.Val := fExpected;
+fbExpected.Units := 'e/atom';
+
+fbQuantityLREALPublicEnergyMock.Val := fEnergy;
+
+// Here the test starts
+fbf2Chantler.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
+);
+
+AssertNoError(Fallible := fbf2Chantler);
+
+AssertNoErrorDeltaFractionExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    DeltaFraction := 0.002
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

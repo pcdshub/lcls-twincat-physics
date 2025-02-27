@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ElementDensity_Test" Id="{261ac554-92a7-43d8-87eb-033d058900e2}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_ElementDensity_Test EXTENDS FB_TestSuiteExtended
+VAR
+    nTestID : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+TestInvalidElementExpectNotFoundAnd0Density();
+
+TestLookupInvalidElementExpectNotFoundAndNoChangeToResult();
+
+TestLookupValidElementDifferentUnitsExpectUnitsChanged();
+
+TestLookupValidElementExpectFoundAndCorrectDensity(
+    sName := 'Be',
+    fExpectedNumber := 1.848,
+);
+
+TestValidElementExpectFoundAndCorrectDensity(
+    sName := 'C',
+    fExpectedNumber := 2.2,
+);
+]]></ST>
+    </Implementation>
+    <Method Name="TestInvalidElementExpectNotFoundAnd0Density" Id="{6cc59a6c-f1de-4fb6-ad79-180e595ffc80}">
+      <Declaration><![CDATA[
+METHOD TestInvalidElementExpectNotFoundAnd0Density
+VAR
+    fbElementDensity : FB_ElementDensity;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidElementExpectNotFoundAnd0Density');
+
+fbElementDensity(
+    sName := 'INVALID',
+    bFound =>,
+    nValue =>,
+);
+
+AssertFalse(
+    Condition := fbElementDensity.bFound,
+    Message := 'Expected bFound bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbElementDensity.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbElementDensity.GetErrorMsg() = '',
+    Message := 'Expected there to be an error message but there was none.'
+);
+
+AssertTrue(
+    Condition := fbElementDensity.fValue = 0.0,
+    Message := CONCAT('Expected element density to be 0.0 but it was [',
+        CONCAT(LREAL_TO_STRING(fbElementDensity.fValue),
+        '].'))
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupInvalidElementExpectNotFoundAndNoChangeToResult" Id="{29842891-d524-4fbf-8382-a1e7d464a8f0}">
+      <Declaration><![CDATA[
+METHOD TestLookupInvalidElementExpectNotFoundAndNoChangeToResult
+VAR
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbResult : FB_QuantityLREALPublic(Units := '1');
+    fbElementDensity : FB_ElementDensity;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupInvalidElementExpectNotFoundAndNoChangeToResult');
+
+// Test Fixture
+fbExpected.Val := 1.234;
+fbExpected.Units := '1';
+
+fbResult.Val := 1.234;
+
+// Subject Under Test
+fbElementDensity.Lookup(
+    StringToLookup := 'INVALID',
+    Result := fbResult
+);
+
+AssertError(Fallible := fbElementDensity);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupValidElementDifferentUnitsExpectUnitsChanged" Id="{04e88043-de77-47a7-ace8-bfc6e4b4f1a3}">
+      <Declaration><![CDATA[
+METHOD TestLookupValidElementDifferentUnitsExpectUnitsChanged
+VAR
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbResult : FB_QuantityLREALPublic(Units := 'kg/cm**3');
+    fbElementDensity : FB_ElementDensity;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupValidElementDifferentUnitsExpectUnitsChanged');
+
+// Test Fixture
+fbExpected.Val := 1.848;
+fbExpected.Units := 'g/cm**3';
+
+// Subject Under Test
+fbElementDensity.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
+);
+
+AssertNoError(Fallible := fbElementDensity);
+
+AssertNoErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupValidElementExpectFoundAndCorrectDensity" Id="{32123717-8952-4602-bc41-62a2e3029793}">
+      <Declaration><![CDATA[
+METHOD TestLookupValidElementExpectFoundAndCorrectDensity
+VAR_INPUT
+    sName : STRING;
+    fExpectedNumber : LREAL;
+END_VAR
+VAR
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbResult : FB_QuantityLREALPublic(Units := 'g/cm**3');
+    fbElementDensity : FB_ElementDensity;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestLookupValidElementExpectFoundAndCorrectAtomicNumber ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+// Test Fixture
+fbExpected.Val := fExpectedNumber;
+fbExpected.Units := 'g/cm**3';
+
+// Subject Under Test
+fbElementDensity.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
+);
+
+AssertNoError(Fallible := fbElementDensity);
+
+AssertNoErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidElementExpectFoundAndCorrectDensity" Id="{f1af134e-c6a9-4660-8487-3b8b446e3f73}">
+      <Declaration><![CDATA[
+METHOD TestValidElementExpectFoundAndCorrectDensity
+VAR_INPUT
+    sName : STRING;
+    fExpectedNumber : LREAL;
+END_VAR
+VAR
+    fbElementDensity : FB_ElementDensity;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestValidElementExpectFoundAndCorrectAtomicNumber ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbElementDensity(
+    sName := sName,
+    bFound =>,
+    fValue =>,
+);
+
+AssertTrue(
+    Condition := fbElementDensity.bFound,
+    Message := 'Expected bFound bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbElementDensity.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbElementDensity.GetErrorMsg() = '',
+    Message := 'Expected there to be no error message but there was one.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpectedNumber,
+    Actual := fbElementDensity.fValue,
+    Delta := 0.0,
+    Message := CONCAT('Expected density to be [',
+        CONCAT(LREAL_TO_STRING(fExpectedNumber),
+        CONCAT('] but it was [',
+        CONCAT(LREAL_TO_STRING(fbElementDensity.fValue),
+        ']'))))
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

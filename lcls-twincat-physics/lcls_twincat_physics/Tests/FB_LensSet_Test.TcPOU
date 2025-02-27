@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LensSet_Test" Id="{959fcf0e-1b33-40b1-a7be-9a4bd9a118a1}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_LensSet_Test EXTENDS FB_TestSuiteExtended
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+TestCopyExpectNoErrorCorrectValue();
+
+TestIndexIndexInRangeExpectTrue();
+
+TestSetInvalidNumLensesExpectErrorNoChangeToValue();
+
+TestSetLensGetLensExpectNoErrorCorrectValue();
+
+TestSetNumLensesGetNumLensesExpectNoErrorValueSet();
+
+TestTooHighIndexIndexInRangeExpectFalse();
+
+TestTooLowIndexIndexInRangeExpectFalse();
+]]></ST>
+    </Implementation>
+    <Method Name="TestCopyExpectNoErrorCorrectValue" Id="{3986ce4c-eaf8-4b42-95ab-15c85277cc24}">
+      <Declaration><![CDATA[
+METHOD TestCopyExpectNoErrorCorrectValue
+VAR
+    fbLensMock : FB_LensMock;
+    fbLensSetMock : FB_LensSetMock;
+    fbRadiusMock : FB_QuantityLREALPublicMock;
+
+    // Subject under test
+    fbLensSet : FB_LensSet;
+    fbLens : FB_Lens;
+    fbLensExpected : FB_Lens;
+    fbRadiusExpected : FB_QuantityLREALPublic(Units := 'm');
+    fbRadiusResult : FB_QuantityLREALPublic(Units := 'm');
+
+    sExpected : T_MaxString;
+    nExpected : INT;
+    sResult : T_MaxString;
+    nResult : INT;
+
+    nIndex : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestCopyExpectNoErrorCorrectValue');
+
+// Test Fixture
+
+fbLensSetMock.SetValid();
+
+fbLensSetMock.NumLenses := 4;
+
+FOR nIndex := 1 TO fbLensSetMock.NumLenses BY 1 DO
+    fbLensSetMock.SetMaterialNameOf(LensNum := nIndex, MaterialFormula := INT_TO_STRING(nIndex));
+    fbLensSetMock.SetMultiplierOf(LensNum := nIndex, Multiplier := nIndex * 2);
+    fbRadiusMock.Val := INT_TO_LREAL(nIndex * 3);
+    fbRadiusMock.Units := INT_TO_STRING(nIndex * 4);
+    fbLensSetMock.SetRadiusOf(LensNum := nIndex, Radius := fbRadiusMock);
+END_FOR
+
+AssertFalse(
+    Condition := fbLensSet.Equals(fbLensSetMock),
+    Message := 'Lens set should not equal other lens set before copy occurs.'
+);
+
+AssertNoError(Fallible := fbLensSet);
+
+// Here the test starts
+fbLensSet.Copy(LensSet := fbLensSetMock);
+
+AssertNoError(Fallible := fbLensSet);
+
+AssertTrue(
+    Condition := fbLensSet.Equals(fbLensSetMock),
+    Message := 'Lens set did not have the expected result after copy executed.'
+);
+
+AssertNoError(Fallible := fbLensSet);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestIndexIndexInRangeExpectTrue" Id="{1564fb33-badf-45fa-8b05-f60c5ace519e}">
+      <Declaration><![CDATA[
+METHOD TestIndexIndexInRangeExpectTrue
+VAR
+    // Subject under test
+    fbLensSet : FB_LensSet;
+    bResult : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestIndexIndexInRangeExpectTrue');
+
+// Test Fixture
+fbLensSet.NumLenses:= 9;
+
+// Here the test starts
+bResult := fbLensSet.IndexInRange(nIndex := 9);
+
+AssertNoError(Fallible := fbLensSet);
+
+AssertTrue(
+    Condition := bResult,
+    Message := 'Index should have registered as in range.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSetInvalidNumLensesExpectErrorNoChangeToValue" Id="{6e1a08f1-05bf-4a64-a3f2-0ce2e1fad65f}">
+      <Declaration><![CDATA[
+METHOD TestSetInvalidNumLensesExpectErrorNoChangeToValue
+VAR
+    // Subject under test
+    fbLensSet : FB_LensSet;
+    nNumLenses : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetInvalidNumLensesExpectErrorNoChangeToValue');
+
+// Test Fixture
+nNumLenses := 5;
+fbLensSet.NumLenses:= nNumLenses;
+
+// Here the test starts
+fbLensSet.NumLenses := 0;
+
+AssertError(Fallible := fbLensSet);
+
+AssertEquals_INT(
+    Expected := nNumLenses,
+    Actual := fbLensSet.NumLenses,
+    Message := 'NumLenses should not have changed.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSetLensGetLensExpectNoErrorCorrectValue" Id="{06da589f-bfc8-49ef-b9bc-1f973a59e2e8}">
+      <Declaration><![CDATA[
+METHOD TestSetLensGetLensExpectNoErrorCorrectValue
+VAR
+    fbLensMock : FB_LensMock;
+    fbRadiusMock : FB_QuantityLREALPublicMock;
+
+    // Subject under test
+    fbLensSet : FB_LensSet;
+    fbLens : FB_Lens;
+    fbRadiusResult : FB_QuantityLREALPublic(Units := 'm');
+
+    sExpected : T_MaxString;
+    nExpected : INT;
+    sResult : T_MaxString;
+    nResult : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetMaterialNameOfGetMaterialNameOfExpectNoErrorCorrectValue');
+
+// Test Fixture
+sExpected := 'Material1';
+nExpected := 32;
+
+fbRadiusMock.Val := 27.65;
+fbRadiusMock.Units := 'cm';
+
+fbLensSet.NumLenses:= 5;
+
+fbLensMock.MaterialFormula := sExpected;
+fbLensMock.Multiplier := nExpected;
+fbLensMock.SetRadius(Radius := fbRadiusMock);
+
+// Here the test starts
+fbLensSet.SetLens(LensNum := 1, Lens := fbLensMock);
+fbLensSet.GetLens(LensNum := 1, Lens := fbLens);
+
+sResult := fbLens.MaterialFormula;
+nResult := fbLens.Multiplier;
+fbLens.GetRadius(Radius := fbRadiusResult);
+
+AssertNoError(Fallible := fbLensSet);
+
+AssertEquals_STRING(
+    Expected := sExpected,
+    Actual := sResult,
+    Message := 'String did not have the correct value.'
+);
+
+AssertEquals_INT(
+    Expected := nExpected,
+    Actual := nResult,
+    Message := 'Multiplier did not have the correct value.'
+);
+
+AssertNoErrorExactExpectedQuantityLREAL(
+    Expected := fbRadiusMock,
+    Actual := fbRadiusResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestSetNumLensesGetNumLensesExpectNoErrorValueSet" Id="{bf018f87-a842-4889-8d85-6accaf0c30dd}">
+      <Declaration><![CDATA[
+METHOD TestSetNumLensesGetNumLensesExpectNoErrorValueSet
+VAR
+    // Subject under test
+    fbLensSet : FB_LensSet;
+    nNumLenses : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestSetNumLensesGetNumLensesExpectNoErrorValueSet');
+
+// Test Fixture
+nNumLenses := 5;
+
+// Here the test starts
+fbLensSet.NumLenses:= nNumLenses;
+
+AssertNoError(Fallible := fbLensSet);
+
+AssertEquals_INT(
+    Expected := nNumLenses,
+    Actual := fbLensSet.NumLenses,
+    Message := 'NumLenses did not set properly.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTooHighIndexIndexInRangeExpectFalse" Id="{af6a7413-9b4b-4008-b3a7-e0c356c39a51}">
+      <Declaration><![CDATA[
+METHOD TestTooHighIndexIndexInRangeExpectFalse
+VAR
+    // Subject under test
+    fbLensSet : FB_LensSet;
+    bResult : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestTooHighIndexIndexInRangeExpectFalse');
+
+// Test Fixture
+fbLensSet.NumLenses:= 9;
+
+// Here the test starts
+bResult := fbLensSet.IndexInRange(nIndex := fbLensSet.NumLenses + 1);
+
+AssertNoError(Fallible := fbLensSet);
+
+AssertFalse(
+    Condition := bResult,
+    Message := 'Index should have registered as out of range.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTooLowIndexIndexInRangeExpectFalse" Id="{0acb188b-4d74-41f8-aaf5-43b264bf17d3}">
+      <Declaration><![CDATA[
+METHOD TestTooLowIndexIndexInRangeExpectFalse
+VAR
+    // Subject under test
+    fbLensSet : FB_LensSet;
+    bResult : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestTooLowIndexIndexInRangeExpectFalse');
+
+// Test Fixture
+fbLensSet.NumLenses:= 9;
+
+// Here the test starts
+bResult := fbLensSet.IndexInRange(nIndex := 0);
+
+AssertNoError(Fallible := fbLensSet);
+
+AssertFalse(
+    Condition := bResult,
+    Message := 'Index should have registered as out of range.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

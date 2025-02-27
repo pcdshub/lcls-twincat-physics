@@ -1,0 +1,761 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcXRayAbsorptionConstantElement_Test" Id="{4cd9952d-8cdb-4f4f-8f0d-5647d2194e49}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcXRayAbsorptionConstantElement_Test EXTENDS FB_TestSuiteExtended
+VAR
+    nTestID : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+Test0AtomicMassExpectErrorAbsorptionConstantUnchanged();
+
+Test0DensityExpectErrorAbsorptionConstantUnchanged();
+
+Test0EnergyExpectErrorAbsorptionConstantUnchanged();
+
+TestInvalidElementExpectErrorAbsorptionConstantUnchanged();
+
+TestInvalidEnergyExpectErrorAbsorptionConstantUnchanged();
+
+TestInvalidf2ExpectErrorAbsorptionConstantUnchanged();
+
+TestNegAtomicMassExpectErrorAbsorptionConstantUnchanged();
+
+TestNegDensityExpectErrorAbsorptionConstantUnchanged();
+
+TestNegEnergyExpectErrorAbsorptionConstantUnchanged();
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Be. Test Count = 1.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 1000.0,
+    fF2 := 0.12833728514006554,
+    fDensity := 1.85,
+    fAtomicMass := 9.0122,
+    fExpected := 110859.46641315489
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Be. Test Count = 2.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 15000.0,
+    fF2 := 0.00037029634154488514,
+    fDensity := 1.85,
+    fAtomicMass := 9.0122,
+    fExpected := 21.3244627460144
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Be. Test Count = 3.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 29000.1,
+    fF2 := 7.985999506920417e-05,
+    fDensity := 1.85,
+    fAtomicMass := 9.0122,
+    fExpected := 2.3787550295948514
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Ge. Test Count = 4.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 1000.0,
+    fF2 := 3.2412769811320756,
+    fDensity := 5.323,
+    fAtomicMass := 72.63,
+    fExpected := 999621.5165914263
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Ge. Test Count = 5.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 15000.0,
+    fF2 := 2.4146499498956158,
+    fDensity := 5.323,
+    fAtomicMass := 72.63,
+    fExpected := 49645.78382743921
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Ge. Test Count = 6.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 29000.1,
+    fF2 := 0.7491748771626298,
+    fDensity := 5.323,
+    fAtomicMass := 72.63,
+    fExpected := 7967.153057755643
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 7.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 1000.0,
+    fF2 := 0.6327813018867925,
+    fDensity := 2.267,
+    fAtomicMass := 12.011,
+    fExpected := 502579.7887909773
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 8.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 15000.0,
+    fF2 := 0.0023005256325678495,
+    fDensity := 2.267,
+    fAtomicMass := 12.011,
+    fExpected := 121.81119375437642
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = C. Test Count = 9.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 29000.1,
+    fF2 := 0.0004796905371972318,
+    fDensity := 2.267,
+    fAtomicMass := 12.011,
+    fExpected := 13.137509334814979
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Al. Test Count = 10.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 1000.0,
+    fF2 := 0.7625729245283019,
+    fDensity := 2.7,
+    fAtomicMass := 26.9815,
+    fExpected := 321113.1450812988
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Al. Test Count = 11.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 15000.0,
+    fF2 := 0.07040800964509394,
+    fDensity := 2.7,
+    fAtomicMass := 26.9815,
+    fExpected := 1976.5486629828924
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Al. Test Count = 12.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 29000.1,
+    fF2 := 0.017726405384948095,
+    fDensity := 2.7,
+    fAtomicMass := 26.9815,
+    fExpected := 257.39368307186146
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Si. Test Count = 13.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 1000.0,
+    fF2 := 1.0696705216955105,
+    fDensity := 2.329,
+    fAtomicMass := 28.085,
+    fExpected := 373270.8850895703
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Si. Test Count = 14.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 15000.0,
+    fF2 := 0.09580087971619367,
+    fDensity := 2.329,
+    fAtomicMass := 28.085,
+    fExpected := 2228.703663961947
+);
+
+// Expected results taken from pcdshub solid_attenuator calculator python module.
+// Element = Si. Test Count = 15.
+TestValidInputsExpectNoErrorAccurateAbsorptionConstant(
+    fEnergy := 29000.1,
+    fF2 := 0.024546184003458715,
+    fDensity := 2.329,
+    fAtomicMass := 28.085,
+    fExpected := 295.3646924181722
+);
+]]></ST>
+    </Implementation>
+    <Method Name="SetInitialValues" Id="{1c298683-0ff9-4a60-ad37-f03bbc064d86}">
+      <Declaration><![CDATA[
+METHOD PRIVATE SetInitialValues
+VAR_IN_OUT
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbStringLookupLREALMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbQuantityLREALPublicEnergyMock.Val := 1.0;
+fbQuantityLREALPublicEnergyMock.ClearError();
+
+fbStringLookupLREALMock.Value := 1.0;
+fbStringLookupLREALMock.ClearError();
+
+fbStringLookupElementMock.Density := 1.0;
+fbStringLookupElementMock.AtomicMass := 1.0;
+fbStringLookupElementMock.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0AtomicMassExpectErrorAbsorptionConstantUnchanged" Id="{ff59267f-ef1d-4d49-b4f4-e21cfc62eb4f}">
+      <Declaration><![CDATA[
+METHOD Test0AtomicMassExpectErrorAbsorptionConstantUnchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0AtomicMassExpectErrorAbsorptionConstantUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.AtomicMass := 0.0;
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0DensityExpectErrorAbsorptionConstantUnchanged" Id="{d7ac0257-2edb-4eb7-b876-6addfa866e72}">
+      <Declaration><![CDATA[
+METHOD Test0DensityExpectErrorAbsorptionConstantUnchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0DensityExpectErrorAbsorptionConstantUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.Density := 0.0;
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test0EnergyExpectErrorAbsorptionConstantUnchanged" Id="{abb5016e-400f-48f2-8cba-5cd557884471}">
+      <Declaration><![CDATA[
+METHOD Test0EnergyExpectErrorAbsorptionConstantUnchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('Test0EnergyExpectErrorAbsorptionConstantUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbQuantityLREALPublicEnergyMock.Val := 0.0;
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidElementExpectErrorAbsorptionConstantUnchanged" Id="{edb2bfc8-7cf4-4420-8b24-bb1f8990c4c2}">
+      <Declaration><![CDATA[
+METHOD TestInvalidElementExpectErrorAbsorptionConstantUnchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidElementExpectErrorAbsorptionConstantUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.SetError(Msg := 'Error');
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidEnergyExpectErrorAbsorptionConstantUnchanged" Id="{963133d0-b518-4a17-bba8-2ec8ffbc3841}">
+      <Declaration><![CDATA[
+METHOD TestInvalidEnergyExpectErrorAbsorptionConstantUnchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidEnergyExpectErrorAbsorptionConstantUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbQuantityLREALPublicEnergyMock.SetError(Msg := 'Error');
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestInvalidf2ExpectErrorAbsorptionConstantUnchanged" Id="{837ce3fb-31a4-4f74-a87c-2213e3379b8f}">
+      <Declaration><![CDATA[
+METHOD TestInvalidf2ExpectErrorAbsorptionConstantUnchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidf2ExpectErrorAbsorptionConstantUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbF2LookupMock.SetError(Msg := 'Error');
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegAtomicMassExpectErrorAbsorptionConstantUnchanged" Id="{aed6a00a-bdee-4865-b3a3-d895548c7cf1}">
+      <Declaration><![CDATA[
+METHOD TestNegAtomicMassExpectErrorAbsorptionConstantUnchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegAtomicMassExpectErrorAbsorptionConstantUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.AtomicMass := -10.0;
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegDensityExpectErrorAbsorptionConstantUnchanged" Id="{fee79439-1d2d-456c-be91-ca27c012300b}">
+      <Declaration><![CDATA[
+METHOD TestNegDensityExpectErrorAbsorptionConstantUnchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegDensityExpectErrorAbsorptionConstantUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbStringLookupElementMock.Density := 0.0;
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestNegEnergyExpectErrorAbsorptionConstantUnchanged" Id="{51810e20-ddee-473b-bcf4-f445b887644f}">
+      <Declaration><![CDATA[
+METHOD TestNegEnergyExpectErrorAbsorptionConstantUnchanged
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestNegEnergyExpectErrorAbsorptionConstantUnchanged');
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbQuantityLREALPublicEnergyMock.Val := 0.0;
+
+fbResult.Val := 9023784.4;
+fbExpected.Val := fbResult.Val;
+fbExpected.Units := fbResult.Units;
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertErrorExactExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateAbsorptionConstant" Id="{665f53b0-b2d8-4b8e-92f5-8f89ad5c7136}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccurateAbsorptionConstant
+VAR_INPUT
+    fEnergy : LREAL;
+    fF2 : LREAL;
+    fDensity : LREAL;
+    fAtomicMass : LREAL;
+
+    fExpected : LREAL;
+END_VAR
+VAR
+    fbQuantityLREALPublicEnergyMock : FB_QuantityLREALPublicMock;
+    fbF2LookupMock : FB_StringLookupLREALMock;
+    fbStringLookupElementMock : FB_StringLookupElementMock;
+    fbExpected : FB_QuantityLREALPublicMock;
+    fbConvertUnitsLREALMock : FB_ConvertUnitsLREALMock;
+
+    // Subject under test
+    fbCalcXRayAbsorptionConstantElement : FB_CalcXRayAbsorptionConstantElement(
+        ConvertUnits := fbConvertUnitsLREALMock,
+        Energy := fbQuantityLREALPublicEnergyMock,
+        f2LUT := fbF2LookupMock,
+        ElementLUT := fbStringLookupElementMock
+    );
+    fbResult : FB_QuantityLREALPublic(Units := '1/m');
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT(STR1 := 'TestValidInputsExpectNoErrorAccurateAbsorptionConstant ID: ',
+            STR2 := INT_TO_STRING(nTestID)));
+
+// Test fixture
+SetInitialValues(
+    fbQuantityLREALPublicEnergyMock := fbQuantityLREALPublicEnergyMock,
+    fbStringLookupLREALMock := fbF2LookupMock,
+    fbStringLookupElementMock := fbStringLookupElementMock
+);
+
+fbQuantityLREALPublicEnergyMock.Val := fEnergy;
+fbF2LookupMock.Value := fF2;
+fbStringLookupElementMock.Density := fDensity;
+fbStringLookupElementMock.AtomicMass := fAtomicMass;
+
+fbExpected.Val := fExpected;
+fbExpected.Units := '1/m';
+
+// Here the test starts
+fbCalcXRayAbsorptionConstantElement.Calculate(
+    MaterialFormula := 'Be',
+    AbsorptionConstant := fbResult
+);
+
+AssertNoError(Fallible := fbCalcXRayAbsorptionConstantElement);
+
+AssertNoErrorExpectedQuantityLREAL(
+    Expected := fbExpected,
+    Actual := fbResult,
+    Delta := ABS(0.001 * fbExpected.Val)
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

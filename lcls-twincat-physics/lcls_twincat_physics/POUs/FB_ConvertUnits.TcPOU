@@ -1,0 +1,830 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ConvertUnits" Id="{c9bcf53c-ddd1-4fb3-8bb4-b36b335a5c1a}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_ConvertUnits EXTENDS FB_Fallible IMPLEMENTS I_ConvertUnitsLREAL
+VAR
+    fConversionInputToBaseUnits : LREAL;
+    fOffsetInputToBaseUnits : LREAL;
+    fConversionDesiredToBaseUnits : LREAL;
+    fOffsetDesiredToBaseUnits : LREAL;
+    fAffineOffset : LREAL;
+    sBaseUnitLong : T_MaxString;
+    sBaseUnitShort : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ConvertQuantityLREAL" Id="{d4c79c68-3cbe-4d3a-b054-de3845480e92}">
+      <Declaration><![CDATA[
+METHOD ConvertQuantityLREAL
+(*
+SI Base Units:
+
+Symbol  Name	    Base quantity
+s	    second	    time
+m	    meter	    length
+kg	    kilogram	mass
+A	    ampere	    electric current
+K	    kelvin	    thermodynamic temperature
+mol	    mole	    amount of substance
+cd      candela     luminous intensity
+
+Allowable inputs:
+
+kilometer, or KILOMETER, or km
+meter, or METER, or m
+centimeter, or CENTIMETER, or cm
+millimeter, or MILLIMETER, or mm
+micrometer, or MICROMETER, or µm
+nanometer, or NANOMETER, or nm
+picometer, or PICOMETER, or pm
+kilometer/second, or KILOMETER/SECOND, or km/s
+meter/second, or METER/SECOND, or m/s
+centimeter/second, or CENTIMETER/SECOND, or cm/s
+millimeter/second, or MILLIMETER/SECOND, or mm/s
+micrometer/second, or MICROMETER/SECOND, or µm/s
+nanometer/second, or NANOMETER/SECOND, or nm/s
+picometer/second, or PICOMETER/SECOND, or pm/s
+kilometer/second**2, or KILOMETER/SECOND**2, or km/s**2
+meter/second**2, or METER/SECOND**2, or m/s**2
+centimeter/second**2, or CENTIMETER/SECOND**2, or cm/s**2
+millimeter/second**2, or MILLIMETER/SECOND**2, or mm/s**2
+micrometer/second**2, or MICROMETER/SECOND**2, or µm/s**2
+nanometer/second**2, or NANOMETER/SECOND**2, or nm/s**2
+picometer/second**2, or PICOMETER/SECOND**2, or pm/s**2
+kilometer/minute, or KILOMETER/MINUTE, or km/min
+meter/minute, or METER/MINUTE, or m/min
+centimeter/minute, or CENTIMETER/MINUTE, or cm/min
+millimeter/minute, or MILLIMETER/MINUTE, or mm/min
+micrometer/minute, or MICROMETER/MINUTE, or µm/min
+nanometer/minute, or NANOMETER/MINUTE, or nm/min
+picometer/minute, or PICOMETER/MINUTE, or pm/min
+kilometer/hour, or KILOMETER/HOUR, or km/h
+meter/hour, or METER/HOUR, or m/h
+centimeter/hour, or CENTIMETER/HOUR, or cm/h
+millimeter/hour, or MILLIMETER/HOUR, or mm/h
+micrometer/hour, or MICROMETER/HOUR, or µm/h
+nanometer/hour, or NANOMETER/HOUR, or nm/h
+picometer/hour, or PICOMETER/HOUR, or pm/h
+inch, or INCH, or in
+mile, or MILE, or mi
+foot, or FOOT, or ft
+mil, or MIL, or mil
+micron, or MICRON, or µ
+yard, or YARD, or yd
+inch/second, or INCH/SECOND, or in/s
+mile/second, or MILE/SECOND, or mi/s
+foot/second, or FOOT/SECOND, or ft/s
+mil/second, or MIL/SECOND, or mil/s
+micron/second, or MICRON/SECOND, or µ/s
+yard/second, or YARD/SECOND, or yd/s
+inch/second**2, or INCH/SECOND**2, or in/s**2
+mile/second**2, or MILE/SECOND**2, or mi/s**2
+foot/second**2, or FOOT/SECOND**2, or ft/s**2
+mil/second**2, or MIL/SECOND**2, or mil/s**2
+micron/second**2, or MICRON/SECOND**2, or µ/s**2
+yard/second**2, or YARD/SECOND**2, or yd/s**2
+inch/minute, or INCH/MINUTE, or in/min
+mile/minute, or MILE/MINUTE, or mi/min
+foot/minute, or FOOT/MINUTE, or ft/min
+mil/minute, or MIL/MINUTE, or mil/min
+micron/minute, or MICRON/MINUTE, or µ/min
+yard/minute, or YARD/MINUTE, or yd/min
+inch/hour, or INCH/HOUR, or in/h
+mile/hour, or MILE/HOUR, or mi/h
+foot/hour, or FOOT/HOUR, or ft/h
+mil/hour, or MIL/HOUR, or mil/h
+micron/hour, or MICRON/HOUR, or µ/h
+yard/hour, or YARD/HOUR, or yd/h
+second, or SECOND, or s
+millisecond, or MILLISECOND, or ms
+hour, or HOUR, or h
+day, or DAY, or d
+week, or WEEK, or week
+month, or MONTH, or month
+year, or YEAR, or a
+kilogram, or KILOGRAM, or kg
+gram, or GRAM, or g
+centigram, or CENTIGRAM, or cg
+milligram, or MILLIGRAM, or mg
+microgram, or MICROGRAM, or µg
+nanogram, or NANOGRAM, or ng
+picogram, or PICOGRAM, or pg
+kiloampere, or KILOAMPERE, or kA
+ampere, or AMPERE, or A
+centiampere, or CENTIAMPERE, or cA
+milliampere, or MILLIAMPERE, or mA
+microampere, or MICROAMPERE, or µA
+nanoampere, or NANOAMPERE, or nA
+picoampere, or PICOAMPERE, or pA
+degree_fahrenheit, or deg F, or DEGREE_FAHRENHEIT, or °F
+degree_celsius, or degC, or DEGREE_CELSIUS, or °C
+kelvin, or KELVIN, or K
+degree_rankine, or DEGREE_RANKINE, or °R
+delta_degree_celsius, or DELTA_DEGREE_CELSIUS, or Δ°C
+delta_degree_fahrenheit, or DELTA_DEGREE_FAHRENHEIT, or Δ°F
+electron_volt, or ELECTRON_VOLT, or eV
+kiloelectron_volt, or KILOELECTRON_VOLT, or keV
+megapascal, or MEGAPASCAL, or MPa
+kilopascal, or KILOPASCAL, or kPa
+pascal, or PASCAL, or Pa
+millipascal, or MILLIPASCAL, or mPa
+micropascal, or MICROPASCAL, or µPa
+nanopascal, or NANOPASCAL, or nPa
+picopascal, or PICOPASCAL, or pPa
+torr, or TORR, or torr
+millitorr, or MILLITORR, or mtorr
+microtorr, or MICROTORR, or µtorr
+pound_force_per_square_inch, or POUND_FORCE_PER_SQUARE_INCH, or psi
+bar, or BAR, or bar
+millimeter_hg, or MILLIMETER_HG, or mmHg
+standard_atmosphere, or STANDARD_ATMOSPHERE, or atm
+*)
+
+VAR_INPUT
+    QuantityToConvert	: I_QuantityLREAL;
+    DesiredUnits	: T_MaxString;
+    ConvertedQuantity : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+GetConversionToBase(
+    sUnit := QuantityToConvert.Units,
+    fConversionFactorToBase => fConversionInputToBaseUnits,
+    fOffsetFactorToBase => fOffsetInputToBaseUnits,
+    sBaseUnitLong => sBaseUnitLong,
+    sBaseUnitShort => sBaseUnitShort,
+    bErrorOut => THIS^.bError,
+    sErrorMsgOut => THIS^.sErrorMsg
+);
+
+IF GetError() THEN
+    ConvertedQuantity.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+GetConversionToBase(
+    sUnit := DesiredUnits,
+    fConversionFactorToBase => fConversionDesiredToBaseUnits,
+    fOffsetFactorToBase => fOffsetDesiredToBaseUnits,
+    bErrorOut => bError,
+    sErrorMsgOut => sErrorMsg
+);
+
+IF GetError() THEN
+    ConvertedQuantity.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+ConvertedQuantity.Val := (QuantityToConvert.Val * fConversionInputToBaseUnits) + fOffsetInputToBaseUnits;
+ConvertedQuantity.Val := (ConvertedQuantity.Val - fOffsetDesiredToBaseUnits) / fConversionDesiredToBaseUnits;
+
+ConvertedQuantity.Units := DesiredUnits;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetConversionToBase" Id="{6095beca-149d-4634-9f37-7b6f521141a9}">
+      <Declaration><![CDATA[
+METHOD GetConversionToBase
+VAR_INPUT
+    sUnit : T_MaxString;
+END_VAR
+VAR_OUTPUT
+    sBaseUnitLong : T_MaxString;
+    sBaseUnitShort : T_MaxString;
+    fConversionFactorToBase : LREAL;
+    fOffsetFactorToBase : LREAL;
+    bErrorOut : BOOL;
+    sErrorMsgOut : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+sBaseUnitLong := '';
+sBaseUnitShort := '';
+bErrorOut := FALSE;
+sErrorMsgOut := '';
+
+IF sUnit = 'kilometer' OR sUnit = 'KILOMETER' OR sUnit = 'km' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 1000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'meter' OR sUnit = 'METER' OR sUnit = 'm' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 1;
+    fOffsetFactorToBase := 0;
+ELSIF sUnit = 'centimeter' OR sUnit = 'CENTIMETER' OR sUnit = 'cm' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 0.01;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'millimeter' OR sUnit = 'MILLIMETER' OR sUnit = 'mm' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 0.001;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micrometer' OR sUnit = 'MICROMETER' OR sUnit = 'µm' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 1e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'nanometer' OR sUnit = 'NANOMETER' OR sUnit = 'nm' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 1e-09;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'picometer' OR sUnit = 'PICOMETER' OR sUnit = 'pm' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 1e-12;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/kilometer' OR sUnit = '1/KILOMETER' OR sUnit = '1/km' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 0.001;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/meter' OR sUnit = '1/METER' OR sUnit = '1/m' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/centimeter' OR sUnit = '1/CENTIMETER' OR sUnit = '1/cm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 100.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/millimeter' OR sUnit = '1/MILLIMETER' OR sUnit = '1/mm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/micrometer' OR sUnit = '1/MICROMETER' OR sUnit = '1/µm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1000000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/nanometer' OR sUnit = '1/NANOMETER' OR sUnit = '1/nm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 999999999.9999999;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/picometer' OR sUnit = '1/PICOMETER' OR sUnit = '1/pm' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1000000000000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/inch' OR sUnit = '1/INCH' OR sUnit = '1/in' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 39.37007874015748;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/mile' OR sUnit = '1/MILE' OR sUnit = '1/mi' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 0.0006213711922373339;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/foot' OR sUnit = '1/FOOT' OR sUnit = '1/ft' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 3.2808398950131235;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/mil' OR sUnit = '1/MIL' OR sUnit = '1/mil' THEN
+    sBaseUnitLong := '1/radian';
+    sBaseUnitShort := '1/rad';
+    fConversionFactorToBase := 10185.916357881302;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/micron' OR sUnit = '1/MICRON' OR sUnit = '1/µ' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1000000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = '1/yard' OR sUnit = '1/YARD' OR sUnit = '1/yd' THEN
+    sBaseUnitLong := '1/meter';
+    sBaseUnitShort := '1/m';
+    fConversionFactorToBase := 1.0936132983377078;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'kilometer/second' OR sUnit = 'KILOMETER/SECOND' OR sUnit = 'km/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'meter/second' OR sUnit = 'METER/SECOND' OR sUnit = 'm/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'centimeter/second' OR sUnit = 'CENTIMETER/SECOND' OR sUnit = 'cm/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.01;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'millimeter/second' OR sUnit = 'MILLIMETER/SECOND' OR sUnit = 'mm/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.001;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micrometer/second' OR sUnit = 'MICROMETER/SECOND' OR sUnit = 'µm/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'nanometer/second' OR sUnit = 'NANOMETER/SECOND' OR sUnit = 'nm/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1e-09;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'picometer/second' OR sUnit = 'PICOMETER/SECOND' OR sUnit = 'pm/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1e-12;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'kilometer/second**2' OR sUnit = 'KILOMETER/SECOND**2' OR sUnit = 'km/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 1000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'meter/second**2' OR sUnit = 'METER/SECOND**2' OR sUnit = 'm/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 1.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'centimeter/second**2' OR sUnit = 'CENTIMETER/SECOND**2' OR sUnit = 'cm/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 0.01;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'millimeter/second**2' OR sUnit = 'MILLIMETER/SECOND**2' OR sUnit = 'mm/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 0.001;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micrometer/second**2' OR sUnit = 'MICROMETER/SECOND**2' OR sUnit = 'µm/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 1e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'nanometer/second**2' OR sUnit = 'NANOMETER/SECOND**2' OR sUnit = 'nm/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 1e-09;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'picometer/second**2' OR sUnit = 'PICOMETER/SECOND**2' OR sUnit = 'pm/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 1e-12;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'kilometer/minute' OR sUnit = 'KILOMETER/MINUTE' OR sUnit = 'km/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 16.666666666666668;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'meter/minute' OR sUnit = 'METER/MINUTE' OR sUnit = 'm/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.016666666666666666;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'centimeter/minute' OR sUnit = 'CENTIMETER/MINUTE' OR sUnit = 'cm/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.00016666666666666666;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'millimeter/minute' OR sUnit = 'MILLIMETER/MINUTE' OR sUnit = 'mm/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1.6666666666666667e-05;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micrometer/minute' OR sUnit = 'MICROMETER/MINUTE' OR sUnit = 'µm/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1.6666666666666667e-08;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'nanometer/minute' OR sUnit = 'NANOMETER/MINUTE' OR sUnit = 'nm/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1.6666666666666667e-11;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'picometer/minute' OR sUnit = 'PICOMETER/MINUTE' OR sUnit = 'pm/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1.6666666666666667e-14;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'kilometer/hour' OR sUnit = 'KILOMETER/HOUR' OR sUnit = 'km/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.2777777777777778;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'meter/hour' OR sUnit = 'METER/HOUR' OR sUnit = 'm/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.0002777777777777778;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'centimeter/hour' OR sUnit = 'CENTIMETER/HOUR' OR sUnit = 'cm/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 2.7777777777777775e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'millimeter/hour' OR sUnit = 'MILLIMETER/HOUR' OR sUnit = 'mm/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 2.777777777777778e-07;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micrometer/hour' OR sUnit = 'MICROMETER/HOUR' OR sUnit = 'µm/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 2.7777777777777777e-10;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'nanometer/hour' OR sUnit = 'NANOMETER/HOUR' OR sUnit = 'nm/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 2.777777777777778e-13;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'picometer/hour' OR sUnit = 'PICOMETER/HOUR' OR sUnit = 'pm/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 2.777777777777778e-16;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'inch' OR sUnit = 'INCH' OR sUnit = 'in' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 0.0254;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mile' OR sUnit = 'MILE' OR sUnit = 'mi' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 1609.344;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'foot' OR sUnit = 'FOOT' OR sUnit = 'ft' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 0.30479999999999996;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mil' OR sUnit = 'MIL' OR sUnit = 'mil' THEN
+    sBaseUnitLong := 'radian';
+    sBaseUnitShort := 'rad';
+    fConversionFactorToBase := 9.817477042468104e-05;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micron' OR sUnit = 'MICRON' OR sUnit = 'µ' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 1e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'yard' OR sUnit = 'YARD' OR sUnit = 'yd' THEN
+    sBaseUnitLong := 'meter';
+    sBaseUnitShort := 'm';
+    fConversionFactorToBase := 0.9144;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'inch/second' OR sUnit = 'INCH/SECOND' OR sUnit = 'in/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.0254;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mile/second' OR sUnit = 'MILE/SECOND' OR sUnit = 'mi/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1609.344;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'foot/second' OR sUnit = 'FOOT/SECOND' OR sUnit = 'ft/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.30479999999999996;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mil/second' OR sUnit = 'MIL/SECOND' OR sUnit = 'mil/s' THEN
+    sBaseUnitLong := 'radian/second';
+    sBaseUnitShort := 'rad/s';
+    fConversionFactorToBase := 9.817477042468104e-05;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micron/second' OR sUnit = 'MICRON/SECOND' OR sUnit = 'µ/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'yard/second' OR sUnit = 'YARD/SECOND' OR sUnit = 'yd/s' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.9144;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'inch/second**2' OR sUnit = 'INCH/SECOND**2' OR sUnit = 'in/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 0.0254;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mile/second**2' OR sUnit = 'MILE/SECOND**2' OR sUnit = 'mi/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 1609.344;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'foot/second**2' OR sUnit = 'FOOT/SECOND**2' OR sUnit = 'ft/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 0.30479999999999996;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mil/second**2' OR sUnit = 'MIL/SECOND**2' OR sUnit = 'mil/s**2' THEN
+    sBaseUnitLong := 'radian/second**2';
+    sBaseUnitShort := 'rad/s**2';
+    fConversionFactorToBase := 9.817477042468104e-05;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micron/second**2' OR sUnit = 'MICRON/SECOND**2' OR sUnit = 'µ/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 1e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'yard/second**2' OR sUnit = 'YARD/SECOND**2' OR sUnit = 'yd/s**2' THEN
+    sBaseUnitLong := 'meter/second**2';
+    sBaseUnitShort := 'm/s**2';
+    fConversionFactorToBase := 0.9144;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'inch/minute' OR sUnit = 'INCH/MINUTE' OR sUnit = 'in/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.0004233333333333333;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mile/minute' OR sUnit = 'MILE/MINUTE' OR sUnit = 'mi/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 26.822400000000002;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'foot/minute' OR sUnit = 'FOOT/MINUTE' OR sUnit = 'ft/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.0050799999999999994;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mil/minute' OR sUnit = 'MIL/MINUTE' OR sUnit = 'mil/min' THEN
+    sBaseUnitLong := 'radian/second';
+    sBaseUnitShort := 'rad/s';
+    fConversionFactorToBase := 1.636246173744684e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micron/minute' OR sUnit = 'MICRON/MINUTE' OR sUnit = 'µ/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 1.6666666666666667e-08;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'yard/minute' OR sUnit = 'YARD/MINUTE' OR sUnit = 'yd/min' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.01524;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'inch/hour' OR sUnit = 'INCH/HOUR' OR sUnit = 'in/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 7.055555555555555e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mile/hour' OR sUnit = 'MILE/HOUR' OR sUnit = 'mi/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.44704000000000005;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'foot/hour' OR sUnit = 'FOOT/HOUR' OR sUnit = 'ft/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 8.466666666666666e-05;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'mil/hour' OR sUnit = 'MIL/HOUR' OR sUnit = 'mil/h' THEN
+    sBaseUnitLong := 'radian/second';
+    sBaseUnitShort := 'rad/s';
+    fConversionFactorToBase := 2.72707695624114e-08;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micron/hour' OR sUnit = 'MICRON/HOUR' OR sUnit = 'µ/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 2.7777777777777777e-10;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'yard/hour' OR sUnit = 'YARD/HOUR' OR sUnit = 'yd/h' THEN
+    sBaseUnitLong := 'meter/second';
+    sBaseUnitShort := 'm/s';
+    fConversionFactorToBase := 0.000254;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'second' OR sUnit = 'SECOND' OR sUnit = 's' THEN
+    sBaseUnitLong := 'second';
+    sBaseUnitShort := 's';
+    fConversionFactorToBase := 1;
+    fOffsetFactorToBase := 0;
+ELSIF sUnit = 'millisecond' OR sUnit = 'MILLISECOND' OR sUnit = 'ms' THEN
+    sBaseUnitLong := 'second';
+    sBaseUnitShort := 's';
+    fConversionFactorToBase := 0.001;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'hour' OR sUnit = 'HOUR' OR sUnit = 'h' THEN
+    sBaseUnitLong := 'second';
+    sBaseUnitShort := 's';
+    fConversionFactorToBase := 3600;
+    fOffsetFactorToBase := 0;
+ELSIF sUnit = 'day' OR sUnit = 'DAY' OR sUnit = 'd' THEN
+    sBaseUnitLong := 'second';
+    sBaseUnitShort := 's';
+    fConversionFactorToBase := 86400;
+    fOffsetFactorToBase := 0;
+ELSIF sUnit = 'week' OR sUnit = 'WEEK' OR sUnit = 'week' THEN
+    sBaseUnitLong := 'second';
+    sBaseUnitShort := 's';
+    fConversionFactorToBase := 604800;
+    fOffsetFactorToBase := 0;
+ELSIF sUnit = 'month' OR sUnit = 'MONTH' OR sUnit = 'month' THEN
+    sBaseUnitLong := 'second';
+    sBaseUnitShort := 's';
+    fConversionFactorToBase := 2629800.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'year' OR sUnit = 'YEAR' OR sUnit = 'a' THEN
+    sBaseUnitLong := 'second';
+    sBaseUnitShort := 's';
+    fConversionFactorToBase := 31557600.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'kilogram' OR sUnit = 'KILOGRAM' OR sUnit = 'kg' THEN
+    sBaseUnitLong := 'kilogram';
+    sBaseUnitShort := 'kg';
+    fConversionFactorToBase := 1;
+    fOffsetFactorToBase := 0;
+ELSIF sUnit = 'gram' OR sUnit = 'GRAM' OR sUnit = 'g' THEN
+    sBaseUnitLong := 'kilogram';
+    sBaseUnitShort := 'kg';
+    fConversionFactorToBase := 0.001;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'centigram' OR sUnit = 'CENTIGRAM' OR sUnit = 'cg' THEN
+    sBaseUnitLong := 'kilogram';
+    sBaseUnitShort := 'kg';
+    fConversionFactorToBase := 1e-05;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'milligram' OR sUnit = 'MILLIGRAM' OR sUnit = 'mg' THEN
+    sBaseUnitLong := 'kilogram';
+    sBaseUnitShort := 'kg';
+    fConversionFactorToBase := 1e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'microgram' OR sUnit = 'MICROGRAM' OR sUnit = 'µg' THEN
+    sBaseUnitLong := 'kilogram';
+    sBaseUnitShort := 'kg';
+    fConversionFactorToBase := 1e-09;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'nanogram' OR sUnit = 'NANOGRAM' OR sUnit = 'ng' THEN
+    sBaseUnitLong := 'kilogram';
+    sBaseUnitShort := 'kg';
+    fConversionFactorToBase := 1e-12;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'picogram' OR sUnit = 'PICOGRAM' OR sUnit = 'pg' THEN
+    sBaseUnitLong := 'kilogram';
+    sBaseUnitShort := 'kg';
+    fConversionFactorToBase := 1e-15;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'kiloampere' OR sUnit = 'KILOAMPERE' OR sUnit = 'kA' THEN
+    sBaseUnitLong := 'ampere';
+    sBaseUnitShort := 'A';
+    fConversionFactorToBase := 1000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'ampere' OR sUnit = 'AMPERE' OR sUnit = 'A' THEN
+    sBaseUnitLong := 'ampere';
+    sBaseUnitShort := 'A';
+    fConversionFactorToBase := 1;
+    fOffsetFactorToBase := 0;
+ELSIF sUnit = 'centiampere' OR sUnit = 'CENTIAMPERE' OR sUnit = 'cA' THEN
+    sBaseUnitLong := 'ampere';
+    sBaseUnitShort := 'A';
+    fConversionFactorToBase := 0.01;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'milliampere' OR sUnit = 'MILLIAMPERE' OR sUnit = 'mA' THEN
+    sBaseUnitLong := 'ampere';
+    sBaseUnitShort := 'A';
+    fConversionFactorToBase := 0.001;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'microampere' OR sUnit = 'MICROAMPERE' OR sUnit = 'µA' THEN
+    sBaseUnitLong := 'ampere';
+    sBaseUnitShort := 'A';
+    fConversionFactorToBase := 1e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'nanoampere' OR sUnit = 'NANOAMPERE' OR sUnit = 'nA' THEN
+    sBaseUnitLong := 'ampere';
+    sBaseUnitShort := 'A';
+    fConversionFactorToBase := 1e-09;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'picoampere' OR sUnit = 'PICOAMPERE' OR sUnit = 'pA' THEN
+    sBaseUnitLong := 'ampere';
+    sBaseUnitShort := 'A';
+    fConversionFactorToBase := 1e-12;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'degree_fahrenheit' OR sUnit = 'degree_Fahrenheit' OR sUnit = 'degree_F'  OR sUnit = 'degF' OR sUnit = 'DEGREE_FAHRENHEIT' OR sUnit = '°F' THEN
+    sBaseUnitLong := 'kelvin';
+    sBaseUnitShort := 'K';
+    fConversionFactorToBase := 0.5555555555555429;
+    fOffsetFactorToBase := 255.37222222222223;
+ELSIF sUnit = 'degree_celsius' OR sUnit = 'degree_Celsius' OR sUnit = 'degree_C'  OR sUnit = 'degC' OR sUnit = 'DEGREE_CELSIUS' OR sUnit = '°C' THEN
+    sBaseUnitLong := 'kelvin';
+    sBaseUnitShort := 'K';
+    fConversionFactorToBase := 1.0;
+    fOffsetFactorToBase := 273.15;
+ELSIF sUnit = 'kelvin' OR sUnit = 'degK' OR sUnit = 'KELVIN' OR sUnit = 'K' THEN
+    sBaseUnitLong := 'kelvin';
+    sBaseUnitShort := 'K';
+    fConversionFactorToBase := 1;
+    fOffsetFactorToBase := 0;
+ELSIF sUnit = 'degree_rankine' OR sUnit = 'degR' OR sUnit = 'DEGREE_RANKINE' OR sUnit = '°R' THEN
+    sBaseUnitLong := 'kelvin';
+    sBaseUnitShort := 'K';
+    fConversionFactorToBase := 0.5555555555555556;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'delta_degree_celsius' OR sUnit = 'delta_degC' OR sUnit = 'delta_degree_Celsius' OR sUnit = 'DELTA_DEGREE_CELSIUS' OR sUnit = 'delta°C' THEN
+    sBaseUnitLong := 'kelvin';
+    sBaseUnitShort := 'K';
+    fConversionFactorToBase := 1;
+    fOffsetFactorToBase := 0;
+ELSIF sUnit = 'delta_degree_fahrenheit' OR sUnit = 'delta_degF' OR sUnit = 'delta_degree_Fahrenheit' OR sUnit = 'DELTA_DEGREE_FAHRENHEIT' OR sUnit = 'delta°F' THEN
+    sBaseUnitLong := 'kelvin';
+    sBaseUnitShort := 'K';
+    fConversionFactorToBase := 0.5555555555555556;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'electron_volt' OR sUnit = 'ELECTRON_VOLT' OR sUnit = 'eV' THEN
+    sBaseUnitLong := 'kilogram*meter**2/second**2';
+    sBaseUnitShort := 'kg*m**2/s**2';
+    fConversionFactorToBase := 1.602176634e-19;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'kiloelectron_volt' OR sUnit = 'KILOELECTRON_VOLT' OR sUnit = 'keV' THEN
+    sBaseUnitLong := 'kilogram*meter**2/second**2';
+    sBaseUnitShort := 'kg*m**2/s**2';
+    fConversionFactorToBase := 1.602176634e-16;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'megapascal' OR sUnit = 'MEGAPASCAL' OR sUnit = 'MPa' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 1000000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'kilopascal' OR sUnit = 'KILOPASCAL' OR sUnit = 'kPa' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 1000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'pascal' OR sUnit = 'PASCAL' OR sUnit = 'Pa' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 1.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'millipascal' OR sUnit = 'MILLIPASCAL' OR sUnit = 'mPa' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 0.001;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'micropascal' OR sUnit = 'MICROPASCAL' OR sUnit = 'µPa' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 1e-06;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'nanopascal' OR sUnit = 'NANOPASCAL' OR sUnit = 'nPa' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 1e-09;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'picopascal' OR sUnit = 'PICOPASCAL' OR sUnit = 'pPa' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 1e-12;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'torr' OR sUnit = 'TORR' OR sUnit = 'torr' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 133.32236842105263;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'millitorr' OR sUnit = 'MILLITORR' OR sUnit = 'mtorr' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 0.13332236842105263;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'microtorr' OR sUnit = 'MICROTORR' OR sUnit = 'µtorr' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 0.00013332236842105263;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'pound_force_per_square_inch' OR sUnit = 'POUND_FORCE_PER_SQUARE_INCH' OR sUnit = 'psi' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 6894.7572931683635;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'bar' OR sUnit = 'BAR' OR sUnit = 'bar' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 100000.0;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'millimeter_hg' OR sUnit = 'MILLIMETER_HG' OR sUnit = 'mmHg' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 133.32238741499998;
+    fOffsetFactorToBase := 0.0;
+ELSIF sUnit = 'standard_atmosphere' OR sUnit = 'STANDARD_ATMOSPHERE' OR sUnit = 'atm' THEN
+    sBaseUnitLong := 'kilogram/meter/second**2';
+    sBaseUnitShort := 'kg/m/s**2';
+    fConversionFactorToBase := 101325.0;
+    fOffsetFactorToBase := 0.0;
+ELSE
+    sBaseUnitLong := 'INVALID';
+    sBaseUnitShort := 'INVALID';
+    bErrorOut := TRUE;
+    sErrorMsgOut := CONCAT('Conversion attempted with unknown unit: [',
+                 CONCAT(sUnit,
+                 ']'));
+    fConversionFactorToBase := 1.0;
+    fOffsetFactorToBase := 0.0;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

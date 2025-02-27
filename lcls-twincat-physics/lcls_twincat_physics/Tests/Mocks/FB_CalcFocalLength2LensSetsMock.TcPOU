@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcFocalLength2LensSetsMock" Id="{50889418-b31a-4aea-939f-345ec0b9796f}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcFocalLength2LensSetsMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_CalcFocalLength2LensSets
+VAR
+    fbResult : FB_QuantityLREALPublicMock;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{f9df9c0c-7e90-45c5-a58c-6f43ae146e2d}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    (* Distance from source to downstream lens.*)
+    SourceDistance	: I_QuantityLREAL;
+    (* Distance between the two lens sets.*)
+    DistanceBetween	: I_QuantityLREAL;
+    LensSetUpstream	: I_LensSet;
+    LensSetDownstream	: I_LensSet;
+END_VAR
+VAR_IN_OUT
+    FocalLength	: FB_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+FocalLength.Copy(QuantityToCopy := fbResult);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetResult" Id="{200a6f9f-a44c-4baa-a6e4-ab9b2939efbb}">
+      <Declaration><![CDATA[
+METHOD SetResult
+VAR_INPUT
+    Result : FB_QuantityLREALPublicMock;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbResult := Result;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

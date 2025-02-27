@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LagrangePolyInterp_Test" Id="{90adfa0b-c231-4270-92e5-172e2d551dee}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_LagrangePolyInterp_Test EXTENDS FB_TestSuiteExtended
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+TestTooFewPointsExpectError0Result();
+
+TestTooManyPointsExpectError0Result();
+
+TestValidInputsExpectNoErrorAccurateResult();
+]]></ST>
+    </Implementation>
+    <Method Name="AssertErrors0Result" Id="{13675e6d-92a6-4397-8d4a-963ea099dc96}">
+      <Declaration><![CDATA[
+METHOD PRIVATE AssertErrors0Result
+VAR_INPUT
+    fResult : LREAL;
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertTrue(
+    Condition := bError,
+    Message := 'Expected bError bit to be true but it was true.'
+);
+
+AssertTrue(
+    Condition := sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to not be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := 0.0,
+    Actual := fResult,
+    Delta := 0.0,
+    Message := 'Calculated result should have been exactly 0.'
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AssertNoErrorsExpectedResult" Id="{b23e337c-a7af-4268-8ce2-1047a12e69a2}">
+      <Declaration><![CDATA[
+METHOD PRIVATE AssertNoErrorsExpectedResult
+VAR_INPUT
+    fExpected : LREAL;
+    fResult : LREAL;
+    fDelta : LREAL;
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+AssertFalse(
+    Condition := bError,
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertFalse(
+    Condition := sErrorMsg <> '',
+    Message := 'Expected sErrorMsg to be empty.'
+);
+
+AssertEquals_LREAL(
+    Expected := fExpected,
+    Actual := fResult,
+    Delta := ABS(fDelta * fExpected),
+    Message := 'Calculated result not close enough to the expected value.'
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Equation1" Id="{f4875284-3df8-4ba3-945d-703d7beaf5e9}">
+      <Declaration><![CDATA[
+METHOD PRIVATE Equation1 : LREAL
+VAR_INPUT
+    fX : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Equation1 :=
+    EXPT(fX, 4.0) / 24.0 +
+    -EXPT(fX, 3.0) / 12.0 +
+    11.0 * EXPT(fX, 2.0) / 24.0 +
+    7.0 * fX / 12.0 +
+    1.0;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Equation2" Id="{3b239d97-b5d7-43a2-baa8-64460da1e3b5}">
+      <Declaration><![CDATA[
+METHOD PRIVATE Equation2 : LREAL
+VAR_INPUT
+    fX : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Equation2 :=
+    0.0742696 * EXPT(fX, 2.0) +
+    -2.5029 * fX +
+    7.34;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTooFewPointsExpectError0Result" Id="{1fc78665-eadc-4fd0-9943-7baef978fa6e}">
+      <Declaration><![CDATA[
+METHOD TestTooFewPointsExpectError0Result
+VAR
+    afX : ARRAY[1..5] OF LREAL;
+    afY : ARRAY[1..5] OF LREAL;
+
+    fResult : LREAL;
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestTooFewPointsExpectError0Result');
+
+// Test fixture
+
+afX[1] := 0.0;
+afX[2] := 1.0;
+afX[3] := 2.0;
+afX[4] := 3.0;
+afX[5] := 4.0;
+
+afY[1] := 1.0;
+afY[2] := 2.0;
+afY[3] := 4.0;
+afY[4] := 8.0;
+afY[5] := 16.0;
+
+// Here the test starts
+fResult := F_LagrangePolyInterp(
+    fX := afX[1],
+    afX := afX,
+    afY := afY,
+    nPoints := 1,
+    bError => bError,
+    sErrorMsg => sErrorMsg
+);
+
+AssertErrors0Result(
+    fResult := fResult,
+    bError := bError,
+    sErrorMsg := sErrorMsg
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestTooManyPointsExpectError0Result" Id="{280307d4-f497-4aaa-aa18-2e3c6c707ffb}">
+      <Declaration><![CDATA[
+METHOD TestTooManyPointsExpectError0Result
+VAR
+    afX : ARRAY[1..5] OF LREAL;
+    afY : ARRAY[1..5] OF LREAL;
+
+    fResult : LREAL;
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestTooManyPointsExpectError0Result');
+
+// Test fixture
+
+afX[1] := 0.0;
+afX[2] := 1.0;
+afX[3] := 2.0;
+afX[4] := 3.0;
+afX[5] := 4.0;
+
+afY[1] := 1.0;
+afY[2] := 2.0;
+afY[3] := 4.0;
+afY[4] := 8.0;
+afY[5] := 16.0;
+
+// Here the test starts
+fResult := F_LagrangePolyInterp(
+    fX := afX[1],
+    afX := afX,
+    afY := afY,
+    nPoints := 5 + 1,
+    bError => bError,
+    sErrorMsg => sErrorMsg
+);
+
+AssertErrors0Result(
+    fResult := fResult,
+    bError := bError,
+    sErrorMsg := sErrorMsg
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidInputsExpectNoErrorAccurateResult" Id="{7447e7f2-6852-414d-b336-459951032e66}">
+      <Declaration><![CDATA[
+METHOD TestValidInputsExpectNoErrorAccurateResult
+VAR
+    afX : ARRAY[1..5] OF LREAL;
+    afY : ARRAY[1..5] OF LREAL;
+    afXP : ARRAY[1..10] OF LREAL;
+
+    nIndex : INT;
+    fResult : LREAL;
+    fDelta : LREAL;
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestValidInputsExpectNoErrorAccurateResult');
+
+// Test fixture
+fDelta := 0.001;
+
+afX[1] := 0.0;
+afX[2] := 1.0;
+afX[3] := 2.0;
+afX[4] := 3.0;
+afX[5] := 4.0;
+
+afY[1] := 1.0;
+afY[2] := 2.0;
+afY[3] := 4.0;
+afY[4] := 8.0;
+afY[5] := 16.0;
+
+// Here the test starts
+FOR nIndex := 1 TO 5 BY 1 DO
+    fResult := F_LagrangePolyInterp(
+        fX := afX[nIndex],
+        afX := afX,
+        afY := afY,
+        nPoints := 5,
+        bError => bError,
+        sErrorMsg => sErrorMsg
+    );
+
+    AssertNoErrorsExpectedResult(
+        fExpected := afY[nIndex],
+        fResult := fResult,
+        fDelta := fDelta,
+        bError := bError,
+        sErrorMsg := sErrorMsg
+    );
+END_FOR
+
+afXP[1] := -1.02242;
+afXP[2] := -2.41447;
+afXP[3] := 3.19207;
+afXP[4] := 3.12859;
+afXP[5] := -8.64880;
+afXP[6] := -0.30051;
+afXP[7] := -1.64879;
+afXP[8] := 6.27707;
+afXP[9] := 10.93266;
+afXP[10] := 11.09273;
+
+FOR nIndex := 1 TO 10 BY 1 DO
+    fResult := F_LagrangePolyInterp(
+        fX := afXP[nIndex],
+        afX := afX,
+        afY := afY,
+        nPoints := 5,
+        bError => bError,
+        sErrorMsg => sErrorMsg
+    );
+
+    AssertNoErrorsExpectedResult(
+        fExpected := Equation1(afXP[nIndex]),
+        fResult := fResult,
+        fDelta := fDelta,
+        bError := bError,
+        sErrorMsg := sErrorMsg
+    );
+END_FOR
+
+afX[1] := 0.0;
+afX[2] := 12.0;
+afX[3] := 37.23;
+
+afY[1] := 7.34;
+afY[2] := -12.0;
+afY[3] := 17.1;
+
+afXP[1] := -108.90643;
+afXP[2] := 3.25575;
+afXP[3] := 55.25270;
+afXP[4] := 110.06102;
+afXP[5] := 154.42119;
+afXP[6] := 8.59311;
+afXP[7] := -149.15903;
+afXP[8] := -74.23018;
+afXP[9] := -106.15817;
+afXP[10] := 235.04572;
+
+FOR nIndex := 1 TO 10 BY 1 DO
+    fResult := F_LagrangePolyInterp(
+        fX := afXP[nIndex],
+        afX := afX,
+        afY := afY,
+        nPoints := 3,
+        bError => bError,
+        sErrorMsg => sErrorMsg
+    );
+
+    AssertNoErrorsExpectedResult(
+        fExpected := Equation2(afXP[nIndex]),
+        fResult := fResult,
+        fDelta := fDelta,
+        bError := bError,
+        sErrorMsg := sErrorMsg
+    );
+END_FOR
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

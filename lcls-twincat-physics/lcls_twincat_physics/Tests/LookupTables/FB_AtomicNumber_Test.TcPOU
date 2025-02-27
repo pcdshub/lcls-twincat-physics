@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_AtomicNumber_Test" Id="{4f40b6c4-6fda-4598-b0ef-84ced868c966}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_AtomicNumber_Test EXTENDS FB_TestSuiteExtended
+VAR
+    nTestID : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nTestID := 0;
+
+TestInvalidElementExpectNotFoundAndNegAtomicNumber();
+
+TestLookupInvalidElementExpectNotFoundAndNoChangeToResult();
+
+TestLookupValidElementDifferentUnitsExpectUnitsChanged();
+
+TestValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'Be',
+    nExpectedNumber := 4
+);
+
+TestLookupValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'Be',
+    nExpectedNumber := 4
+);
+
+TestValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'H',
+    nExpectedNumber := 1
+);
+
+TestLookupValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'H',
+    nExpectedNumber := 1
+);
+
+TestValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'Ca',
+    nExpectedNumber := 20
+);
+
+TestLookupValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'Ca',
+    nExpectedNumber := 20
+);
+
+TestValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'Lr',
+    nExpectedNumber := 103
+);
+
+TestLookupValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'Lr',
+    nExpectedNumber := 103
+);
+
+TestValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'Nb',
+    nExpectedNumber := 41
+);
+
+TestLookupValidElementExpectFoundAndCorrectAtomicNumber(
+    sName := 'Nb',
+    nExpectedNumber := 41
+);
+]]></ST>
+    </Implementation>
+    <Method Name="TestInvalidElementExpectNotFoundAndNegAtomicNumber" Id="{035f3ae2-1d37-4a24-b1c6-fbd41790d608}">
+      <Declaration><![CDATA[
+METHOD TestInvalidElementExpectNotFoundAndNegAtomicNumber
+VAR
+    fbAtomicNumber : FB_AtomicNumber;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestInvalidElementExpectNotFoundAndNegAtomicNumber');
+
+fbAtomicNumber(
+    sName := 'INVALID',
+    bFound =>,
+    nValue =>,
+);
+
+AssertFalse(
+    Condition := fbAtomicNumber.bFound,
+    Message := 'Expected bFound bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbAtomicNumber.GetError(),
+    Message := 'Expected bError bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbAtomicNumber.GetErrorMsg() = '',
+    Message := 'Expected there to be an error message but there was none.'
+);
+
+AssertTrue(
+    Condition := fbAtomicNumber.nValue < 0,
+    Message := CONCAT('Expected atomic number to be negative but it was [',
+        CONCAT(INT_TO_STRING(fbAtomicNumber.nValue),
+        '].'))
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupInvalidElementExpectNotFoundAndNoChangeToResult" Id="{5142e8db-35b4-4b18-bfb6-0da7ca83161e}">
+      <Declaration><![CDATA[
+METHOD TestLookupInvalidElementExpectNotFoundAndNoChangeToResult
+VAR
+    fbExpected : FB_QuantityINTPublicMock;
+    fbResult : FB_QuantityINTPublic(Units := 'Protons');
+    fbAtomicNumber : FB_AtomicNumber;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupInvalidElementExpectNotFoundAndNoChangeToResult');
+
+// Test Fixture
+fbExpected.Val := 12;
+fbExpected.Units := 'Protons';
+
+fbResult.Val := 12;
+
+// Subject Under Test
+fbAtomicNumber.Lookup(
+    StringToLookup := 'INVALID',
+    Result := fbResult
+);
+
+AssertError(Fallible := fbAtomicNumber);
+
+AssertErrorExactExpectedQuantityINT(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupValidElementDifferentUnitsExpectUnitsChanged" Id="{e8649b7c-de37-419b-8392-8a0ae25b5009}">
+      <Declaration><![CDATA[
+METHOD TestLookupValidElementDifferentUnitsExpectUnitsChanged
+VAR
+    fbExpected : FB_QuantityINTPublicMock;
+    fbResult : FB_QuantityINTPublic(Units := '1');
+    fbAtomicNumber : FB_AtomicNumber;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('TestLookupValidElementDifferentUnitsExpectUnitsChanged');
+
+// Test Fixture
+fbExpected.Val := 4;
+fbExpected.Units := 'Protons';
+
+// Subject Under Test
+fbAtomicNumber.Lookup(
+    StringToLookup := 'Be',
+    Result := fbResult
+);
+
+AssertNoError(Fallible := fbAtomicNumber);
+
+AssertNoErrorExactExpectedQuantityINT(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestLookupValidElementExpectFoundAndCorrectAtomicNumber" Id="{8590eec4-e37a-4e9a-b65a-53b56b062167}">
+      <Declaration><![CDATA[
+METHOD TestLookupValidElementExpectFoundAndCorrectAtomicNumber
+VAR_INPUT
+    sName : STRING;
+    nExpectedNumber : INT;
+END_VAR
+VAR
+    fbExpected : FB_QuantityINTPublicMock;
+    fbResult : FB_QuantityINTPublic(Units := 'Protons');
+    fbAtomicNumber : FB_AtomicNumber;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestLookupValidElementExpectFoundAndCorrectAtomicNumber ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+// Test Fixture
+fbExpected.Val := nExpectedNumber;
+fbExpected.Units := 'Protons';
+
+// Subject Under Test
+fbAtomicNumber.Lookup(
+    StringToLookup := sName,
+    Result := fbResult
+);
+
+AssertNoError(Fallible := fbAtomicNumber);
+
+AssertNoErrorExactExpectedQuantityINT(
+    Expected := fbExpected,
+    Actual := fbResult
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestValidElementExpectFoundAndCorrectAtomicNumber" Id="{9ccd1819-4cd3-4989-a500-2f1411a6cafb}">
+      <Declaration><![CDATA[
+METHOD TestValidElementExpectFoundAndCorrectAtomicNumber
+VAR_INPUT
+    sName : STRING;
+    nExpectedNumber : INT;
+END_VAR
+VAR
+    fbAtomicNumber : FB_AtomicNumber;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST(CONCAT('TestValidElementExpectFoundAndCorrectAtomicNumber ID: ',
+    INT_TO_STRING(nTestID))
+);
+
+fbAtomicNumber(
+    sName := sName,
+    bFound =>,
+    nValue =>,
+);
+
+AssertTrue(
+    Condition := fbAtomicNumber.bFound,
+    Message := 'Expected bFound bit to be true but it was false.'
+);
+
+AssertFalse(
+    Condition := fbAtomicNumber.GetError(),
+    Message := 'Expected bError bit to be false but it was true.'
+);
+
+AssertTrue(
+    Condition := fbAtomicNumber.GetErrorMsg() = '',
+    Message := 'Expected there to be no error message but there was one.'
+);
+
+AssertEquals_INT(
+    Expected := nExpectedNumber,
+    Actual := fbAtomicNumber.nValue,
+    Message := CONCAT('Expected atomic number to be [',
+        CONCAT(INT_TO_STRING(nExpectedNumber),
+        CONCAT('] but it was [',
+        CONCAT(INT_TO_STRING(fbAtomicNumber.nValue),
+        ']'))))
+);
+
+TEST_FINISHED();
+
+nTestID := nTestID + 1;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

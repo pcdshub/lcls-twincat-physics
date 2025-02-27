@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="RunTests" Id="{3c99bab2-48fb-4f3c-ae2b-1547c32b95ba}" SpecialFunc="None">
+    <Declaration><![CDATA[
+PROGRAM RunTests
+VAR
+    fbFallible_Test : FB_Fallible_Test;
+
+    fbAtomicMass_Test : FB_AtomicMass_Test;
+    fbAtomicNumber_Test : FB_AtomicNumber_Test;
+    fbElementDensity_Test : FB_ElementDensity_Test;
+    fbElementLUT_Test : FB_ElementLUT_Test;
+    fbf1Chantler_Test : FB_f1Chantler_Test;
+    fbf2Chantler_Test : FB_f2Chantler_Test;
+    fbScatteringFactorLUT_Test : FB_ScatteringFactorLUT_Test;
+
+    fbCalcFocalLength2LensSet_Test : FB_CalcFocalLength2LensSet_Test;
+    fbCalcFocalLengthLensSet_Test : FB_CalcFocalLengthLensSet_Test;
+    fbCalcFocalLengthSingleLens_Test : FB_CalcFocalLengthSingleLens_Test;
+    fbCalcImageDistance_Test : FB_CalcImageDistance_Test;
+    fbCalcThicknessFromXRayTransmission_Test : FB_CalcThicknessFromXRayTransmission_Test;
+    fbCalcXRayAbsorptionConstantElement_Test : FB_CalcXRayAbsorptionConstantElement_Test;
+    fbCalcXRayDeltaElement_Test : FB_CalcXRayDeltaElement_Test;
+    fbCalcXRayTransmissionFromThickness_Test : FB_CalcXRayTransmissionFromThickness_Test;
+    fbConvertUnits_Test : FB_ConvertUnits_Test;
+    fbLagrangePolyInterp_Test : FB_LagrangePolyInterp_Test;
+    fbLens_Test : FB_Lens_Test;
+    fbLensCompounder_Test : FB_LensCompounder_Test;
+    fbLensSet_Test : FB_LensSet_Test;
+    fbLensSetCompounder_Test : FB_LensSetCompounder_Test;
+    fbTransmission_Test : FB_Transmission_Test;
+
+    (* Smoke test - just instantiate *)
+    fbPhysicalConstants : FB_PhysicalConstants;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+TcUnit.RUN();
+
+fbPhysicalConstants();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

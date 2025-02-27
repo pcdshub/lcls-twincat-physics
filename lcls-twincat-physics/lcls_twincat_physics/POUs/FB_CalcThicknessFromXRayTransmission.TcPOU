@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcThicknessFromXRayTransmission" Id="{977af5a5-4464-419f-a60b-ad9c25dad135}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcThicknessFromXRayTransmission EXTENDS FB_Fallible IMPLEMENTS I_CalcThicknessFromXRayTransmission
+VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
+    iCalcXRayAbsorption : I_CalcXRayAbsorptionConstant;
+
+    fbAbsorptionConstant : FB_QuantityLREALPublic(Units := '1/m');
+    fbAbsorptionConstantum : FB_QuantityLREALPublic(Units := '1/um');
+    fbThickness : FB_QuantityLREALPublic(Units := 'um');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{ace1d960-6880-4eb4-8c3f-5b1432b6ef56}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    MaterialFormula : T_MaxString;
+    Transmission : I_QuantityLREAL;
+    Thickness : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Initialize error values
+ClearError();
+
+IF Transmission.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Input transmission has an error: ',
+        Transmission.GetErrorMsg())
+    );
+    Thickness.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+IF Transmission.Val <= 0.0 THEN
+    SetError(Msg := 'Input transmission must be greater than 0.');
+    Thickness.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iCalcXRayAbsorption.Calculate(
+    MaterialFormula := MaterialFormula,
+    AbsorptionConstant := fbAbsorptionConstant
+);
+
+IF iCalcXRayAbsorption.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error while calculating xray absorption constant: ',
+        iCalcXRayAbsorption.GetErrorMsg())
+    );
+    Thickness.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+IF fbAbsorptionConstant.Val <= 0.0 THEN
+    SetError(Msg := 'Absorption constant must be greater than 0.');
+    Thickness.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := fbAbsorptionConstant,
+    DesiredUnits := fbAbsorptionConstantum.Units,
+    ConvertedQuantity := fbAbsorptionConstantum
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of absorption constant: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    Thickness.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbThickness.Val := LN(1.0 / Transmission.Val) / fbAbsorptionConstantum.Val;
+
+Thickness.Copy(fbThickness);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearError" Id="{19b39944-b5af-43fd-8404-b22953cae9a4}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbAbsorptionConstant.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{e1867309-abac-44c8-a3dd-7b3c96237864}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    ConvertUnits : I_ConvertUnitsLREAL;
+    CalcXRayAbsorption : I_CalcXRayAbsorptionConstant;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
+THIS^.iCalcXRayAbsorption := CalcXRayAbsorption;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{1b331c1b-9e69-4bdd-9311-295f846f7350}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbAbsorptionConstant.SetError(Msg := Msg);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

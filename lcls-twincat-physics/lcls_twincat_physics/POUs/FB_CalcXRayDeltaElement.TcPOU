@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalcXRayDeltaElement" Id="{0334636a-5ae2-4305-bdc8-1c2dc0315818}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalcXRayDeltaElement EXTENDS FB_Fallible IMPLEMENTS I_CalcXRayDelta
+VAR
+    iConvertUnits : I_ConvertUnitsLREAL;
+    iEnergy : I_QuantityLREAL; // The photon energy of the x-rays.
+    if1LUT : I_StringLookupLREAL;
+    iElementLUT : I_StringLookupElement;
+
+    fbEnergy : FB_QuantityLREALPublic(Units := 'eV');
+    fbf1 : FB_QuantityLREALPublic(Units := 'e/atom'); // The f1 scattering factor.
+
+    fbDensity : FB_QuantityLREALPublic(Units := 'g/cm**3');
+    fbAtomicMass : FB_QuantityLREALPublic(Units := 'AMU');
+    fbAtomicNumber : FB_QuantityINTPublic(Units := 'Protons');
+
+    fbLambda : FB_QuantityLREALPublic(Units := 'cm'); // Lambda.
+    fbPlanckHC : FB_QuantityLREALPublic(Units := 'cm/eV'); // Planck's constant multiplied by speed of light divided by elementary charge.
+    fbRElectron : FB_QuantityLREALPublic(Units := 'cm'); // Classical electron radius.
+    fbWeight : FB_QuantityLREALPublic(Units := 'g/cm**3/mol'); // The density per mol of the material.
+    fbDeltaUnscaled : FB_QuantityLREALPublic(Units := '1'); // The x-ray delta value before it has been scaled. Units are?
+    fbScale : FB_QuantityLREALPublic(Units := '1'); // The scaling factor. Units are?
+
+    {attribute 'pytmc' := 'pv: Delta'}
+    fbDelta : FB_QuantityLREALPublic(Units := '1');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Calculate" Id="{a3112c95-7197-446f-992d-1ba2a326980b}">
+      <Declaration><![CDATA[
+METHOD Calculate
+VAR_INPUT
+    MaterialFormula : T_MaxString;
+    Delta : I_QuantityLREALPublic;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Initialize delta and error values.
+ClearError();
+
+// Check to see if there is an error reported for the photon energy input.
+IF iEnergy.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input photon energy has an error: [',
+        CONCAT(iEnergy.GetErrorMsg(),
+        ']'))
+    );
+    Delta.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+iConvertUnits.ConvertQuantityLREAL(
+    QuantityToConvert := iEnergy,
+    DesiredUnits := fbEnergy.Units,
+    ConvertedQuantity := fbEnergy
+);
+
+IF iConvertUnits.GetError() THEN
+    SetError(Msg :=
+        CONCAT('Error returned when attempting to convert units of photon energy input: ',
+        iConvertUnits.GetErrorMsg())
+    );
+    Delta.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check to make sure the photon energy is a nonzero, positive number before attempting to divide by it.
+IF iEnergy.Val <= 0.0 THEN
+    SetError(
+        Msg := CONCAT('The photon energy specified: [',
+        CONCAT(LREAL_TO_STRING(iEnergy.Val),
+        '] must be greater than 0.'))
+    );
+    Delta.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Calculate some values needed for computing the index of refraction.
+fbLambda.Val := 1e-8 * fbPlanckHC.Val / fbEnergy.Val;
+
+iElementLUT.LookupDensity(
+    ElementName := MaterialFormula,
+    Density := fbDensity
+);
+iElementLUT.LookupAtomicMass(
+    ElementName := MaterialFormula,
+    AtomicMass := fbAtomicMass
+);
+iElementLUT.LookupAtomicNumber(
+    ElementName := MaterialFormula,
+    AtomicNumber := fbAtomicNumber
+);
+
+// Check to see if there is an error reported for the density input.
+IF iElementLUT.GetError() THEN
+    SetError(
+        Msg := CONCAT('The input element lookup table has an error: [',
+        CONCAT(iElementLUT.GetErrorMsg(),
+        ']'))
+    );
+    Delta.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+// Check to make sure the density is a nonzero, positive number.
+IF fbDensity.Val <= 0.0 THEN
+    SetError(
+        Msg := CONCAT('The density specified: [',
+        CONCAT(LREAL_TO_STRING(fbDensity.Val),
+        '] must be greater than 0.'))
+    );
+    Delta.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbWeight.Val := fbDensity.Val * GVL_PhysicalConstants.fAvogadroConstant_in_mol_1;
+
+// Check to make sure the atomic number is a nonzero, positive number.
+IF fbAtomicNumber.Val <= 0 THEN
+    SetError(
+        Msg := CONCAT('The atomic number specified: [',
+        CONCAT(LREAL_TO_STRING(fbAtomicNumber.Val),
+        '] must be greater than 0.'))
+    );
+    Delta.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+if1LUT.Lookup(
+    StringToLookup := MaterialFormula,
+    Result := fbf1
+);
+
+// Check to see if there is an error reported for the scatterer input.
+IF if1LUT.GetError() THEN
+    SetError(
+        Msg := CONCAT('The f1 lookup table has an error: [',
+        CONCAT(if1LUT.GetErrorMsg(),
+        ']'))
+    );
+    Delta.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbDeltaUnscaled.Val := fbWeight.Val * (INT_TO_LREAL(fbAtomicNumber.Val) + fbf1.Val);
+
+// Check to make sure the atomic mass is a nonzero, positive number.
+IF fbAtomicMass.Val <= 0.0 THEN
+    SetError(
+        Msg := CONCAT('The atomic mass specified: [',
+        CONCAT(LREAL_TO_STRING(fbAtomicMass.Val),
+        '] must be greater than 0.'))
+    );
+    Delta.SetError(Msg := GetErrorMsg());
+    RETURN;
+END_IF
+
+fbScale.Val := fbLambda.Val * fbLambda.Val * fbRElectron.Val / (2 * 3.1415926535 * fbAtomicMass.Val);
+fbDelta.Val := fbDeltaUnscaled.Val * fbScale.Val;
+
+Delta.Copy(fbDelta);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearError" Id="{9eb457a2-e0d8-4e46-8568-a8d4bfb26cb8}">
+      <Declaration><![CDATA[
+METHOD PROTECTED ClearError
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.ClearError();
+
+fbDelta.ClearError();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ff1f27e8-e214-4d14-afe7-c319064f044c}">
+      <Declaration><![CDATA[
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+
+    ConvertUnits : I_ConvertUnitsLREAL;
+    Energy : I_QuantityLREAL; // The photon energy of the x-rays.
+    f1LUT : I_StringLookupLREAL;
+    ElementLUT : I_StringLookupElement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.iConvertUnits := ConvertUnits;
+THIS^.iEnergy := Energy;
+THIS^.if1LUT := f1LUT;
+THIS^.iElementLUT := ElementLUT;
+
+fbPlanckHC.Val := 1e10 * GVL_PhysicalConstants.fPlanckConstant_in_J_Hz_1 * GVL_PhysicalConstants.fSpeedOfLightInVacuum_in_m_s_1 / GVL_PhysicalConstants.fElementaryCharge_in_C;
+fbRElectron.Val := 100 * GVL_PhysicalConstants.fClassicalElectronRadius_in_m;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{4df91555-d85c-4085-aed9-d161d527af34}">
+      <Declaration><![CDATA[
+METHOD PROTECTED SetError
+VAR_INPUT
+    Msg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+SUPER^.SetError(Msg := Msg);
+
+fbDelta.SetError(Msg := Msg);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

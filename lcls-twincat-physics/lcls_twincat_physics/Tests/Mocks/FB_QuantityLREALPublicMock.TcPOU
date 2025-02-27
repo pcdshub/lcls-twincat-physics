@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_QuantityLREALPublicMock" Id="{d5300c7f-6e41-485a-a6c7-fc4dd72da079}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_QuantityLREALPublicMock EXTENDS FB_FalliblePublicMock IMPLEMENTS I_QuantityLREALPublic
+VAR
+    fValue : LREAL;
+    sUnits : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Copy" Id="{31bab2b9-47f7-4b43-9ab9-4e60f984e71c}">
+      <Declaration><![CDATA[
+METHOD Copy
+VAR_INPUT
+    QuantityToCopy : I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Val := QuantityToCopy.Val;
+Units := QuantityToCopy.Units;
+
+IF QuantityToCopy.GetError() THEN
+    SetError(Msg := QuantityToCopy.GetErrorMsg());
+ELSE
+    ClearError();
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Equals" Id="{3b86ff3d-71a5-44c1-a6f9-6ea99eabbd7c}">
+      <Declaration><![CDATA[
+METHOD Equals : BOOL
+VAR_INPUT
+    Quantity	: I_QuantityLREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Equals := Quantity.Units = Units AND Quantity.Val = Val;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Units" Id="{992c7fcd-f7ab-4268-92a3-a2302b5f867b}">
+      <Declaration><![CDATA[
+PROPERTY Units : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{cd4060b6-cc83-4d01-be92-70f0f47259f2}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Units := sUnits;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{847cfcfb-8246-447f-afbe-2dfd62ac3403}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+sUnits := Units;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Val" Id="{5ae91315-6597-48d9-9fb9-751cfc9d19fa}">
+      <Declaration><![CDATA[
+PROPERTY Val : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{52a853f1-b2bd-46dd-90c4-a0e53f90d5b1}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+Val := fValue;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{b9399bb7-49e6-40ee-858e-a36815fbd8e8}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+fValue := Val;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>
