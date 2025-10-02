@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_AtomicNumberLookup" Id="{b9771525-53c0-4cfa-a846-c753c62a00cd}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION F_AtomicNumberLookup : INT
+VAR_INPUT
+    sMaterialName : T_MaxString;
+END_VAR
+VAR
+    fbAtomicNumber : FB_AtomicNumber;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+fbAtomicNumber(
+    sName := sMaterialName
+);
+
+IF fbAtomicNumber.bFound THEN
+    F_AtomicNumberLookup := fbAtomicNumber.nValue;
+ELSE
+    F_AtomicNumberLookup := -1;    
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="F_AtomicNumberLookup">
+      <LineId Id="1" Count="10" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

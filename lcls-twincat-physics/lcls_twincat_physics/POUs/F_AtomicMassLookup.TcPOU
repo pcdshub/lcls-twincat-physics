@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_AtomicMassLookup" Id="{d04265c6-a6db-4d14-8510-380c17bf00f7}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION F_AtomicMassLookup : LREAL
+VAR_INPUT
+    sMaterialName : T_MaxString;
+END_VAR
+VAR
+    fbAtomicMass : FB_AtomicMass;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+fbAtomicMass(
+    sName := sMaterialName
+);
+
+IF fbAtomicMass.bFound THEN
+    F_AtomicMassLookup := fbAtomicMass.fValue;
+ELSE
+    F_AtomicMassLookup := -1.0;    
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="F_AtomicMassLookup">
+      <LineId Id="1" Count="10" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

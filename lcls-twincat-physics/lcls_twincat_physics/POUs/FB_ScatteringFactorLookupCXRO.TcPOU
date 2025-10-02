@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ScatteringFactorLookupCXRO" Id="{d879181d-847c-450b-bdb3-ca2c2587bf54}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_ScatteringFactorLookupCXRO IMPLEMENTS I_ScatteringFactorLookup
+VAR
+    fbScatteringFactorLUT : FB_ScatteringFactorLUT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_Init" Id="{1a74adb9-4152-4992-8c0f-1c56fe66a3f7}">
+      <Declaration><![CDATA[
+METHOD FB_Init: BOOL
+VAR_INPUT
+    bInitRetains: BOOL; // TRUE: the retain variables are initialized (reset warm / reset cold)
+    bInCopyCode: BOOL;  // TRUE: the instance will be copied to the copy code afterward (online change)   
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+fbScatteringFactorLUT(
+    sTableName := 'Ge',
+    fEnergyEV := 10.0
+);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetScatteringFactor" Id="{9917c17f-91d5-44e5-a643-2b0f2dcb1789}">
+      <Declaration><![CDATA[
+METHOD GetScatteringFactor
+VAR_INPUT
+	(* Chemical formula for the material as a string. *)
+	sMaterialName	: T_MaxString;
+	(* Photon energy in eV. *)
+	fPhotonEnergy_eV	: LREAL;
+END_VAR
+VAR_OUTPUT
+    f1 : LREAL;
+    f2 : LREAL;
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+THIS^.fbScatteringFactorLUT(
+    sTableName := sMaterialName,
+    fEnergyEV := fPhotonEnergy_eV,
+    f1 => f1,
+    f2 => f2,
+    bError => bError
+);
+
+IF NOT THIS^.fbScatteringFactorLUT.bFound THEN
+    sErrorMsg := 'Input photon energy not found in the lookup table.';
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="MaximumValidLookupPhotonEnergy_eV" Id="{6a642c60-ecb0-46fc-8f5d-9833064b001b}">
+      <Declaration><![CDATA[
+PROPERTY MaximumValidLookupPhotonEnergy_eV : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{01ec7253-dab0-4703-a9fe-90ea821ec254}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+MaximumValidLookupPhotonEnergy_eV := THIS^.fbScatteringFactorLUT.fTableLookupHigh;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="MinimumValidLookupPhotonEnergy_eV" Id="{b4d776bb-0bb7-487f-942e-0c349df42234}">
+      <Declaration><![CDATA[
+PROPERTY MinimumValidLookupPhotonEnergy_eV : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{5f267eb4-821e-4779-9663-29c3af5492e0}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[
+MinimumValidLookupPhotonEnergy_eV := THIS^.fbScatteringFactorLUT.fTableLookupLow;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="FB_ScatteringFactorLookupCXRO">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_ScatteringFactorLookupCXRO.FB_Init">
+      <LineId Id="1" Count="5" />
+    </LineIds>
+    <LineIds Name="FB_ScatteringFactorLookupCXRO.GetScatteringFactor">
+      <LineId Id="1" Count="12" />
+    </LineIds>
+    <LineIds Name="FB_ScatteringFactorLookupCXRO.MaximumValidLookupPhotonEnergy_eV.Get">
+      <LineId Id="1" Count="2" />
+    </LineIds>
+    <LineIds Name="FB_ScatteringFactorLookupCXRO.MinimumValidLookupPhotonEnergy_eV.Get">
+      <LineId Id="1" Count="2" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
