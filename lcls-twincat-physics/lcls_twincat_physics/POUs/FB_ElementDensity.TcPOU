@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
-    <POU Name="FB_ElementDensity" Id="{5ccc25f0-cc4b-5d9a-89ae-439e58997089}" SpecialFunc="None">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ElementDensity" Id="{5ccc25f0-cc4b-5d9a-89ae-439e58997089}" SpecialFunc="None">
     <Declaration><![CDATA[
 (* WARNING: This file is auto-generated. Do not modify it.*)
 FUNCTION_BLOCK FB_ElementDensity
@@ -62,6 +62,13 @@ ELSIF sName = 'C' THEN
     sDescription := 'Elemental density of C';
     sUnits := 'g/cm^3';
     sCaveat := '1.9-2.3 (graphite); CXRO, RSC and CRC use 2.2; NIST Xray tables use 2.26';
+    bFound := TRUE;
+ELSIF sName = 'C (Diamond)' THEN
+    fValue := 3.51; (* Units: g/cm^3 *)
+    fUncertainty := 0;
+    sDescription := 'Elemental density of diamond';
+    sUnits := 'g/cm^3';
+    sCaveat := '';
     bFound := TRUE;
 ELSIF sName = 'N' THEN
     fValue := 0.808; (* Units: g/cm^3 *)
@@ -675,5 +682,11 @@ ELSE
 END_IF
 ]]></ST>
     </Implementation>
+    <LineIds Name="FB_ElementDensity">
+      <LineId Id="3" Count="42" />
+      <LineId Id="657" Count="6" />
+      <LineId Id="46" Count="610" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
