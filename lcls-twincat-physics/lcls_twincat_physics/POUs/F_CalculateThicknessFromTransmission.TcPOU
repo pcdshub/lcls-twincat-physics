@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_CalculateThicknessFromTransmission" Id="{86ab3c10-17a1-4a58-9757-d4465e13dde9}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION F_CalculateThicknessFromTransmission : LREAL
+(*
+    Thickness returned in units of meters.
+    Negative result means invalid input.
+    Absorption constant must be greater than 0.
+    Transmission must be between 0.0 and 1.0 inclusive.
+*)
+VAR_INPUT
+    fMassAttenuationCoefficient : LREAL; (* The mass attenuation coefficient mu, calculated by F_CalculateMassAttenuationCoefficient *)
+    fTransmission : LREAL; (* Transmission to get thickness for [unitless] *)
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+IF fMassAttenuationCoefficient <= 0 OR fTransmission < 0.0 OR fTransmission > 1.0 THEN
+    F_CalculateThicknessFromTransmission := -1.0;
+    RETURN;
+END_IF
+
+F_CalculateThicknessFromTransmission := LN(fTransmission) / -fMassAttenuationCoefficient;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
