@@ -32,28 +32,10 @@ TEST('F_CalculateTransmission');
 fTransmission := F_CalculateTransmission(fAbsorptionConstant:=fMu, fThickness_in_m:=1E-3);
 AssertEquals_LREAL(0.4844590049714352, fTransmission, Delta:=0.0001, Message:='Transmission check');
 TEST_FINISHED();
-
-fMu := F_CalculateAbsorptionConstant(
-    sElement:='Ge',
-    fEnergyEV:=1000,
-    fDensity_gm3:=2.33e6,
-    fAtomicWeight:=12.0107,
-    bError=>bError,
-);
-AssertFalse(bError, 'F_CalculateAbsorptionConstant lookup reported error');
-AssertEquals_LREAL(724.7224642932565, fMu, Delta:=0.0001, Message:='Absorption constant value');
-TEST_FINISHED();
-
-TEST('F_CalculateTransmission');
-fTransmission := F_CalculateTransmission(fAbsorptionConstant:=fMu, fThickness_in_m:=1E-3);
-AssertEquals_LREAL(0.4844590049714352, fTransmission, Delta:=0.0001, Message:='Transmission check');
-TEST_FINISHED();
 ]]></ST>
     </Implementation>
     <LineIds Name="FB_TestTransmission">
       <LineId Id="3" Count="18" />
-      <LineId Id="23" Count="14" />
-      <LineId Id="22" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
