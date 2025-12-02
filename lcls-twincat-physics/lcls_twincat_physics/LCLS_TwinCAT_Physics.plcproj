@@ -68,7 +68,7 @@
     <Compile Include="POUs\F_CalculateAbsorptionConstant.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\F_CalculateMassAttenuationCoefficient.TcPOU">
+    <Compile Include="POUs\F_CalculateXrayAbsorptionConstant.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\F_CalculateTransmission.TcPOU">
@@ -80,7 +80,22 @@
     <Compile Include="POUs\RunTests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\FB_AtomicMassLookup_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_AtomicNumberLookup_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalculateXrayAbsorptionConstant_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\FB_AtomicNumber_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalculateThicknessFromTransmission_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_ScatteringFactorLookupCXRO_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_ScatteringFactorLUT_Test.TcPOU">

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalculateThicknessFromTransmission_Test" Id="{ea9b3baf-f7f7-4b96-8457-1b08b3b02b9b}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalculateThicknessFromTransmission_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+GivenTransmissionExpectCorrectThickness();
+]]></ST>
+    </Implementation>
+    <Method Name="GivenTransmissionExpectCorrectThickness" Id="{68ca0863-c6b3-417b-b2f4-6e934b9bfbd5}">
+      <Declaration><![CDATA[
+METHOD PRIVATE GivenTransmissionExpectCorrectThickness
+VAR
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('GivenTransmissionExpectCorrectThickness');
+
+fResult := F_CalculateThicknessFromTransmission(
+    fAbsorptionConstant := 724.7224642932565,
+    fTransmission := 0.48445900560318955
+);
+
+AssertEquals_LREAL(
+    Expected := 1e-3,
+    Actual := fResult,
+    Delta := 1e-9,
+    Message := 'Incorrect result.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

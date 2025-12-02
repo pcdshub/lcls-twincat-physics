@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_AtomicNumberLookup_Test" Id="{db138c95-91dc-4ac9-8915-081c5b7d7b7f}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_AtomicNumberLookup_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+GivenElementExpectCorrectAtomicNumber();
+]]></ST>
+    </Implementation>
+    <Method Name="GivenElementExpectCorrectAtomicNumber" Id="{a0ee5d0e-6518-499c-a879-48b83f6ffe3c}">
+      <Declaration><![CDATA[
+METHOD PRIVATE GivenElementExpectCorrectAtomicNumber
+VAR
+    nResult : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('GivenElementExpectCorrectAtomicNumber');
+
+nResult := F_AtomicNumberLookup(
+    sMaterialName := 'C'
+);
+
+AssertEquals_INT(
+    Expected := 6,
+    Actual := nResult,
+    Message := 'Incorrect result.'
+);
+
+nResult := F_AtomicNumberLookup(
+    sMaterialName := 'Cu'
+);
+
+AssertEquals_INT(
+    Expected := 29,
+    Actual := nResult,
+    Message := 'Incorrect result.'
+);
+
+nResult := F_AtomicNumberLookup(
+    sMaterialName := 'Be'
+);
+
+AssertEquals_INT(
+    Expected := 4,
+    Actual := nResult,
+    Message := 'Incorrect result.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

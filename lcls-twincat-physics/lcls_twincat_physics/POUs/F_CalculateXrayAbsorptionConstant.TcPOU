@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="F_CalculateMassAttenuationCoefficient" Id="{2adf6fcf-dfe5-4e36-9e14-8c5bca97271f}" SpecialFunc="None">
+  <POU Name="F_CalculateXrayAbsorptionConstant" Id="{2adf6fcf-dfe5-4e36-9e14-8c5bca97271f}" SpecialFunc="None">
     <Declaration><![CDATA[
-FUNCTION F_CalculateMassAttenuationCoefficient : LREAL
+FUNCTION F_CalculateXrayAbsorptionConstant : LREAL
 (*
     Performs the same function as F_CalculateAbsorptionConstant, but
     the implementation has been decoupled from the particular lookup
     table used. New function made to retain backwards compatability.
-    "Mass Attenuation Coefficient" name used in order to make the new
+    "F_CalculateXrayAbsorptionConstant" name used in order to make the new
     function distinguishable from the old one.
 *)
 VAR CONSTANT
@@ -25,11 +25,8 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-F_CalculateMassAttenuationCoefficient := (2.0 * r0 * h * c * f2 / fPhotonEnergy_eV) * fDensity_gm3 * (NA / fAtomicWeight);
+F_CalculateXrayAbsorptionConstant := (2.0 * r0 * h * c * f2 / fPhotonEnergy_eV) * fDensity_gm3 * (NA / fAtomicWeight);
 ]]></ST>
     </Implementation>
-    <LineIds Name="F_CalculateMassAttenuationCoefficient">
-      <LineId Id="1" Count="2" />
-    </LineIds>
   </POU>
 </TcPlcObject>

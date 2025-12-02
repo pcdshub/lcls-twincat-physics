@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_ScatteringFactorLookupCXRO_Test" Id="{1d2b946b-f2ae-4a7a-af0f-38df4cb03941}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_ScatteringFactorLookupCXRO_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+GivenValidInputsExpectCorrectResult();
+]]></ST>
+    </Implementation>
+    <Method Name="GivenValidInputsExpectCorrectResult" Id="{9a577b7a-0c4e-44a9-acf9-2bbd9a1468b2}">
+      <Declaration><![CDATA[
+METHOD PRIVATE GivenValidInputsExpectCorrectResult
+VAR_INST
+    fResult : LREAL;
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+    fbScatteringFactorLookupCXRO : FB_ScatteringFactorLookupCXRO;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('GivenValidInputsExpectCorrectResult');
+
+fbScatteringFactorLookupCXRO.GetScatteringFactor(
+    sMaterialName := 'C',
+    fPhotonEnergy_eV := 10000,
+    f2 => fResult,
+    bError => bError,
+    sErrorMsg => sErrorMsg
+);
+
+AssertEquals_BOOL(
+    Expected := FALSE,
+    Actual := bError,
+    Message := 'Expected no error'
+);
+
+AssertEquals_STRING(
+    Expected := '',
+    Actual := sErrorMsg,
+    Message := 'Expected empty error string'
+);
+
+AssertEquals_LREAL(
+    Expected := 0.0058932368755846573,
+    Actual := fResult,
+    Delta := 1e-9,
+    Message := 'Incorrect result.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
