@@ -10,18 +10,18 @@ FUNCTION F_CalculateThicknessFromTransmission : LREAL
     Transmission must be between 0.0 and 1.0 inclusive.
 *)
 VAR_INPUT
-    fMassAttenuationCoefficient : LREAL; (* The mass attenuation coefficient mu, calculated by F_CalculateMassAttenuationCoefficient *)
+    fAbsorptionConstant : LREAL; (* The absorption constant mu, calculated by F_CalculateXrayAbsorptionConstant *)
     fTransmission : LREAL; (* Transmission to get thickness for [unitless] *)
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-IF fMassAttenuationCoefficient <= 0 OR fTransmission < 0.0 OR fTransmission > 1.0 THEN
+IF fAbsorptionConstant <= 0 OR fTransmission < 0.0 OR fTransmission > 1.0 THEN
     F_CalculateThicknessFromTransmission := -1.0;
     RETURN;
 END_IF
 
-F_CalculateThicknessFromTransmission := LN(fTransmission) / -fMassAttenuationCoefficient;
+F_CalculateThicknessFromTransmission := LN(fTransmission) / -fAbsorptionConstant;
 ]]></ST>
     </Implementation>
   </POU>

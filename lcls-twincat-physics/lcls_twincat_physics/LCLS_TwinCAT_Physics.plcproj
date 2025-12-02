@@ -74,7 +74,7 @@
     <Compile Include="POUs\F_CalculateAbsorptionConstant.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\F_CalculateMassAttenuationCoefficient.TcPOU">
+    <Compile Include="POUs\F_CalculateXrayAbsorptionConstant.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\F_CalculateTransmission.TcPOU">
@@ -86,7 +86,25 @@
     <Compile Include="POUs\RunTests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\FB_AtomicMassLookup_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_MaterialDensityLookup_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_AtomicNumberLookup_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalculateXrayAbsorptionConstant_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\FB_AtomicNumber_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalculateThicknessFromTransmission_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_ScatteringFactorLookupCXRO_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_ScatteringFactorLUT_Test.TcPOU">
@@ -153,6 +171,12 @@
         <o>
           <v n="Name">"{29BD8D0C-3586-4548-BB48-497B9A01693F}"</v>
           <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+            <v>NamingConventions</v>
+            <o>
+              <v n="Name">"NamingConventions"</v>
+              <d n="SubKeys" t="Hashtable" />
+              <d n="Values" t="Hashtable" />
+            </o>
             <v>Rules</v>
             <o>
               <v n="Name">"Rules"</v>
@@ -189,35 +213,17 @@
             <v>5410</v>
           </d>
         </o>
-        <v>{8A0FB252-96EB-4DCC-A5B4-B4804D05E2D6}</v>
-        <o>
-          <v n="Name">"{8A0FB252-96EB-4DCC-A5B4-B4804D05E2D6}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
-            <v>WriteLineIDs</v>
-            <v>True</v>
-          </d>
-        </o>
-        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
-        <o>
-          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" ckt="String" cvt="String">
-            <v>DisabledWarningIds</v>
-            <v>5410</v>
-          </d>
-        </o>
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Boolean">System.Boolean</Type>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

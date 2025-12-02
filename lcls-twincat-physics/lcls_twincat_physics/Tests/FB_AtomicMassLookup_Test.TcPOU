@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_AtomicMassLookup_Test" Id="{cab30074-7dd7-45e2-9a32-5429d36ba92b}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_AtomicMassLookup_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+GivenElementExpectCorrectAtomicMass();
+]]></ST>
+    </Implementation>
+    <Method Name="GivenElementExpectCorrectAtomicMass" Id="{916b86d3-a583-4f4d-83f6-11461740f782}">
+      <Declaration><![CDATA[
+METHOD PRIVATE GivenElementExpectCorrectAtomicMass
+VAR
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('GivenElementExpectCorrectAtomicMass');
+
+fResult := F_AtomicMassLookup(
+    sMaterialName := 'C'
+);
+
+AssertEquals_LREAL(
+    Expected := 12.0107,
+    Actual := fResult,
+    Delta := 1e-9,
+    Message := 'Incorrect result.'
+);
+
+fResult := F_AtomicMassLookup(
+    sMaterialName := 'Co'
+);
+
+AssertEquals_LREAL(
+    Expected := 58.9332,
+    Actual := fResult,
+    Delta := 1e-9,
+    Message := 'Incorrect result.'
+);
+
+fResult := F_AtomicMassLookup(
+    sMaterialName := 'Cd'
+);
+
+AssertEquals_LREAL(
+    Expected := 112.411,
+    Actual := fResult,
+    Delta := 1e-9,
+    Message := 'Incorrect result.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
