@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_CalculateXrayAbsorptionConstant" Id="{2adf6fcf-dfe5-4e36-9e14-8c5bca97271f}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION F_CalculateXrayAbsorptionConstant : LREAL
+(*
+    Performs the same function as F_CalculateAbsorptionConstant, but
+    the implementation has been decoupled from the particular lookup
+    table used. New function made to retain backwards compatability.
+    "F_CalculateXrayAbsorptionConstant" name used in order to make the new
+    function distinguishable from the old one.
+*)
+VAR CONSTANT
+    NA : LREAL := GVL_PhysicalConstants.fAvogadroConstant_in_mol_1;
+    r0 : LREAL := GVL_PhysicalConstants.fClassicalElectronRadius_in_m;
+    h  : LREAL := GVL_PhysicalConstants.fPlanckConstantInEV_Hz_in_eV_Hz_1;
+    c  : LREAL := GVL_PhysicalConstants.fSpeedOfLightInVacuum_in_m_s_1;
+END_VAR
+VAR_INPUT
+    f2 : LREAL; (* Scattering factor absorptive component. *)
+    fPhotonEnergy_eV : LREAL;
+    fDensity_gm3 : LREAL;
+    fAtomicWeight : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+F_CalculateXrayAbsorptionConstant := (2.0 * r0 * h * c * f2 / fPhotonEnergy_eV) * fDensity_gm3 * (NA / fAtomicWeight);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

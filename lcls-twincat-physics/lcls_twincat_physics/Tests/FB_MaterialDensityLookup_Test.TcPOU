@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_MaterialDensityLookup_Test" Id="{e51ca4d4-f0f4-4934-bf8a-ed7cf37c61a4}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_MaterialDensityLookup_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+GivenElementExpectCorrectDensity();
+]]></ST>
+    </Implementation>
+    <Method Name="GivenElementExpectCorrectDensity" Id="{1e8c377a-f780-42e4-9353-5fff4c69f82e}">
+      <Declaration><![CDATA[
+METHOD PRIVATE GivenElementExpectCorrectDensity
+VAR
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('GivenElementExpectCorrectDensity');
+
+fResult := F_MaterialDensityLookup(
+    sMaterialName := 'C (Diamond)'
+);
+
+AssertEquals_LREAL(
+    Expected := 3.51,
+    Actual := fResult,
+    Delta := 1e-9,
+    Message := 'Incorrect result.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

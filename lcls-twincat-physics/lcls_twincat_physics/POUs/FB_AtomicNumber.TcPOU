@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_AtomicNumber" Id="{2b73ec56-bb23-31c3-c183-deb4941ce61c}" SpecialFunc="None">
     <Declaration><![CDATA[
 (* WARNING: This file is auto-generated. Do not modify it.*)
@@ -63,7 +63,7 @@ ELSIF sName = 'B' THEN
     sUnits := 'None';
     sCaveat := 'None';
     bFound := TRUE;
-ELSIF sName = 'C' THEN
+ELSIF sName = 'C' OR sName = 'C (Diamond)' THEN
     nValue := 6;
     fUncertainty := 0;
     sDescription := 'Atomic number of C (carbon)';

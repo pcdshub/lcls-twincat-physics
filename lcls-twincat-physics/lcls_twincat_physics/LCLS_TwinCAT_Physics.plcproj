@@ -5,7 +5,7 @@
     <ProjectGuid>{923b58d7-acd6-43cb-8e2a-d2f64687c200}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <Name>lcls_twincat_physics</Name>
-    <ProgramVersion>3.1.4026.13</ProgramVersion>
+    <ProgramVersion>3.1.4026.17</ProgramVersion>
     <Application>{81ad023f-33c9-49f1-8ddf-b5604ba0e1bc}</Application>
     <TypeSystem>{804f24b0-4c29-4ebe-bca6-589953bff872}</TypeSystem>
     <Implicit_Task_Info>{7fe8507f-4b39-4e90-8bcf-c6938fa21bee}</Implicit_Task_Info>
@@ -38,6 +38,9 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="ITFs\I_ScatteringFactorLookup.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -53,19 +56,55 @@
     <Compile Include="POUs\FB_PhysicalConstants.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_ScatteringFactorLookupCXRO.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_ScatteringFactorLUT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\F_AtomicMassLookup.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\F_AtomicNumberLookup.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\F_MaterialDensityLookup.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\F_CalculateAbsorptionConstant.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\F_CalculateXrayAbsorptionConstant.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\F_CalculateTransmission.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\F_CalculateThicknessFromTransmission.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\RunTests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\FB_AtomicMassLookup_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_MaterialDensityLookup_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_AtomicNumberLookup_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalculateXrayAbsorptionConstant_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\FB_AtomicNumber_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_CalculateThicknessFromTransmission_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_ScatteringFactorLookupCXRO_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_ScatteringFactorLUT_Test.TcPOU">
@@ -81,6 +120,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="ITFs" />
     <Folder Include="Tests" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
@@ -111,8 +151,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -131,6 +171,12 @@
         <o>
           <v n="Name">"{29BD8D0C-3586-4548-BB48-497B9A01693F}"</v>
           <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+            <v>NamingConventions</v>
+            <o>
+              <v n="Name">"NamingConventions"</v>
+              <d n="SubKeys" t="Hashtable" />
+              <d n="Values" t="Hashtable" />
+            </o>
             <v>Rules</v>
             <o>
               <v n="Name">"Rules"</v>
@@ -170,14 +216,14 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Boolean">System.Boolean</Type>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

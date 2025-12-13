@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
-    <POU Name="FB_AtomicMass" Id="{9f0bf1c1-2606-6047-868b-34d7609c73c5}" SpecialFunc="None">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_AtomicMass" Id="{9f0bf1c1-2606-6047-868b-34d7609c73c5}" SpecialFunc="None">
     <Declaration><![CDATA[
 (* WARNING: This file is auto-generated. Do not modify it.*)
 FUNCTION_BLOCK FB_AtomicMass
@@ -63,7 +63,7 @@ ELSIF sName = 'B' THEN
     sUnits := 'None';
     sCaveat := 'None';
     bFound := TRUE;
-ELSIF sName = 'C' THEN
+ELSIF sName = 'C' OR sName = 'C (Diamond)' THEN
     fValue := 12.0107;
     fUncertainty := 0;
     sDescription := 'Atomic mass of C (carbon)';

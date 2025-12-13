@@ -25,3 +25,5 @@ UpgradeLog.htm
 
 # Vim ignores
 *.swp
+*.dbg
+*.tclrs

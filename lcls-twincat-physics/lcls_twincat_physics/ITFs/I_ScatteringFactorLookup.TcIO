@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="I_ScatteringFactorLookup" Id="{9efaaa1b-4ea0-4427-a497-715fb5b36a17}">
+    <Declaration><![CDATA[INTERFACE I_ScatteringFactorLookup
+]]></Declaration>
+    <Method Name="GetScatteringFactor" Id="{bdaecc1b-5ec6-472f-9adc-27707dd471e5}">
+      <Declaration><![CDATA[
+METHOD GetScatteringFactor
+VAR_INPUT
+    sMaterialName : T_MaxString; (* Chemical formula for the material as a string. *)
+    fPhotonEnergy_eV : LREAL; (* Photon energy in eV. *)
+END_VAR
+VAR_OUTPUT
+    f1 : LREAL;
+    f2 : LREAL;
+    bError : BOOL;
+    sErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="MaximumValidLookupPhotonEnergy_eV" Id="{3d33f088-148a-434a-9bd3-190ba004503e}">
+      <Declaration><![CDATA[PROPERTY MaximumValidLookupPhotonEnergy_eV : LREAL]]></Declaration>
+      <Get Name="Get" Id="{0b5e87ce-65e8-474e-a8fa-d7c41a061e9a}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="MinimumValidLookupPhotonEnergy_eV" Id="{ff076bb7-724e-4402-bcac-97995603ab66}">
+      <Declaration><![CDATA[PROPERTY MinimumValidLookupPhotonEnergy_eV : LREAL]]></Declaration>
+      <Get Name="Get" Id="{abaa83ac-60e5-405e-b493-58af9c5347eb}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

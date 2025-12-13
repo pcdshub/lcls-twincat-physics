@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CalculateXrayAbsorptionConstant_Test" Id="{1105c2f4-4390-4877-9b15-5c2eb2769fd4}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION_BLOCK FB_CalculateXrayAbsorptionConstant_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+GivenValidInputsExpectCorrectResult();
+]]></ST>
+    </Implementation>
+    <Method Name="GivenValidInputsExpectCorrectResult" Id="{fd44bfc3-64a1-4410-9d8e-17840a50d078}">
+      <Declaration><![CDATA[
+METHOD PRIVATE GivenValidInputsExpectCorrectResult
+VAR
+    fResult : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+TEST('GivenValidInputsExpectCorrectResult');
+
+fResult := F_CalculateXrayAbsorptionConstant(
+    f2 := 0.0058932368755846573,
+    fPhotonEnergy_eV := 10000,
+    fDensity_gm3 := 3.51e6,
+    fAtomicWeight := 12.0107
+);
+
+AssertEquals_LREAL(
+    Expected := 724.7224642932565,
+    Actual := fResult,
+    Delta := 1e-9,
+    Message := 'Incorrect result.'
+);
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

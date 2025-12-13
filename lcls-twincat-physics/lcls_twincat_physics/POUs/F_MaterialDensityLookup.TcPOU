@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_MaterialDensityLookup" Id="{8b00a395-1007-481c-ae38-4ff8bd4b0862}" SpecialFunc="None">
+    <Declaration><![CDATA[
+FUNCTION F_MaterialDensityLookup : LREAL
+VAR_INPUT
+    sMaterialName : T_MaxString;
+END_VAR
+VAR
+    fbElementDensity : FB_ElementDensity;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+fbElementDensity(
+    sName := sMaterialName
+);
+
+IF fbElementDensity.bFound THEN
+    F_MaterialDensityLookup := fbElementDensity.fValue;
+ELSE
+    F_MaterialDensityLookup := -1.0;
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
